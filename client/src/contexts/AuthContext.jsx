@@ -10,7 +10,13 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            const userData = JSON.stringify(user)
+            if (user) {
+                user.getIdToken().then((token) => {
+                    localStorage.setItem("token", token)
+                });
+            } else {
+                localStorage.removeItem("token")
+            }
             setCurrentUser(user)
             setLoading(false)
         })
