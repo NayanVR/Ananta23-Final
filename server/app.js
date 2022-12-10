@@ -2,10 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require("nodemailer");
 require('dotenv').config();
-const admin = require("./config/firebase-config");
 const middleware = require('./middleware');
+const mysql = require('mysql2')
 
 const app = express();
+const conn = mysql.createConnection(process.env.DATABASE_URL)
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -24,7 +25,13 @@ let transporter = nodemailer.createTransport({
 
 app.get('/api/secure/user', (req, res) => {
     const user = req.user;
-    res.json({ message: user });
+    conn.query('SELECT * FROM users', function (err, rows, fields) {
+        if (err) {
+            console.log(err)
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+        return res.status(200).json({ message: rows });
+    })
 });
 
 app.post('/api/generateOTP', (req, res) => {
