@@ -3,36 +3,28 @@ const cors = require('cors');
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 const admin = require("./config/firebase-config");
+const middleware = require('./middleware');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(middleware.decodeToken);
 
 let otps = {};
-
-let nodemailerEmail = "nvradadiya281@gmail.com";
 
 let transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-        user: nodemailerEmail,
+        user: process.env.NODEMAILER_EMAIL,
         pass: process.env.NODEMAILER_EMAIL_PASS,
     }
 });
 
-app.get('/', (req, res) => {
-    const token = req.headers.authorization;
-    try {
-        admin.auth().verifyIdToken(token).then((user) => {
-            return res.status(200).json({ message: "Authorized" });
-        }).catch((err) => {
-            return res.status(401).json({ message: "Unauthorized" });
-        });
-    } catch (error) {
-        return res.status(500).json({ message: "Internal Server Error" });
-    }
+app.get('/api/secure/user', (req, res) => {
+    const user = req.user;
+    res.json({ message: user });
 });
 
 app.post('/api/generateOTP', (req, res) => {
@@ -44,7 +36,7 @@ app.post('/api/generateOTP', (req, res) => {
     setTimeout(() => { if (otps[email]) delete otps[email] }, 10 * 60 * 1000);
 
     transporter.sendMail({
-        from: `"Nayan Radadiya" <${nodemailerEmail}>`,
+        from: `"Nayan Radadiya" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
         subject: "OTP for login",
         html: `<h1>OTP for login is ${otp}</h1>`,
@@ -69,8 +61,6 @@ app.post('/api/verifyOTP', (req, res) => {
 
     const isVerified = otps[email] === otp;
     if (isVerified) delete otps[email];
-
-    console.log(otps);
 
     return res.json({ isOTPVerified: isVerified });
 });

@@ -16,6 +16,7 @@ function Login() {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                window.location.href = "/"
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -28,6 +29,7 @@ function Login() {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                window.location.href = "/"
             }).catch((error) => {
                 const errorMessage = error.message;
                 console.log(errorMessage);

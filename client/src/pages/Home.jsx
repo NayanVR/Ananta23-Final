@@ -9,14 +9,17 @@ function Home() {
     const { currentUser } = useContext(AuthContext)
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        fetch("http://localhost:3000/", {
-            headers: {
-                Authorization: token
-            }
-        })
-            .then(res => res.json())
-            .then(data => console.log(data.message))
+        if (currentUser) {
+            currentUser.getIdToken().then((token) => {
+                fetch("http://localhost:3000/api/secure/user", {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data.message))
+            })
+        }
     }, [])
 
     return (
