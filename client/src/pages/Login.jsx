@@ -38,7 +38,9 @@ function Login() {
 
     return (
         <div>
-            Login
+            <h1 className="text-3xl font-bold underline">
+                Login
+            </h1>
             <br />
             <form onSubmit={handleSubmit}>
                 <input onChange={e => setEmail(e.target.value)} value={email} type="email" placeholder="Email" />
