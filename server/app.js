@@ -43,7 +43,7 @@ app.post('/api/generateOTP', (req, res) => {
     setTimeout(() => { if (otps[email]) delete otps[email] }, 10 * 60 * 1000);
 
     transporter.sendMail({
-        from: `"Nayan Radadiya" <${process.env.NODEMAILER_EMAIL}>`,
+        from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
         subject: "OTP for login",
         html: `<h1>OTP for login is ${otp}</h1>`,

@@ -27,7 +27,11 @@ function Home() {
             Home
             <br />
             {
-                currentUser ? <div>You are logged In</div> : <div>Who are you</div>
+                currentUser 
+                ? 
+                <div>You are logged in with {currentUser.email}</div>
+                :
+                <div>Who are you</div>
             }
             <br />
             <button onClick={_ => signOut(auth)}>Logout</button>
