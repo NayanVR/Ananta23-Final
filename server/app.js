@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 require('dotenv').config();
 const middleware = require('./middleware');
 const mysql = require('mysql2')
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const conn = mysql.createConnection(process.env.DATABASE_URL)
@@ -33,6 +34,8 @@ app.get('/api/secure/user', (req, res) => {
         return res.status(200).json({ message: rows });
     })
 });
+
+// OTP Logic
 
 app.post('/api/generateOTP', (req, res) => {
     const email = req.body.email;
@@ -70,6 +73,26 @@ app.post('/api/verifyOTP', (req, res) => {
     if (isVerified) delete otps[email];
 
     return res.json({ isOTPVerified: isVerified });
+});
+
+// Profile Logic
+
+app.post('/api/secure/create-profile', (req, res) => {
+    const email = req.user.email;
+    const body = req.body;
+    const id = uuidv4();
+
+    conn.query(
+        'INSERT INTO Participants (ProfileStatus, GoogleAuth, PaymentStatus, ParticipantID, Email, Firstname, Lastname, ContactNo, UniverstyName, Branch, StudyYear, DOB, Gender, City, State) VALUES (TRUE, FALSE, FALSE, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
+        [id, email, body.fName, body.lName, body.contactNo, body.uniName, body.branch, body.year, body.dob, body.gender, body.city, body.state],
+        function (err, rows, fields) {
+            if (err) {
+                console.log(err)
+                return res.status(500).json({ message: "Internal Server Error" });
+            }
+            return res.status(200).json({ message: "Profile created successfully" });
+        }
+    )
 });
 
 app.listen(port, () => {
