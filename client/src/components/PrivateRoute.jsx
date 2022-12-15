@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import { Navigate } from "react-router-dom";
 
-function PrivateRoute({ Component }) {
+function PrivateRoute({ element }) {
 
     const { currentUser } = useContext(AuthContext)
 
     return (
-        currentUser ? Component : <Navigate replace to={"/login"} />
+        currentUser ? element : <Navigate replace to={"/login"} />
     )
 }
 
