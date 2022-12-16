@@ -8,6 +8,7 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const serverURL = import.meta.env.VITE_SERVER_URL
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -24,16 +25,33 @@ function Login() {
             });
     }
 
-    function handleGoogleLogin() {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-                window.location.href = "/"
-            }).catch((error) => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+    async function handleGoogleLogin() {
+        const res = await signInWithPopup(auth, provider)
+        const user = await res.user;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        createProfile(email, photoURL)
+        // .then((result) => {
+        //     const user = result.user;
+        //     const email = user.email;
+        //     const photoURL = user.photoURL;
+        //     createProfile(email, photoURL)
+        //     console.log(user);
+        //     window.location.href = "/"
+        // }).catch((error) => {
+        //     const errorMessage = error.message;
+        //     console.log(errorMessage);
+        // });
+    }
+
+    function createProfile(email, photoURL) {
+        fetch(serverURL + "/api/create-profile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password: "NULL", photoURL, googleAuth: "TRUE" })
+        })
     }
 
     return (

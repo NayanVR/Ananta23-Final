@@ -4,6 +4,7 @@ import { AuthContext } from '../contexts/AuthContext'
 function Profile() {
 
     const { currentUser } = useContext(AuthContext)
+    const serverURL = import.meta.env.VITE_SERVER_URL
 
     const [fName, setFName] = useState('')
     const [lName, setLName] = useState('')
@@ -22,7 +23,7 @@ function Profile() {
         if (!currentUser) return
 
         currentUser.getIdToken().then((token) => {
-            fetch("http://localhost:3000/api/secure/create-profile", {
+            fetch(serverURL + "/api/secure/create-profile", {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,

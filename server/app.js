@@ -10,7 +10,9 @@ const app = express();
 const conn = mysql.createConnection(process.env.DATABASE_URL)
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    accessControlAllowOrigin: '*',
+}));
 app.use(express.json());
 app.use(middleware.decodeToken);
 
@@ -22,17 +24,6 @@ let transporter = nodemailer.createTransport({
         user: process.env.NODEMAILER_EMAIL,
         pass: process.env.NODEMAILER_EMAIL_PASS,
     }
-});
-
-app.get('/api/secure/user', (req, res) => {
-    const user = req.user;
-    conn.query('SELECT * FROM users', function (err, rows, fields) {
-        if (err) {
-            console.log(err)
-            return res.status(500).json({ message: "Internal Server Error" });
-        }
-        return res.status(200).json({ message: rows });
-    })
 });
 
 // OTP Logic
@@ -77,19 +68,37 @@ app.post('/api/verifyOTP', (req, res) => {
 
 // Profile Logic
 
-app.post('/api/secure/create-profile', (req, res) => {
-    const email = req.user.email;
-    const body = req.body;
+app.post('/api/create-profile', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const googleAuth = req.body.googleAuth;
+    const profileImg = req.body.photoURL;
     const id = uuidv4();
 
     conn.query(
-        'INSERT INTO Participants (ProfileStatus, GoogleAuth, PaymentStatus, ParticipantID, Email, Firstname, Lastname, ContactNo, UniverstyName, Branch, StudyYear, DOB, Gender, City, State) VALUES (TRUE, FALSE, FALSE, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
-        [id, email, body.fName, body.lName, body.contactNo, body.uniName, body.branch, body.year, body.dob, body.gender, body.city, body.state],
+        `SELECT * FROM Participants WHERE Email = '${email}';`,
+        function (err, rows, fields) {
+            if (err) console.log(err)
+            console.log(rows);
+            if (rows.length > 0) {
+                return res.json({ message: "Profile aleady exists" });
+            }
+        }
+    )
+
+
+    // if profile doesn't exist then create it
+
+    let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, Password, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${password}', '${profileImg}', ${googleAuth});`;
+
+    conn.query(
+        query,
         function (err, rows, fields) {
             if (err) {
                 console.log(err)
                 return res.status(500).json({ message: "Internal Server Error" });
             }
+            console.log(rows);
             return res.status(200).json({ message: "Profile created successfully" });
         }
     )

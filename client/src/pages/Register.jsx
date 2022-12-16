@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
+import { useEffect } from 'react'
 
 function Register() {
 
@@ -9,11 +10,12 @@ function Register() {
     const [password, setPassword] = useState("")
     const [otp, setOtp] = useState("")
     const [otpScreen, setOtpScreen] = useState(false)
+    const serverURL = import.meta.env.VITE_SERVER_URL
 
     async function handleInfoSubmit(e) {
         e.preventDefault()
 
-        const res = await fetch("http://localhost:3000/api/generateOTP", {
+        const res = await fetch(serverURL + "/api/generateOTP", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -30,7 +32,7 @@ function Register() {
     async function handleOTPSubmit(e) {
         e.preventDefault()
 
-        const res = await fetch("http://localhost:3000/api/verifyOTP", {
+        const res = await fetch(serverURL + "/api/verifyOTP", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -41,6 +43,15 @@ function Register() {
         const data = await res.json()
 
         if (data.isOTPVerified) {
+
+            await fetch(serverURL + "/api/create-profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password, photoURL: "NULL", googleAuth: "FALSE" })
+            })
+
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -52,6 +63,7 @@ function Register() {
                 });
         } else {
             setOtp("")
+            console.log("OTP is not verified");
         }
     }
 
