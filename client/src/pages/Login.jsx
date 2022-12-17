@@ -27,10 +27,12 @@ function Login() {
 
     async function handleGoogleLogin() {
         const res = await signInWithPopup(auth, provider)
-        const user = await res.user;
-        const email = user.email;
-        const photoURL = user.photoURL;
-        createProfile(email, photoURL)
+        const email = res.user.email;
+        const photoURL = res.user.photoURL;
+        const data = await createProfile(email, photoURL)
+        if (data.isProfileCreated) {
+            window.location.href = "/"
+        }
         // .then((result) => {
         //     const user = result.user;
         //     const email = user.email;
@@ -44,14 +46,16 @@ function Login() {
         // });
     }
 
-    function createProfile(email, photoURL) {
-        fetch(serverURL + "/api/create-profile", {
+    async function createProfile(email, photoURL) {
+        const res = await fetch(serverURL + "/api/create-profile", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ email, password: "NULL", photoURL, googleAuth: "TRUE" })
         })
+        const data = await res.json()
+        return data
     }
 
     return (
