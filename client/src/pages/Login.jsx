@@ -27,9 +27,11 @@ function Login() {
 
     async function handleGoogleLogin() {
         const res = await signInWithPopup(auth, provider)
+        console.log(res);
         const email = res.user.email;
         const photoURL = res.user.photoURL;
         const data = await createProfile(email, photoURL)
+        console.log(data);
         if (data.isProfileCreated) {
             window.location.href = "/"
         }

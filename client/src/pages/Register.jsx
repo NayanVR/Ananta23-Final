@@ -44,17 +44,17 @@ function Register() {
 
         if (data.isOTPVerified) {
 
-            await fetch(serverURL + "/api/create-profile", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password, photoURL: "NULL", googleAuth: "FALSE" })
-            })
 
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    fetch(serverURL + "/api/create-profile", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ email, password, photoURL: "NULL", googleAuth: "FALSE" })
+                    })
                     console.log(user);
                 })
                 .catch((error) => {

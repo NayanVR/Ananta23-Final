@@ -1,14 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require("nodemailer");
 require('dotenv').config();
+const nodemailer = require("nodemailer");
+const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
-const mysql = require('mysql2')
-const { v4: uuidv4 } = require('uuid');
+const { createProfile } = require('./db/util')
 
 const app = express();
-const conn = mysql.createConnection(process.env.DATABASE_URL)
 const port = process.env.PORT || 3000;
+let conn;
+
+(async function initDB() {
+    conn = await mysql.createConnection(process.env.DATABASE_URL)
+})()
 
 app.use(cors({
     accessControlAllowOrigin: '*',
@@ -28,8 +32,14 @@ let transporter = nodemailer.createTransport({
 
 // OTP Logic
 
-app.post('/api/generateOTP', (req, res) => {
+app.post('/api/generateOTP', async (req, res) => {
     const email = req.body.email;
+
+    const [rows, f] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
+
+    if (rows.length > 0)
+        return res.status(400).json({ isOTPGenerated: false, message: "User already exist" })
+
     const otp = ("" + Math.random()).substring(2, 8)
 
     otps[email] = otp;
@@ -68,41 +78,15 @@ app.post('/api/verifyOTP', (req, res) => {
 
 // Profile Logic
 
-app.post('/api/create-profile', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const googleAuth = req.body.googleAuth;
-    const profileImg = req.body.photoURL;
-    const id = uuidv4();
+app.post('/api/create-profile', async (req, res) => {
+    const bd = req.body;
 
-    conn.query(
-        `SELECT * FROM Participants WHERE Email = '${email}';`,
-        function (err, rows, fields) {
-            if (err) console.log(err)
-            console.log(rows);
-            if (rows.length > 0) {
-                return res.json({ message: "Profile aleady exists" });
-            }
-        }
-    )
+    const response = await createProfile(conn, bd.email, bd.password, bd.googleAuth, bd.photoURL);
 
-
-    // if profile doesn't exist then create it
-
-    let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, Password, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${password}', '${profileImg}', ${googleAuth});`;
-
-    conn.query(
-        query,
-        function (err, rows, fields) {
-            if (err) {
-                console.log(err)
-                return res.status(500).json({ message: "Internal Server Error" });
-            }
-            console.log(rows);
-            return res.status(200).json({ message: "Profile created successfully" });
-        }
-    )
+    return res.status(response.code).json(response.resMessage)
 });
+
+
 
 app.listen(port, () => {
     console.log(`Server listening on PORT : ${port}`);
