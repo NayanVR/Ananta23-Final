@@ -1,5 +1,6 @@
 # Setup Project Locally 😀
-> ⚠ Make sure you have [node](https://nodejs.org/en/) version >18 (recommended : v18.12.1 LTS)
+> ⚠ Make sure you have [node](https://nodejs.org/download/release/v16.19.0/win-x64/) version >16 (recommended : v16.19.0 LTS)
+> I recommand to use [nvm](https://github.com/coreybutler/nvm-windows) (node version manager) to handle different versions of node 😊
 ---
 **Let's go to client side 📱**
 
