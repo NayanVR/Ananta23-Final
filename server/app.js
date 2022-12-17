@@ -78,7 +78,9 @@ app.post('/api/create-profile', (req, res) => {
     conn.query(
         `SELECT * FROM Participants WHERE Email = '${email}';`,
         function (err, rows, fields) {
-            if (err) console.log(err)
+            if (err) {
+                console.log("at line 82 : ", err)
+            }
             console.log(rows);
             if (rows.length > 0) {
                 return res.json({ message: "Profile aleady exists" });
@@ -86,11 +88,9 @@ app.post('/api/create-profile', (req, res) => {
         }
     )
 
-
     // if profile doesn't exist then create it
-
-    let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, Password, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${password}', '${profileImg}', ${googleAuth});`;
-
+        let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, Password, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${password}', '${profileImg}', ${googleAuth});`;
+    
     conn.query(
         query,
         function (err, rows, fields) {
