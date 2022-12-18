@@ -53,7 +53,7 @@ function Register() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ email, password, photoURL: "NULL", googleAuth: "FALSE" })
+                        body: JSON.stringify({ email, photoURL: "NULL", googleAuth: "FALSE" })
                     })
                     console.log(user);
                 })

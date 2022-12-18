@@ -23,7 +23,7 @@ function Profile() {
         if (!currentUser) return
 
         currentUser.getIdToken().then((token) => {
-            fetch(serverURL + "/api/secure/create-profile", {
+            fetch(serverURL + "/api/secure/update-profile", {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,

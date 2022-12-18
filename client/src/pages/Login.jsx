@@ -54,7 +54,7 @@ function Login() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, password: "NULL", photoURL, googleAuth: "TRUE" })
+            body: JSON.stringify({ email, photoURL, googleAuth: "TRUE" })
         })
         const data = await res.json()
         return data

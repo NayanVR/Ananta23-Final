@@ -4,7 +4,7 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
-const { createProfile } = require('./db/util')
+const { createProfile, updateProfile } = require('./db/util')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,9 +14,7 @@ let conn;
     conn = await mysql.createConnection(process.env.DATABASE_URL)
 })()
 
-app.use(cors({
-    accessControlAllowOrigin: '*',
-}));
+app.use(cors({ accessControlAllowOrigin: '*' }));
 app.use(express.json());
 app.use(middleware.decodeToken);
 
@@ -81,12 +79,19 @@ app.post('/api/verifyOTP', (req, res) => {
 app.post('/api/create-profile', async (req, res) => {
     const bd = req.body;
 
-    const response = await createProfile(conn, bd.email, bd.password, bd.googleAuth, bd.photoURL);
+    const response = await createProfile(conn, bd.email, bd.googleAuth, bd.photoURL);
 
     return res.status(response.code).json(response.resMessage)
 });
 
+app.post('/api/secure/update-profile', async (req, res) => {
+    const body = req.body;
+    const email = req.user.email;
 
+    const response = await updateProfile(conn, email, body);
+
+    return res.status(response.code).json(response.resMessage)
+})
 
 app.listen(port, () => {
     console.log(`Server listening on PORT : ${port}`);
