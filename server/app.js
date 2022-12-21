@@ -41,6 +41,7 @@ app.post('/api/generateOTP', async (req, res) => {
     const otp = ("" + Math.random()).substring(2, 8)
 
     otps[email] = otp;
+    console.log(otp)
     // delete otp after 10 minutes
     setTimeout(() => { if (otps[email]) delete otps[email] }, 10 * 60 * 1000);
 
@@ -50,8 +51,9 @@ app.post('/api/generateOTP', async (req, res) => {
         subject: "OTP for login",
         html: `<h1>OTP for login is ${otp}</h1>`,
     })
-        .then((isSent) => {
-            if (isSent) {
+        .then((info) => {
+            console.log(info)
+            if (info) {
                 return res.status(200).json({ isOTPGenerated: true, message: "OTP sent successfully" });
             } else {
                 delete otps[email]
@@ -68,6 +70,7 @@ app.post('/api/verifyOTP', (req, res) => {
     const email = req.body.email;
     const otp = req.body.otp;
 
+    console.log(otps)
     const isVerified = otps[email] === otp;
     if (isVerified) delete otps[email];
 

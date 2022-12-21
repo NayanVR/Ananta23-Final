@@ -29,7 +29,9 @@ async function createProfile(conn, email, googleAuth, profileImg) {
         } while (idDoesExist);
 
         // create new participant
-        let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${profileImg}', ${googleAuth});`;
+        let query = `INSERT INTO Participants (ParticipantID, ProfileStatus, PaymentStatus , Email, ProfileImg, GoogleAuth) VALUES ('${id}', FALSE, FALSE, '${email}', '${profileImg}', ${googleAuth});`;
+
+        console.log(query);
 
         const [profileRows, profileFields] = await conn.execute(query)
 
@@ -44,7 +46,7 @@ async function createProfile(conn, email, googleAuth, profileImg) {
 async function updateProfile(conn, email, body) {
     const { fName, lName, contactNo, uniName, branch, year, dob, gender, city, state } = body;
     
-    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', UniversityName='${uniName}', Branch='${branch}', StudyYear='${year}', DOB='${dob}', Gender='${gender}', City='${city}', State='${state}' WHERE Email = '${email}';`)
+    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', University='${uniName}', Branch='${branch}', StudyYear='${year}', DOB='${dob}', Gender='${gender}', City='${city}', State='${state}' WHERE Email = '${email}';`)
 
     if (rows) {
         return { code: 200, resMessage: { message: "Profile Updated" } };

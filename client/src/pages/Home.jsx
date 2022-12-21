@@ -7,6 +7,7 @@ import { auth } from "../firebase"
 function Home() {
 
     const { currentUser } = useContext(AuthContext)
+    console.log(current)
 
     return (
         <div>
@@ -15,7 +16,13 @@ function Home() {
             {
                 currentUser
                     ?
-                    <div>You are logged in with {currentUser.email}</div>
+                    <div>
+                        <div>You are logged in with {currentUser.email}</div>
+
+                        
+                    
+                    
+                    </div>
                     :
                     <div>Who are you</div>
             }
