@@ -68,26 +68,30 @@ function Register() {
     }
 
     return (
-        <div>
-            Register
-            <br />
-            {
-                !otpScreen ?
-                    <form onSubmit={handleInfoSubmit}>
-                        <input onChange={e => setEmail(e.target.value)} value={email} type="email" required placeholder="Email" />
-                        <br />
-                        <input onChange={e => setPassword(e.target.value)} value={password} type="password" required placeholder="Password" />
-                        <br />
-                        <button>Next</button>
-                    </form>
-                    :
-                    <form onSubmit={handleOTPSubmit}>
-                        <input onChange={e => setOtp(e.target.value)} value={otp} type="text" required placeholder="Enter OTP here" />
-                        <br />
-                        <button>Submit</button>
-                    </form>
-            }
-        </div>
+        <section className='flex justify-center items-center w-full h-[calc(100vh-8rem)]'>
+            <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
+                <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light to-primary bg-clip-text text-transparent">
+                    Register
+                </h1>
+                <br />
+                {
+                    !otpScreen ?
+                        <form onSubmit={handleInfoSubmit} className="flex flex-col w-full gap-4">
+                            <input onChange={e => setEmail(e.target.value)} value={email} type="email" required placeholder="Email" className='px-4 py-2 border' />
+
+                            <input onChange={e => setPassword(e.target.value)} value={password} type="password" required placeholder="Password" className='px-4 py-2 border' />
+
+                            <button type='submit' className='py-2 bg-primary-dark text-white'>Next</button>
+                        </form>
+                        :
+                        <form onSubmit={handleOTPSubmit} className="flex flex-col w-full gap-4">
+                            <input onChange={e => setOtp(e.target.value)} value={otp} type="text" required placeholder="Enter OTP here" className='px-4 py-2 border' />
+
+                            <button type='submit' className='py-2 bg-primary-dark text-white'>Submit</button>
+                        </form>
+                }
+            </div>
+        </section>
     )
 }
 

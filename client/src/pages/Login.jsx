@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+import googleLogo from '../assets/google_icon.svg'
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../firebase"
-
 
 function Login() {
 
@@ -61,20 +61,29 @@ function Login() {
     }
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold underline">
-                Login
-            </h1>
-            <br />
-            <form onSubmit={handleSubmit}>
-                <input onChange={e => setEmail(e.target.value)} value={email} type="email" placeholder="Email" />
-                <br />
-                <input onChange={e => setPassword(e.target.value)} value={password} type="password" placeholder="Password" />
-                <br />
-                <button>Login</button>
-            </form>
-            <button onClick={handleGoogleLogin}>Google Login</button>
-        </div>
+        <section className='flex justify-center items-center w-full h-[calc(100vh-8rem)]'>
+            <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
+                <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light to-primary bg-clip-text text-transparent">
+                    Login
+                </h1>
+                <form onSubmit={handleSubmit} className="flex flex-col w-full gap-4">
+
+                    <input onChange={e => setEmail(e.target.value)} value={email} type="email" placeholder="Email" className='px-4 py-2 border' />
+
+                    <input onChange={e => setPassword(e.target.value)} value={password} type="password" placeholder="Password" className='px-4 py-2 border' />
+
+                    <button type='submit' className='py-2 bg-primary-dark text-white'>Login</button>
+                </form>
+                <div className='flex row items-center w-full gap-2 text-gray-400'>
+                    <span className='h-px w-full bg-gray-300'></span>
+                    OR
+                    <span className='h-px w-full bg-gray-300'></span>
+                </div>
+                <button onClick={handleGoogleLogin} className='w-full mx-8 py-2 border text-primary-dark border-primary-dark flex flex-row justify-center items-center gap-2'>
+                    <img className='h-5' src={googleLogo} /> Sign in with Google
+                </button>
+            </div>
+        </section>
     )
 }
 
