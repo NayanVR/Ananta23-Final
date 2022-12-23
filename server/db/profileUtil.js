@@ -8,11 +8,10 @@ async function createProfile(conn, email, googleAuth, profileImg) {
     if (checkRows.length > 0) {
         if (checkRows[0].GoogleAuth === 0 && googleAuth === 'TRUE') {
             // update info if user is migrating account to google
-            console.log(profileImg);
             const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`)
-            return { code: 200, resMessage: { message: "Profile Updated" } };
+            return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };
         } else {
-            return { code: 200, resMessage: { message: "Please Login with google" } };
+            return { code: 200, resMessage: { message: "Please Login with google", type: "info" } };
         }
     } else {
 
@@ -34,22 +33,22 @@ async function createProfile(conn, email, googleAuth, profileImg) {
         const [profileRows, profileFields] = await conn.execute(query)
 
         if (profileRows) {
-            return { code: 200, resMessage: { message: "Profile created successfully" } };
+            return { code: 200, resMessage: { message: "Profile created successfully", type: "success" } };
         } else {
-            return { code: 500, resMessage: { message: "Internal Server Error" } };
+            return { code: 500, resMessage: { message: "Internal Server Error", type: "error" } };
         }
     }
 }
 
 async function updateProfile(conn, email, body) {
     const { fName, lName, contactNo, uniName, branch, year, dob, gender, city, state } = body;
-    
+
     const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', UniversityName='${uniName}', Branch='${branch}', StudyYear='${year}', DOB='${dob}', Gender='${gender}', City='${city}', State='${state}' WHERE Email = '${email}';`)
 
     if (rows) {
-        return { code: 200, resMessage: { message: "Profile Updated" } };
+        return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };
     } else {
-        return { code: 500, resMessage: { message: "Internal Server Error" } };
+        return { code: 500, resMessage: { message: "Internal Server Error", type: "error" } };
     }
 }
 

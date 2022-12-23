@@ -37,7 +37,7 @@ app.post('/api/generateOTP', async (req, res) => {
     const [rows, f] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
 
     if (rows.length > 0)
-        return res.status(400).json({ isOTPGenerated: false, message: "User already exist" })
+        return res.status(400).json({ isOTPGenerated: false, message: "User already exist", type: "info" })
 
     const otp = ("" + Math.random()).substring(2, 8)
 
@@ -53,15 +53,15 @@ app.post('/api/generateOTP', async (req, res) => {
     })
         .then((isSent) => {
             if (isSent) {
-                return res.status(200).json({ isOTPGenerated: true, message: "OTP sent successfully" });
+                return res.status(200).json({ isOTPGenerated: true, message: "OTP sent successfully", type: "success" });
             } else {
                 delete otps[email]
-                return res.status(500).json({ isOTPGenerated: false, message: "Something went wrong" });
+                return res.status(500).json({ isOTPGenerated: false, message: "Something went wrong", type: "error" });
             }
         })
         .catch((err) => {
             delete otps[email]
-            return res.status(500).json({ isOTPGenerated: false, message: "Something went wrong" });
+            return res.status(500).json({ isOTPGenerated: false, message: "Something went wrong", type: "error" });
         })
 });
 
@@ -72,7 +72,7 @@ app.post('/api/verifyOTP', (req, res) => {
     const isVerified = otps[email] === otp;
     if (isVerified) delete otps[email];
 
-    return res.json({ isOTPVerified: isVerified });
+    return res.json({ isOTPVerified: isVerified, type: isVerified ? "success" : "error" });
 });
 
 // Profile Logic
@@ -92,6 +92,18 @@ app.post('/api/secure/update-profile', async (req, res) => {
     const response = await updateProfile(conn, email, body);
 
     return res.status(response.code).json(response.resMessage)
+})
+
+app.get('/api/secure/get-profile', async (req, res) => {
+    const email = req.user.email;
+
+    const [rows, f] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
+
+    if (rows.length === 0) {
+        return res.status(404).json({ message: {}, type: "error" })
+    } else {
+        return res.status(200).json({ message: rows[0], type: "success" })
+    }
 })
 
 app.listen(port, () => {

@@ -8,8 +8,7 @@ function genParticipantID(email) {
     let speacialChars = ["!", "@", "#", "$", "%", "&", "*", "?"];
     let randomSpeacialChar = speacialChars[Math.floor(Math.random() * speacialChars.length)];
 
-
-    let randomNum = Math.floor(Math.random() * 10000);
+    let randomNum = ("" + Math.random()).substring(2, 6)
 
     const id = "A23_" + firstChar + middleChar + lastChar + randomSpeacialChar + randomNum;
     return id;
