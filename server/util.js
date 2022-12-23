@@ -15,6 +15,19 @@ function genParticipantID(email) {
     return id;
 }
 
+function genPaymentID(passCode) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 7; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return passCode + result;
+}
+
 module.exports = {
-    genParticipantID
+    genParticipantID,
+    genPaymentID
 }

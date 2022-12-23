@@ -4,7 +4,8 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
-const { createProfile, updateProfile } = require('./db/util')
+const { createProfile, updateProfile } = require('./db/profileUtil')
+// const { buyAPass } = require('./db/buyPass');
 
 const app = express();
 const port = process.env.PORT || 3000;

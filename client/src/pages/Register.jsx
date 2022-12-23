@@ -73,7 +73,6 @@ function Register() {
                 <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light to-primary bg-clip-text text-transparent">
                     Register
                 </h1>
-                <br />
                 {
                     !otpScreen ?
                         <form onSubmit={handleInfoSubmit} className="flex flex-col w-full gap-4">
