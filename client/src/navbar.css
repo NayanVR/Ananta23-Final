@@ -1,0 +1,91 @@
+nav {
+  width: 100vw;
+  background-color: #00011C;
+  border-bottom: 1px solid #3E00FF;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  nav .nav {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    height: 8rem;
+    display: flex;
+    padding: 0 10%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; }
+    nav .nav__logo img {
+      content: url("../assets/Logo.svg");
+      display: inline-block;
+      height: 4rem; }
+    nav .nav__links {
+      display: flex;
+      flex-direction: row;
+      gap: 4rem; }
+      nav .nav__links a {
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: 'Rubik', sans-serif;
+        color: #fff; }
+    nav .nav__toggle {
+      display: none; }
+
+@media only screen and (max-width: 600px) {
+  nav .nav__links {
+    position: absolute;
+    top: -30rem;
+    left: 0;
+    width: 100vw;
+    flex-direction: column;
+    background-color: #00011C;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    transition: top 0.5s; }
+    nav .nav__links a {
+      padding: 2rem 0;
+      width: 100%;
+      height: max-content;
+      text-align: center;
+      border-bottom: 1px solid #3E00FF; }
+  nav .nav__toggle {
+    display: block;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    nav .nav__toggle__bars {
+      position: relative;
+      width: 3rem; }
+      nav .nav__toggle__bars, nav .nav__toggle__bars::before, nav .nav__toggle__bars::after {
+        height: 2px;
+        background-color: #fff;
+        display: inline-block; }
+      nav .nav__toggle__bars::before, nav .nav__toggle__bars::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        transition: all 0.2s; }
+      nav .nav__toggle__bars::before {
+        width: 1.5rem;
+        left: 1.5rem;
+        top: -1rem; }
+      nav .nav__toggle__bars::after {
+        width: 2rem;
+        left: 1rem;
+        top: 1rem; }
+  nav .nav[data-is-open="true"] .nav__links {
+    top: calc(8rem + 1px); }
+  nav .nav[data-is-open="true"] .nav__toggle__bars {
+    background-color: transparent; }
+    nav .nav[data-is-open="true"] .nav__toggle__bars::before {
+      top: 0;
+      left: 0;
+      width: 3rem;
+      transform: rotate(135deg); }
+    nav .nav[data-is-open="true"] .nav__toggle__bars::after {
+      top: 0;
+      left: 0;
+      width: 3rem;
+      transform: rotate(-135deg); } }
