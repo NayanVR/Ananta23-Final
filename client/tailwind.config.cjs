@@ -11,11 +11,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        'primary': '#38E54D',
-        'primary-dark': '#00B116',
-        'primary-light': '#9CFF2E',
-        'primary-light-1': '#BFFFC7',
-        'primary-light-2': '#EDF0FF',
+        'primary': '#1C7690',
+        'primary-dark-1': '#012C3D',
+        'primary-dark-2': '#022539',
+        'primary-light-1': '#78BDC4',
+        'primary-light-2': '#A5D9D5',
       }
     },
   },

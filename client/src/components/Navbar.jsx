@@ -1,32 +1,34 @@
 import React from 'react'
 import { useState } from 'react'
-import LogoBG from '../assets/navbar_rect.svg'
 import AnantaLogo from '../assets/ananta_logo.svg'
 import '../navbar.css'
 
 
 function Navbar() {
-    
+
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <nav>
-            <div class="nav" data-is-open={isOpen}>
-                <div class="nav__logo">
-                    <img alt="NayanVR Logo" />
+            <div className="nav" data-is-open={isOpen}>
+                <div className="nav__logo">
+                    <img src={AnantaLogo} alt="NayanVR Logo" />
                 </div>
-                <div class="nav__links">
-                    <a href="#about">About</a>
-                    <a href="#work">Work</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#contact">Contact</a>
+                <div className="nav__links">
+                    <a href="">Home</a>
+                    <a href="">Events</a>
+                    <a href="">Buy a Pass</a>
+                    <a href="">Digital Points</a>
+                    <a href="">Schedule</a>
+                    <a href="">More</a>
                 </div>
-                <div onClick={_ => { setIsOpen(!isOpen) }} class="nav__toggle">
-                    <span class="nav__toggle__bars"></span>
+                <button className='py-2 px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { window.location.href = "/login" }}>LOGIN</button>
+                <div onClick={_ => { setIsOpen(!isOpen) }} className="nav__toggle">
+                    <span className="nav__toggle__bars"></span>
                 </div>
             </div>
         </nav>
-        )
+    )
 }
 
 export default Navbar

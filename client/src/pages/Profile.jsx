@@ -37,25 +37,43 @@ function Profile() {
     }
 
     return (
-        <div>
-            <h1>
-                Profile
-            </h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder='First Name' value={fName} onChange={e => setFName(e.target.value)} /><br />
-                <input type="text" placeholder='Last Name' value={lName} onChange={e => setLName(e.target.value)} /><br />
-                <input type="number" placeholder='Contact No' value={contactNo} onChange={e => setContactNo(e.target.value)} /><br />
-                <input type="text" placeholder='University Name' value={uniName} onChange={e => setUniName(e.target.value)} /><br />
-                <input type="text" placeholder='Branch' value={branch} onChange={e => setBranch(e.target.value)} /><br />
-                <input type="number" placeholder='Study Year' value={year} onChange={e => setYear(e.target.value)} /><br />
-                <input type="date" value={dob} onChange={e => setDob(e.target.value)} /><br />
-                <input type="radio" value="Male" name="gender" onChange={e => setGender(e.currentTarget.value)} /> Male
-                <input type="radio" value="Female" name="gender" onChange={e => setGender(e.currentTarget.value)} /> Female <br />
-                <input type="text" placeholder='City' value={city} onChange={e => setCity(e.target.value)} /><br />
-                <input type="text" placeholder='State' value={state} onChange={e => setState(e.target.value)} /><br />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <section className='flex justify-center items-center w-full h-max py-24'>
+            <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
+                <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+                    Profile
+                </h1>
+                <form onSubmit={handleSubmit} className="flex flex-col w-full gap-4">
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='First Name' value={fName} onChange={e => setFName(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='Last Name' value={lName} onChange={e => setLName(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="number" placeholder='Contact No' value={contactNo} onChange={e => setContactNo(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='University Name' value={uniName} onChange={e => setUniName(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='Branch' value={branch} onChange={e => setBranch(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="number" placeholder='Study Year' value={year} onChange={e => setYear(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="date" value={dob} onChange={e => setDob(e.target.value)} />
+
+                    <div>
+                        Gender : &nbsp;&nbsp;
+                        <input type="radio" value="Male" id='male' name="gender" onChange={e => setGender(e.currentTarget.value)} />
+                        <label htmlFor='male'> Male</label>
+                        &nbsp;&nbsp;
+                        <input type="radio" value="Female" id='female' name="gender" onChange={e => setGender(e.currentTarget.value)} />
+                        <label htmlFor='female'> Female</label>
+                    </div>
+
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='City' value={city} onChange={e => setCity(e.target.value)} />
+
+                    <input className='px-4 py-2 border rounded-md' type="text" placeholder='State' value={state} onChange={e => setState(e.target.value)} />
+
+                    <button className='py-2 bg-primary-dark-1 text-white rounded-md' type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
     )
 }
 

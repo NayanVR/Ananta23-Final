@@ -44,7 +44,6 @@ function Register() {
 
         if (data.isOTPVerified) {
 
-
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -56,6 +55,7 @@ function Register() {
                         body: JSON.stringify({ email, photoURL: "NULL", googleAuth: "FALSE" })
                     })
                     console.log(user);
+                    window.location.href = "/profile"
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -70,23 +70,25 @@ function Register() {
     return (
         <section className='flex justify-center items-center w-full h-[calc(100vh-8rem)]'>
             <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
-                <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light to-primary bg-clip-text text-transparent">
+                <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                     Register
                 </h1>
                 {
                     !otpScreen ?
                         <form onSubmit={handleInfoSubmit} className="flex flex-col w-full gap-4">
-                            <input onChange={e => setEmail(e.target.value)} value={email} type="email" required placeholder="Email" className='px-4 py-2 border' />
+                            <input onChange={e => setEmail(e.target.value)} value={email} type="email" required placeholder="Email" className='px-4 py-2 border rounded-md' />
 
-                            <input onChange={e => setPassword(e.target.value)} value={password} type="password" required placeholder="Password" className='px-4 py-2 border' />
+                            <input onChange={e => setPassword(e.target.value)} value={password} type="password" required placeholder="Password" className='px-4 py-2 border rounded-md' />
 
-                            <button type='submit' className='py-2 bg-primary-dark text-white'>Next</button>
+                            <button type='submit' className='py-2 bg-primary-dark-1 text-white rounded-md'>Next</button>
                         </form>
                         :
                         <form onSubmit={handleOTPSubmit} className="flex flex-col w-full gap-4">
-                            <input onChange={e => setOtp(e.target.value)} value={otp} type="text" required placeholder="Enter OTP here" className='px-4 py-2 border' />
+                            <p className='text-primary-dark-2'>OTP has benn sent to {email}</p>
 
-                            <button type='submit' className='py-2 bg-primary-dark text-white'>Submit</button>
+                            <input onChange={e => setOtp(e.target.value)} value={otp} type="text" required placeholder="Enter OTP here" className='px-4 py-2 border rounded-md' />
+
+                            <button type='submit' className='py-2 bg-primary-dark-1 text-white rounded-md'>Submit</button>
                         </form>
                 }
             </div>

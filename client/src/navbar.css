@@ -1,91 +1,149 @@
 nav {
-  width: 100vw;
-  background-color: #00011C;
-  border-bottom: 1px solid #3E00FF;
+  width: 100%;
+  border-bottom: 1px solid var(--primary);
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
-  align-items: center; }
-  nav .nav {
-    position: relative;
-    width: 100%;
-    max-width: 1500px;
-    height: 8rem;
-    display: flex;
-    padding: 0 10%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between; }
-    nav .nav__logo img {
-      content: url("../assets/Logo.svg");
-      display: inline-block;
-      height: 4rem; }
-    nav .nav__links {
-      display: flex;
-      flex-direction: row;
-      gap: 4rem; }
-      nav .nav__links a {
-        font-size: 2rem;
-        font-weight: bold;
-        font-family: 'Rubik', sans-serif;
-        color: #fff; }
-    nav .nav__toggle {
-      display: none; }
+  align-items: center;
+}
 
-@media only screen and (max-width: 600px) {
+nav .nav {
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  padding: 0 3%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .nav__logo img {
+  display: inline-block;
+  height: 2rem;
+}
+
+nav .nav__links {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+nav .nav__links a {
+  font-size: 1rem;
+  color: #000;
+}
+
+nav .nav__toggle {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  nav .nav__toggle {
+    order: 1;
+  }
+
+  nav .nav__logo {
+    order: 2;
+  }
+
+  nav button {
+    order: 3;
+  }
+
   nav .nav__links {
     position: absolute;
-    top: -30rem;
+    top: -50rem;
     left: 0;
-    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    scrollbar-width: none;
+    width: 100%;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
     flex-direction: column;
-    background-color: #00011C;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 0;
-    transition: top 0.5s; }
-    nav .nav__links a {
-      padding: 2rem 0;
-      width: 100%;
-      height: max-content;
-      text-align: center;
-      border-bottom: 1px solid #3E00FF; }
+    transition: top 0.5s;
+  }
+
+  nav .nav__links::-webkit-scrollbar {
+    width: 0;
+  }
+
+  nav .nav__links a {
+    padding: 1.5rem 0;
+    width: 100%;
+    height: max-content;
+    text-align: center;
+    border-bottom: 1px solid var(--primary);
+  }
+
   nav .nav__toggle {
     display: block;
     height: 4rem;
     display: flex;
     align-items: center;
-    justify-content: center; }
-    nav .nav__toggle__bars {
-      position: relative;
-      width: 3rem; }
-      nav .nav__toggle__bars, nav .nav__toggle__bars::before, nav .nav__toggle__bars::after {
-        height: 2px;
-        background-color: #fff;
-        display: inline-block; }
-      nav .nav__toggle__bars::before, nav .nav__toggle__bars::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        transition: all 0.2s; }
-      nav .nav__toggle__bars::before {
-        width: 1.5rem;
-        left: 1.5rem;
-        top: -1rem; }
-      nav .nav__toggle__bars::after {
-        width: 2rem;
-        left: 1rem;
-        top: 1rem; }
+    justify-content: center;
+  }
+
+  nav .nav__toggle__bars {
+    position: relative;
+    width: 2rem;
+  }
+
+  nav .nav__toggle__bars,
+  nav .nav__toggle__bars::before,
+  nav .nav__toggle__bars::after {
+    height: 2px;
+    background-color: var(--primary);
+    display: inline-block;
+  }
+
+  nav .nav__toggle__bars::before,
+  nav .nav__toggle__bars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+  }
+
+  nav .nav__toggle__bars::before {
+    width: 1rem;
+    /* left: 1rem; */
+    top: -0.5rem;
+  }
+
+  nav .nav__toggle__bars::after {
+    width: 1.5rem;
+    /* left: 0.5rem; */
+    top: 0.5rem;
+  }
+
   nav .nav[data-is-open="true"] .nav__links {
-    top: calc(8rem + 1px); }
+    top: calc(4rem + 1px);
+  }
+
   nav .nav[data-is-open="true"] .nav__toggle__bars {
-    background-color: transparent; }
-    nav .nav[data-is-open="true"] .nav__toggle__bars::before {
-      top: 0;
-      left: 0;
-      width: 3rem;
-      transform: rotate(135deg); }
-    nav .nav[data-is-open="true"] .nav__toggle__bars::after {
-      top: 0;
-      left: 0;
-      width: 3rem;
-      transform: rotate(-135deg); } }
+    background-color: transparent;
+  }
+
+  nav .nav[data-is-open="true"] .nav__toggle__bars::before {
+    top: 0;
+    left: 0;
+    width: 1.5rem;
+    transform: rotate(135deg);
+  }
+
+  nav .nav[data-is-open="true"] .nav__toggle__bars::after {
+    top: 0;
+    left: 0;
+    width: 1.5rem;
+    transform: rotate(-135deg);
+  }
+}

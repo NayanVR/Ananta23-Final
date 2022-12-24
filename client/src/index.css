@@ -7,3 +7,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: #1c7690;
+  --primary-dark-1: #012c3d;
+  --primary-dark-2: #022539;
+  --primary-light-1: #78bdc4;
+  --primary-light-2: #a5d9d5;
+}
