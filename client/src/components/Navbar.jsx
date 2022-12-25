@@ -17,7 +17,7 @@ function Navbar() {
                 <div className="nav__links">
                     <a href="">Home</a>
                     <a href="">Events</a>
-                    <a href="">Buy a Pass</a>
+                    <a href="/buypass">Buy a Pass</a>
                     <a href="">Digital Points</a>
                     <a href="">Schedule</a>
                     <a href="">More</a>

@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
 const { createProfile, updateProfile } = require('./db/profileUtil')
-// const { buyAPass } = require('./db/buyPass');
+const { checkBuyPass, buyPass } = require('./db/buyPass');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -104,6 +104,28 @@ app.get('/api/secure/get-profile', async (req, res) => {
     } else {
         return res.status(200).json({ message: rows[0], type: "success" })
     }
+})
+
+// Buy Pass Logic
+
+app.post('/api/secure/pass/buy', async (req, res) => {
+    const { PID, passCode, amt } = req.body
+
+    // participantID = await getParticipantID(email);
+    console.log(req.body)
+    const response = await buyPass(conn, PID, passCode, amt)
+
+    return res.status(response.code).json(response.resMessage)
+    // res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+})
+
+app.post('/api/secure/pass/buy/check', async (req, res) => {
+    const { passCode, PID } = req.body
+
+    const response = await checkBuyPass(conn, passCode, PID)
+
+    return res.status(response.code).json(response.resMessage)
+    // res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 })
 
 app.listen(port, () => {

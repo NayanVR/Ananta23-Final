@@ -1,205 +1,228 @@
 const { genPaymentID } = require("../util");
 
-async function updateParticipants(
-    conn,
-    passCode,
-    passAmt,
-    paymentID,
-    participantID,
-    kit
-) {
-    const [updParRows, updParFields] = await conn.execute(
-        `UPDATE Participants SET PassCode = '${passCode}', PaymentID = '${paymentID}', PaymentStatus = 1, PaymentMode = 'Online', PaymentAmt = ${passAmt}, Kit = ${kit} WHERE ParticipantID = '${participantID}' `
+const passes = {
+    "PS-B": { Amount: 200, DP: 2000, Kit: 0, TotalEvents: 2, TotalGuests: 1, TotalWorkshops: 0, Atmos: 0 },
+    "PS-S": { Amount: 250, DP: 2500, Kit: 0, TotalEvents: 4, TotalGuests: 2, TotalWorkshops: 0, Atmos: 0 },
+    "PS-G": { Amount: 300, DP: 3000, Kit: 1, TotalEvents: 30, TotalGuests: 6, TotalWorkshops: 0, Atmos: 0 },
+    "PS-DJ": { Amount: 449, DP: 4490, Kit: 0, TotalEvents: 0, TotalGuests: 0, TotalWorkshops: 0, Atmos: 1 },
+    "PS-C1": { Amount: 549, DP: 5490, Kit: 1, TotalEvents: 30, TotalGuests: 6, TotalWorkshops: 0, Atmos: 1 },
+    "PS-C2": { Amount: 549, DP: 5490, Kit: 1, TotalEvents: 0, TotalGuests: 0, TotalWorkshops: 10, Atmos: 1 },
+};
+
+// Check If the Selected Pass can be buy or Upgraded...
+async function checkBuyPass(conn, selectedPassCode, participantID) {
+
+    const [parRows, parfields] = await conn.execute(
+        `SELECT ParticipantID, ProfileStatus, PaymentStatus, TotalWorkshops, TotalEvents, TotalGuests, PassCode FROM Participants WHERE ParticipantID = '${participantID}'`
     );
 
-    if (updParRows) {
-        return "Payment Successful";
-    }
-    return "update failed...";
-}
+    // Check If Participant Exists
+    if (parRows.length < 1) {
+        return {
+            code: 404,
+            resMessage: { message: "Participant Not Found", type: "error" }
+        }
+    } else {
+        // Check If Profile is Completed
+        if (parRows[0].ProfileStatus == 0) {
+            return {
+                code: 400,
+                resMessage: { message: "Profile Not Completed", type: "error" }
+            }
+        }
 
-async function insertPaymentRecord(
-    conn,
-    participantID,
-    passCode,
-    passAmt,
-    oldAmt,
-    isupgrade
-) {
-    const paymentID = genPaymentID(passCode);
-    console.log(paymentID);
-
-    let amount = passAmt;
-    if (isupgrade) {
-        amount = passAmt - oldAmt;
-    }
-
-    const [payrow, payfields] = await conn.execute(
-        `INSERT INTO Payments (PaymentID, ParticipantID, PassCode, OrderNo, PaymentMode, PaymentStatus, PaymentAmt) VALUES ('${paymentID}', '${participantID}', '${passCode}', 12345678, 'Online', 1, '${amount}')`
-    );
-
-    if (payrow) {
-        console.log(
-            "['PS-DJ', 'PS-C1', 'PS-C2'].includes(passCode)",
-            ["PS-DJ", "PS-C1", "PS-C2"].includes(passCode)
-        );
-
-        const [checkAtmRows, checkAtmFields] = await conn.execute(
-            `SELECT * FROM Atmos WHERE ParticipantID = '${participantID}'`
-        );
-
-        if (checkAtmRows.length > 0) {
-            if (
-                (await updateParticipants(
-                    conn,
-                    passCode,
-                    passAmt,
-                    paymentID,
-                    participantID,
-                    (kit = "1")
-                )) == "Payment Successful"
-            ) {
-                return "Done";
-            } else {
-                return "Failed";
+        // Check if new Registration or need Upgrade
+        if (parRows[0].PaymentStatus == 0) {
+            return {
+                code: 200,
+                resMessage: {
+                    message: "Buying First Pass",
+                    type: "success",
+                    payAmount: passes[selectedPassCode].Amount
+                }
             }
         } else {
-            if (["PS-DJ", "PS-C1", "PS-C2"].includes(passCode)) {
-                const [atmRow, atmFields] = await conn.execute(
-                    `INSERT INTO Atmos (ParticipantID) VALUES ('${participantID}')`
-                );
+            const parPassCode = parRows[0].PassCode;
+            const parEventCount = parRows[0].TotalEvents;
+            const parGuestCount = parRows[0].TotalGuests;
+            const parWorkshopCount = parRows[0].TotalWorkshops;
 
-                console.log(atmRow.length);
-                if (atmRow) {
-                    if (
-                        (await updateParticipants(
-                            conn,
-                            passCode,
-                            passAmt,
-                            paymentID,
-                            participantID,
-                            (kit = "1")
-                        )) == "Payment Successful"
-                    ) {
-                        return "Done";
-                    } else {
-                        return "Failed";
+            // If Both Purchased and Selected Pass are Same
+            if (parPassCode == selectedPassCode) {
+                return {
+                    code: 400,
+                    resMessage: { message: "Same Pass", type: "error" }
+                }
+            }
+
+            // If Amount of Selected Pass is Less than that of Purchased Pass
+            if (passes[parPassCode].Amount > passes[selectedPassCode].Amount) {
+                return {
+                    code: 400,
+                    resMessage: { message: "Can't Downgrade Pass", type: "error" }
+                }
+            }
+
+            // If Pass is from same categories.
+            // Eg:
+            //    PassBought is Bronze(2E and 1G) and PassSelected is Gold(4E and 2G)
+            //    PassBought is Silver(2E and 1G) and PassSelected is Gold(4E and 2G)
+            //    PassBought is Bronze(2E and 1G) and PassSelected is Combo 1(AllE and AllG + DJ)
+            if (
+                ["PS-B", "PS-S", "PS-G", "PS-C1", "PS-DJ"].includes(parPassCode) &&
+                ["PS-S", "PS-G", "PS-C1"].includes(selectedPassCode)
+            ) {
+                return {
+                    code: 200,
+                    resMessage: {
+                        message: "Upgrade Pass",
+                        type: "success",
+                        payAmount: passes[selectedPassCode].Amount - passes[parPassCode].Amount
                     }
                 }
-            } else {
-                if (
-                    (await updateParticipants(
-                        conn,
-                        passCode,
-                        passAmt,
-                        paymentID,
-                        participantID,
-                        (kit = "0")
-                    )) == "Payment Successful"
-                ) {
-                    return "Done";
+            }
+
+            // If Pass is Combo 2(AllW + DJ)
+            // Eg:
+            //    PassBought is Bronze(2E and 1G) and PassSelected is Combo2(All W)
+            //    PassBought is Combo 1(AllE and AllG + DJ) and PassSelected is Combo2(All W +DJ)
+            if (
+                ["PS-B", "PS-S", "PS-G", "PS-C1", "PS-DJ"].includes(parPassCode) &&
+                ["PS-C2"].includes(selectedPassCode)
+            ) {
+                if (parEventCount > 0 || parGuestCount > 0) {
+                    return {
+                        code: 400,
+                        resMessage: { message: "Remove Registered Events & Guest Lectures", type: "error" }
+                    }
                 } else {
-                    return "Failed";
+                    return {
+                        code: 200,
+                        resMessage: {
+                            message: "Upgrade Pass",
+                            type: "success",
+                            payAmount: passes[selectedPassCode].Amount - passes[parPassCode].Amount
+                        }
+                    }
+                }
+            }
+
+            // If Pass is DJ Pass
+            // Eg:
+            //    PassBought is Bronze, Silver or Gold and PassSelected is DJ Pass
+            if (
+                ["PS-B", "PS-S", "PS-G"].includes(parPassCode) &&
+                ["PS-DJ"].includes(selectedPassCode)
+            ) {
+                if (parEventCount > 0 || parGuestCount > 0) {
+                    return {
+                        code: 400,
+                        resMessage: { message: "Remove Registered Events & Guest Lectures", type: "error" }
+                    }
+                } else {
+                    return {
+                        code: 200,
+                        resMessage: {
+                            message: "Upgrade Pass",
+                            type: "success",
+                            payAmount: passes[selectedPassCode].Amount - passes[parPassCode].Amount
+                        }
+                    }
+                }
+            }
+
+            // If Pass is Combo 1
+            // Eg:
+            //    PassBought is Combo 2 and PassSelected is Combo 1
+            if (
+                ["PS-C2"].includes(parPassCode) &&
+                ["PS-C1"].includes(selectedPassCode)
+            ) {
+                if (parWorkshopCount > 0) {
+                    return {
+                        code: 400,
+                        resMessage: { message: "Remove Registered Workshops", type: "error" }
+                    }
+                } else {
+                    return {
+                        code: 200,
+                        resMessage: {
+                            message: "Upgrade Pass",
+                            type: "success",
+                            payAmount: passes[selectedPassCode].Amount - passes[parPassCode].Amount
+                        }
+                    }
+                }
+            }
+
+            return {
+                code: 400,
+                resMessage: { message: "Invalid Pass", type: "error" }
+            }
+        }
+    }
+}
+
+// Database Queries to commit the Buy Pass and Upgrade... ------------------------------------
+async function buyPass(conn, participantID, selectedPassCode, amount) {
+    /* 
+    Following Steps must follow to Complete the Payment Process:
+    1. INSERT into Payments table.
+    2. Check if Pass includes Atmos and insert it into if Participant is not in Atmos table..
+    3. UPDATE the Participants table with new pass if the pass is Upgrade.
+    */
+
+    const res = {
+        code: 400,
+        resMessage: { message: "", type: "error", payInsert: 0, atmos: 0, parUpdate: 0, }
+    }
+
+    const paymentID = genPaymentID(selectedPassCode);
+
+    const [insertPaymentRows, insertPaymentFields] = await conn.execute(`INSERT INTO Payments (PaymentID, ParticipantID, PassCode, OrderNo, PaymentMode, PaymentStatus, PaymentAmt) VALUES ('${paymentID}', '${participantID}', '${selectedPassCode}', 12345678, 'Online', 1, ${amount})`);
+
+    // INSERT into Payments
+    if (insertPaymentRows.length > 0) {
+
+        res.resMessage.message += "Payment";
+        res.resMessage.payInsert = 1;
+        res.resMessage.type = "success";
+        res.code = 200;
+
+        // Check if Participant has Atmos access or not?
+        const [atmosRows, atmosFields] = await conn.execute(`SELECT COUNT(ParticipantID) AS Count FROM Atmos WHERE ParticipantID = '${participantID}'`)
+
+        if (atmosRows[0].Count == 0) {
+            if (['PS-DJ', 'PS-C1', 'PS-C2'].includes(selectedPassCode)) {
+                const [atmosRows, atmosFields] = await conn.execute(`INSERT INTO Atmos (ParticipantID) VALUES ('${participantID}') `);
+
+                if (atmosRows) {
+                    res.resMessage.message += ", Atmos";
+                    res.resMessage.atmos = 1;
                 }
             }
         }
-    } else {
-        return {
-            code: 500,
-            resMessage: {
-                message: "Internal Server Error",
-            },
-        };
-    }
-}
 
-async function checkProfileStatus(conn, email) {
-    const [rows, fields] = await conn.execute(
-        `SELECT ProfileStatus FROM Participants WHERE Email = '${email}'`
-    );
-    if (rows.len > 0) {
-        if (rows[0]['ProfileStatus'] == true) {
-            return true;
-        } else {
-            return false;
+
+        // Updating the Participant's Pass and Payment Info...
+        const [parUpdateRows, parUpdateFields] = await conn.execute(`UPDATE Participants SET PassCode = '${selectedPassCode}', PaymentID = '${paymentID}', PaymentMode = 'Online', PaymentAmt = ${passes[selectedPassCode]['Amount']}, PaymentStatus = 1, Kit = ${passes[selectedPassCode]['Kit']}, DigitalPoints = ${passes[selectedPassCode]['DP']} WHERE ParticipantID = '${participantID}'`)
+
+        console.log(`UPDATE Participants SET PassCode = '${selectedPassCode}', PaymentID = '${paymentID}', PaymentMode = 'Online', PaymentStatus = 1, PaymentAmt = ${passes[selectedPassCode]['Amount']}, Kit = ${passes[selectedPassCode]['Kit']}, DigitalPoints = ${passes[selectedPassCode]['DP']} WHERE ParticipantID = '${participantID}'`)
+
+        if (parUpdateRows) {
+            res.resMessage.message += ', UpdateParticipant';
+            res.resMessage.parUpdate = 1;
         }
+
+        console.log(res);
+        return res;
     } else {
-        return false;
-    }
-}
-
-async function buyPass(conn, passCode, email) {
-
-    // Checking whether Profile is done or not.
-    if (!checkProfileStatus(conn, email)) {
-        return 'Profile is not set...';
-    }
-
-
-    // Fetching the ParticipantID to insert it into Payments and Atmos table according to Passes.
-    const [parRows, parfields] = await conn.execute(
-        `SELECT ParticipantID, PaymentStatus, PaymentAmt FROM Participants WHERE Email = '${email}'`
-    );
-
-    const participantID = parRows[0]["ParticipantID"];
-    console.log(participantID);
-
-    const [passRows, passFields] = await conn.execute(
-        `SELECT PassAmt FROM Passes WHERE PassCode = '${passCode}'`
-    );
-
-    if (parRows.length > 0 && passRows.length > 0) {
-        const passAmt = passRows[0]["PassAmt"];
-        console.log(passAmt);
-
-        console.log(
-            "parRows[0]['PaymentStatus'] == true && parRows[0]['PaymentAmt'] > 0",
-            parRows[0]["PaymentStatus"] == true && parRows[0]["PaymentAmt"] > 0
-        );
-
-        if (
-            parRows[0]["PaymentStatus"] == true &&
-            parRows[0]["PaymentAmt"] >= passAmt
-        ) {
-            return "You can't Upgrade to Low Passes";
-        } else if (
-            parRows[0]["PaymentStatus"] == true &&
-            parRows[0]["PaymentAmt"] < passAmt
-        ) {
-            if (
-                await insertPaymentRecord(
-                    conn,
-                    participantID,
-                    passCode,
-                    passAmt,
-                    parRows[0]["PaymentAmt"],
-                    true
-                )
-            ) {
-                return "done";
-            }
-            return;
-        } else {
-            console.log("Assume Online Payment Done");
-
-            if (
-                await insertPaymentRecord(
-                    conn,
-                    participantID,
-                    passCode,
-                    passAmt,
-                    0,
-                    false
-                )
-            ) {
-                return "done";
-            }
-        }
-    } else {
-        return "User Doesn't Exist";
+        res.resMessage.message = "Payment Failed";
+        return res;
     }
 }
 
 module.exports = {
+    checkBuyPass,
     buyPass,
 };
