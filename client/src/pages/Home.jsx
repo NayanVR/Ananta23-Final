@@ -5,6 +5,7 @@ import { signOut } from "firebase/auth"
 import { auth } from "../firebase"
 import Ellipse from '../assets/ellipse.svg'
 import Stats from '../components/Stats'
+import AboutUs from '../components/AboutUs'
 
 function Home() {
 
@@ -70,6 +71,9 @@ function Home() {
 
             {/* Stats */}
             <Stats />
+
+            {/* About us */}
+            <AboutUs />
         </>
     )
 }

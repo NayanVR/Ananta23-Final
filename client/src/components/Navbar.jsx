@@ -15,7 +15,7 @@ function Navbar() {
                     <img src={AnantaLogo} alt="NayanVR Logo" />
                 </div>
                 <div className="nav__links">
-                    <a href="">Home</a>
+                    <a href="/">Home</a>
                     <a href="">Events</a>
                     <a href="/buypass">Buy a Pass</a>
                     <a href="">Digital Points</a>
