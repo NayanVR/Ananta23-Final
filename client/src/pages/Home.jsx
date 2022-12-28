@@ -6,13 +6,14 @@ import { auth } from "../firebase"
 import Ellipse from '../assets/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
+import Events from '../components/Events'
 
 function Home() {
 
     const { currentUser } = useContext(AuthContext)
     const wH = window.innerHeight
 
-    const [mousePos, setMousePos] = useState({});
+    const [mousePos, setMousePos] = useState({ x: 0, y: wH/2});
 
     useEffect(() => {
         const handleMouseMove = (event) => {
@@ -74,6 +75,9 @@ function Home() {
 
             {/* About us */}
             <AboutUs />
+
+            {/* Events */}
+            <Events />
         </>
     )
 }
