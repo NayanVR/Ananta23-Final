@@ -39,7 +39,7 @@ function Events() {
     return (
         <section id='events'>
             <div className='w-full flex justify-center items-center px-32'>
-                <div className='flex justify-between flex-wrap'>
+                <div className='flex justify-between flex-wrap gap-12'>
                     {events.map((item) => <EventChip title={item.title} desc={item.desc} link={item.link} />)}
                 </div>
             </div>
