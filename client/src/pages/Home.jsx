@@ -7,6 +7,7 @@ import Ellipse from '../assets/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
+import toast from 'react-hot-toast';
 
 function Home() {
 
@@ -67,7 +68,8 @@ function Home() {
                     FUTURE
                 </h1>
                 <p className='my-2'>Coming soon</p>
-                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => signOut(auth)}>Logout</button>
+                {/* <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Logout</button> */}
+                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { toast("Helloooooooooooooo") }}>Logout</button>
             </section>
 
             {/* Stats */}

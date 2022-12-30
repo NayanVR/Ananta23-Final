@@ -63,68 +63,72 @@ function BuyPass() {
         const amt = await check.payAmount
         console.log(check);
 
-        if (check.message == "Profile Not Completed") {
-            window.location.href = "/profile";
-        } else if (check.message == "Buying First Pass") {
-            const res = await fetch(serverURL + "/api/secure/pass/buy", {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + currentUser["accessToken"],
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ PID, passCode, amt }),
-            });
-            const data = await res.json();
-            console.log(data);
-        } else if (check.message == "Same Pass") {
-        } else if (check.message == "Remove Registered Events & Guest Lectures") {
-        } else if (check.message == "Can't Downgrade Pass") {
-        } else if (check.message == "Remove Registered Workshops") {
-        } else if (check.message == "Event&Guest/Upgrade") {
-            const res = await fetch(serverURL + "/api/secure/pass/buy", {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + currentUser["accessToken"],
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ PID, passCode, amt }),
-            });
-            const data = await res.json();
-            console.log(data);
-        } else if (check.message == "Event&Guest/C2") {
-            const res = await fetch(serverURL + "/api/secure/pass/buy", {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + currentUser["accessToken"],
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ PID, passCode, amt }),
-            });
-            const data = await res.json();
-            console.log(data);
-        } else if (check.message == "Event&Guest/DJ") {
-            const res = await fetch(serverURL + "/api/secure/pass/buy", {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + currentUser["accessToken"],
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ PID, passCode, amt }),
-            });
-            const data = await res.json();
-            console.log(data);
-        } else if (check.message == "Combos") {
-            const res = await fetch(serverURL + "/api/secure/pass/buy", {
-                method: "POST",
-                headers: {
-                    Authorization: "Bearer " + currentUser["accessToken"],
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ PID, passCode, amt }),
-            });
-            const data = await res.json();
-            console.log(data);
+        if (check.type === "error") {
+            
         }
+
+        // if (check.message == "Profile Not Completed") {
+        //     window.location.href = "/profile";
+        // } else if (check.message == "Buying First Pass") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Same Pass") {
+        // } else if (check.message == "Remove Registered Events & Guest Lectures") {
+        // } else if (check.message == "Can't Downgrade Pass") {
+        // } else if (check.message == "Remove Registered Workshops") {
+        // } else if (check.message == "Event&Guest/Upgrade") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Event&Guest/C2") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Event&Guest/DJ") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Combos") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // }
     }
 
     return (
