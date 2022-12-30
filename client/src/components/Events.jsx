@@ -38,7 +38,10 @@ function Events() {
 
     return (
         <section id='events'>
-            <div className='w-full flex justify-center items-center px-[10%] my-12'>
+            <div className='w-full flex flex-col justify-center items-center px-[10%] my-8'>
+                <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                    Events
+                </h1>
                 <div className='flex justify-between flex-wrap gap-12'>
                     {events.map((item, index) => <EventChip title={item.title} desc={item.desc} link={item.link} key={index} />)}
                 </div>

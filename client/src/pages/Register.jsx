@@ -68,7 +68,7 @@ function Register() {
     }
 
     return (
-        <section className='flex justify-center items-center w-full h-[calc(100vh-8rem)]'>
+        <section className='flex justify-center items-center w-full h-[calc(100vh-6rem)]'>
             <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
                 <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                     Register
@@ -81,6 +81,7 @@ function Register() {
                             <input onChange={e => setPassword(e.target.value)} value={password} type="password" required placeholder="Password" className='px-4 py-2 border rounded-md' />
 
                             <button type='submit' className='py-2 bg-primary-dark-1 text-white rounded-md'>Next</button>
+                            <a className='self-start text-primary' href="/login">Already have an account?</a>
                         </form>
                         :
                         <form onSubmit={handleOTPSubmit} className="flex flex-col w-full gap-4">

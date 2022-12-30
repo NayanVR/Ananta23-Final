@@ -81,6 +81,15 @@ function Home() {
 
             {/* Events */}
             <Events />
+
+            <section id="aftermovie">
+                <div className="w-full flex flex-col justify-center items-center px-8 py-8">
+                    <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                        Aftermovie
+                    </h1>
+                    <iframe className='w-full sm:w-2/3 max-w-3xl h-auto aspect-video' src="https://www.youtube.com/embed/E1twFXK5aC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
         </>
     )
 }
