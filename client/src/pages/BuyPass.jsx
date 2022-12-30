@@ -1,8 +1,14 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from "../contexts/AuthContext";
+import { toast } from 'react-hot-toast';
 import PassCard from '../components/PassCard'
 import goldMark from '../assets/Gold_mark.svg'
+import silverMark from '../assets/Silver_mark.svg'
+import bronzeMark from '../assets/Bronze_mark.svg'
+import comboMark from '../assets/Combo_mark.svg'
+import combo2Mark from '../assets/Combo2_mark.svg'
+import djMark from '../assets/Dj_mark.svg'
 
 function BuyPass() {
 
@@ -15,17 +21,70 @@ function BuyPass() {
             id: "PS-G",
             name: "GOLD",
             markImg: goldMark,
-            price: 30,
-            features: ["Pratham", "Nishant", "Nayan", "Ashish"],
+            price: 300,
+            features: [
+                "Access to All Events (INERTIA & SWOOSH)",
+                "Access to All Guest Lectures",
+                "Access to Zingaat : Cultural Events (Zingaat)",
+                "500 Digital Wallet Points"
+            ],
             color: "#FFDF00"
         },
         {
             id: "PS-S",
             name: "SILVER",
-            markImg: goldMark,
-            price: 20,
-            features: ["Pratham", "Nayan", "Ashish"],
+            markImg: silverMark,
+            price: 250,
+            features: [
+                "Access to any 3 Events (INERTIA & SWOOSH)",
+                "Access to any 2 Guest Lectures",
+                "Access to Zingaat : Cultural Events (Zingaat)",
+                "300 Digital Wallet Points"
+            ],
             color: "#C0C0C0"
+        },
+        {
+            id: "PS-B",
+            name: "BRONZE",
+            markImg: bronzeMark,
+            price: 200,
+            features: [
+                "Access to any 2 Events (INERTIA & SWOOSH)",
+                "Access to any 1 Guest Lecture",
+                "Access to Zingaat : Cultural Events (Zingaat)",
+                "100 Digital Wallet Points"
+            ],
+            color: "#CD7F32"
+        },
+        {
+            id: "PS-DJ",
+            name: "ATMOS",
+            markImg: djMark,
+            price: 450,
+            features: [
+                "A night to groove on EDM beats. A spectacle not to MISS OUT!"
+            ],
+            color: "#88D20F"
+        },
+        {
+            id: "PS-C1",
+            name: "COMBO",
+            markImg: comboMark,
+            price: 550,
+            features: [
+                "All benefits of GOLD & ATMOS Pass"
+            ],
+            color: "#FFDF00"
+        },
+        {
+            id: "PS-C2",
+            name: "COMBO+",
+            markImg: combo2Mark,
+            price: 550,
+            features: [
+                "Access to all workshop & ATMOS Pass"
+            ],
+            color: "#4B9DFD"
         }
     ]
 
@@ -51,7 +110,7 @@ function BuyPass() {
         console.log(check);
 
         if (check.type === "error") {
-            
+            toast.error(check.message, { duration: 3000 })
         }
 
         // if (check.message == "Profile Not Completed") {
@@ -119,7 +178,7 @@ function BuyPass() {
     }
 
     return (
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap justify-center items-center gap-8 my-16'>
             {
                 passes.map((pass, index) => <PassCard buyClick={handleBuyClick} passInfo={pass} key={index} />)
             }

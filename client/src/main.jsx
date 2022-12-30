@@ -9,7 +9,6 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Profile from './pages/Profile.jsx'
-import Profilep from './pages/Profilep.jsx'
 import BuyPass from './pages/BuyPass';
 import { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer';
@@ -25,7 +24,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-          <Route path="/pro" element={<Profilep />} />
           <Route path="/buypass" element={<BuyPass />} />
         </Routes>
       </BrowserRouter>

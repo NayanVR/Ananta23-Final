@@ -3,6 +3,7 @@ import { useState } from 'react'
 import googleLogo from '../assets/google_icon.svg'
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../firebase"
+import { toast } from 'react-hot-toast'
 
 function Login() {
 
@@ -32,8 +33,10 @@ function Login() {
         const photoURL = res.user.photoURL;
         const data = await createProfile(email, photoURL)
         console.log(data);
-        if (data.isProfileCreated) {
+        if (data.type === "success") {
             window.location.href = "/"
+        } else {
+            toast.error(data.message, { duration: 3000 })
         }
         // .then((result) => {
         //     const user = result.user;

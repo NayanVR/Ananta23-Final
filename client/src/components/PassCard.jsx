@@ -2,7 +2,7 @@ import React from 'react'
 
 function PassCard({ passInfo, buyClick }) {
   return (
-    <div style={{ borderColor: passInfo.color }} className='w-80 px-8 pb-6 flex flex-col items-center justify-between gap-4 bg-primary-light-3 border-4 rounded-2xl'>
+    <div style={{ borderColor: passInfo.color }} className='w-80 mx-4 px-8 pb-6 flex flex-col items-center justify-between gap-4 bg-primary-light-3 border-4 rounded-2xl'>
       <div className='w-full h-max flex justify-between items-center'>
         <h1 style={{ color: passInfo.color }} className='font-heading font-black text-2xl text-[#FFDF00]'>
           {passInfo.name}
@@ -11,7 +11,7 @@ function PassCard({ passInfo, buyClick }) {
         <img className='h-20' src={passInfo.markImg} alt="Gold Pass" />
       </div>
       <div>
-        <h1 className='text-2xl font-bold'>
+        <h1 className='text-2xl text-center font-bold'>
           ₹ {passInfo.price}
         </h1>
         <ul className='text-center'>

@@ -26,11 +26,20 @@ module.exports = {
         wiggleRight: {
           '0%, 100%': { transform: 'translateX(30%) translateY(-50%)' },
           '50%': { transform: 'translateX(-30%) translateY(-50%)' },
+        },
+        aboutAnim: {
+          '0%': {
+            transform: 'translateX(50%) translateY(-50%) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translateX(50%) translateY(-50%) rotate(360deg)',
+          }
         }
       },
       animation: {
         wiggleLeft: 'wiggleLeft 3s ease-in-out infinite',
         wiggleRight: 'wiggleRight 3s ease-in-out infinite',
+        aboutAnim: 'aboutAnim 30s linear infinite',
       }
     },
   },

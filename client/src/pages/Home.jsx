@@ -1,6 +1,5 @@
 import React from 'react'
-import { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../contexts/AuthContext'
+import { useEffect, useState } from 'react'
 import { signOut } from "firebase/auth"
 import { auth } from "../firebase"
 import Ellipse from '../assets/ellipse.svg'
@@ -8,13 +7,13 @@ import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
 import toast from 'react-hot-toast';
+import MajorUSP from '../components/MajorUSP'
 
 function Home() {
 
-    const { currentUser } = useContext(AuthContext)
     const wH = window.innerHeight
 
-    const [mousePos, setMousePos] = useState({ x: 0, y: wH/2});
+    const [mousePos, setMousePos] = useState({ x: 0, y: wH / 2 });
 
     useEffect(() => {
         const handleMouseMove = (event) => {
@@ -68,8 +67,7 @@ function Home() {
                     FUTURE
                 </h1>
                 <p className='my-2'>Coming soon</p>
-                {/* <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Logout</button> */}
-                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { toast("Helloooooooooooooo") }}>Logout</button>
+                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
             </section>
 
             {/* Stats */}
@@ -77,6 +75,9 @@ function Home() {
 
             {/* About us */}
             <AboutUs />
+
+            {/* Major USPs */}
+            <MajorUSP />
 
             {/* Events */}
             <Events />
