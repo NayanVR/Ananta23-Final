@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from "../contexts/AuthContext";
 import PassCard from '../components/PassCard'
+import goldMark from '../assets/Gold_mark.svg'
 
 function BuyPass() {
 
@@ -11,34 +12,20 @@ function BuyPass() {
 
     const passes = [
         {
-            name: "Bronze",
-            price: 10,
-            id: "PS-B"
-        },
-        {
-            name: "Silver",
-            price: 20,
-            id: "PS-S"
-        },
-        {
-            name: "Gold",
+            id: "PS-G",
+            name: "GOLD",
+            markImg: goldMark,
             price: 30,
-            id: "PS-G"
+            features: ["Pratham", "Nishant", "Nayan", "Ashish"],
+            color: "#FFDF00"
         },
         {
-            name: "Combo 1",
-            price: 40,
-            id: "PS-C1"
-        },
-        {
-            name: "Combo 2",
-            price: 50,
-            id: "PS-C2"
-        },
-        {
-            name: "Atmos",
-            price: 40,
-            id: "PS-DJ"
+            id: "PS-S",
+            name: "SILVER",
+            markImg: goldMark,
+            price: 20,
+            features: ["Pratham", "Nayan", "Ashish"],
+            color: "#C0C0C0"
         }
     ]
 

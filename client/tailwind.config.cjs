@@ -16,6 +16,7 @@ module.exports = {
         'primary-dark-2': '#022539',
         'primary-light-1': '#78BDC4',
         'primary-light-2': '#A5D9D5',
+        'primary-light-3': '#F2FFFE'
       },
       keyframes: {
         wiggleLeft: {
