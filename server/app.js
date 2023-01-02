@@ -97,7 +97,7 @@ app.post('/api/secure/update-profile', async (req, res) => {
 app.get('/api/secure/get-profile', async (req, res) => {
     const email = req.user.email;
 
-    const [rows, f] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
+    const [rows, f] = await conn.execute(`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, Gender, DOB, City, State, ContactNo, University, Branch, StudyYear, Email, DigitalPoints FROM Participants WHERE Email = '${email}';`)
 
     if (rows.length === 0) {
         return res.status(404).json({ message: {}, type: "error" })

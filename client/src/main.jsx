@@ -10,11 +10,14 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Profile from './pages/Profile.jsx'
 import BuyPass from './pages/BuyPass';
+import { Toaster } from 'react-hot-toast';
+import Footer from './components/Footer';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
       <Navbar />
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -24,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/buypass" element={<BuyPass />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </AuthProvider>
   </React.StrictMode>
 )

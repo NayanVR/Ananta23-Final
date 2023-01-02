@@ -3,6 +3,7 @@ import { useState } from 'react'
 import googleLogo from '../assets/google_icon.svg'
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../firebase"
+import { toast } from 'react-hot-toast'
 
 function Login() {
 
@@ -32,8 +33,10 @@ function Login() {
         const photoURL = res.user.photoURL;
         const data = await createProfile(email, photoURL)
         console.log(data);
-        if (data.isProfileCreated) {
+        if (data.type === "success") {
             window.location.href = "/"
+        } else {
+            toast.error(data.message, { duration: 3000 })
         }
         // .then((result) => {
         //     const user = result.user;
@@ -61,7 +64,7 @@ function Login() {
     }
 
     return (
-        <section className='flex justify-center items-center w-full h-[calc(100vh-8rem)]'>
+        <section className='flex justify-center items-center w-full h-[calc(100vh-6rem)]'>
             <div className='flex flex-col w-full max-w-md items-center gap-4 px-8'>
                 <h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                     Login
@@ -74,6 +77,7 @@ function Login() {
 
                     <button type='submit' className='py-2 bg-primary-dark-1 text-white rounded-md'>Login</button>
                 </form>
+                <a className='self-start text-primary' href="/register">Don't have an account?</a>
                 <div className='flex row items-center w-full gap-2 text-gray-400'>
                     <span className='h-px w-full bg-gray-300'></span>
                     OR

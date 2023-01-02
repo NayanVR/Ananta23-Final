@@ -1,20 +1,19 @@
 import React from 'react'
-import { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../contexts/AuthContext'
+import { useEffect, useState } from 'react'
 import { signOut } from "firebase/auth"
 import { auth } from "../firebase"
 import Ellipse from '../assets/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
-import EventCard from '../components/EventCard'
+import toast from 'react-hot-toast';
+import MajorUSP from '../components/MajorUSP'
 
 function Home() {
 
-    const { currentUser } = useContext(AuthContext)
     const wH = window.innerHeight
 
-    const [mousePos, setMousePos] = useState({ x: 0, y: wH/2});
+    const [mousePos, setMousePos] = useState({ x: 0, y: wH / 2 });
 
     useEffect(() => {
         const handleMouseMove = (event) => {
@@ -68,7 +67,7 @@ function Home() {
                     FUTURE
                 </h1>
                 <p className='my-2'>Coming soon</p>
-                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => signOut(auth)}>Logout</button>
+                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
             </section>
 
             {/* Stats */}
@@ -77,12 +76,20 @@ function Home() {
             {/* About us */}
             <AboutUs />
 
+            {/* Major USPs */}
+            <MajorUSP />
+
             {/* Events */}
             <Events />
-            
-            {/* Event card */}
-            <EventCard />
 
+            <section id="aftermovie">
+                <div className="w-full flex flex-col justify-center items-center px-8 py-8">
+                    <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                        Aftermovie
+                    </h1>
+                    <iframe className='w-full sm:w-2/3 max-w-3xl h-auto aspect-video' src="https://www.youtube.com/embed/E1twFXK5aC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
         </>
     )
 }

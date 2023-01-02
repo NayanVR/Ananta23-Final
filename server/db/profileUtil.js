@@ -6,12 +6,13 @@ async function createProfile(conn, email, googleAuth, profileImg) {
     const [checkRows, checkFields] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
 
     if (checkRows.length > 0) {
+        //!TODO handle if user's log in method is email&pass
         if (checkRows[0].GoogleAuth === 0 && googleAuth === 'TRUE') {
             // update info if user is migrating account to google
             const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`)
             return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };
         } else {
-            return { code: 200, resMessage: { message: "Please Login with google", type: "info" } };
+            return { code: 200, resMessage: { message: "Login with google", type: "success" } };
         }
     } else {
 
@@ -43,7 +44,7 @@ async function createProfile(conn, email, googleAuth, profileImg) {
 async function updateProfile(conn, email, body) {
     const { fName, lName, contactNo, uniName, branch, year, dob, gender, city, state } = body;
 
-    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', UniversityName='${uniName}', Branch='${branch}', StudyYear='${year}', DOB='${dob}', Gender='${gender}', City='${city}', State='${state}' WHERE Email = '${email}';`)
+    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', University='${uniName}', Branch='${branch}', StudyYear='${year}', DOB='${dob}', Gender='${gender}', City='${city}', State='${state}' WHERE Email = '${email}';`)
 
     if (rows) {
         return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };

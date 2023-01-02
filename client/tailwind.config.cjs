@@ -16,6 +16,7 @@ module.exports = {
         'primary-dark-2': '#022539',
         'primary-light-1': '#78BDC4',
         'primary-light-2': '#A5D9D5',
+        'primary-light-3': '#F2FFFE'
       },
       keyframes: {
         wiggleLeft: {
@@ -25,11 +26,20 @@ module.exports = {
         wiggleRight: {
           '0%, 100%': { transform: 'translateX(30%) translateY(-50%)' },
           '50%': { transform: 'translateX(-30%) translateY(-50%)' },
+        },
+        aboutAnim: {
+          '0%': {
+            transform: 'translateX(50%) translateY(-50%) rotate(0deg)',
+          },
+          '100%': {
+            transform: 'translateX(50%) translateY(-50%) rotate(360deg)',
+          }
         }
       },
       animation: {
         wiggleLeft: 'wiggleLeft 3s ease-in-out infinite',
         wiggleRight: 'wiggleRight 3s ease-in-out infinite',
+        aboutAnim: 'aboutAnim 30s linear infinite',
       }
     },
   },
