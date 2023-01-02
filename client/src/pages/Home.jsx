@@ -7,6 +7,7 @@ import Ellipse from '../assets/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
+import EventCard from '../components/EventCard'
 
 function Home() {
 
@@ -78,6 +79,10 @@ function Home() {
 
             {/* Events */}
             <Events />
+            
+            {/* Event card */}
+            <EventCard />
+
         </>
     )
 }
