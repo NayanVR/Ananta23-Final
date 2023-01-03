@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Profile from './pages/Profile.jsx'
+import Pro from './pages/Pro.jsx'
 import BuyPass from './pages/BuyPass';
 import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
+          <Route path="/pro" element={<Pro />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
         </Routes>
