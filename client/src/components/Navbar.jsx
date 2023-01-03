@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
-import AnantaLogo from '../assets/ananta_logo.svg'
+import AnantaLogo from '../assets/logos/ananta_logo.svg'
 import profileIcon from '../assets/icons/Profile.svg'
 import '../navbar.css'
 
