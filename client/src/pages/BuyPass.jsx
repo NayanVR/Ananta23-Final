@@ -3,12 +3,12 @@ import { useContext } from 'react'
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from 'react-hot-toast';
 import PassCard from '../components/PassCard'
-import goldMark from '../assets/Gold_mark.svg'
-import silverMark from '../assets/Silver_mark.svg'
-import bronzeMark from '../assets/Bronze_mark.svg'
-import comboMark from '../assets/Combo_mark.svg'
-import combo2Mark from '../assets/Combo2_mark.svg'
-import djMark from '../assets/Dj_mark.svg'
+import goldMark from '../assets/icons/Gold_mark.svg'
+import silverMark from '../assets/icons/Silver_mark.svg'
+import bronzeMark from '../assets/icons/Bronze_mark.svg'
+import comboMark from '../assets/icons/Combo_mark.svg'
+import combo2Mark from '../assets/icons/Combo2_mark.svg'
+import djMark from '../assets/icons/Dj_mark.svg'
 
 function BuyPass() {
 

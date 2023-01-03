@@ -39,7 +39,7 @@ function Profile() {
         })
     }
 
-    if (!profile.ProfileStatus) {
+    if (JSON.parse(profile).ProfileStatus === 1) {
         return <Dashboard profile={profile} />;
     } else {
         return (

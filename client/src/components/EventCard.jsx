@@ -10,8 +10,11 @@ function EventCard() {
         <p>
           Science, technology, engineering and mathematics are the four basic topics we see around ourselves everyday. Bring out working models, business models and prototypes to display your ideas and potential talent.
         </p>
-        <button type='submit' className='py-2 bg-primary-dark-1 text-white rounded-md'>
+        <button type='submit' className='py-2 px-4 bg-primary-dark-1 text-white rounded-md'>
           Register Now
+        </button>
+        <button type='submit' className='py-2 px-4 ml-4 text-primary-dark-1 bg-white border-primary-dark-1 border rounded-md'>
+          View Details
         </button>
       </div>
       <div className='flex-[1]'>

@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
-import { useEffect } from 'react'
 
 function Register() {
 

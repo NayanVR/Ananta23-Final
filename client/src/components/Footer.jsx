@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import AnantaLogo from '../assets/ananta_logo.svg'
-import GSFCULogo from '../assets/GSFCU_logo.svg'
-import Twitter from '../assets/Twitter_icon.svg'
-import Instagram from '../assets/Insta_icon.svg'
-import WhatsApp from '../assets/Whatsapp_icon.svg'
-import Facebook from '../assets/Facebook_icon.svg'
-import Location from '../assets/Location_icon.svg'
+import AnantaLogo from '../assets/icons/ananta_logo.svg'
+import GSFCULogo from '../assets/icons/GSFCU_logo.svg'
+import Twitter from '../assets/icons/Twitter_icon.svg'
+import Instagram from '../assets/icons/Insta_icon.svg'
+import WhatsApp from '../assets/icons/Whatsapp_icon.svg'
+import Facebook from '../assets/icons/Facebook_icon.svg'
+import Location from '../assets/icons/Location_icon.svg'
 
 function Footer() {
 

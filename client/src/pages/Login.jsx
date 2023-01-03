@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import googleLogo from '../assets/google_icon.svg'
+import googleLogo from '../assets/icons/google_icon.svg'
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../firebase"
 import { toast } from 'react-hot-toast'
