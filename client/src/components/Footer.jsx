@@ -18,6 +18,7 @@ function Footer() {
   }
 
   return (
+    <div>
     <footer className='bg-primary-light-3 border-primary border-t-[1px] flex justify-center items-center flex-wrap py-16 px-24 gap-8 h-max w-full'>
       <div className='min-w-[18rem] max-w-xl w-full flex-1'>
         <h2 className='font-heading font-bold text-2xl text-primary md:text-left text-center'>Address</h2>
@@ -28,6 +29,7 @@ function Footer() {
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
           Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
         </p>
+       
       </div>
       <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
         <img className='w-2/3' src={GSFCULogo} alt="Gsfcu Logo" />
@@ -57,8 +59,17 @@ function Footer() {
           <textarea onChange={e => setQuery(e.target.value)} value={query} placeholder="Type your query" className='px-4 py-2 h-24 border resize-none' style={{ scrollbarWidth: 'thin' }} required name="query"></textarea>
           <button className='py-2 bg-primary-dark-1 text-white rounded-b-lg' type="submit">SUBMIT</button>
         </form>
+        <div className='flex'>
+     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">Privacy Policy&nbsp;</a>
+     
+     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy&nbsp;</a>
+    
+     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy</a>
+   </div>
       </div>
     </footer>
+    
+   </div>
   )
 }
 

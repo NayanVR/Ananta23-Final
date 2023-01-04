@@ -14,6 +14,7 @@ import Pro from './pages/Pro.jsx'
 import BuyPass from './pages/BuyPass';
 import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/pro" element={<Pro />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
       <Footer />

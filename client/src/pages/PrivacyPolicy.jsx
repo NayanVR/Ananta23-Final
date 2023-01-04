@@ -1,0 +1,23 @@
+import React from 'react'
+
+function PrivacyPolicy() {
+  return (
+    <div>
+        <div className='w-full h-max py-20 bg-gradient-to-b from-primary-light-1 to-primary'>
+            <h2 className='text-4xl font-heading font-bold text-white text-center'>
+                Privacy Policy
+            </h2>
+        </div>
+        <div className='py-20 px-[10%] text-xl flex flex-col gap-12 text-justify'>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, delectus numquam sunt suscipit laudantium, similique, quasi dolorum sequi autem corrupti iure ipsa dolores asperiores odit. Iusto, praesentium dicta corporis eligendi, unde odit omnis dolor dignissimos at delectus tempora expedita? Maxime voluptates iusto dignissimos eaque blanditiis, molestiae ipsum deserunt! Esse quasi natus amet doloremque voluptates suscipit ab, repudiandae ducimus in molestiae, aperiam optio cum pariatur enim adipisci corrupti tempore voluptatum deserunt reprehenderit deleniti quidem? Minus assumenda eligendi veritatis animi quibusdam libero molestiae doloribus. Itaque architecto cupiditate facere assumenda id minus possimus nam! Possimus voluptatibus, provident ipsum voluptatum eveniet velit perspiciatis! Officia unde magni alias modi cumque amet eius illo doloribus, beatae non eaque commodi perspiciatis, minima ratione veniam repellendus obcaecati reprehenderit assumenda provident quam ullam deleniti. Exercitationem libero eaque quibusdam hic dolor? Odio, atque nesciunt cupiditate iste tempora dolore? Laudantium sunt tenetur repudiandae deserunt porro numquam corrupti necessitatibus, similique quod mollitia facere hic nostrum eligendi dolorem eos quia adipisci nisi fuga ab provident, cum quis. Corrupti, dignissimos odio aut magni neque adipisci voluptate eveniet perferendis quod nesciunt! Laudantium magnam voluptatem sit expedita deserunt ad, quod molestiae ipsum minima repudiandae deleniti distinctio magni reiciendis incidunt earum possimus, non ex adipisci ea reprehenderit!    
+            </p>
+            <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam laudantium eius tempore deleniti fugiat vero ad, voluptates sequi nam sed alias molestiae. Necessitatibus quasi iste quod ex nemo ea cupiditate placeat quis accusantium libero soluta, ipsum voluptatibus rerum accusamus ad molestiae sequi ab eius, fugit at repudiandae debitis numquam totam non? Optio, esse. Aut pariatur, nam ea doloremque architecto reprehenderit quam perferendis minus, facilis ipsum inventore harum, molestias velit consequuntur. Laborum sunt, mollitia dolorum qui culpa temporibus ducimus perferendis suscipit necessitatibus quod expedita omnis, fuga explicabo iusto asperiores doloremque maxime ipsa obcaecati, placeat doloribus molestias! Culpa, porro ut voluptatum et dignissimos, eius expedita pariatur rem veniam maxime corporis distinctio aliquid! Corrupti culpa explicabo delectus nihil suscipit iusto tempore recusandae nobis in natus tempora, repellat, modi dicta fuga maiores a reiciendis exercitationem illo eaque facere tenetur porro. Exercitationem, magnam sunt possimus illum a maxime ratione voluptate, ab iste quis necessitatibus recusandae est. Iure perferendis odit modi magni ratione perspiciatis recusandae temporibus molestiae voluptas dolorem, ab autem molestias quaerat officiis optio! Sequi qui quaerat ratione ea fugiat? Facilis animi reprehenderit ab doloribus, omnis veniam expedita velit debitis fugiat harum iure quasi quod alias itaque iste atque ad temporibus consequatur eos. Asperiores voluptatum id omnis consectetur atque nesciunt dicta doloremque ab facilis ipsa! Voluptas rem odit tempora doloremque magnam ducimus quo suscipit, aut doloribus autem porro, maxime accusamus assumenda necessitatibus nostrum officiis deserunt tenetur amet esse. Maxime tenetur mollitia repudiandae porro expedita reiciendis tempora esse aut tempore odio. Aliquid ipsam esse, ipsa aliquam eos laudantium dolorem. Eligendi amet laboriosam eius voluptas labore ex cum cupiditate, sapiente ab iusto rerum? Ea eaque iusto laborum alias qui voluptates perferendis adipisci unde sit sunt expedita, dignissimos in, aut ducimus eveniet maiores aspernatur tenetur! Sequi iusto, architecto dicta voluptatum ab optio aliquid mollitia. Repellendus vel suscipit optio.    
+            </p>
+        </div>
+    </div>
+  )
+}
+
+export default PrivacyPolicy
