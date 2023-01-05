@@ -22,13 +22,13 @@ function MajorUSP() {
                     <Lottie animationData={animationData} loop={true} />
                 </div>
                 <div className='flex-1'>
-                    <h1 className=' text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                    <h1 className='text-center md:text-left text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                         MAJOR USP
                     </h1>
                     <ul className='mt-8 list-disc'>
                         {
                             points.map((point, index) => (
-                                <li className='text-primary-dark-2 text-lg mt-2' key={index}>{point}</li>
+                                <li className='text-justify md:text-left text-primary-dark-2 text-lg mt-2' key={index}>{point}</li>
                             ))
                         }
                     </ul>

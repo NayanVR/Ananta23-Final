@@ -34,9 +34,43 @@ nav .nav__links {
   gap: 3rem;
 }
 
+nav + .nav__mob__links {
+  display: none;
+}
+
 nav .nav__links a {
   font-size: 1rem;
   color: #000;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: var(--primary) solid 1px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 nav .nav__toggle {
@@ -56,28 +90,33 @@ nav .nav__toggle {
     order: 3;
   }
 
-  nav .nav__links {
-    position: absolute;
+  nav + .nav__mob__links {
+    position: fixed;
     top: -50rem;
     left: 0;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     scrollbar-width: none;
+    z-index: 1000;
     width: 100%;
     height: calc(100vh - 4rem);
     overflow-y: auto;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     gap: 0;
     transition: top 0.5s;
   }
 
-  nav .nav__links::-webkit-scrollbar {
+  nav .nav__links {
+    display: none;
+  }
+
+  nav + .nav__mob__links::-webkit-scrollbar {
     width: 0;
   }
 
-  nav .nav__links a {
+  nav + .nav__mob__links a {
     padding: 1.5rem 0;
     width: 100%;
     height: max-content;
@@ -126,22 +165,22 @@ nav .nav__toggle {
     top: 0.5rem;
   }
 
-  nav .nav[data-is-open="true"] .nav__links {
+  nav[data-is-open="true"] + .nav__mob__links {
     top: calc(4rem + 1px);
   }
 
-  nav .nav[data-is-open="true"] .nav__toggle__bars {
+  nav[data-is-open="true"] .nav__toggle__bars {
     background-color: transparent;
   }
 
-  nav .nav[data-is-open="true"] .nav__toggle__bars::before {
+  nav[data-is-open="true"] .nav__toggle__bars::before {
     top: 0;
     left: 0;
     width: 1.5rem;
     transform: rotate(135deg);
   }
 
-  nav .nav[data-is-open="true"] .nav__toggle__bars::after {
+  nav[data-is-open="true"] .nav__toggle__bars::after {
     top: 0;
     left: 0;
     width: 1.5rem;

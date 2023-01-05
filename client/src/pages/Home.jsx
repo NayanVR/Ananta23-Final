@@ -57,13 +57,13 @@ function Home() {
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 right-44 animate-wiggleRight' />
 
                 <div className='text-center'>
-                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
                         BONDING
                     </h1>
-                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
                         BEYOND
                     </h1>
-                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                         BOUNDARIES
                     </h1>
                 </div>
