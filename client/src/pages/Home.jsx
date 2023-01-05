@@ -67,7 +67,7 @@ function Home() {
                     FUTURE
                 </h1>
                 <p className='my-2'>Coming soon</p>
-                <button className='py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
+                <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 overflow-hidden py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
             </section>
 
             {/* Stats */}
