@@ -29,14 +29,19 @@ function Footer() {
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
           Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
         </p>
+        <div className='flex'>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">Privacy Policy&nbsp;</a>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy&nbsp;</a>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy</a>
+        </div>
        
       </div>
       <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
-        <img className='w-2/3' src={GSFCULogo} alt="Gsfcu Logo" />
-        <img className='w-2/3' src={AnantaLogo} alt="Ananta Logo" />
+        <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />
+        <img className='w-1/2' src={AnantaLogo} alt="Ananta Logo" />
         <div className='flex gap-1'>
           <a href="">
-            <img className='w-10' src={Twitter} alt="Ananta Twitter" />
+            <img  className='w-10 hover:-translate-y-1 hover:shadow-md' src={Twitter} alt="Ananta Twitter" />
           </a>
           <a href="">
             <img className='w-10' src={Instagram} alt="Ananta Instagram" />
@@ -59,13 +64,6 @@ function Footer() {
           <textarea onChange={e => setQuery(e.target.value)} value={query} placeholder="Type your query" className='px-4 py-2 h-24 border resize-none' style={{ scrollbarWidth: 'thin' }} required name="query"></textarea>
           <button className='py-2 bg-primary-dark-1 text-white rounded-b-lg' type="submit">SUBMIT</button>
         </form>
-        <div className='flex'>
-     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">Privacy Policy&nbsp;</a>
-     
-     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy&nbsp;</a>
-    
-     <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy</a>
-   </div>
       </div>
     </footer>
     

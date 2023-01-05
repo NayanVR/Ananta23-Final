@@ -56,18 +56,19 @@ function Home() {
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 4}px + 50%)` }} className='absolute -z-10 h-2/6 right-36 animate-wiggleRight' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 right-44 animate-wiggleRight' />
 
-
-                <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
-                    FUSION
-                </h1>
-                <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
-                    FOR
-                </h1>
-                <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
-                    FUTURE
-                </h1>
+                <div className='text-center'>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
+                        BONDING
+                    </h1>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
+                        BEYOND
+                    </h1>
+                    <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b    from-primary-light-1 to-primary bg-clip-text text-transparent'>
+                        BOUNDARIES
+                    </h1>
+                </div>
                 <p className='my-2'>Coming soon</p>
-                <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 overflow-hidden py-2 px-16 bg-primary-dark-1 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
+                <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { signOut(auth) }}>Register Now</button>
             </section>
 
             {/* Stats */}
