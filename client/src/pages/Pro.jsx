@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import profilePic from '../assets/photos/profile.jpg'
+import uniList from '../data/uniList.json'
 
 function Pro() {
 
@@ -9,10 +10,12 @@ function Pro() {
 
   const profile = localStorage.getItem('profile')
 
+  const [canEdit, setCanEdit] = useState(false)
+
   const [pid, setPid] = useState('')
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(currentUser.email)
   const [contactNo, setContactNo] = useState('')
   const [branch, setBranch] = useState('')
   const [uniName, setUniName] = useState('')
@@ -26,14 +29,14 @@ function Pro() {
     if (profile !== '{}') {
       const pro = JSON.parse(profile)
       if (pro.ProfileStatus === 1) {
+        setPid(pro.ParticipentID)
         setFName(pro.Firstname)
         setLName(pro.Lastname)
-        setEmail(pro.Email)
         setContactNo(pro.ContactNo)
         setBranch(pro.Branch)
-        setUniName(pro.University)
         setYear(pro.StudyYear)
         setDob(pro.DOB)
+        setUniName(pro.University)
         setGender(pro.Gender)
         setCity(pro.City)
         setState(pro.State)
@@ -41,6 +44,35 @@ function Pro() {
     }
   }, [profile])
 
+  function handleSubmit(e) {
+    console.log(e)
+    e.preventDefault()
+    setCanEdit(false)
+
+    if (!currentUser) return
+
+    currentUser.getIdToken().then((token) => {
+      fetch(serverURL + "/api/secure/update-profile", {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ fName, lName, contactNo, uniName, branch, year, dob, gender, city, state })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.type === "success") {
+            window.location.reload()
+          } else {
+            setCanEdit(true)
+          }
+        }).catch(err => {
+          console.log(err)
+          setCanEdit(true)
+        })
+    })
+  }
 
   return (
     <div className='flex-col justify-center items-center w-full h-max px-4 lg:py-10 bg-white lg:px-40' >
@@ -48,28 +80,28 @@ function Pro() {
         <div className="md:grid md:grid-cols-4 md:gap-6">
 
           <div className="md:col-span-1">
-              <div className="overflow-hidden shadow rounded-md">
-                <div className="bg-primary-light-3 p-1">
-                  <img className='rounded-md' src={profilePic} />
-                </div>
-                <div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
-                  <button
-                    className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white"
-                  >
-                    {
-                      `Participent ID : ${pid}`
-                    }
-                  </button>
-                </div>
+            <div className="overflow-hidden shadow rounded-md">
+              <div className="bg-primary-light-3 p-1">
+                <img className='rounded-md' src={profilePic} />
               </div>
+              <div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
+                <button
+                  className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white"
+                >
+                  {
+                    `Participent ID : ${pid}`
+                  }
+                </button>
+              </div>
+            </div>
           </div>
           <div className="mt-5 md:col-span-3 md:mt-0">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="overflow-hidden shadow rounded-md">
-              <div className="bg-primary-light-2 px-4 py-3 flex justify-between items-center sm:px-6">
-                  
+                <div className="bg-primary-light-2 px-4 py-3 flex justify-between items-center sm:px-6">
+
                   <h1 className='font-bold justify-center'>Personal Details</h1>
-                  <button
+                  <button onClick={e => { e.preventDefault(); setCanEdit(!canEdit); }}
                     className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
                   >
                     Edit
@@ -85,9 +117,11 @@ function Pro() {
                         type="text"
                         autoComplete="given-name"
                         placeholder='First Name'
+                        disabled={!canEdit}
+                        required
                         value={fName}
                         onChange={e => { setFName(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
@@ -98,10 +132,12 @@ function Pro() {
                       <input
                         type="text"
                         autoComplete="family-name"
+                        disabled={!canEdit}
+                        required
                         placeholder='Last Name'
                         value={lName}
                         onChange={e => { setLName(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
@@ -112,10 +148,12 @@ function Pro() {
                       <input
                         type="text"
                         autoComplete="email"
+                        disabled={true}
+                        required
                         placeholder='Email'
                         value={email}
                         onChange={e => { setEmail(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
@@ -124,41 +162,45 @@ function Pro() {
                         Contact No.
                       </label>
                       <input
-                        type="number"
+                        type="tel"
                         placeholder='Contact No'
+                        disabled={!canEdit}
+                        required
+                        pattern='[0-9]{10}'
                         value={contactNo}
                         onChange={e => { setContactNo(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                      <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                      <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
                         Branch / Course
                       </label>
-                      <select
-                        id="Branch"
-                        name="Branch"
-                        autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-                      >
-                        <option>B.Tech</option>
-                        <option>B.sc</option>
-                        <option>M.sc</option>
-                      </select>
+                      <input
+                        type="text"
+                        placeholder='Branch'
+                        required
+                        disabled={!canEdit}
+                        value={branch}
+                        onChange={e => { setBranch(e.target.value) }}
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                      />
                     </div>
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                         University
                       </label>
-                      <select
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-                      >
-                        <option>GSFC University</option>
-                        <option>MS University</option>
-                        <option>Parul University</option>
+                      <select disabled={!canEdit} value={uniName} onChange={e => { setUniName(e.target.value) }} className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm">
+                        {
+                          uniList.map((uni, index) => {
+                            return (
+                              <option key={index} value={uni}>{uni}</option>
+                            )
+                          })
+                        }
                       </select>
                     </div>
 
@@ -167,14 +209,16 @@ function Pro() {
                         Study Year
                       </label>
                       <select
-                        id="study-year"
-                        name="study-year"
-                        autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+                        required disabled={!canEdit} value={year} onChange={e => { setYear(e.target.value) }}
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
                       >
-                        <option>1st Year</option>
-                        <option>2nd Year</option>
-                        <option>3rd Year</option>
+                        {
+                          [1, 2, 3, 4].map((year, index) => {
+                            return (
+                              <option key={index} value={year}>{year}</option>
+                            )
+                          })
+                        }
                       </select>
                     </div>
 
@@ -185,9 +229,11 @@ function Pro() {
                       <input
                         type="date"
                         autoComplete="date"
+                        required
+                        disabled={!canEdit}
                         value={dob}
                         onChange={e => { setDob(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
@@ -196,13 +242,11 @@ function Pro() {
                         Gender
                       </label>
                       <select
-                        id="study-year"
-                        name="study-year"
-                        autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+                        required disabled={!canEdit} value={gender} onChange={e => { setGender(e.target.value) }}
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
                       >
-                        <option>Male</option>
-                        <option>Female</option>
+                        <option value='Male'>Male</option>
+                        <option value='Female'>Female</option>
                       </select>
                     </div>
 
@@ -214,32 +258,35 @@ function Pro() {
                         type="text"
                         autoComplete="address-level2"
                         placeholder='City'
+                        required
+                        disabled={!canEdit}
                         value={city}
                         onChange={e => { setCity(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="region" className="block text-sm font-medium text-gray-700">
-                        State 
+                        State
                       </label>
                       <input
                         type="text"
                         autoComplete="address-level1"
                         placeholder='State'
+                        required
+                        disabled={!canEdit}
                         value={state}
                         onChange={e => { setState(e.target.value) }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+                        className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                       />
                     </div>
 
-                 
+
                   </div>
                 </div>
                 <div className="bg-primary-light-2 px-4 py-3 text-right sm:px-6">
                   <button
-                    type="submit"
                     className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
                   >
                     Save
