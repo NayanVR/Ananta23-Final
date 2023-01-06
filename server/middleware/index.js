@@ -10,11 +10,12 @@ class Middleware {
             if (decodeValue) {
                 req.user = decodeValue;
                 return next();
+            } else {
+                return res.status(401).json({ message: "Unauthorized", type: "error" });
             }
-            return res.status(401).json({ message: "Unauthorized" });
         } catch (e) {
             console.log(e);
-            return res.status(500).json({ message: "Internal Server Error" });
+            return res.status(500).json({ message: "Internal Server Error", type: "error" });
         }
     }
 }

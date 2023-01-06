@@ -88,6 +88,7 @@ function BuyPass() {
         }
     ]
 
+    // lifting state up
     async function handleBuyClick(passCode) {
 
         if (currentUser == null) window.location.href = "/login";
