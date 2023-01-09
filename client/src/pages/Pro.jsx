@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
+import { toast } from 'react-hot-toast';
 import profilePic from '../assets/photos/profile.jpg'
 import uniList from '../data/uniList.json'
 
@@ -29,14 +30,12 @@ function Pro() {
     setEmail(currentUser.email)
     if (profile !== '{}') {
       const pro = JSON.parse(profile)
-      if (pro.ProfileStatus === 1) {
-
-        
-      }
+      if (pro.ProfileStatus === 1) 
+        updateProfile(pro)
     }
   }, [profile])
   
-  function updateProfile() {
+  function updateProfile(pro) {
     
     let date = new Date(pro.DOB)
     let year = date.getFullYear()
@@ -84,13 +83,16 @@ function Pro() {
             })
               .then(res => res.json())
               .then(data => {
+                toast.success("Profile updated successfully!")
                 localStorage.setItem("profile", JSON.stringify(data.message))
               })
               .catch(err => {
+                toast.error("Error updating profile!")
                 localStorage.setItem("profile", JSON.stringify({}))
               })
               .finally(() => {
-                window.location.reload()
+                setCanEdit(false)
+                updateProfile(data.message)
               })
           } else {
             setCanEdit(true)
