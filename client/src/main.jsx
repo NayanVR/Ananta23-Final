@@ -27,10 +27,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-          <Route path="/pro" element={<Pro />} />
+          <Route path="/pro" element={<PrivateRoute element={<Pro />} />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
       <Footer />

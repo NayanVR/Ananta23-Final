@@ -15,7 +15,7 @@ function Pro() {
   const [pid, setPid] = useState('')
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
-  const [email, setEmail] = useState(currentUser.email)
+  const [email, setEmail] = useState('')
   const [contactNo, setContactNo] = useState('')
   const [branch, setBranch] = useState('')
   const [uniName, setUniName] = useState('')
@@ -26,23 +26,36 @@ function Pro() {
   const [state, setState] = useState('')
 
   useEffect(() => {
+    setEmail(currentUser.email)
     if (profile !== '{}') {
       const pro = JSON.parse(profile)
       if (pro.ProfileStatus === 1) {
-        setPid(pro.ParticipentID)
-        setFName(pro.Firstname)
-        setLName(pro.Lastname)
-        setContactNo(pro.ContactNo)
-        setBranch(pro.Branch)
-        setYear(pro.StudyYear)
-        setDob(pro.DOB)
-        setUniName(pro.University)
-        setGender(pro.Gender)
-        setCity(pro.City)
-        setState(pro.State)
+
+        
       }
     }
   }, [profile])
+  
+  function updateProfile() {
+    
+    let date = new Date(pro.DOB)
+    let year = date.getFullYear()
+    let month = (date.getMonth() + 1).toString().padStart(2, '0')
+    let dt = date.getDate().toString().padStart(2, '0')
+    const dtStr = year + '-' + month + '-' + dt
+  
+    setPid(pro.ParticipantID)
+    setFName(pro.Firstname)
+    setLName(pro.Lastname)
+    setContactNo(pro.ContactNo)
+    setBranch(pro.Branch)
+    setYear(pro.StudyYear)
+    setDob(dtStr)
+    setUniName(pro.University)
+    setGender(pro.Gender)
+    setCity(pro.City)
+    setState(pro.State)
+  }
 
   function handleSubmit(e) {
     console.log(e)
@@ -63,7 +76,22 @@ function Pro() {
         .then(res => res.json())
         .then(data => {
           if (data.type === "success") {
-            window.location.reload()
+            fetch(serverURL + "/api/secure/get-profile", {
+              headers: {
+                  Authorization: 'Bearer ' + token,
+                  "Content-Type": "application/json"
+              }
+            })
+              .then(res => res.json())
+              .then(data => {
+                localStorage.setItem("profile", JSON.stringify(data.message))
+              })
+              .catch(err => {
+                localStorage.setItem("profile", JSON.stringify({}))
+              })
+              .finally(() => {
+                window.location.reload()
+              })
           } else {
             setCanEdit(true)
           }
@@ -104,7 +132,9 @@ function Pro() {
                   <button onClick={e => { e.preventDefault(); setCanEdit(!canEdit); }}
                     className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
                   >
-                    Edit
+                    {
+                      canEdit ? 'Cancel' : 'Edit'
+                    }
                   </button>
                 </div>
                 <div className="bg-primary-light-3  px-4 py-5 sm:p-6">
@@ -285,13 +315,16 @@ function Pro() {
 
                   </div>
                 </div>
-                <div className="bg-primary-light-2 px-4 py-3 text-right sm:px-6">
-                  <button
-                    className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
-                  >
-                    Save
-                  </button>
-                </div>
+                  {
+                    canEdit &&
+                    <div className="bg-primary-light-2 px-4 py-3 text-right sm:px-6">
+                      <button
+                        className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  }
               </div>
             </form>
           </div>
