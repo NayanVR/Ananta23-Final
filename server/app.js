@@ -6,6 +6,7 @@ const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
 const { createProfile, updateProfile } = require('./db/profileUtil')
 const { checkBuyPass, buyPass } = require('./db/buyPass');
+const { makePayment } = require('./payment');
 
 const app = express();
 const port = process.env.PORT || 3000;

@@ -98,20 +98,21 @@ function BuyPass() {
         profile = JSON.parse(profile)
         const PID = profile.ParticipantID
 
-        const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
-            method: "POST",
-            headers: {
-                Authorization: "Bearer " + currentUser.accessToken,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ passCode, PID }),
-        });
-        const check = await res.json();
-        const amt = await check.payAmount
-        console.log(check);
+        // const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
+        //     method: "POST",
+        //     headers: {
+        //         Authorization: "Bearer " + currentUser.accessToken,
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ passCode, PID }),
+        // });
+        // const check = await res.json();
+        // const amt = await check.payAmount
 
         if (check.type === "error") {
             toast.error(check.message, { duration: 3000 })
+        } else {
+
         }
 
         // if (check.message == "Profile Not Completed") {
@@ -179,7 +180,8 @@ function BuyPass() {
     }
 
     return (
-        <div className='flex flex-wrap justify-center items-center gap-8 my-16'>
+        // <div className='flex flex-wrap justify-center items-center gap-8 my-16'>
+        <div className='max-w-[1200px] m-auto grid grid-cols-1 md:grid-cols-2 md:gap-y-8 lg:grid-cols-3 place-items-center my-16'>
             {
                 passes.map((pass, index) => <PassCard buyClick={handleBuyClick} passInfo={pass} key={index} />)
             }
