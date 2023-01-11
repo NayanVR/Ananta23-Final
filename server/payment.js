@@ -1,13 +1,12 @@
 const Paytm = require('paytmchecksum');
-require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 
-function makePayment(req) {
+async function makePayment(req) {
 
-    var totalAmount = req.body.amount;
-    var email = req.body.email;
+    const totalAmount = req.body.amount;
+    const email = req.body.email;
 
-    var paytmParams = {};
+    let params = {};
 
     params['MID'] = process.env.PAYTM_MID
     params['WEBSITE'] = process.env.PAYTM_WEBSITE
@@ -16,19 +15,31 @@ function makePayment(req) {
     params['ORDER_ID'] = uuidv4()
     params['CUST_ID'] = process.env.PAYTM_CUST_ID
     params['TXN_AMOUNT'] = totalAmount
-    params['CALLBACK_URL'] = 'http://localhost:5000/api/callback'
+    params['CALLBACK_URL'] = `${process.env.SERVER_URL}/api/payment-callback`
     params['EMAIL'] = email
-    params['MOBILE_NO'] = '9876543210'
+    params['MOBILE_NO'] = '7777777777'
 
-    var paytmChecksum = PaytmChecksum.generateSignature(paytmParams, process.env.PAYTM_MERCHANT_KEY);
-    paytmChecksum.then(function (checksum) {
+    console.log(params);
+
+    const paytmChecksum = await Paytm.generateSignature(params, process.env.PAYTM_MERCHANT_KEY);
+
+    if (paytmChecksum) {
         return {
-            ...params,
-            "CHECKSUMHASH": checksum
+            code: 200,
+            resMessage: {
+                ...params,
+                "CHECKSUMHASH": paytmChecksum
+            }
         }
-    }).catch(function (error) {
-        console.log(error);
-    });
+    } else {
+        return {
+            code: 500,
+            resMessage: {
+                message: "Something went wrong",
+                type: "error"
+            }
+        }
+    }
 }
 
 module.exports = {

@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const https = require('https');
+const Paytm = require('paytmchecksum');
 const nodemailer = require("nodemailer");
+const formidable = require('formidable')
 const mysql = require('mysql2/promise')
 const middleware = require('./middleware');
 const { createProfile, updateProfile } = require('./db/profileUtil')
@@ -127,6 +130,95 @@ app.post('/api/secure/pass/buy/check', async (req, res) => {
 
     return res.status(response.code).json(response.resMessage)
     // res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+})
+
+
+// Payment Logic
+
+app.post('/api/get-payment-info', async (req, res) => {
+
+    const response = await makePayment(req)
+
+    return res.status(response.code).json(response.resMessage)
+})
+
+app.post('/api/payment-callback', async (req, res) => {
+
+    const form = new formidable.IncomingForm();
+
+    let response = {}
+    let resFields = new Promise((resolve, reject) => {
+
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({ message: "Something went wrong", type: "error" })
+            }
+            resolve(fields)
+        })
+    })
+
+    resFields.then(async (resFields) => {
+
+        console.log(resFields);
+
+        let paytmParams = {};
+
+        paytmParams.body = {
+            "mid": resFields.MID,
+            "orderId": resFields.ORDERID,
+        };
+
+        const paytmChecksum = await Paytm.generateSignature(JSON.stringify(paytmParams.body), process.env.PAYTM_MERCHANT_KEY)
+
+        if (paytmChecksum) {
+
+            paytmParams.head = {
+                "signature": paytmChecksum
+            };
+
+            let post_data = JSON.stringify(paytmParams);
+
+            let options = {
+                /* for Staging */
+                hostname: 'securegw-stage.paytm.in',
+                /* for Production */
+                // hostname: 'securegw.paytm.in',
+                port: 443,
+                path: '/v3/order/status',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': post_data.length
+                }
+            };
+
+            // Set up the request
+            let response = "";
+            let post_req = https.request(options, function (post_res) {
+                post_res.on('data', function (chunk) {
+                    response += chunk;
+                });
+
+                post_res.on('end', function () {
+                    console.log('Response: ', response);
+                    // res.json({ message: response, type: "success" })
+                    const data = JSON.parse(response)
+                    if (data.body.resultInfo.resultStatus === "TXN_SUCCESS") {
+                        res.redirect(`${process.env.CLIENT_URL}/paymentsuccess/${data.body.orderId}`)
+                    }
+
+                });
+            });
+
+            // post the data
+            post_req.write(post_data);
+            post_req.end();
+        }
+    })
+
+    // return res.status(200).json({ message: "Payment Callback", type: "success" })
+    // res.redirect(`${process.env.CLIENT_URL}/buypass`)
 })
 
 app.listen(port, () => {

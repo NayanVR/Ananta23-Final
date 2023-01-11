@@ -25,7 +25,7 @@ function BuyPass() {
             features: [
                 "Access to All Events (INERTIA & SWOOSH)",
                 "Access to All Guest Lectures",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "500 Digital Wallet Points"
             ],
             color: "#FFDF00"
@@ -38,7 +38,7 @@ function BuyPass() {
             features: [
                 "Access to any 3 Events (INERTIA & SWOOSH)",
                 "Access to any 2 Guest Lectures",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "300 Digital Wallet Points"
             ],
             color: "#C0C0C0"
@@ -51,7 +51,7 @@ function BuyPass() {
             features: [
                 "Access to any 2 Events (INERTIA & SWOOSH)",
                 "Access to any 1 Guest Lecture",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "100 Digital Wallet Points"
             ],
             color: "#CD7F32"
@@ -88,7 +88,63 @@ function BuyPass() {
         }
     ]
 
-    // lifting state up
+    const isDate = val => Object.prototype.toString.call(val) === '[object Date]'
+
+    const isObj = val => typeof val === 'object'
+
+    const stringifyValue = val => isObj(val) && !isDate(val) ? JSON.stringify(val) : val
+
+    function buildForm({ action, params }) {
+        const form = document.createElement('form')
+        form.setAttribute('method', 'post')
+        form.setAttribute('action', action)
+
+        Object.keys(params).forEach(key => {
+            const input = document.createElement('input')
+            input.setAttribute('type', 'hidden')
+            input.setAttribute('name', key)
+            input.setAttribute('value', stringifyValue(params[key]))
+            form.appendChild(input)
+        })
+
+        return form
+    }
+
+    function post(details) {
+        const form = buildForm(details)
+        document.body.appendChild(form)
+        form.submit()
+        form.remove()
+    }
+
+    const getData = (data) => {
+
+        return fetch(`${serverURL}/api/get-payment-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json()).catch(err => console.log(err))
+    }
+
+
+
+    const makePayment = () => {
+        getData({ amount: "1", email: 'abc@gmail.com' }).then(response => {
+
+            console.log(response);
+
+            let information = {
+                action: "https://securegw-stage.paytm.in/order/process",
+                params: response
+            }
+            post(information)
+        })
+    }
+
+
     async function handleBuyClick(passCode) {
 
         if (currentUser == null) window.location.href = "/login";
@@ -109,11 +165,13 @@ function BuyPass() {
         // const check = await res.json();
         // const amt = await check.payAmount
 
-        if (check.type === "error") {
-            toast.error(check.message, { duration: 3000 })
-        } else {
+        // if (check.type === "error") {
+        //     toast.error(check.message, { duration: 3000 })
+        // } else {
 
-        }
+        // }
+
+
 
         // if (check.message == "Profile Not Completed") {
         //     window.location.href = "/profile";
@@ -183,7 +241,7 @@ function BuyPass() {
         // <div className='flex flex-wrap justify-center items-center gap-8 my-16'>
         <div className='max-w-[1200px] m-auto grid grid-cols-1 md:grid-cols-2 md:gap-y-8 lg:grid-cols-3 place-items-center my-16'>
             {
-                passes.map((pass, index) => <PassCard buyClick={handleBuyClick} passInfo={pass} key={index} />)
+                passes.map((pass, index) => <PassCard buyClick={makePayment} passInfo={pass} key={index} />)
             }
         </div>
     )
