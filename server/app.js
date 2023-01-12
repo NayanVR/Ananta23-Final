@@ -146,7 +146,6 @@ app.post('/api/payment-callback', async (req, res) => {
 
     const form = new formidable.IncomingForm();
 
-    let response = {}
     let resFields = new Promise((resolve, reject) => {
 
         form.parse(req, async (err, fields, files) => {
@@ -206,8 +205,10 @@ app.post('/api/payment-callback', async (req, res) => {
                     const data = JSON.parse(response)
                     if (data.body.resultInfo.resultStatus === "TXN_SUCCESS") {
                         res.redirect(`${process.env.CLIENT_URL}/paymentsuccess/${data.body.orderId}`)
+                    } else {
+                        // res.redirect(`${process.env.CLIENT_URL}/paymentfailure/${data.body.orderId}`)
+                        res.redirect(`${process.env.CLIENT_URL}`)
                     }
-
                 });
             });
 
