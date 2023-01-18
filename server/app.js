@@ -222,6 +222,10 @@ app.post('/api/payment-callback', async (req, res) => {
     // res.redirect(`${process.env.CLIENT_URL}/buypass`)
 })
 
+app.get('/api/test', (req, res) => {
+    res.json({ message: "Server is working" })
+})
+
 app.listen(port, () => {
     console.log(`Server listening on PORT : ${port}`);
 });
