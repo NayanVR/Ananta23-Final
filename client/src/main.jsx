@@ -14,9 +14,11 @@ import Pro from './pages/Pro.jsx'
 import BuyPass from './pages/BuyPass';
 import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
-import PrivacyPolicy from './pages/PrivacyPolicy';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFail from './pages/PaymentFail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermCondition from './pages/TermCondition';
+import RefundPolicy from './pages/RefundPolicy';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -32,10 +34,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/pro" element={<PrivateRoute element={<Pro />} />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
-          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/paymentsuccess/:value" element={<PaymentSuccess />} />
           <Route path="/paymentfail" element={<PaymentFail />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/term&condition" element={<TermCondition />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+
         </Routes>
       </BrowserRouter>
       <Footer />
