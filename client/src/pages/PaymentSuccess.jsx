@@ -18,7 +18,7 @@ function PaymentSuccess() {
             loop={false}
           ></Lottie>
           <h1 className="text-2xl font-extrabold text-green-600 flex flex-col justify-between items-center">
-            Payment Success
+            Payment Successfull
           </h1>
           <p className="flex flex-col justify-between items-center mt-5">
             Your ORDER ID is <strong>{value}</strong>

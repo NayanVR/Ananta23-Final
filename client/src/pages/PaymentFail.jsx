@@ -8,7 +8,7 @@ function PaymentFail() {
 
   return (
     <div className="w-full h-[calc(100vh-4rem)] flex justify-center items-center ">
-      <div className="group max-w-full h-max m-6 px-8 pb-6 flex flex-col items-center justify-between gap-4 shadow-lg  border-4 border-red-500 rounded-2xl relative overflow-hidden">
+      <div className="group max-w-full h-max m-6 px-8 pb-6 flex flex-col items-center justify-between gap-4 shadow-lg border-4 border-red-500 rounded-2xl relative overflow-hidden">
         <div className="w-full h-max flex  flex-col justify-between items-center">
           <Lottie
             className="h-60"
