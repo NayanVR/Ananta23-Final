@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFail from './pages/PaymentFail';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/inertia" element={<Inertia />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/paymentsuccess/:value" element={<PaymentSuccess />} />
+          <Route path="/paymentfail" element={<PaymentFail />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
