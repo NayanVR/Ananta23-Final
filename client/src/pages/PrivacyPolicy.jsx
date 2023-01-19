@@ -8,7 +8,7 @@ function PrivacyPolicy() {
           Privacy Policy
         </h2>
       </div>
-      <div className="py-20 px-[10%] text-xl flex flex-col gap-10 text-justify">
+      <div className="py-20 px-[10%] text-xl flex flex-col gap-4 text-justify">
         
           
       <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 20-Jan-2023</p>
@@ -20,17 +20,17 @@ function PrivacyPolicy() {
             safeguard the information you provide to us and to assist you in
             making informed decisions when using our Service.
           </p>
-          <p className="text-2xl font-extrabold text-center">Interpretation and Definitions</p>
-          <p className="text-lg font-bold">Interpretation</p>
+          <p className="text-2xl underline text-center font-bold">Interpretation and Definitions</p>
+          <p className=" font-bold">Interpretation</p>
           <p>
             The words of which the initial letter is capitalized have meanings
             defined under the following conditions. The following definitions
             shall have the same meaning regardless of whether they appear in
             singular or plural.
           </p>
-          <h1 className="policy_head">Definitions</h1>
-          <p>For this Privacy Policy:</p>
-          <ul>
+          <p className="font-bold">Definitions</p>
+          <p className="text-lg font-semibold ml-5">For this Privacy Policy:</p>
+          <ul className='list-disc ml-10'>
             <li>
               <b>Account </b> means a unique account or profile created for You
               to access our Service or parts of our Service.
@@ -75,7 +75,7 @@ function PrivacyPolicy() {
             </li>
             <li>
               <b>Website </b>refers to Ananta , accessible from{" "}
-              <a href="">https://www.anantagsfcu.in</a>
+              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>https://www.anantagsfcu.in</a>
             </li>
             <li>
               <b>You </b>mean the individual accessing or using the Service, or
@@ -84,15 +84,14 @@ function PrivacyPolicy() {
               applicable.
             </li>
           </ul>
-          <h1>Collecting and Using Your Personal Data</h1>
-          <h1 className="policy_head">Types of Data Collected</h1>
-          <h1 >Personal Data</h1>
-          <p>
+          <p className="font-bold">Collecting and Using Your Personal Data</p>
+          <p className="text-lg font-semibold ml-5">Types of Data Collected : Personal Data </p>
+          <p className=" ml-5">
             While using Our Service, We may ask You to provide Us with certain
             personally identifiable information that can be used to contact or
             identify You. Personally, identifiable information may include:
           </p>
-          <ul>
+          <ul className='list-disc ml-10'>
             <li>Email address</li>
             <li>Full Name</li>
             <li>Phone number</li>
@@ -102,12 +101,12 @@ function PrivacyPolicy() {
             <li>Gender</li>
             <li>City</li>
           </ul>
-          <h1 className="policy_head">Use of Your Personal Data</h1>
+          <p className="font-bold">Use of Your Personal Data</p>
           <p>
             The Event Management Body may use Personal Data for the following
             purposes:
           </p>
-          <ul>
+          <ul className='list-disc ml-10'>
             <li>
               <b>To provide and maintain our Service, </b> including to monitor
               the usage of our Service.
@@ -154,7 +153,7 @@ function PrivacyPolicy() {
           <p>
             We may share Your personal information in the following situations:
           </p>
-          <ul>
+          <ul className='list-disc ml-10'>
             <li>
               <b>With Affiliates: </b>We may share Your information with Our
               affiliates, in which case we will require those affiliates to
@@ -184,7 +183,7 @@ function PrivacyPolicy() {
               information for any other purpose with Your consent.
             </li>
           </ul>
-          <h1>Retention of Your Personal Data</h1>
+          <p className="font-bold">Retention of Your Personal Data</p>
           <p>
             The Event Management Body will retain Your Personal Data only for as
             long as is necessary for the purposes set out in this Privacy
@@ -200,7 +199,7 @@ function PrivacyPolicy() {
             improve the functionality of Our Service, or We are obligated to
             retain this data for longer periods.
           </p>
-          <h1>Transfer of Your Personal Data</h1>
+          <p className="font-bold">Transfer of Your Personal Data</p>
           <p>
             Your information, including Personal Data, is processed at the Event
             Management Body's operating offices and in any other places where
@@ -222,27 +221,27 @@ function PrivacyPolicy() {
             place including the security of Your data and other personal
             information.
           </p>
-          <h1>Disclosure of Your Personal Data</h1>
-          <p className="policy_head">Business Transactions</p>
+          <p className="text-2xl underline text-center font-bold">Disclosure of Your Personal Data</p>
+          <p p className="font-bold">Business Transactions</p>
           <p>
             If the Event Management Body is involved in business transactions in
             any , Your Personal Data may be transferred. We will provide notice
             before Your Personal Data is transferred and becomes subject to a
             different Privacy Policy.
           </p>
-          <p className="policy_head"> Law enforcement </p>
+          <p className="font-bold"> Law enforcement </p>
           <p>
             Under certain circumstances, the Event Management Body may be
             required to disclose Your Data if required to do so by law or in
             response to valid requests by public authorities (e.g. a court or a
             government agency).
           </p>
-          <p className="policy_head">Other legal requirements</p>
+          <p className="font-bold">Other legal requirements</p>
           <p>
             The Event Management Body may disclose Your Data in the good faith
             belief that such action is necessary to:
           </p>
-          <ul>
+          <ul className='list-disc ml-10'>
             <li>Comply with a legal obligation.</li>
             <li>
               Protect and defend the rights or property of the Event Management
@@ -257,7 +256,7 @@ function PrivacyPolicy() {
             </li>
             <li>Protect against legal liability.</li>
           </ul>
-          <h1>Security of Your Personal Data</h1>
+          <p className="font-bold">Security of Your Personal Data</p>
           <p>
             The Service is SSL certified and the security of Your Personal Data
             is important to Us, but remember that no method of transmission over
@@ -265,7 +264,7 @@ function PrivacyPolicy() {
             We strive to use commercially acceptable means to protect Your
             Personal Data, We cannot guarantee its absolute security.
           </p>
-          <h1>Links to Other Websites</h1>
+          <p className="font-bold">Links to Other Websites</p>
           <p>
             Our Service may contain links to other websites that are not
             operated by Us. If You click on a third party link, You will be
@@ -277,7 +276,7 @@ function PrivacyPolicy() {
             content, privacy policies, or practices of any third party sites or
             services.
           </p>
-          <h1>Changes to this Privacy Policy</h1>
+          <p className="font-bold">Changes to this Privacy Policy</p>
           <p>
             We may update Our Privacy Policy from time to time. We will notify
             You of any changes by posting the new Privacy Policy on this page.
@@ -292,23 +291,33 @@ function PrivacyPolicy() {
             changes. Changes to this Privacy Policy are effective when they are
             posted on this page.
           </p>
-          <h1>Contact Us</h1>
+          <p className="font-bold">Contact Us</p>
           <p>
             If you have any questions about this Privacy Policy, You can contact
             us:
           </p>
-          <ul>
+          <ul className='list-disc ml-10'>
             <li>
               By email:
-              <a href="mailto: ananta@gsfcuniversity.ac.in">
+              <a href="mailto:ananta@gsfcuniversity.ac.in" className='text-blue-900 underline'>
                 {" "}
-                ananta@gsfcuniversity.ac.in
+              ananta@gsfcuniversity.ac.in
               </a>{" "}
             </li>
             <li>
               By visiting this page on our website :{" "}
-              <a href="">www.anantagsfcu.in</a>{" "}
+              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>www.anantagsfcu.in</a>{" "}
             </li>
+          </ul>
+          <p className="font-bold">Other Helpful Pages</p>
+          <ul className='list-disc ml-10'>
+            <li>
+              <a href="/term&condition" className='text-blue-900 underline'>Terms and conditions </a>
+            </li>
+            <li>
+              <a href="/refund-policy" className='text-blue-900 underline'>Refund Policy </a>
+            </li>
+            
           </ul>
         
        
