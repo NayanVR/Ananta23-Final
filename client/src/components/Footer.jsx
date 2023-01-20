@@ -25,14 +25,14 @@ function Footer() {
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>Event Room, GUIITAR Lab 7, Anviksha,<br />
           GSFC University, P. O. Fertilizernagar,<br />
           Vadodara - 391750, Gujarat, India</p>
-        <h2 className='font-heading font-bold text-2xl text-primary mt-4 md:text-left text-center'>Contact Details</h2>
+        <h2 className='font-heading font-bold text-sm text-primary mt-1 md:text-left text-center'>&nbsp; </h2>
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
           Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
         </p>
-        <div className='flex'>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">Privacy Policy&nbsp;</a>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy&nbsp;</a>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center' href="/privacypolicy">&nbsp;Privacy Policy</a>
+        <div className='flex flex-wrap md:justify-start justify-center text-xs font-semibold'>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/privacy-policy">Privacy Policy<span className='sm:block hidden'>&nbsp;||&nbsp;</span></a>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/refund-policy">Refund Policy<span className='sm:block hidden'>&nbsp;||&nbsp;</span></a>
+          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/term&condition">Terms & Conditions</a>
         </div>
        
       </div>

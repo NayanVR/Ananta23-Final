@@ -25,7 +25,7 @@ function BuyPass() {
             features: [
                 "Access to All Events (INERTIA & SWOOSH)",
                 "Access to All Guest Lectures",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "500 Digital Wallet Points"
             ],
             color: "#FFDF00"
@@ -38,7 +38,7 @@ function BuyPass() {
             features: [
                 "Access to any 3 Events (INERTIA & SWOOSH)",
                 "Access to any 2 Guest Lectures",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "300 Digital Wallet Points"
             ],
             color: "#C0C0C0"
@@ -51,7 +51,7 @@ function BuyPass() {
             features: [
                 "Access to any 2 Events (INERTIA & SWOOSH)",
                 "Access to any 1 Guest Lecture",
-                "Access to Zingaat : Cultural Events (Zingaat)",
+                "Access to Zingaat : Cultural Events",
                 "100 Digital Wallet Points"
             ],
             color: "#CD7F32"
@@ -88,7 +88,10 @@ function BuyPass() {
         }
     ]
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767
     const isDate = val => Object.prototype.toString.call(val) === '[object Date]'
 
     const isObj = val => typeof val === 'object'
@@ -101,7 +104,10 @@ function BuyPass() {
         form.setAttribute('action', action)
 
         Object.keys(params).forEach(key => {
+<<<<<<< HEAD
             console.log(params)
+=======
+>>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767
             const input = document.createElement('input')
             input.setAttribute('type', 'hidden')
             input.setAttribute('name', key)
@@ -146,13 +152,18 @@ function BuyPass() {
         })
     }
 
+<<<<<<< HEAD
     // lifting state up
+=======
+
+>>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767
     async function handleBuyClick(passCode) {
 
         if (currentUser == null) window.location.href = "/login";
 
         let profile = localStorage.getItem("profile")
         if (profile == '{}') window.location.href = "/profile";
+
         profile = JSON.parse(profile)
         const PID = profile.ParticipantID
 
@@ -167,6 +178,7 @@ function BuyPass() {
         const check = await res.json();
         const amt = await check.payAmount
 
+<<<<<<< HEAD
         if (check.message == "Profile Not Completed") {
             window.location.href = "/profile";
         } else if (check.message == "Buying First Pass" || check.message == "Upgrade Pass") {
@@ -185,6 +197,78 @@ function BuyPass() {
         } else if (check.type === 'error') { 
             toast.error(check.message, { duration: 3000 });
         }
+=======
+        if (check.type === "error") {
+            toast.error(check.message, { duration: 3000 })
+        } else {
+            makePayment(amt, profile.Email)
+        }
+
+
+
+        // if (check.message == "Profile Not Completed") {
+        //     window.location.href = "/profile";
+        // } else if (check.message == "Buying First Pass") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Same Pass") {
+        // } else if (check.message == "Remove Registered Events & Guest Lectures") {
+        // } else if (check.message == "Can't Downgrade Pass") {
+        // } else if (check.message == "Remove Registered Workshops") {
+        // } else if (check.message == "Event&Guest/Upgrade") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Event&Guest/C2") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Event&Guest/DJ") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // } else if (check.message == "Combos") {
+        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
+        //         method: "POST",
+        //         headers: {
+        //             Authorization: "Bearer " + currentUser["accessToken"],
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({ PID, passCode, amt }),
+        //     });
+        //     const data = await res.json();
+        //     console.log(data);
+        // }
+>>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767
     }
 
     return (

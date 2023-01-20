@@ -1,23 +1,329 @@
-import React from 'react'
+import React from "react";
 
 function PrivacyPolicy() {
   return (
     <div>
-        <div className='w-full h-max py-20 bg-gradient-to-b from-primary-light-1 to-primary'>
-            <h2 className='text-4xl font-heading font-bold text-white text-center'>
-                Privacy Policy
-            </h2>
-        </div>
-        <div className='py-20 px-[10%] text-xl flex flex-col gap-12 text-justify'>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, delectus numquam sunt suscipit laudantium, similique, quasi dolorum sequi autem corrupti iure ipsa dolores asperiores odit. Iusto, praesentium dicta corporis eligendi, unde odit omnis dolor dignissimos at delectus tempora expedita? Maxime voluptates iusto dignissimos eaque blanditiis, molestiae ipsum deserunt! Esse quasi natus amet doloremque voluptates suscipit ab, repudiandae ducimus in molestiae, aperiam optio cum pariatur enim adipisci corrupti tempore voluptatum deserunt reprehenderit deleniti quidem? Minus assumenda eligendi veritatis animi quibusdam libero molestiae doloribus. Itaque architecto cupiditate facere assumenda id minus possimus nam! Possimus voluptatibus, provident ipsum voluptatum eveniet velit perspiciatis! Officia unde magni alias modi cumque amet eius illo doloribus, beatae non eaque commodi perspiciatis, minima ratione veniam repellendus obcaecati reprehenderit assumenda provident quam ullam deleniti. Exercitationem libero eaque quibusdam hic dolor? Odio, atque nesciunt cupiditate iste tempora dolore? Laudantium sunt tenetur repudiandae deserunt porro numquam corrupti necessitatibus, similique quod mollitia facere hic nostrum eligendi dolorem eos quia adipisci nisi fuga ab provident, cum quis. Corrupti, dignissimos odio aut magni neque adipisci voluptate eveniet perferendis quod nesciunt! Laudantium magnam voluptatem sit expedita deserunt ad, quod molestiae ipsum minima repudiandae deleniti distinctio magni reiciendis incidunt earum possimus, non ex adipisci ea reprehenderit!    
-            </p>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam laudantium eius tempore deleniti fugiat vero ad, voluptates sequi nam sed alias molestiae. Necessitatibus quasi iste quod ex nemo ea cupiditate placeat quis accusantium libero soluta, ipsum voluptatibus rerum accusamus ad molestiae sequi ab eius, fugit at repudiandae debitis numquam totam non? Optio, esse. Aut pariatur, nam ea doloremque architecto reprehenderit quam perferendis minus, facilis ipsum inventore harum, molestias velit consequuntur. Laborum sunt, mollitia dolorum qui culpa temporibus ducimus perferendis suscipit necessitatibus quod expedita omnis, fuga explicabo iusto asperiores doloremque maxime ipsa obcaecati, placeat doloribus molestias! Culpa, porro ut voluptatum et dignissimos, eius expedita pariatur rem veniam maxime corporis distinctio aliquid! Corrupti culpa explicabo delectus nihil suscipit iusto tempore recusandae nobis in natus tempora, repellat, modi dicta fuga maiores a reiciendis exercitationem illo eaque facere tenetur porro. Exercitationem, magnam sunt possimus illum a maxime ratione voluptate, ab iste quis necessitatibus recusandae est. Iure perferendis odit modi magni ratione perspiciatis recusandae temporibus molestiae voluptas dolorem, ab autem molestias quaerat officiis optio! Sequi qui quaerat ratione ea fugiat? Facilis animi reprehenderit ab doloribus, omnis veniam expedita velit debitis fugiat harum iure quasi quod alias itaque iste atque ad temporibus consequatur eos. Asperiores voluptatum id omnis consectetur atque nesciunt dicta doloremque ab facilis ipsa! Voluptas rem odit tempora doloremque magnam ducimus quo suscipit, aut doloribus autem porro, maxime accusamus assumenda necessitatibus nostrum officiis deserunt tenetur amet esse. Maxime tenetur mollitia repudiandae porro expedita reiciendis tempora esse aut tempore odio. Aliquid ipsam esse, ipsa aliquam eos laudantium dolorem. Eligendi amet laboriosam eius voluptas labore ex cum cupiditate, sapiente ab iusto rerum? Ea eaque iusto laborum alias qui voluptates perferendis adipisci unde sit sunt expedita, dignissimos in, aut ducimus eveniet maiores aspernatur tenetur! Sequi iusto, architecto dicta voluptatum ab optio aliquid mollitia. Repellendus vel suscipit optio.    
-            </p>
-        </div>
+      <div className="w-full h-max py-20 bg-gradient-to-b from-primary-light-1 to-primary">
+        <h2 className="text-4xl font-heading font-bold text-white text-center">
+          Privacy Policy
+        </h2>
+      </div>
+      <div className="py-20 px-[10%] text-xl flex flex-col gap-4 text-justify">
+        
+          
+      <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 20-Jan-2023</p>
+        
+          <p>
+            Ananta, an Event Management Body under GSFC University is committed
+            to maintaining robust privacy protections for its users. Our Privacy
+            Policy is designed to help you understand how we collect, use, and
+            safeguard the information you provide to us and to assist you in
+            making informed decisions when using our Service.
+          </p>
+          <p className="text-2xl underline text-center font-bold">Interpretation and Definitions</p>
+          <p className=" font-bold">Interpretation</p>
+          <p>
+            The words of which the initial letter is capitalized have meanings
+            defined under the following conditions. The following definitions
+            shall have the same meaning regardless of whether they appear in
+            singular or plural.
+          </p>
+          <p className="font-bold">Definitions</p>
+          <p className="text-lg font-semibold ml-5">For this Privacy Policy:</p>
+          <ul className='list-disc ml-10'>
+            <li>
+              <b>Account </b> means a unique account or profile created for You
+              to access our Service or parts of our Service.
+            </li>
+            <li>
+              <b>Event Management Body </b>(referred to as either "the Event
+              Management Body", "We", "Us" or "Our" in this Agreement) refers to
+              Ananta.
+            </li>
+            <li>
+              <b>Country </b>refers to Gujarat, India
+            </li>
+            <li>
+              <b>Device </b>means any device that can access the Service such as
+              a computer, a cell phone, or a digital tablet.
+            </li>
+            <li>
+              <b>Personal Data </b>is any information that relates to an
+              identified or identifiable individual.
+            </li>
+            <li>
+              <b>Service </b>refers to the Website.
+            </li>
+            <li>
+              <b>Service Provider </b>means any natural or legal person who
+              processes the data on behalf of the Event Management Body. It
+              refers to third-party companies or individuals employed by the
+              Event Management Body to facilitate the Service, to provide the
+              Service on behalf of the Event Management Body, to perform
+              services related to the Service, or to assist the Event Management
+              Body in analyzing how the Service is used.
+            </li>
+            <li>
+              <b>Third-party Social Media Service </b>refers to any website or
+              any social network website through which a user can log in or
+              create an account to use the Service.
+            </li>
+            <li>
+              <b>Usage Data </b>refers to data collected automatically, either
+              generated by the use of the Service or from the Service
+              infrastructure itself (for example, the duration of a page visit).
+            </li>
+            <li>
+              <b>Website </b>refers to Ananta , accessible from{" "}
+              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>https://www.anantagsfcu.in</a>
+            </li>
+            <li>
+              <b>You </b>mean the individual accessing or using the Service, or
+              the Event Management Body, or other legal entity on behalf of
+              which such individual is accessing or using the Service, as
+              applicable.
+            </li>
+          </ul>
+          <p className="font-bold">Collecting and Using Your Personal Data</p>
+          <p className="text-lg font-semibold ml-5">Types of Data Collected : Personal Data </p>
+          <p className=" ml-5">
+            While using Our Service, We may ask You to provide Us with certain
+            personally identifiable information that can be used to contact or
+            identify You. Personally, identifiable information may include:
+          </p>
+          <ul className='list-disc ml-10'>
+            <li>Email address</li>
+            <li>Full Name</li>
+            <li>Phone number</li>
+            <li>University</li>
+            <li>Course/Program</li>
+            <li>Year of Study</li>
+            <li>Gender</li>
+            <li>City</li>
+          </ul>
+          <p className="font-bold">Use of Your Personal Data</p>
+          <p>
+            The Event Management Body may use Personal Data for the following
+            purposes:
+          </p>
+          <ul className='list-disc ml-10'>
+            <li>
+              <b>To provide and maintain our Service, </b> including to monitor
+              the usage of our Service.
+            </li>
+            <li>
+              <b>To manage Your Account: </b>to manage Your registration as a
+              user of the Service. The Personal Data You provide can give You
+              access to different functionalities of the Service that are
+              available to You as a registered user.
+            </li>
+            <li>
+              <b>For the performance of a contract: </b>the development,
+              compliance, and undertaking of the purchase contract for the
+              products, items, or services You have purchased or of any other
+              contract with Us through the Service.
+            </li>
+            <li>
+              <b>To contact You: </b>To contact You by email, telephone calls,
+              or other equivalent forms of electronic communication, such as a
+              mobile application's push notifications regarding updates or
+              informative communications related to the functionalities,
+              products, or contracted services, including the security updates,
+              when necessary or reasonable for their implementation.
+            </li>
+            <li>
+              <b>To provide You </b>with news, special offers, and general
+              information about other goods, services, and events which we offer
+              that are similar to those that you have already purchased or
+              enquired about unless You have opted not to receive such
+              information.
+            </li>
+            <li>
+              <b>To manage Your requests: </b>To attend and manage Your requests
+              to Us.
+            </li>
+            <li>
+              <b>For other purposes: </b>We may use Your information for other
+              purposes, such as data analysis, identifying usage trends,
+              determining the effectiveness of our promotional campaigns, and to
+              evaluate and improve our Service, products, services, marketing,
+              and your experience.
+            </li>
+          </ul>
+          <p>
+            We may share Your personal information in the following situations:
+          </p>
+          <ul className='list-disc ml-10'>
+            <li>
+              <b>With Affiliates: </b>We may share Your information with Our
+              affiliates, in which case we will require those affiliates to
+              honor this Privacy Policy. Affiliates include Our parent Event
+              Management Body and any other subsidiaries, joint venture
+              partners, or other companies that We control or that are under
+              common control with Us.
+            </li>
+            <li>
+              <b>With business partners: </b>We may share Your information with
+              Our business partners to offer You certain products, services, or
+              promotions.
+            </li>
+            <li>
+              <b>With other users: </b>When You share personal information or
+              otherwise interact in the public areas with other users, such
+              information may be viewed by all users and may be publicly
+              distributed outside. If You interact with other users or register
+              through a Third-Party Social Media Service, Your contacts on the
+              Third-Party Social Media Service may see Your name, profile,
+              pictures, and description of Your activity. Similarly, other users
+              will be able to view descriptions of Your activity, communicate
+              with You, and view Your profile.
+            </li>
+            <li>
+              <b>With Your Consent: </b>We may disclose Your personal
+              information for any other purpose with Your consent.
+            </li>
+          </ul>
+          <p className="font-bold">Retention of Your Personal Data</p>
+          <p>
+            The Event Management Body will retain Your Personal Data only for as
+            long as is necessary for the purposes set out in this Privacy
+            Policy. We will retain and use Your Data to the extent necessary to
+            comply with our obligations (for example, if we are required to
+            retain your data to comply with applicable laws), resolve disputes,
+            and enforce our agreements and policies.
+          </p>
+          <p>
+            The Event Management Body will also retain Usage Data for internal
+            analysis purposes. Usage Data is generally retained for a shorter
+            time, except when this data is used to strengthen the security or to
+            improve the functionality of Our Service, or We are obligated to
+            retain this data for longer periods.
+          </p>
+          <p className="font-bold">Transfer of Your Personal Data</p>
+          <p>
+            Your information, including Personal Data, is processed at the Event
+            Management Body's operating offices and in any other places where
+            the parties involved in the processing are located. It means that
+            this information may be transferred to — and maintained on —
+            computers located outside of Your state, province, country, or other
+            governmental jurisdiction where the data protection laws may differ
+            from those from Your jurisdiction.
+          </p>
+          <p>
+            Your consent to this Privacy Policy followed by Your submission of
+            such information represents Your agreement to that transfer.
+          </p>
+          <p>
+            The Event Management Body will take all steps reasonably necessary
+            to ensure that Your data is treated securely and per this Privacy
+            Policy and no transfer of Your Personal Data will take place to an
+            organization or a country unless there are adequate controls in
+            place including the security of Your data and other personal
+            information.
+          </p>
+          <p className="text-2xl underline text-center font-bold">Disclosure of Your Personal Data</p>
+          <p p className="font-bold">Business Transactions</p>
+          <p>
+            If the Event Management Body is involved in business transactions in
+            any , Your Personal Data may be transferred. We will provide notice
+            before Your Personal Data is transferred and becomes subject to a
+            different Privacy Policy.
+          </p>
+          <p className="font-bold"> Law enforcement </p>
+          <p>
+            Under certain circumstances, the Event Management Body may be
+            required to disclose Your Data if required to do so by law or in
+            response to valid requests by public authorities (e.g. a court or a
+            government agency).
+          </p>
+          <p className="font-bold">Other legal requirements</p>
+          <p>
+            The Event Management Body may disclose Your Data in the good faith
+            belief that such action is necessary to:
+          </p>
+          <ul className='list-disc ml-10'>
+            <li>Comply with a legal obligation.</li>
+            <li>
+              Protect and defend the rights or property of the Event Management
+              Body.
+            </li>
+            <li>
+              Prevent or investigate possible wrongdoing in connection with the
+              Service.
+            </li>
+            <li>
+              Protect the personal safety of users of the Service or the public.
+            </li>
+            <li>Protect against legal liability.</li>
+          </ul>
+          <p className="font-bold">Security of Your Personal Data</p>
+          <p>
+            The Service is SSL certified and the security of Your Personal Data
+            is important to Us, but remember that no method of transmission over
+            the Internet or method of electronic storage is 100% secure. While
+            We strive to use commercially acceptable means to protect Your
+            Personal Data, We cannot guarantee its absolute security.
+          </p>
+          <p className="font-bold">Links to Other Websites</p>
+          <p>
+            Our Service may contain links to other websites that are not
+            operated by Us. If You click on a third party link, You will be
+            directed to that third party's site. We strongly advise You to
+            review the Privacy Policy of every site You visit.
+          </p>
+          <p>
+            We have no control over and assume no responsibility for the
+            content, privacy policies, or practices of any third party sites or
+            services.
+          </p>
+          <p className="font-bold">Changes to this Privacy Policy</p>
+          <p>
+            We may update Our Privacy Policy from time to time. We will notify
+            You of any changes by posting the new Privacy Policy on this page.
+          </p>
+          <p>
+            We will let You know via email and/or a prominent notice on Our
+            Service before the change becomes effective and update the "Last
+            Updated" date at the top of this Privacy Policy.
+          </p>
+          <p>
+            You are advised to review this Privacy Policy periodically for any
+            changes. Changes to this Privacy Policy are effective when they are
+            posted on this page.
+          </p>
+          <p className="font-bold">Contact Us</p>
+          <p>
+            If you have any questions about this Privacy Policy, You can contact
+            us:
+          </p>
+          <ul className='list-disc ml-10'>
+            <li>
+              By email:
+              <a href="mailto:ananta@gsfcuniversity.ac.in" className='text-blue-900 underline'>
+                {" "}
+              ananta@gsfcuniversity.ac.in
+              </a>{" "}
+            </li>
+            <li>
+              By visiting this page on our website :{" "}
+              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>www.anantagsfcu.in</a>{" "}
+            </li>
+          </ul>
+          <p className="font-bold">Other Helpful Pages</p>
+          <ul className='list-disc ml-10'>
+            <li>
+              <a href="/term&condition" className='text-blue-900 underline'>Terms and conditions </a>
+            </li>
+            <li>
+              <a href="/refund-policy" className='text-blue-900 underline'>Refund Policy </a>
+            </li>
+            
+          </ul>
+        
+       
+      </div>
     </div>
-  )
+  );
 }
 
-export default PrivacyPolicy
+export default PrivacyPolicy;
