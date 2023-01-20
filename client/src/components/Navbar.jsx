@@ -24,13 +24,24 @@ function Navbar() {
                     </div>
                     <div className="nav__links">
                         <a href="/">Home</a>
-                        <a href="">Events</a>
+                        <div className="dropdown" data-dropdown-placement="left-end">
+                            <button className="dropbtn">Events</button>
+                            <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
+                                <a href="/inertia">Inertia</a>
+                                <a href="">Swoosh</a>
+                                <a href="">Upshot</a>
+                                <a href="">Zingaat</a>
+                                <a href="">Kala Kriti</a>
+                                <a href="">Equilibrium</a>
+                                <a href="">Atmos</a>
+                            </div>
+                        </div>
                         <a href="/buypass">Buy a Pass</a>
                         <a href="">Digital Points</a>
                         <a href="">Schedule</a>
                         <div className="dropdown" data-dropdown-placement="left-end">
                             <button className="dropbtn">More</button>
-                            <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                            <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
                                 <a href="">About Us</a>
                                 <a href="">Our Team</a>
                                 <a href="">Our Partners</a>
@@ -40,19 +51,19 @@ function Navbar() {
                     {
                         currentUser ?
 
-                        <button className="dropdown rounded-md bg-primary-light-1 text-white">
-                            <button className='px-3 py-3 rounded-md bg-primary-light-2 text-white'>
-                                <img className='object-contain' src={profileIcon} alt="Profile" />
+                            <button className="dropdown rounded-md bg-primary-light-1 text-white">
+                                <button className='px-3 py-3 rounded-md bg-primary-light-2 text-white'>
+                                    <img className='object-contain' src={profileIcon} alt="Profile" />
+                                </button>
+                                <div className="dropdown-content right-0 br-3">
+                                    <a href="/Profile">Profile</a>
+                                    <a href="/Pro">New Profile</a>
+                                    <a onClick={() => signOut(auth)}>Logout</a>
+                                </div>
                             </button>
-                            <div className="dropdown-content right-0 br-3">
-                                <a href="/Profile">Profile</a>
-                                <a href="/Pro">New Profile</a>
-                                <a onClick={() => signOut(auth)}>Logout</a>
-                            </div>
-                        </button>
-                        // <button className='py-3 px-3 rounded-md bg-primary-light-1 text-white' onClick={() => { () => signOut(auth) }}>
-                        //     <img className='object-contain' src={profileIcon} alt="Profile" />
-                        // </button>
+                            // <button className='py-3 px-3 rounded-md bg-primary-light-1 text-white' onClick={() => { () => signOut(auth) }}>
+                            //     <img className='object-contain' src={profileIcon} alt="Profile" />
+                            // </button>
                             :
                             <button className='py-2 px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { window.location.href = "/login" }}>LOGIN</button>
                     }

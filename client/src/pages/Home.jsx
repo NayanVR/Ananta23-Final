@@ -1,12 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { signOut } from "firebase/auth"
-import { auth } from "../firebase"
 import Ellipse from '../assets/illustrations/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
-import toast from 'react-hot-toast';
 import MajorUSP from '../components/MajorUSP'
 
 function Home() {
