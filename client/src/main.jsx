@@ -14,11 +14,11 @@ import Pro from './pages/Pro.jsx'
 import BuyPass from './pages/BuyPass';
 import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
-import PaymentSuccess from './pages/PaymentSuccess';
-import PaymentFail from './pages/PaymentFail';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFail from './pages/PaymentFail'
+import TermCondition from './pages/TermCondition';
+import RefundPolicy from './pages/RefundPolicy';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

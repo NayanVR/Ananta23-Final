@@ -11,15 +11,9 @@ function PaymentFail() {
       <div className="group max-w-full h-max m-6 px-8 pb-6 flex flex-col items-center justify-between gap-4 shadow-lg border-4 border-red-500 rounded-2xl relative overflow-hidden">
         <div className="w-full h-max flex  flex-col justify-between items-center">
           <Lottie
-<<<<<<< HEAD
             className="h-60"
             animationData={animationData}
             loop={true}
-=======
-            className="h-40 my-20"
-            animationData={animationData}
-            loop={false}
->>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767
           ></Lottie>
           <h1 className="text-2xl font-extrabold  text-red-500 flex flex-col justify-between items-center">
             Payment Failed
@@ -41,7 +35,3 @@ function PaymentFail() {
 }
 
 export default PaymentFail;
-<<<<<<< HEAD
-=======
-
->>>>>>> 5350fcc2a91bf20c67ed2e926f1fc47b0a7e2767

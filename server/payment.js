@@ -1,15 +1,11 @@
 const { v4: uuidv4 } = require('uuid');
 const Paytm = require('paytmchecksum');
 
-async function makePayment(req) {
+// async function makePayment(req) {
 async function makePayment(req) {
 
     const totalAmount = req.body.amount;
     const email = req.body.email;
-    const totalAmount = req.body.amount;
-    const email = req.body.email;
-
-    let params = {};
     let params = {};
 
     params['MID'] = process.env.PAYTM_MID
@@ -23,16 +19,12 @@ async function makePayment(req) {
     params['EMAIL'] = email
     params['MOBILE_NO'] = '7777777777'
 
-    console.log(params);
-
-    const paytmChecksum = await Paytm.generateSignature(params, process.env.PAYTM_MERCHANT_KEY);
-    params['MOBILE_NO'] = '7777777777'
 
     console.log(params);
 
     const paytmChecksum = await Paytm.generateSignature(params, process.env.PAYTM_MERCHANT_KEY);
 
-    if (paytmChecksum) {
+    // if (paytmChecksum) {
     if (paytmChecksum) {
         return {
             code: 200,
@@ -48,21 +40,7 @@ async function makePayment(req) {
                 message: "Something went wrong",
                 type: "error"
             }
-            code: 200,
-            resMessage: {
-                ...params,
-                "CHECKSUMHASH": paytmChecksum
-            }
         }
-    } else {
-        return {
-            code: 500,
-            resMessage: {
-                message: "Something went wrong",
-                type: "error"
-            }
-        }
-    }
     }
 }
 
