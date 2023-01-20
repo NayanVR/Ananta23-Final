@@ -1,35 +1,29 @@
 const { genParticipantID } = require('../util');
 
 async function createProfile(conn, email, googleAuth, profileImg) {
-
+    // console.log();
+    console.log('ashish');
     //check if participant already exist with given email id
     const [checkRows, checkFields] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
-
+    console.log(checkRows)
     if (checkRows.length > 0) {
+        console.log('aman')
         //!TODO handle if user's log in method is email&pass
         if (checkRows[0].GoogleAuth === 0 && googleAuth === 'TRUE') {
             // update info if user is migrating account to google
-            const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`)
+            const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`);
+            console.log("profile updated")
             return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };
         } else {
+            console.log("login with google")
             return { code: 200, resMessage: { message: "Login with google", type: "success" } };
         }
     } else {
-
-        let id = genParticipantID(email);
-        let idDoesExist = false;
-        do {
-            const [checkIdRows, checkIdFields] = await conn.execute(`SELECT * FROM Participants WHERE ParticipantID='${id}';`)
-            if (checkIdRows.length > 0) {
-                idDoesExist = true;
-                id = genParticipantID(email);
-            } else {
-                idDoesExist = false;
-            }
-        } while (idDoesExist);
+        console.log("inserting the record...")
+        let id = await genParticipantID(conn, email);
 
         // create new participant
-        let query = `INSERT INTO Participants (ProfileStatus, PaymentStatus, ParticipantID, Email, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${profileImg}', ${googleAuth});`;
+        let query = `INSERT INTO Participants (ProfileStatus, TxnStatus, ParticipantID, Email, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${profileImg}', ${googleAuth});`;
 
         const [profileRows, profileFields] = await conn.execute(query)
 

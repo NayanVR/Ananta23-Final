@@ -88,6 +88,64 @@ function BuyPass() {
         }
     ]
 
+
+    const isDate = val => Object.prototype.toString.call(val) === '[object Date]'
+
+    const isObj = val => typeof val === 'object'
+
+    const stringifyValue = val => isObj(val) && !isDate(val) ? JSON.stringify(val) : val
+
+    function buildForm({ action, params }) {
+        const form = document.createElement('form')
+        form.setAttribute('method', 'post')
+        form.setAttribute('action', action)
+
+        Object.keys(params).forEach(key => {
+            console.log(params)
+            const input = document.createElement('input')
+            input.setAttribute('type', 'hidden')
+            input.setAttribute('name', key)
+            input.setAttribute('value', stringifyValue(params[key]))
+            form.appendChild(input)
+        })
+
+        return form
+    }
+
+    function post(details) {
+        const form = buildForm(details)
+        document.body.appendChild(form)
+        form.submit()
+        form.remove()
+    }
+
+    const getData = (data) => {
+
+        return fetch(`${serverURL}/api/get-payment-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json()).catch(err => console.log(err))
+    }
+
+
+
+    const makePayment = (amt, clientEmail) => {
+        getData({ amount: amt.toString(), email: clientEmail }).then(response => {
+
+            console.log(response);
+
+            let information = {
+                action: "https://securegw-stage.paytm.in/order/process",
+                params: response
+            }
+            post(information)
+        })
+    }
+
     // lifting state up
     async function handleBuyClick(passCode) {
 
@@ -98,85 +156,35 @@ function BuyPass() {
         profile = JSON.parse(profile)
         const PID = profile.ParticipantID
 
-        // const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
-        //     method: "POST",
-        //     headers: {
-        //         Authorization: "Bearer " + currentUser.accessToken,
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ passCode, PID }),
-        // });
-        // const check = await res.json();
-        // const amt = await check.payAmount
+        const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + currentUser.accessToken,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ passCode, PID }),
+        });
+        const check = await res.json();
+        const amt = await check.payAmount
 
-        if (check.type === "error") {
-            toast.error(check.message, { duration: 3000 })
-        } else {
+        if (check.message == "Profile Not Completed") {
+            window.location.href = "/profile";
+        } else if (check.message == "Buying First Pass" || check.message == "Upgrade Pass") {
+            makePayment(amt, profile.Email, passCode);
 
+            // const res = await fetch(serverURL + "/api/secure/pass/buy", {
+            //     method: "POST",
+            //     headers: {
+            //         Authorization: "Bearer " + currentUser["accessToken"],
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({ PID, passCode, amt }),
+            // });
+            // const data = await res.json();
+            // console.log(data);
+        } else if (check.type === 'error') { 
+            toast.error(check.message, { duration: 3000 });
         }
-
-        // if (check.message == "Profile Not Completed") {
-        //     window.location.href = "/profile";
-        // } else if (check.message == "Buying First Pass") {
-        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "Bearer " + currentUser["accessToken"],
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ PID, passCode, amt }),
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        // } else if (check.message == "Same Pass") {
-        // } else if (check.message == "Remove Registered Events & Guest Lectures") {
-        // } else if (check.message == "Can't Downgrade Pass") {
-        // } else if (check.message == "Remove Registered Workshops") {
-        // } else if (check.message == "Event&Guest/Upgrade") {
-        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "Bearer " + currentUser["accessToken"],
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ PID, passCode, amt }),
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        // } else if (check.message == "Event&Guest/C2") {
-        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "Bearer " + currentUser["accessToken"],
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ PID, passCode, amt }),
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        // } else if (check.message == "Event&Guest/DJ") {
-        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "Bearer " + currentUser["accessToken"],
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ PID, passCode, amt }),
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        // } else if (check.message == "Combos") {
-        //     const res = await fetch(serverURL + "/api/secure/pass/buy", {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: "Bearer " + currentUser["accessToken"],
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({ PID, passCode, amt }),
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        // }
     }
 
     return (
