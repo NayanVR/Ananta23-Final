@@ -171,17 +171,6 @@ function BuyPass() {
             window.location.href = "/profile";
         } else if (check.message == "Buying First Pass" || check.message == "Upgrade Pass") {
             makePayment(amt, profile.Email, passCode);
-
-            // const res = await fetch(serverURL + "/api/secure/pass/buy", {
-            //     method: "POST",
-            //     headers: {
-            //         Authorization: "Bearer " + currentUser["accessToken"],
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ PID, passCode, amt }),
-            // });
-            // const data = await res.json();
-            // console.log(data);
         } else if (check.type === 'error') { 
             toast.error(check.message, { duration: 3000 });
         }
