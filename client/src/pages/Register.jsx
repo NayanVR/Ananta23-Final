@@ -54,7 +54,7 @@ function Register() {
 		console.log(data);
 		setIsGoogle(false);
 		if (data.type === "success") {
-			window.location.href = "/pro";
+			window.location.href = "/profile";
 		} else {
 			toast.error(data.message, { duration: 3000 });
 		}
@@ -122,7 +122,7 @@ function Register() {
 						console.log(user);
 
 						setIsSubmit(false);
-						window.location.href = "/pro";
+						window.location.href = "/profile";
 					});
 				})
 				.catch((error) => {

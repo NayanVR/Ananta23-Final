@@ -21,7 +21,7 @@ function BuyPass() {
             id: "PS-G",
             name: "GOLD",
             markImg: goldMark,
-            price: 300,
+            price: 3,
             features: [
                 "Access to All Events (INERTIA & SWOOSH)",
                 "Access to All Guest Lectures",
@@ -34,7 +34,7 @@ function BuyPass() {
             id: "PS-S",
             name: "SILVER",
             markImg: silverMark,
-            price: 250,
+            price: 2,
             features: [
                 "Access to any 3 Events (INERTIA & SWOOSH)",
                 "Access to any 2 Guest Lectures",
@@ -47,7 +47,7 @@ function BuyPass() {
             id: "PS-B",
             name: "BRONZE",
             markImg: bronzeMark,
-            price: 200,
+            price: 1,
             features: [
                 "Access to any 2 Events (INERTIA & SWOOSH)",
                 "Access to any 1 Guest Lecture",
@@ -60,7 +60,7 @@ function BuyPass() {
             id: "PS-DJ",
             name: "ATMOS",
             markImg: djMark,
-            price: 450,
+            price: 4,
             features: [
                 "A night to groove on EDM beats. A spectacle not to MISS OUT!"
             ],
@@ -70,7 +70,7 @@ function BuyPass() {
             id: "PS-C1",
             name: "COMBO",
             markImg: comboMark,
-            price: 550,
+            price: 5,
             features: [
                 "All benefits of GOLD & ATMOS Pass"
             ],
@@ -80,7 +80,7 @@ function BuyPass() {
             id: "PS-C2",
             name: "COMBO+",
             markImg: combo2Mark,
-            price: 550,
+            price: 6,
             features: [
                 "Access to all workshop & ATMOS Pass"
             ],
@@ -100,7 +100,7 @@ function BuyPass() {
         form.setAttribute('action', action)
 
         Object.keys(params).forEach(key => {
-            console.log(params)
+            // console.log(params)
             const input = document.createElement('input')
             input.setAttribute('type', 'hidden')
             input.setAttribute('name', key)
@@ -138,7 +138,7 @@ function BuyPass() {
             console.log(response);
 
             let information = {
-                action: "https://securegw-stage.paytm.in/order/process",
+                action: "https://securegw.paytm.in/order/process",
                 params: response
             }
             post(information)

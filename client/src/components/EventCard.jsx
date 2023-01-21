@@ -11,7 +11,7 @@ function EventCard({ index, event, registerNow, viewDetails }) {
           <p className='hidden sm:block my-4 sm:my-6 text-justify sm:text-left'>
             {event.desc}
           </p>
-          <button onClick={() => { registerNow(event.eventCode) }} className='w-full sm:w-auto py-2 px-4 bg-primary-dark-1 text-white rounded-md'>
+          <button onClick={() => { registerNow(event.eventCode, event.name) }} className='w-full sm:w-auto py-2 px-4 bg-primary-dark-1 text-white rounded-md'>
             Register Now
           </button>
           <button onClick={() => { viewDetails(event.eventCode) }} className='w-full sm:w-auto py-2 px-4 mt-4 sm:mt-0 sm:ml-4 text-primary-dark-1 bg-white border-primary-dark-1 border rounded-md'>

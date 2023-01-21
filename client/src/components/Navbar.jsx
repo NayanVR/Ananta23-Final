@@ -24,7 +24,14 @@ function Navbar() {
                     </div>
                     <div className="nav__links">
                         <a href="/">Home</a>
-                        <a href="">Events</a>
+                        <div className="dropdown" data-dropdown-placement="left-end">
+                            <button className="dropbtn">Events</button>
+                            <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                                <a href="/inertia">Inertia</a>
+                                <a href="/swoosh">Swoosh</a>
+                                <a href="/kalakriti">Kala Kriti</a>
+                            </div>
+                        </div>
                         <a href="/buypass">Buy a Pass</a>
                         <a href="">Digital Points</a>
                         <a href="">Schedule</a>
@@ -45,8 +52,7 @@ function Navbar() {
                                 <img className='object-contain' src={profileIcon} alt="Profile" />
                             </button>
                             <div className="dropdown-content right-0 br-3">
-                                <a href="/Profile">Profile</a>
-                                <a href="/Pro">New Profile</a>
+                                <a href="/profile">Profile</a>
                                 <a onClick={() => signOut(auth)}>Logout</a>
                             </div>
                         </button>

@@ -9,11 +9,13 @@ import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
-import Profile from './pages/Profile.jsx'
-import Pro from './pages/Pro.jsx'
+// import Profile from './pages/Profile.jsx'
+import Profile from './pages/Pro.jsx'
 import BuyPass from './pages/BuyPass';
 import Footer from './components/Footer';
 import Inertia from './pages/Inertia';
+import Swoosh from './pages/Swoosh';
+import KalaKriti from './pages/KalaKriti';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFail from './pages/PaymentFail'
@@ -31,9 +33,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
-          <Route path="/pro" element={<PrivateRoute element={<Pro />} />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
+          <Route path="/swoosh" element={<Swoosh />} />
+          <Route path="/kalakriti" element={<KalaKriti />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/paymentsuccess/:value" element={<PrivateRoute element={<PaymentSuccess />} />} />
           <Route path="/paymentfail" element={<PrivateRoute element={<PaymentFail />} />} />

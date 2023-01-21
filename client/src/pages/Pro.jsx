@@ -284,6 +284,7 @@ function Pro() {
 												}}
 												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
 											>
+												<option selected value={null}>Select University</option>
 												{uniList.map((uni, index) => {
 													return (
 														<option

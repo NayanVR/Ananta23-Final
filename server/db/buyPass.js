@@ -38,7 +38,7 @@ const passes = {
 		Atmos: 1,
 	},
 	"PS-C1": {
-		Amount: 549,
+		Amount: 301,
 		DP: 5490,
 		Kit: 1,
 		TotalEvents: 30,

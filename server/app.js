@@ -9,6 +9,7 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
+const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo } = require("./db/events");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
@@ -351,6 +352,115 @@ app.post("/api/payment/checkPaymentStatus", async (req, res) => {
 
 	return res.json(txnDetails);
 });
+
+
+
+   
+app.post("/api/secure/event/check", async (req, res) => {
+    console.log(req.body);
+    const { eventCode, email } = req.body;
+
+    // console.log(eventCode, email)
+
+    const participantID = await getParticipantID(conn, email);
+    // console.log(participantID)
+    const response = await checkEvent(conn, eventCode, participantID);
+    console.log(response);
+
+    return res.status(response.code).json(response);
+});
+
+app.post("/api/secure/events/solo/register", async (req, res) => {
+    console.log(req.body);
+    const { selectedEventCode, email } = req.body;
+
+    const participantID = await getParticipantID(conn, email);
+
+    const response = await registerSoloEvent(
+        conn,
+        selectedEventCode,
+        participantID
+    );
+    console.log(response);
+
+    return res.status(response.code).json(response);
+});
+
+app.post("/api/secure/events/team/create", async (req, res) => {
+    console.log(req.body);
+    const { selectedEventCode, email, teamName, selectedEventName } = req.body;
+
+    const participantID = await getParticipantID(conn, email);
+
+    const response = await createTeam(
+        conn,
+        selectedEventCode,
+        participantID,
+        teamName
+    );
+    console.log(response);
+
+    if (response.type == "success") {
+		console.log('success');
+        await transporter
+            .sendMail({
+                from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
+                to: email,
+                subject: "Team",
+				template: "CreateTeam",
+                context: {
+					teamName: teamName,
+					teamID: response.teamID,
+					eventName: selectedEventName
+				},
+            })
+            .then((info) => {
+                console.log(info);
+                if (info) {
+                    response.mailStatus = "success";
+                } else {
+                    response.mailStatus = "error";
+                }
+            })
+            .catch((err) => {
+				console.log(err);
+                response.mailStatus = err;
+            });
+    }
+
+    return res.status(response.code).json(response);
+});
+
+app.post("/api/secure/events/team/join", async (req, res) => {
+    console.log(req.body);
+    const { selectedEventCode, email, teamID } = req.body;
+
+    const participantID = await getParticipantID(conn, email);
+
+    const response = await joinTeam(
+        conn,
+        selectedEventCode,
+        participantID,
+        teamID
+    );
+    console.log(response);
+
+    return res.status(response.code).json(response);
+});
+
+app.post("/api/secure/events/team/getinfo", async (req, res) => {
+    console.log(req.body);
+    const { teamID } = req.body;
+
+    const response = await getTeamInfo(conn, teamID);
+
+    return res.status(response.code).json(response.resMessage);
+});
+
+
+
+
+
 
 app.listen(port, () => {
 	console.log(`Server listening on PORT : ${port}`);
