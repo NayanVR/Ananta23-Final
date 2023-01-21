@@ -5,7 +5,7 @@ function EventCard({ index, event, registerNow, viewDetails }) {
     <div className='w-full min-h-full pb-20 snap-start sticky top-0 left-0 flex justify-center items-center'>
       <div style={{ zIndex: index }} className='w-[90%] sm:w-3/4 h-full p-4 sm:p-12 flex flex-col-reverse sm:flex-row gap-4 items-center justify-center bg-primary-light-3 border-primary-light-1 border-2 rounded-md'>
         <div className='sm:flex-[2]'>
-          <h1 className="font-sans text-4xl text-center sm:text-left font-black bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+          <h1 className="font-sans text-4xl text-center py-8 sm:text-left font-black bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
             {event.name}
           </h1>
           <p className='hidden sm:block my-4 sm:my-6 text-justify sm:text-left'>
