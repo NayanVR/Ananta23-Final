@@ -57,7 +57,6 @@ function Navbar() {
                                 </button>
                                 <div className="dropdown-content right-0 br-3">
                                     <a href="/Profile">Profile</a>
-                                    <a href="/Pro">New Profile</a>
                                     <a onClick={() => signOut(auth)}>Logout</a>
                                 </div>
                             </button>

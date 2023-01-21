@@ -80,9 +80,16 @@ function Inertia() {
 		setSelectedEventCode(eventCode);
 
 		if (response.type == "Warning") {
-			toast(response.message, {
-				icon: "⚠️",
-			});
+      if (response.message == 'Profile') {
+        window.location.href = "/profile"
+      } else if (response.message == 'BuyPass') {
+        window.location.href = "/buypass"
+      } else {
+        toast(response.message, {
+          icon: "⚠️",
+        });
+      }
+			
 		} else if (response.type == "Info") {
 			toast(response.message, {
 				icon: "👍🏻",
@@ -155,7 +162,7 @@ function Inertia() {
       toast.success(response.message, {duration: 3000});
       setTeamName("");
     } else {
-      toast.error(response.message, {duration: 3000})
+      toast.error(response.message, {duration: 2000})
     }
     setShowInfo(false);
     closeModal();

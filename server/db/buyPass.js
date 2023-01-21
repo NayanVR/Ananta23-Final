@@ -2,7 +2,7 @@ const { genPaymentID } = require("../util");
 
 const passes = {
 	"PS-B": {
-		Amount: 200,
+		Amount: 1,
 		DP: 2000,
 		Kit: 0,
 		TotalEvents: 2,
@@ -11,7 +11,7 @@ const passes = {
 		Atmos: 0,
 	},
 	"PS-S": {
-		Amount: 250,
+		Amount: 2,
 		DP: 2500,
 		Kit: 0,
 		TotalEvents: 4,
@@ -20,7 +20,7 @@ const passes = {
 		Atmos: 0,
 	},
 	"PS-G": {
-		Amount: 300,
+		Amount: 3,
 		DP: 3000,
 		Kit: 1,
 		TotalEvents: 30,
@@ -29,7 +29,7 @@ const passes = {
 		Atmos: 0,
 	},
 	"PS-DJ": {
-		Amount: 449,
+		Amount: 4,
 		DP: 4490,
 		Kit: 0,
 		TotalEvents: 0,
@@ -38,7 +38,7 @@ const passes = {
 		Atmos: 1,
 	},
 	"PS-C1": {
-		Amount: 301,
+		Amount: 5,
 		DP: 5490,
 		Kit: 1,
 		TotalEvents: 30,
@@ -47,7 +47,7 @@ const passes = {
 		Atmos: 1,
 	},
 	"PS-C2": {
-		Amount: 549,
+		Amount: 5,
 		DP: 5490,
 		Kit: 1,
 		TotalEvents: 0,
@@ -315,6 +315,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 		}
 
         const oldAmount = await getOldPassAmount(conn, participantID)
+		console.log(oldAmount)
 
 		// Updating the Participant's Pass and Payment Info...
 		const [parUpdateRows, parUpdateFields] = await conn.execute(

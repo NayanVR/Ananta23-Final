@@ -235,6 +235,7 @@ app.post("/api/get-payment-info", async (req, res) => {
 		// console.log(response.resMessage.EMAIL, response.resMessage.ORDER_ID);
 		orderIDEmail[response.resMessage.ORDER_ID] = response.resMessage.EMAIL;
 		console.log(orderIDEmail[response.resMessage.ORDER_ID])
+
 		setTimeout(() => {
 			if (orderIDEmail[response.resMessage.ORDER_ID]) delete orderIDEmail[response.resMessage.ORDER_ID];
 		}, 30 * 60 * 1000);
@@ -246,6 +247,7 @@ app.post("/api/get-payment-info", async (req, res) => {
 
 app.post("/api/payment-callback", async (req, res) => {
 	const form = new formidable.IncomingForm();
+
 
 	let resFields = new Promise((resolve, reject) => {
 		form.parse(req, async (err, fields, files) => {
@@ -284,7 +286,7 @@ app.post("/api/payment-callback", async (req, res) => {
 
 			let options = {
 				/* for Staging */
-				hostname: "securegw-stage.paytm.in",
+				hostname: "securegw.paytm.in",
 				/* for Production */
 				// hostname: 'securegw.paytm.in',
 				port: 443,
@@ -308,13 +310,15 @@ app.post("/api/payment-callback", async (req, res) => {
 					console.log(data);
 
 					paymentStatus[orderIDEmail[data.body.orderId]] = data.body.resultInfo.resultStatus;
+
 					
 					const passCode = await assumePassCode(conn, orderIDEmail[data.body.orderId], data.body.txnAmount);
-
+					
 					console.log("Email:", orderIDEmail[data.body.orderId])
 					console.log("OrderID:", data.body.orderId);
 					console.log("Amount:", data.body.txnAmount);
 					console.log("PassCode:", passCode);
+					
 
 					if (data.body.resultInfo.resultStatus === "TXN_SUCCESS") {
 
