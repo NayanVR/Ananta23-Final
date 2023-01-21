@@ -1,61 +1,113 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { signOut } from "firebase/auth"
-import { auth } from "../firebase"
 import Ellipse from '../assets/illustrations/ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
-import toast from 'react-hot-toast';
 import MajorUSP from '../components/MajorUSP'
 
 function Home() {
 
-    const wH = window.innerHeight
+    // const wH = window.innerHeight
 
-    const [mousePos, setMousePos] = useState({ x: 0, y: wH / 2 });
+    // const [mousePos, setMousePos] = useState({ x: 0, y: wH / 2 });
 
+    // useEffect(() => {
+    //     const handleMouseMove = (event) => {
+    //         setMousePos({ x: event.clientX, y: event.clientY });
+    //     };
+
+    //     window.addEventListener('mousemove', handleMouseMove);
+
+    //     return () => {
+    //         window.removeEventListener(
+    //             'mousemove',
+    //             handleMouseMove
+    //         );
+    //     };
+    // }, []);
+
+    // //clamp value in new range
+    // function clamp(value, newMin, newMax) {
+    //     return (value / wH) * (newMax - newMin) + newMin;
+    // }
+
+    //get today date
+    
+    const [day, setDay] = useState(0)
+    const [hour, setHour] = useState(0)
+    const [minute, setMinute] = useState(0)
+    const [second, setSecond] = useState(0)
+    
     useEffect(() => {
-        const handleMouseMove = (event) => {
-            setMousePos({ x: event.clientX, y: event.clientY });
-        };
+        const second = setInterval(() => {
+            const current = new Date().getTime()
+            const eventTime = new Date('Mar 17, 2023 00:00:00')
+            const diff = eventTime - current
 
-        window.addEventListener('mousemove', handleMouseMove);
+            const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24))
+            const diffHours = Math.floor(diff / 1000 / 60 / 60) % 24
+            const diffMinutes = Math.floor(diff / 1000 / 60) % 60
+            const diffSeconds = Math.floor(diff / 1000) % 60
 
+            setDay(diffDays)
+            setHour(diffHours)
+            setMinute(diffMinutes)
+            setSecond(diffSeconds)
+        }, 1000)
+    
         return () => {
-            window.removeEventListener(
-                'mousemove',
-                handleMouseMove
-            );
-        };
-    }, []);
-
-    //clamp value in new range
-    function clamp(value, newMin, newMax) {
-        return (value / wH) * (newMax - newMin) + newMin;
-    }
+            clearInterval(second)
+        }
+    }, [])
 
     return (
         <>
-            <section className='w-full h-[calc(100vh-4rem)] relative flex flex-col justify-center items-center'>
+            <section className='w-full h-[calc(100vh-4rem)] relative flex flex-col justify-center items-center gap-10'>
 
+                <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
+                    <div className="grid-container">   
+                        <div className='grid-top-gradient'></div>
+                        {
+                            [...Array(250)].map((_, i) => {
+
+                                return (
+                                    <div key={i} className='grid-item'></div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="wrap-grid-container">
+                    <div className="grid-container">   
+                        <div className='grid-top-gradient'></div>
+                        {
+                            [...Array(250)].map((_, i) => (
+                                <div key={i} className='grid-item'></div>
+                            ))
+                        }
+                    </div>
+                </div>
                 {/* Left gradient */}
-                <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50' />
+                <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
                 {/* Left ellipses */}
-                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 10}px + 50%)` }} className='absolute -z-10 h-5/6 left-12 animate-wiggleLeft' />
+                {/* <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 10}px + 50%)` }} className='absolute -z-10 h-5/6 left-12 animate-wiggleLeft' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 8}px + 50%)` }} className='absolute -z-10 h-4/6 left-20 animate-wiggleLeft' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 6}px + 50%)` }} className='absolute -z-10 h-3/6 left-28 animate-wiggleLeft' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 4}px + 50%)` }} className='absolute -z-10 h-2/6 left-36 animate-wiggleLeft' />
-                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 left-44 animate-wiggleLeft' />
+                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 left-44 animate-wiggleLeft' /> */}
                 {/* Right gradient */}
-                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50' />
+                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
                 {/* Right ellipses */}
-                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 10}px + 50%)` }} className='absolute -z-10 h-5/6 right-12 animate-wiggleRight' />
+                {/* <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 10}px + 50%)` }} className='absolute -z-10 h-5/6 right-12 animate-wiggleRight' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 8}px + 50%)` }} className='absolute -z-10 h-4/6 right-20 animate-wiggleRight' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 6}px + 50%)` }} className='absolute -z-10 h-3/6 right-28 animate-wiggleRight' />
                 <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 4}px + 50%)` }} className='absolute -z-10 h-2/6 right-36 animate-wiggleRight' />
-                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 right-44 animate-wiggleRight' />
+                <img src={Ellipse} style={{ top: `calc(${clamp(mousePos.y, -300, 300) / 3}px + 50%)` }} className='absolute -z-10 h-1/6 right-44 animate-wiggleRight' /> */}
 
+                <p className='relative uppercase text-xl text-primary after:content-[""] after:block after:absolute after:w-full after:h-full after:top-0 after:left-0 after:bg-white after:blur-md after:z-[-1]'>
+                    {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
+                </p>
                 <div className='text-center'>
                     <h1 className='text-3xl sm:text-7xl font-heading font-black bg-gradient-to-b from-primary-dark-2 to-gray-900 bg-clip-text text-transparent'>
                         REVOLUTION
@@ -67,7 +119,6 @@ function Home() {
                         DISRUPTION
                     </h1>
                 </div>
-                <p className='my-2'>Coming soon</p>
                 <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
             </section>
 

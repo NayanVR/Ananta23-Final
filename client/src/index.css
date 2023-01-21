@@ -14,8 +14,65 @@
   --primary-dark-2: #022539;
   --primary-light-1: #78bdc4;
   --primary-light-2: #a5d9d5;
+  --grid-item-size: 5rem;
+  --grid-perspective: 200px;
+  --grid-rotate-x: 40deg;
 }
 
 div::-webkit-scrollbar {
   width: 0;
+}
+
+.wrap-grid-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--grid-item-size));
+  min-width: 200%;
+  gap: 0px;
+  transform: perspective(var(--grid-perspective)) rotateX(var(--grid-rotate-x));
+  animation: grid-item-animation 800ms infinite linear;
+}
+
+.grid-top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.grid-item {
+  width: var(--grid-item-size);
+  height: var(--grid-item-size);
+  aspect-ratio: 1/1;
+  border: 1px solid var(--primary-light-1);
+  z-index: -1;
+}
+
+.grid-item:hover {
+  background-color: var(--primary-light-1);
+}
+
+@keyframes grid-item-animation {
+  0% {
+    transform: perspective(var(--grid-perspective)) rotateX(var(--grid-rotate-x)) translateY(0);
+  }
+  100% {
+    transform: perspective(var(--grid-perspective)) rotateX(var(--grid-rotate-x)) translateY(var(--grid-item-size));
+  }
 }

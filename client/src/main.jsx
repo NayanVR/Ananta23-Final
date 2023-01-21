@@ -44,7 +44,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
-
         </Routes>
       </BrowserRouter>
       <Footer />

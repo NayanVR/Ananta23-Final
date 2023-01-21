@@ -25,35 +25,29 @@ function Footer() {
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>Event Room, GUIITAR Lab 7, Anviksha,<br />
           GSFC University, P. O. Fertilizernagar,<br />
           Vadodara - 391750, Gujarat, India</p>
-        <h2 className='font-heading font-bold text-sm text-primary mt-1 md:text-left text-center'>&nbsp; </h2>
+        <h2 className='font-heading font-bold mt-6 text-2xl text-primary md:text-left text-center'>Contact</h2>
         <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
           Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
         </p>
-        <div className='flex flex-wrap md:justify-start justify-center text-xs font-semibold'>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/privacy-policy">Privacy Policy<span className='sm:block hidden'>&nbsp;||&nbsp;</span></a>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/refund-policy">Refund Policy<span className='sm:block hidden'>&nbsp;||&nbsp;</span></a>
-          <a className='text-primary-dark-2 mt-2 md:text-left text-center flex justify-center' href="/term&condition">Terms & Conditions</a>
-        </div>
-       
       </div>
       <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
         <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />
         <img className='w-1/2' src={AnantaLogo} alt="Ananta Logo" />
         <div className='flex gap-1'>
           <a href="">
-            <img  className='w-10 hover:-translate-y-1 hover:shadow-md' src={Twitter} alt="Ananta Twitter" />
+            <img  className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Twitter} alt="Ananta Twitter" />
           </a>
           <a href="">
-            <img className='w-10' src={Instagram} alt="Ananta Instagram" />
+            <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Instagram} alt="Ananta Instagram" />
           </a>
           <a href="">
-            <img className='w-10' src={WhatsApp} alt="Ananta WhatsApp" />
+            <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={WhatsApp} alt="Ananta WhatsApp" />
           </a>
           <a href="">
-            <img className='w-10' src={Facebook} alt="Ananta facebook" />
+            <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Facebook} alt="Ananta facebook" />
           </a>
           <a href="">
-            <img className='w-10' src={Location} alt="Ananta Location" />
+            <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Location} alt="Ananta Location" />
           </a>
         </div>
       </div>
@@ -66,7 +60,14 @@ function Footer() {
         </form>
       </div>
     </footer>
-    
+    <div className='w-full h-max bg-primary-dark-1 px-8 md:px-24 py-2 flex items-center justify-center md:justify-between'>
+      <p className='hidden md:block text-white'>Made by Team Ananta❤️</p>
+      <div className='flex justify-center items-center gap-2 sm:gap-6 flex-col sm:flex-row'>
+        <a className='text-white text-center' href="/privacy-policy">Privacy Policy</a>
+        <a className='text-white text-center' href="/refund-policy">Calcellation & Refund Policy</a>
+        <a className='text-white text-center' href="/term&condition">Terms & Conditions</a>
+      </div>
+    </div>
    </div>
   )
 }

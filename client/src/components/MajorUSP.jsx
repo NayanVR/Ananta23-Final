@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from "lottie-react";
-import animationData from "../assets/MajorUSPAnim.json";
+import animationData from "../assets/MajorUSPAnimNew.json";
 
 function MajorUSP() {
 
@@ -16,16 +16,16 @@ function MajorUSP() {
     ]
 
     return (
-        <section id='about'>
+        <section id='major-usp'>
             <div className='w-full pb-20 gap-8 md:gap-0 px-[10%] flex flex-col md:flex-row'>
-                <div className='flex-1 flex justify-center items-center'>
+                <div className='flex-1 flex justify-center items-center max-h-[70vh]'>
                     <Lottie animationData={animationData} loop={true} />
                 </div>
                 <div className='flex-1'>
                     <h1 className='text-center md:text-left text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                         MAJOR USP
                     </h1>
-                    <ul className='mt-8 list-disc'>
+                    <ul className='mt-8 ml-4 list-disc'>
                         {
                             points.map((point, index) => (
                                 <li className='text-justify md:text-left text-primary-dark-2 text-lg mt-2' key={index}>{point}</li>
