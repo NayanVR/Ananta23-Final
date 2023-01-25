@@ -5,6 +5,7 @@ import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
 import MajorUSP from '../components/MajorUSP'
+import Acc from '../components/Acc'
 
 function Home() {
 
@@ -33,12 +34,12 @@ function Home() {
     // }
 
     //get today date
-    
+
     const [day, setDay] = useState(0)
     const [hour, setHour] = useState(0)
     const [minute, setMinute] = useState(0)
     const [second, setSecond] = useState(0)
-    
+
     useEffect(() => {
         const second = setInterval(() => {
             const current = new Date().getTime()
@@ -55,7 +56,7 @@ function Home() {
             setMinute(diffMinutes)
             setSecond(diffSeconds)
         }, 1000)
-    
+
         return () => {
             clearInterval(second)
         }
@@ -66,7 +67,7 @@ function Home() {
             <section className='w-full h-[calc(100vh-4rem)] relative flex flex-col justify-center items-center gap-10'>
 
                 <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
-                    <div className="grid-container">   
+                    <div className="grid-container">
                         <div className='grid-top-gradient'></div>
                         {
                             [...Array(250)].map((_, i) => {
@@ -79,7 +80,7 @@ function Home() {
                     </div>
                 </div>
                 <div className="wrap-grid-container">
-                    <div className="grid-container">   
+                    <div className="grid-container">
                         <div className='grid-top-gradient'></div>
                         {
                             [...Array(250)].map((_, i) => (
@@ -134,6 +135,8 @@ function Home() {
             {/* Events */}
             <Events />
 
+
+
             <section id="aftermovie">
                 <div className="w-full flex flex-col justify-center items-center px-8 py-8">
                     <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
@@ -142,6 +145,8 @@ function Home() {
                     <iframe className='w-full sm:w-2/3 max-w-3xl h-auto aspect-video' src="https://www.youtube.com/embed/E1twFXK5aC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </section>
+
+            <Acc />
         </>
     )
 }
