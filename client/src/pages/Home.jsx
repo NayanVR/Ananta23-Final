@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import Ellipse from '../assets/illustrations/ellipse.svg'
+import Ellipse from '../assets/illustrations/Ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
