@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx nodemon app.js",
     "start": "node app.js",
-    "build": "cd ../client && npm i && npm run build && cd .. && cp /client/dist /server/dist && cd server && npm i"
+    "build": "cd ../client && npm i && npm run build && cd .. && cp -a client/dist server/dist && cd server && npm i"
   },
   "keywords": [],
   "author": "",
