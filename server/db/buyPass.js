@@ -281,9 +281,10 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 	};
 
 	const paymentID = await genPaymentID(conn, passCode);
-
+	const query = `INSERT INTO Payments (PaymentID, ParticipantID, PassCode, TxnID, BankTxnID, TxnStatus, OrderID, TxnAmount, TxnType, GatewayName, BankName, PaymentMode, TxnDate) VALUES ('${paymentID}', '${participantID}', '${passCode}', ${paymentData.txnId}, '${paymentData.bankTxnId}', '${paymentData.resultInfo.resultStatus}', '${paymentData.orderId}', ${paymentData.txnAmount}, '${paymentData.txnType}', '${paymentData.gatewayName}', '${paymentData.bankName}', '${paymentData.paymentMode}', '${paymentData.txnDate}')`;
+	console.log(query);
 	const [insertPaymentRows, insertPaymentFields] = await conn.execute(
-		`INSERT INTO Payments (PaymentID, ParticipantID, PassCode, TxnID, BankTxnID, TxnStatus, OrderID, TxnAmount, TxnType, GatewayName, BankName, PaymentMode, TxnDate) VALUES ('${paymentID}', '${participantID}', '${passCode}', ${paymentData.txnId}, '${paymentData.bankTxnId}', '${paymentData.resultInfo.resultStatus}', '${paymentData.orderId}', ${paymentData.txnAmount}, '${paymentData.txnType}', '${paymentData.gatewayName}', '${paymentData.bankName}', '${paymentData.paymentMode}', '${paymentData.txnDate}')`
+		query
 	);
 
 	console.log(

@@ -16,6 +16,7 @@ function PaymentSuccess() {
 
 	let [pass, setPass] = useState('');
 
+	const server_URL = import.meta.env.VITE_SERVER_URL;
 	const email = currentUser.email;
 	console.log(email);
 
@@ -23,7 +24,7 @@ function PaymentSuccess() {
 		const getdetails = async () => {
 			console.log("varada");
 			const data = await fetch(
-				VITE_SERVER_URL+"/api/payment/checkPaymentStatus",
+				server_URL+"/api/payment/checkPaymentStatus",
 				{
 					method: "POST",
 					headers: {
@@ -63,6 +64,7 @@ function PaymentSuccess() {
 					</h1>
 					<div className="max-w-[1200px] m-auto grid grid-cols-1 md:grid-cols-2 md:gap-y-8 lg:grid-cols-3 place-items-center my-4">
 						<table className="items-center">
+							{console.log(PayDetails)}
 							{PayDetails.length != 0 ? (
 								PayDetails.map((data) => {
 									return (

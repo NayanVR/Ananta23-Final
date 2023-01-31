@@ -6,12 +6,11 @@ import uniList from "../data/uniList.json";
 import YourEvent from "../components/YourEvent";
 
 function Pro() {
-	const { currentUser } = useContext(AuthContext);
+	const { currentUser, profile, setProfile } = useContext(AuthContext);
 	let email_ = currentUser.email;
 
+	console.log()
 	const serverURL = import.meta.env.VITE_SERVER_URL;
-
-	const profile = localStorage.getItem("profile");
 
 	const [canEdit, setCanEdit] = useState(false);
 
@@ -41,10 +40,11 @@ function Pro() {
 	useEffect(() => {
 		setEmail(currentUser.email);
 
-		if (profile !== "{}") {
-			const pro = JSON.parse(profile);
-			if (pro.ProfileStatus === 1) {
-				updateProfile(pro);
+		if (profile != {}) {
+			// const pro = JSON.parse(profile);
+			if (profile.ProfileStatus === 1) {
+				updateProfile(profile);
+				setCanEdit(false);
 			} else {
 				setCanEdit(true);
 			}
@@ -144,17 +144,11 @@ function Pro() {
 							.then((res) => res.json())
 							.then((data) => {
 								toast.success("Profile updated successfully!");
-								localStorage.setItem(
-									"profile",
-									JSON.stringify(data.message)
-								);
+								setProfile(data.message);
 							})
 							.catch((err) => {
 								toast.error("Error updating profile!");
-								localStorage.setItem(
-									"profile",
-									JSON.stringify({})
-								);
+								setProfile({});
 							})
 							.finally(() => {
 								setCanEdit(false);

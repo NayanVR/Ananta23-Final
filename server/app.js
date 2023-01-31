@@ -322,7 +322,7 @@ app.post("/api/payment-callback", async (req, res) => {
 						const updateDatabase = await buyPass(conn, participantID, passCode, data.body);
 						console.log(updateDatabase);
 						if (updateDatabase) {
-							res.redirect(`${process.env.REACT_URL}/paymentsuccess/${data.body.orderId}`);
+							res.redirect(`${process.env.REACT_URL}/paymentsuccess`);
 						} else {
 							res.redirect(`${process.env.REACT_URL}/paymentfail`);
 						}
@@ -348,7 +348,7 @@ app.post("/api/payment/checkPaymentStatus", async (req, res) => {
 	// console.log(paymentStatus[email]);
 
 	const txnDetails = await getTxnDetails(conn, email)
-
+	console.log(txnDetails)
 	return res.json(txnDetails);
 });
 

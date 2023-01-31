@@ -40,7 +40,7 @@ async function getEvents(conn, participantID) {
   console.log(soloRows.length);
   console.log(teamRows.length);
 
-  if (soloRows.length > 0 && teamRows.length > 0) {
+  if (soloRows.length > 0 || teamRows.length > 0) {
     console.log("success.")
     return {
       code: 200,
