@@ -26,6 +26,7 @@ let conn;
 app.use(cors({ accessControlAllowOrigin: "*" }));
 app.use(express.json());
 app.use(middleware.decodeToken);
+app.use(express.static(path.join(__dirname, "dist")));
 
 let otps = {};
 
@@ -52,6 +53,13 @@ const handlebarOptions = {
 };
 
 transporter.use("compile", hbs(handlebarOptions));
+
+
+app.use((req, res, next) => {
+	if (req.url.includes('/api')) return next();
+	else return res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 
 // OTP Logic
 app.post("/api/generateOTP", async (req, res) => {
@@ -464,7 +472,9 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 
 
 
-
+app.get("/api/test", (req, res) => {
+	res.json("Server is running!")
+})
 
 app.listen(port, () => {
 	console.log(`Server listening on PORT : ${port}`);
