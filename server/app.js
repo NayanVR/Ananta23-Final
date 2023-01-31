@@ -9,7 +9,7 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
-const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo } = require("./db/events");
+const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo, getEvents } = require("./db/events");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
@@ -104,30 +104,6 @@ app.post("/api/generateOTP", async (req, res) => {
 			}
 		}
 	);
-	// .then((isSent) => {
-	// 	if (isSent) {
-	// 		return res
-	// 			.status(200)
-	// 			.json({
-	// 				isOTPGenerated: true,
-	// 				message: "OTP sent successfully",
-	// 				type: "success",
-	// 			});
-	// 	} else {
-
-	// 		return res
-	// 			.status(500)
-	// 			.json({
-	// 				isOTPGenerated: false,
-	// 				message: "ahaha went wrong",
-	// 				type: "error",
-	// 			});
-	// 	}
-	// })
-	// .catch((err) => {
-	// 	delete otps[email];
-
-	// });
 });
 
 app.post("/api/verifyOTP", (req, res) => {
@@ -174,7 +150,7 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
 	const [rows, f] = await conn.execute(
-		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, Gender, DOB, City, State, ContactNo, University, Branch, StudyYear, Email, DigitalPoints FROM Participants WHERE Email = '${email}';`
+		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, Gender, DOB, City, State, ContactNo, University, Branch, StudyYear, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
 	);
 
 	if (rows.length === 0) {
@@ -185,6 +161,9 @@ app.get("/api/secure/get-profile", async (req, res) => {
 		return res.status(200).json({ message: rows[0], type: "success" });
 	}
 });
+
+
+
 
 // Buy Pass Logic
 
@@ -198,6 +177,22 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
+
+
+app.post("/api/secure/getEvents", async (req, res) => {
+	const { email_ } = req.body;
+
+	// participantID = await getParticipantID(email);
+	console.log(req.body);
+	const participantID = await getParticipantID(conn, email_);
+
+	console.log(participantID);
+	const response = await getEvents(conn, participantID);
+
+	return res.status(response.code).json(response.resMessage);
+	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+});
+
 
 // Forgot Password : Send OTP
 app.post("/api/forgotpassword/checkuser", async (req, res) => {

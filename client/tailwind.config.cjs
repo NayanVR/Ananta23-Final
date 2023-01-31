@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['"Space Grotesk"', 'sans-serif'],
-      'heading': ['Syne', 'sans-serif']
+      'heading': ['"Anek Latin"', 'sans-serif'],
+      // 'heading': ['"IBM Plex Sans"', 'sans-serif'],
     },
     extend: {
       colors: {

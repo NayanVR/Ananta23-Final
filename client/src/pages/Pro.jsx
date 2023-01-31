@@ -3,9 +3,12 @@ import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-hot-toast";
 import profilePic from "../assets/photos/profile.jpg";
 import uniList from "../data/uniList.json";
+import YourEvent from "../components/YourEvent";
 
 function Pro() {
 	const { currentUser } = useContext(AuthContext);
+	let email_ = currentUser.email;
+
 	const serverURL = import.meta.env.VITE_SERVER_URL;
 
 	const profile = localStorage.getItem("profile");
@@ -25,21 +28,59 @@ function Pro() {
 	const [city, setCity] = useState("");
 	const [state, setState] = useState("");
 
+	const [txnStatus, setTxnStatus] = useState("");
+	const [passCode, setPassCode] = useState("");
+
+	const [registeredEvents, setRegisteredEvents] = useState([]);
+
+	const [soloEvents, setSoloEvents] = useState([]);
+	const [teamEvents, setTeamEvents] = useState([]);
+
+	let allEvents = [];
+
 	useEffect(() => {
 		setEmail(currentUser.email);
-			console.log(profile);
+
 		if (profile !== "{}") {
 			const pro = JSON.parse(profile);
 			if (pro.ProfileStatus === 1) {
 				updateProfile(pro);
+			} else {
+				setCanEdit(true);
 			}
-      else {
-        setCanEdit(true);
-      }
 		} else {
-      setCanEdit(true);
-    }
+			setCanEdit(true);
+		}
 	}, [profile]);
+
+	useEffect(() => {
+		const fetchEvents = async () => {
+			const data = await fetch(serverURL + "/api/secure/getEvents", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + currentUser.accessToken,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email_ }),
+			});
+			const fetchdata = await data.json();
+
+			if (fetchdata.type == "success") {
+				allEvents = [];
+				fetchdata.data.solo.forEach((data) => {
+					allEvents.push(data);
+					setRegisteredEvents(allEvents);
+				});
+				fetchdata.data.team.forEach((data) => {
+					allEvents.push(data);
+					setRegisteredEvents(allEvents);
+				});
+
+				// console.log(registeredEvents);
+			}
+		};
+		fetchEvents();
+	}, []);
 
 	function updateProfile(pro) {
 		let date = new Date(pro.DOB);
@@ -59,6 +100,9 @@ function Pro() {
 		setGender(pro.Gender);
 		setCity(pro.City);
 		setState(pro.State);
+
+		setTxnStatus(pro.TxnStatus);
+		setPassCode(pro.PassCode);
 	}
 
 	function handleSubmit(e) {
@@ -138,12 +182,37 @@ function Pro() {
 							</div>
 							<div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
 								<button className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
-									<label className="text-xs">Participent ID:</label> 
-                  <b>{pid}</b>
+									<label className="text-xs">
+										Participent ID:
+									</label>
+									<b>{pid}</b>
 								</button>
 							</div>
 						</div>
+
+						<div className="mt-2 overflow-hidden shadow rounded-md">
+							<div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
+								{txnStatus == "0" ? (
+									<button
+										className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap'
+										onClick={(_) => {
+											window.location.href = "/buypass";
+										}}
+									>
+										Buy&nbsp;Pass
+									</button>
+								) : (
+									<button className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
+										<label className="text-xs">
+											Pass Code:
+										</label>
+										<b>{passCode}</b>
+									</button>
+								)}
+							</div>
+						</div>
 					</div>
+
 					<div className="mt-5 md:col-span-3 md:mt-0">
 						<form onSubmit={handleSubmit}>
 							<div className="overflow-hidden shadow rounded-md">
@@ -284,7 +353,9 @@ function Pro() {
 												}}
 												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
 											>
-												<option selected value={null}>Select University</option>
+												<option selected value={null}>
+													Select University
+												</option>
 												{uniList.map((uni, index) => {
 													return (
 														<option
@@ -424,6 +495,68 @@ function Pro() {
 										</button>
 									</div>
 								)}
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<hr className="my-10" />
+
+				<div className="md:grid md:grid-cols-4 md:gap-6">
+					<div className="mt-5 md:col-span-4 md:mt-0">
+						<form onSubmit={handleSubmit}>
+							<div className="overflow-hidden shadow rounded-md">
+								<div className="bg-primary px-4 py-3 flex justify-between items-center sm:px-6">
+									<h1 className="font-bold text-2xl text-white justify-center m-auto">
+										Your Events
+									</h1>
+								</div>
+								{registeredEvents.length != 0 ? (
+									registeredEvents.map((data, index) => 
+										<YourEvent data={data} key={index} />
+									)
+								) : (
+									<div className="bg-white px-4 py-5 sm:p-6">
+										<div className="bg-white shadow px-4 py-3 flex justify-between items-center sm:px-6">
+											<div className="justify-center">
+												<label className="block text-lg font-medium text-gray-700">
+													No Event Found
+												</label>
+												<label
+													htmlFor="first-name"
+													className="block text-xs font-extralight text-gray-700"
+												></label>
+											</div>
+										</div>
+									</div>
+								)}
+
+								{/* <div className="bg-white px-4 py-5 sm:p-6">
+									<div className="bg-white shadow px-4 py-3 flex justify-between items-center sm:px-6">
+										<div className="justify-center">
+											<label className="block text-lg font-medium text-gray-700">
+												Chem E-Jeopardy
+												<span className="mx-2 bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded">
+													Inertia
+												</span>
+											</label>
+											<label
+												htmlFor="first-name"
+												className="block text-xs font-extralight text-gray-700"
+											></label>
+										</div>
+										<button
+											onClick={(e) => {
+												e.preventDefault();
+												setCanEdit(!canEdit);
+											}}
+											className="inline-flex items-center justify-center py-3 px-3 h-1/4 rounded-md bg-red-400 text-white"
+										>
+											<FaTrash icon="fa fa-solid fa-trash" />
+										</button>
+									</div>
+									{console.log(registeredEvents)}
+								</div> */}
 							</div>
 						</form>
 					</div>

@@ -28,7 +28,7 @@ function Navbar() {
                             <button className="dropbtn">Events</button>
                             <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
                                 <a href="/inertia">Inertia</a>
-                                <a href="">Swoosh</a>
+                                <a href="/swoosh">Swoosh</a>
                                 <a href="">Upshot</a>
                                 <a href="">Zingaat</a>
                                 <a href="">Kala Kriti</a>

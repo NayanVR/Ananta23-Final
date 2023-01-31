@@ -70,7 +70,7 @@ async function getOldPassAmount(conn, participantID) {
 
 async function getTxnDetails(conn, email) {
     const [rows, fields] = await conn.execute(
-		`SELECT * FROM Payments WHERE PaymentID = ( SELECT PaymentID FROM Participants WHERE Email = '${email}')`
+		`SELECT py.OrderID as OrderID, pa.PassType as PassType, py.TxnStatus as TxnStatus, py.TxnID as TxnID, py.TxnDate as TxnDate FROM Payments as py inner join Passes as pa on py.PassCode = pa.PassCode and py.PaymentID = ( SELECT PaymentID FROM Participants WHERE Email = '${email}')`
 	);
 
 	if (rows.length > 0) {
