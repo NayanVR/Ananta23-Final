@@ -21,7 +21,9 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFail from './pages/PaymentFail'
 import TermCondition from './pages/TermCondition';
 import RefundPolicy from './pages/RefundPolicy';
-import AboutUs from './pages/AboutUs';
+import Countdown from './pages/Countdown';
+// import AboutUs from './pages/AboutUs';
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
@@ -38,13 +40,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/swoosh" element={<Swoosh />} />
           <Route path="/kalakriti" element={<KalaKriti />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/paymentsuccess/:value" element={<PrivateRoute element={<PaymentSuccess />} />} />
+          <Route path="/paymentsuccess" element={<PrivateRoute element={<PaymentSuccess />} />} />
           <Route path="/paymentfail" element={<PrivateRoute element={<PaymentFail />} />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
+          {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
+          <Route path="/cd" element={<Countdown />} /> 
         </Routes>
       </BrowserRouter>
       <Footer />

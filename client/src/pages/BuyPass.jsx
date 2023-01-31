@@ -12,8 +12,9 @@ import djMark from '../assets/icons/Dj_mark.svg'
 
 function BuyPass() {
 
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, profile, setProfile } = useContext(AuthContext);
 
+    console.log(profile)
     const serverURL = import.meta.env.VITE_SERVER_URL;
 
     const passes = [
@@ -150,11 +151,11 @@ function BuyPass() {
 
         if (currentUser == null) window.location.href = "/login";
 
-        let profile = localStorage.getItem("profile")
-        if (profile == '{}') window.location.href = "/profile";
+        if (profile == {}) window.location.href = "/profile";
 
-        profile = JSON.parse(profile)
+        
         const PID = profile.ParticipantID
+        console.log(profile.ParticipantID)
 
         const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
             method: "POST",
