@@ -12,5 +12,20 @@
             "question": "Section 3",
             "answer": "<p>Content for section 3</p>"
         }
+    ],
+
+    "PassFAQs": [
+        {
+            "question": "Section 1",
+            "answer": "<p>Content for section 1</p>"
+        },
+        {
+            "question": "Section 2",
+            "answer": "<p>Content for section 2</p>"
+        },
+        {
+            "question": "Section 3",
+            "answer": "<p>Content for section 3</p>"
+        }
     ]
 }

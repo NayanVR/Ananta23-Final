@@ -20,7 +20,7 @@ function Navbar() {
             <nav data-is-open={isOpen}>
                 <div className="nav">
                     <div className="nav__logo">
-                        <img src={AnantaLogo} alt="NayanVR Logo" />
+                        <img src={AnantaLogo} alt="Ananta logo" />
                     </div>
                     <div className="nav__links">
                         <a href="/">Home</a>
@@ -42,7 +42,7 @@ function Navbar() {
                         <div className="dropdown" data-dropdown-placement="left-end">
                             <button className="dropbtn">More</button>
                             <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
-                                <a href="">About Us</a>
+                                <a href="/aboutUs">About Us</a>
                                 <a href="">Our Team</a>
                                 <a href="">Our Partners</a>
                             </div>

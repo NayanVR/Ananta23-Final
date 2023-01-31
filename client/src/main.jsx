@@ -21,7 +21,7 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFail from './pages/PaymentFail'
 import TermCondition from './pages/TermCondition';
 import RefundPolicy from './pages/RefundPolicy';
-
+import AboutUs from './pages/AboutUs';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
@@ -44,6 +44,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
         </Routes>
       </BrowserRouter>
       <Footer />
