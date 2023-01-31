@@ -3,7 +3,7 @@ import { useContext, Fragment, useState } from "react";
 import EventCard from "../components/EventCard";
 import Swift from "../assets/photos/upshots/swift.png";
 import { AuthContext } from "../contexts/AuthContext";
-import profilePic from "../assets/photos/profile.jpg";
+// import profilePic from "../assets/photos/profile.jpg";
 import { Dialog, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
 
@@ -23,7 +23,7 @@ function Inertia() {
 			desc: "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
 			mobDesc:
 				"Code Wars is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: profilePic,
+			image: Swift,
 		},
 		{
 			eventCode: "IN_CEJ",
