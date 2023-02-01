@@ -61,7 +61,7 @@ function Footer() {
         </div>
       </footer>
       <div className='w-full h-max bg-primary-dark-1 px-8 md:px-24 py-2 flex items-center justify-center md:justify-between'>
-        <p className='hidden md:block text-white'>Made by Team Ananta❤️</p>
+        <p className='hidden md:block text-white'>Made by Team Ananta🌟</p>
         <div className='flex justify-center items-center gap-2 sm:gap-6 flex-col sm:flex-row'>
           <a className='text-white text-center' href="/privacy-policy">Privacy Policy</a>
           <a className='text-white text-center' href="/refund-policy">Calcellation & Refund Policy</a>

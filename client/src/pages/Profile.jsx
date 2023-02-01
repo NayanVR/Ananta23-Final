@@ -331,6 +331,7 @@ function Profile() {
             </form>
           </div>
         </div>
+        <hr />
       </div>
     </div>
   )

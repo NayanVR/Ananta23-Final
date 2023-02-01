@@ -27,6 +27,45 @@ async function checkPaymentStatus(conn, participantID) {
 }
 
 
+
+
+async function getEvents(conn, participantID) {
+  const [soloRows, soloFields] = await conn.execute(
+    `select * from Events inner join SoloRegistration on Events.EventCode = SoloRegistration.EventCode where SoloRegistration.ParticipantID = '${participantID}'`
+  );
+  const [teamRows, teamFields] = await conn.execute(
+    `select * from Events inner join Teams inner join TeamRegistration on Teams.TeamID = TeamRegistration.TeamID and Events.EventCode = Teams.EventCode where TeamRegistration.ParticipantID = '${participantID}'`
+  );
+
+  console.log(soloRows.length);
+  console.log(teamRows.length);
+
+  if (soloRows.length > 0 || teamRows.length > 0) {
+    console.log("success.")
+    return {
+      code: 200,
+      resMessage:{
+        message: "Information Fetch complete...",
+        data: {
+          solo: soloRows,
+          team: teamRows
+        },
+        type: "success",
+      }
+    };
+  }
+  return {
+    code: 500,
+    resMessage:{
+      message: "Failed",
+      type: "error",
+    }
+  };;
+}
+
+
+
+
 // =========================== Validating the Selected Event ===========================
 
 async function checkEvent(conn, eventCode, participantID) {
@@ -58,7 +97,7 @@ async function checkEvent(conn, eventCode, participantID) {
   const [checkSoloRegRows, checkSoloRegFields] = await conn.execute(
     `SELECT * FROM SoloRegistration WHERE EventCode = '${eventCode}' AND ParticipantID = '${participantID}'`
   );
-
+ 
   // Already Registered - Team
   const [checkTeamRegRows, checkTeamRegFields] = await conn.execute(
     `SELECT COUNT(RegisterID) AS count FROM TeamRegistration WHERE TeamID LIKE '${eventCode}%' AND ParticipantID = '${participantID}'`
@@ -156,13 +195,26 @@ async function checkEvent(conn, eventCode, participantID) {
 
     // Response - No Such Event Exists...
     return { code: 200, message: "NoRecordFound", type: "Warning" };
-  }
-
-  // +++++++++++++++++++ Check Registration Limits Ends +++++++++++++++++++++
-
+  }  
 }
 
+// +++++++++++++++++++ Check Registration Limits Ends +++++++++++++++++++++
+
+
 // =========================== Validating the Selected Event ===========================
+
+
+async function updateTotalRegistrationCount(conn, eventCode) {
+  
+  /*
+
+  When Solo and New Team Registers we need to update the TotalRegistration Count of the Events table.
+
+  Reason: To Let the User know whether he or she can create new team or not.
+
+  */
+}
+
 
 
 // =========================== Registration Count Update +1 Starts ===========================
@@ -424,5 +476,6 @@ module.exports = {
   registerSoloEvent,
   createTeam,
   joinTeam,
-  getTeamInfo
+  getTeamInfo,
+  getEvents
 };
