@@ -1,16 +1,20 @@
 {
     "HomeFAQs": [
         {
-            "question": "Section 1",
-            "answer": "<p>Content for section 1</p>"
+            "question": "Can I participate individually in any event ?",
+            "answer": "<p>There are some events in which individual participation is allowed. You can refer to the rulebook present under every event on the website.</p>"
         },
         {
-            "question": "Section 2",
-            "answer": "<p>Content for section 2</p>"
+            "question": "What are the fees for the events?",
+            "answer": "<p>There are no individual registration fees for the events.If you wish to participate in an event you have to purchase a pass. This pass excludes DJ night and workshops. https://anantagsfcu.in/buypass to buy a pass.</p>"
         },
         {
-            "question": "Section 3",
-            "answer": "<p>Content for section 3</p>"
+            "question": "What if I pay the fees and I don't get the confirmation mail/SMS from your side?",
+            "answer": "<p>Just write to us at ananta@gsfcuniversity.ac.in and we shall provide you with the receipt for successful payments.</p>"
+        },
+        {
+            "question": "Will I get a refund?",
+            "answer": "<p>The pass fees are non-refundable and non-transferable in any case.You can review the refund policy page.</p>"
         }
     ],
 

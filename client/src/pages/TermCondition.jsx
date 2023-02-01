@@ -9,7 +9,7 @@ function TermCondition() {
         </h2>
       </div>
       <div className="py-20 px-[10%] text-xl flex flex-col gap-5 text-justify">
-      <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 20-Jan-2023</p>
+      <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 01-Feb-2023</p>
         
         <p className="text-2xl underline text-center font-bold">Website Terms of Use</p>
         <p className="font-bold">Version 1.0</p>
@@ -335,9 +335,9 @@ function TermCondition() {
               </a>{" "}
             </li>
             <li>
-              By visiting this page on our website :{" "}
-              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>www.anantagsfcu.in</a>{" "}
-            </li>
+            By visiting this page on our website :{" "}
+            <a href="/contact-us" className='text-blue-900 underline'>anantagsfcu.in/contact-us</a>{" "}
+          </li>
           </ul>
       </div>
     </div>

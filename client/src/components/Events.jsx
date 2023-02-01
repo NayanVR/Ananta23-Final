@@ -5,11 +5,6 @@ function Events() {
 
     const events = [
         {
-            title: "Equilibrium",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
-        },
-        {
             title: "Inertia",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
             link: "/"
@@ -20,17 +15,22 @@ function Events() {
             link: "/"
         },
         {
+            title: "Upshot",
+            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            link: "/"
+        },
+        {
+            title: "Zingaat",
+            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            link: "/"
+        },
+        {
+            title: "Kalakriti",
+            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            link: "/"
+        },
+        {
             title: "Equilibrium",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
-        },
-        {
-            title: "Inertia",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
-        },
-        {
-            title: "Swoosh",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
             link: "/"
         },
