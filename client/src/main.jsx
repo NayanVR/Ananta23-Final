@@ -51,6 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
       </BrowserRouter>
       <Footer />
