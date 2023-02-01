@@ -4,13 +4,19 @@
             "name": "Viraj Patel",
             "role": "President",
             "email": "20bt04039@gsfcuniversity.ac.in",
-            "phone": "8140390836"
+            "phone": "8140390836",
+            "linkedin": "https://www.linkedin.com/in/viraj-patel-625b271bb/",
+            "image":"Viraj.jpg"
+
+
         },
         {
             "name": "Harsh Tanna",
             "role": "Vice President",
             "email": "20bba01067@gsfcuniversity.ac.in",
-            "phone": "6359812434"
+            "phone": "6359812434",
+            "linkedin": "https://www.linkedin.com/in/harsh-tanna-93187417a/",
+            "image":"Tanna.jpg"
         }
        
     ],
@@ -20,19 +26,26 @@
             "name": "Khyati Shah",
             "role": "Secretary",
         "email": "20sc02027@gsfcuniversity.ac.in",
-            "phone": "9157315777"
+            "phone": "9157315777",
+            "linkedin": "https://www.linkedin.com/in/khyati-shah-988972200/",
+            "image":"Khyati.jpg"
         },
         {
             "name": "Varada Deshpande",
             "role": "Joint Secretary",
             "email": "20bt04039@gsfcuniversity.ac.in",
-            "phone": "9687349441"
+            "phone": "9687349441",
+            "linkedin": "https://www.linkedin.com/in/varada-deshpande-0330331bb/",
+            "image":"Varada.jpg"
         },
         {
             "name": "Bhagya Kothadiya",
             "role": "Treasurer",
             "email": "20bba01058@gsfcuniversity.ac.in",
-            "phone": "9558148632"
+            "phone": "9558148632",
+            "linkedin": "https://www.linkedin.com/in/bhagya-kothadiya-1b1b1b1b1/",
+            "image":"Bhagya.jpg"
+            
         }
     ],
 
@@ -42,7 +55,10 @@
             "name": "Parth Rola",
             "role": "Event Manager",
             "email": "20bt01050@gsfcuniversity.ac.in",
-            "phone": "8153900621"
+            "phone": "8153900621",
+            "linkedin": "https://www.linkedin.com/in/parth-rola-31701a261/",
+            "image":"Parth.jpg"
+            
         }
         
 
@@ -53,19 +69,25 @@
             "name": "Sneh Padaliya",
             "role": "Event Head - SoT",
             "email": "21bt04122@gsfcuniversity.ac.in",
-            "phone": "6353978704"
+            "phone": "6353978704",
+            "linkedin": "https://www.linkedin.com/in/sneh-padaliya-553102221/",
+            "image":"Sneh.jpg"
         },
         {
             "name": "Ujash Lakod",
             "role": "Event Head - SoS",
             "email": "20sc01010@gsfcuniversity.ac.in",
-            "phone": "9106203344"
+            "phone": "9106203344",
+            "linkedin": "https://www.linkedin.com/in/ujash-lakod-163685248/",
+            "image":"Ujash.jpg"
         },
         {
             "name": "Anshika Jain",
             "role": "Evenet Head - SoM",
             "email": "22bba01003@gsfcuniversity.ac.in",
-            "phone": "9116626003"
+            "phone": "9116626003",
+            "linkedin": "https://www.linkedin.com/in/bhagya-kothadiya-1b1b1b1b1/",
+            "image":"Anishika.jpg"
         }
     ],
 
@@ -74,13 +96,17 @@
             "name": "Renish Narola",
             "role": "Sponsorship Head",
             "email": "20bt04025@gsfcuniversity.ac.in",
-            "phone": "8866929832"
+            "phone": "8866929832",
+            "linkedin": "https://www.linkedin.com/in/renish-narola-5229731bb/",
+            "image":"Renish.jpg"
         },
         {
             "name": "Viral Sachde",
-            "role": "Co-Sponsorship Head",
+            "role": "Associate Sponsorship Head",
             "email": "21bt04107@gsfcuniversity.ac.in",
-            "phone": "9484991399"
+            "phone": "9484991399",
+            "linkedin": "https://www.linkedin.com/in/viral-sachde-18664b24b/",
+            "image":"Viral.jpg"
         }
 
     ],
@@ -90,13 +116,17 @@
             "name": "Devansh Shah",
             "role": "Marketing Head",
             "email": "21bt04d062@gsfcuniversity.ac.in",
-            "phone": "8154850006"
+            "phone": "8154850006",
+            "linkedin": "https://www.linkedin.com/in/devansh-shah-5b3949223/",
+            "image":"Devansh.jpg"
         },
         {
             "name": "Khushi Panchal",
-            "role": "Co-Marketing Head",
+            "role": "Associate Marketing Head",
             "email": "21bt04038@gsfcuniversity.ac.in",
-            "phone": "9016535646"
+            "phone": "9016535646",
+            "linkedin": "https://www.linkedin.com/in/khushi-panchal-60571a238/",
+            "image":"Khushi.jpg"
         }
     ],
      
@@ -106,13 +136,19 @@
             "name": "Ashish Kumar Patel",
         "role": "Web Head",
         "email": "20bt04004@gsfcuniversity.ac.in",
-        "phone": "7567956523"
-    },
+        "phone": "7567956523",
+        "linkedin": "https://www.linkedin.com/in/ashish-kumar-patel-053427203/",
+        "image":"Ashish.jpg"
+        },
+       
+    
     {
         "name": "Nishant Viroja",
-        "role": "Co-Web Head",
+        "role": "Associate Web Head",
         "email": "20bt04052@gsfcuniversity.ac.in",
-        "phone": "7574914108"
+        "phone": "7574914108",
+        "linkedin": "https://www.linkedin.com/in/nishant-viroja/",
+        "image":"Nishu.jpg"
     }
     ],
 
@@ -121,13 +157,17 @@
             "name": "Devanshi Patel",
             "role": "Creative Head",
             "email": "20bt04033@gsfcuniversity.ac.in",
-            "phone": "9104839527"
+            "phone": "9104839527",
+            "linkedin": "https://www.linkedin.com/in/devanshi-patel-7059681bb/",
+            "image":"Devanshi.jpg"
         },
         {
             "name": "Het Pastagia",
             "role": "Creative Head",
             "email": "21bt04061@gsfcuniversity.ac.in",
-            "phone": "8866584244"
+            "phone": "8866584244",
+            "linkedin": "https://www.linkedin.com/in/het-pastagia-9b4ab922b/",
+            "image":"Het.jpg"
         }
     ],
 
@@ -136,7 +176,9 @@
             "name": "Heet Patel",
             "role": "Accounts Head",
             "email": "20bba01039@gsfcuniversity.ac.in",
-            "phone": "8128857928"
+            "phone": "8128857928",
+            "linkedin": "https://www.linkedin.com/in/heet-patel-41b833201/",
+            "image":"Heet.jpg"
         }
     ],
 
@@ -145,7 +187,9 @@
             "name": "Samarth Desai",
             "role": "Resource Head",
             "email": "20bt01014@gsfcuniversity.ac.in",
-            "phone": "9377004949"
+            "phone": "9377004949",
+            "linkedin": "https://www.linkedin.com/in/samarth-desai-02b870205/",
+            "image":"Samarath.jpg"
         }
     ]
 
