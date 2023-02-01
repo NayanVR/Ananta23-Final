@@ -4,7 +4,7 @@ import AnantaLogo from '../assets/logos/ananta_logo.svg'
 import GSFCULogo from '../assets/logos/GSFCU_logo.svg'
 import Twitter from '../assets/icons/Twitter_icon.svg'
 import Instagram from '../assets/icons/Insta_icon.svg'
-import WhatsApp from '../assets/icons/Whatsapp_icon.svg'
+import Linkedin from '../assets/icons/linkedin_icon.svg'
 import Facebook from '../assets/icons/Facebook_icon.svg'
 import Location from '../assets/icons/Location_icon.svg'
 
@@ -34,19 +34,19 @@ function Footer() {
           <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />
           <img className='w-1/2' src={AnantaLogo} alt="Ananta Logo" />
           <div className='flex gap-1'>
-            <a href="">
+            <a href="https://twitter.com/AGsfcu">
               <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Twitter} alt="Ananta Twitter" />
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/ananta.gsfcu/">
               <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Instagram} alt="Ananta Instagram" />
             </a>
-            <a href="">
-              <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={WhatsApp} alt="Ananta WhatsApp" />
+            <a href="https://www.linkedin.com/company/ananta-gsfcu/">
+              <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Linkedin} alt="Ananta WhatsApp" />
             </a>
-            <a href="">
+            <a href="https://www.facebook.com/Ananta22-105912598726593/">
               <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Facebook} alt="Ananta facebook" />
             </a>
-            <a href="">
+            <a href="https://goo.gl/maps/7n3bPjJNzENRBMu5A">
               <img className='w-10 hover:-translate-y-1 hover:shadow-md transition-all' src={Location} alt="Ananta Location" />
             </a>
           </div>

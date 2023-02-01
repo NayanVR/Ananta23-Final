@@ -24,7 +24,7 @@ import RefundPolicy from './pages/RefundPolicy';
 import Countdown from './pages/Countdown';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
-import Team from './pages/Team';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -51,7 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
-          <Route path="/team" element={<Team />} />
+         
         </Routes>
       </BrowserRouter>
       <Footer />

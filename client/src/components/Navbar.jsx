@@ -28,12 +28,12 @@ function Navbar() {
                             <button className="dropbtn">Events</button>
                             <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
                                 <a href="/inertia">Inertia</a>
-                                <a href="/swoosh">Swoosh</a>
-                                <a href="">Upshot</a>
-                                <a href="">Zingaat</a>
-                                <a href="">Kala Kriti</a>
-                                <a href="">Equilibrium</a>
-                                <a href="">Atmos</a>
+                                <a href="/inertia">Swoosh</a>
+                                <a href="/inertia">Upshot</a>
+                                <a href="/inertia">Zingaat</a>
+                                <a href="/inertia">Kala Kriti</a>
+                                <a href="/inertia">Equilibrium</a>
+                                
                             </div>
                         </div>
                         <a href="/buypass">Buy a Pass</a>
@@ -43,7 +43,7 @@ function Navbar() {
                             <button className="dropbtn">More</button>
                             <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
                                 <a href="/aboutUs">About Us</a>
-                                <a href="/team">Our Team</a>
+                                <a href="/contact-us">Our Team</a>
                                 <a href="">Our Partners</a>
                             </div>
                         </div>
