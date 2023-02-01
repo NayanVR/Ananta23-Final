@@ -22,6 +22,7 @@ import PaymentFail from './pages/PaymentFail'
 import TermCondition from './pages/TermCondition';
 import RefundPolicy from './pages/RefundPolicy';
 import AboutUs from './pages/AboutUs';
+import Team from './pages/Team';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
@@ -45,6 +46,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
           <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
       </BrowserRouter>
       <Footer />

@@ -24,7 +24,7 @@ const QuesionComponent = ({ question, answer, openIndex, index, setOpenIndex }) 
 
                 {
                     openIndex === index && (
-                        <div className='w-full bg-primary p-5 text-white'>
+                        <div className='w-full transition-opacity bg-primary p-5 text-white'>
                             <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer) }} />
                         </div>
                     )

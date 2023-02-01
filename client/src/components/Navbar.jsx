@@ -43,7 +43,7 @@ function Navbar() {
                             <button className="dropbtn">More</button>
                             <div className="dropdown-content z-20 hidden bg-white divide-y divide-gray-100 shadow w-44 dark:bg-gray-700">
                                 <a href="/aboutUs">About Us</a>
-                                <a href="">Our Team</a>
+                                <a href="/team">Our Team</a>
                                 <a href="">Our Partners</a>
                             </div>
                         </div>
