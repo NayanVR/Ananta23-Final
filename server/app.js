@@ -112,6 +112,30 @@ app.post("/api/generateOTP", async (req, res) => {
 			}
 		}
 	);
+	// .then((isSent) => {
+	// 	if (isSent) {
+	// 		return res
+	// 			.status(200)
+	// 			.json({
+	// 				isOTPGenerated: true,
+	// 				message: "OTP sent successfully",
+	// 				type: "success",
+	// 			});
+	// 	} else {
+
+	// 		return res
+	// 			.status(500)
+	// 			.json({
+	// 				isOTPGenerated: false,
+	// 				message: "ahaha went wrong",
+	// 				type: "error",
+	// 			});
+	// 	}
+	// })
+	// .catch((err) => {
+	// 	delete otps[email];
+
+	// });
 });
 
 app.post("/api/verifyOTP", (req, res) => {
@@ -169,9 +193,6 @@ app.get("/api/secure/get-profile", async (req, res) => {
 		return res.status(200).json({ message: rows[0], type: "success" });
 	}
 });
-
-
-
 
 // Buy Pass Logic
 
@@ -330,23 +351,23 @@ app.post("/api/payment-callback", async (req, res) => {
 
 					paymentStatus[orderIDEmail[data.body.orderId]] = data.body.resultInfo.resultStatus;
 
-					
+
 					const passCode = await assumePassCode(conn, orderIDEmail[data.body.orderId], data.body.txnAmount);
-					
+
 					console.log("Email:", orderIDEmail[data.body.orderId])
 					console.log("OrderID:", data.body.orderId);
 					console.log("Amount:", data.body.txnAmount);
 					console.log("PassCode:", passCode);
-					
+
 
 					if (data.body.resultInfo.resultStatus === "TXN_SUCCESS") {
 
 						const participantID = await getParticipantID(conn, orderIDEmail[data.body.orderId])
-						console.log("Order:Email =>" , orderIDEmail)
+						console.log("Order:Email =>", orderIDEmail)
 						const updateDatabase = await buyPass(conn, participantID, passCode, data.body);
 						console.log(updateDatabase);
 						if (updateDatabase) {
-							res.redirect(`${process.env.REACT_URL}/paymentsuccess`);
+							res.redirect(`${process.env.REACT_URL}/paymentsuccess/${data.body.orderId}`);
 						} else {
 							res.redirect(`${process.env.REACT_URL}/paymentfail`);
 						}
@@ -368,116 +389,116 @@ app.post("/api/payment-callback", async (req, res) => {
 });
 
 app.post("/api/payment/checkPaymentStatus", async (req, res) => {
-	const {email} = req.body;
+	const { email } = req.body;
 	// console.log(paymentStatus[email]);
 
 	const txnDetails = await getTxnDetails(conn, email)
-	console.log(txnDetails)
+
 	return res.json(txnDetails);
 });
 
 
 
-   
+
 app.post("/api/secure/event/check", async (req, res) => {
-    console.log(req.body);
-    const { eventCode, email } = req.body;
+	console.log(req.body);
+	const { eventCode, email } = req.body;
 
-    // console.log(eventCode, email)
+	// console.log(eventCode, email)
 
-    const participantID = await getParticipantID(conn, email);
-    // console.log(participantID)
-    const response = await checkEvent(conn, eventCode, participantID);
-    console.log(response);
+	const participantID = await getParticipantID(conn, email);
+	// console.log(participantID)
+	const response = await checkEvent(conn, eventCode, participantID);
+	console.log(response);
 
-    return res.status(response.code).json(response);
+	return res.status(response.code).json(response);
 });
 
 app.post("/api/secure/events/solo/register", async (req, res) => {
-    console.log(req.body);
-    const { selectedEventCode, email } = req.body;
+	console.log(req.body);
+	const { selectedEventCode, email } = req.body;
 
-    const participantID = await getParticipantID(conn, email);
+	const participantID = await getParticipantID(conn, email);
 
-    const response = await registerSoloEvent(
-        conn,
-        selectedEventCode,
-        participantID
-    );
-    console.log(response);
+	const response = await registerSoloEvent(
+		conn,
+		selectedEventCode,
+		participantID
+	);
+	console.log(response);
 
-    return res.status(response.code).json(response);
+	return res.status(response.code).json(response);
 });
 
 app.post("/api/secure/events/team/create", async (req, res) => {
-    console.log(req.body);
-    const { selectedEventCode, email, teamName, selectedEventName } = req.body;
+	console.log(req.body);
+	const { selectedEventCode, email, teamName, selectedEventName } = req.body;
 
-    const participantID = await getParticipantID(conn, email);
+	const participantID = await getParticipantID(conn, email);
 
-    const response = await createTeam(
-        conn,
-        selectedEventCode,
-        participantID,
-        teamName
-    );
-    console.log(response);
+	const response = await createTeam(
+		conn,
+		selectedEventCode,
+		participantID,
+		teamName
+	);
+	console.log(response);
 
-    if (response.type == "success") {
+	if (response.type == "success") {
 		console.log('success');
-        await transporter
-            .sendMail({
-                from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
-                to: email,
-                subject: "Team",
+		await transporter
+			.sendMail({
+				from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
+				to: email,
+				subject: "Team",
 				template: "CreateTeam",
-                context: {
+				context: {
 					teamName: teamName,
 					teamID: response.teamID,
 					eventName: selectedEventName
 				},
-            })
-            .then((info) => {
-                console.log(info);
-                if (info) {
-                    response.mailStatus = "success";
-                } else {
-                    response.mailStatus = "error";
-                }
-            })
-            .catch((err) => {
+			})
+			.then((info) => {
+				console.log(info);
+				if (info) {
+					response.mailStatus = "success";
+				} else {
+					response.mailStatus = "error";
+				}
+			})
+			.catch((err) => {
 				console.log(err);
-                response.mailStatus = err;
-            });
-    }
+				response.mailStatus = err;
+			});
+	}
 
-    return res.status(response.code).json(response);
+	return res.status(response.code).json(response);
 });
 
 app.post("/api/secure/events/team/join", async (req, res) => {
-    console.log(req.body);
-    const { selectedEventCode, email, teamID } = req.body;
+	console.log(req.body);
+	const { selectedEventCode, email, teamID } = req.body;
 
-    const participantID = await getParticipantID(conn, email);
+	const participantID = await getParticipantID(conn, email);
 
-    const response = await joinTeam(
-        conn,
-        selectedEventCode,
-        participantID,
-        teamID
-    );
-    console.log(response);
+	const response = await joinTeam(
+		conn,
+		selectedEventCode,
+		participantID,
+		teamID
+	);
+	console.log(response);
 
-    return res.status(response.code).json(response);
+	return res.status(response.code).json(response);
 });
 
 app.post("/api/secure/events/team/getinfo", async (req, res) => {
-    console.log(req.body);
-    const { teamID } = req.body;
+	console.log(req.body);
+	const { teamID } = req.body;
 
-    const response = await getTeamInfo(conn, teamID);
+	const response = await getTeamInfo(conn, teamID);
 
-    return res.status(response.code).json(response.resMessage);
+	return res.status(response.code).json(response.resMessage);
 });
 
 

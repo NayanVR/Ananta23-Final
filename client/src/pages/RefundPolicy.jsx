@@ -9,7 +9,7 @@ function RefundPolicy() {
         </h2>
       </div>
       <div className='py-16 px-[10%] text-xl flex flex-col gap-5 text-justify'>
-        <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 20-Jan-2023</p>
+        <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 01-Feb-2023</p>
 
         <ul className='list-disc'>
           <li>If a participant who holds any kind pass listed on <a href="/buypass" className='text-blue-900 underline'> https://anantagsfcu.in/buypass</a>  wishes to cancel or withdraw his participation, then Ananta, an Event Management Body under GFSC University shall <span className='font-bold'> not be liable for giving any refund </span>to the participant.</li><br />
@@ -33,7 +33,7 @@ function RefundPolicy() {
           </li>
           <li>
             By visiting this page on our website :{" "}
-            <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>www.anantagsfcu.in</a>{" "}
+            <a href="/contact-us" className='text-blue-900 underline'>anantagsfcu.in/contact-us</a>{" "}
           </li>
         </ul>
       </div>

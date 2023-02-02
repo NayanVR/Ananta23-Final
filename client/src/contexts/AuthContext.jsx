@@ -22,16 +22,13 @@ export function AuthProvider({ children }) {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            // localStorage.setItem("profile", JSON.stringify(data.message))
                             setProfile(data.message)
                         })
                         .catch(err => {
-                            // localStorage.setItem("profile", JSON.stringify({}))
                             setProfile({})
                         })
                 })
             } else {
-                // localStorage.setItem("profile", JSON.stringify({}))
                 setProfile({})
             }
             setCurrentUser(user)

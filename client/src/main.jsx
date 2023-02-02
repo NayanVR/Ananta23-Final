@@ -23,7 +23,9 @@ import PaymentFail from './pages/PaymentFail'
 import TermCondition from './pages/TermCondition';
 import RefundPolicy from './pages/RefundPolicy';
 import Countdown from './pages/Countdown';
-// import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+import AboutUs from './pages/AboutUs';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -47,8 +49,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
-          {/* <Route path="/aboutUs" element={<AboutUs />} /> */}
-          <Route path="/cd" element={<Countdown />} /> 
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/cd" element={<Countdown />} />
+         
         </Routes>
       </BrowserRouter>
       <Footer />

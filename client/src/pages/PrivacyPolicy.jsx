@@ -11,7 +11,7 @@ function PrivacyPolicy() {
       <div className="py-20 px-[10%] text-xl flex flex-col gap-4 text-justify">
         
           
-      <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 20-Jan-2023</p>
+      <p className='mb-2 text-end text-sm font-semibold'>Last Updated: 01-Feb-2023</p>
         
           <p>
             Ananta, an Event Management Body under GSFC University is committed
@@ -305,9 +305,9 @@ function PrivacyPolicy() {
               </a>{" "}
             </li>
             <li>
-              By visiting this page on our website :{" "}
-              <a href="https://www.anantagsfcu.in" className='text-blue-900 underline'>www.anantagsfcu.in</a>{" "}
-            </li>
+            By visiting this page on our website :{" "}
+            <a href="/contact-us" className='text-blue-900 underline'>anantagsfcu.in/contact-us</a>{" "}
+          </li>
           </ul>
           <p className="font-bold">Other Helpful Pages</p>
           <ul className='list-disc ml-10'>

@@ -504,6 +504,9 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 		`SELECT * FROM Events WHERE EventCode = '${eventCode}'`
 	);
 
+	console.log(eventRow.length);
+	console.log(eventRow[0]);
+
 	if (checkTeamRows[0]["count"] > 0) {
 		return {
 			code: 500,

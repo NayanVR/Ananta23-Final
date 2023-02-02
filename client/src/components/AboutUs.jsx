@@ -8,13 +8,10 @@ function AboutUs() {
         <h1 className='text-center md:text-left text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
           About Us
         </h1>
-        <p className='text-justify md:text-left text-primary-dark-2 text-xl mt-8 md:pr-[20%]'>
-          GSFC University is currently one of the fastest-growing universities in Gujarat that caters for a wide range of students across all disciplines with the vision to provide high-quality education to make students industry-ready. To celebrate this fleet of student community we present ANANTA'22- Innovation Inspired Technology.
-        </p>
+        <p className='text-justify md:text-left text-primary-dark-2 text-xl mt-8 md:pr-[20%]'>Ananta (अनंत), is a marquee annual event (fest) of GSFC university that serves as the biggest festival of the year. It derives its name from a Sanskrit word meaning “Infinite” and symbolizes the endless possibilities and opportunities it creates for every student connected with us. The annual fest provides a common platform for students, professionals, and enthusiasts alike, coming from different walks of life, and enables them to interact, network, and share their vital experiences. Above all, Ananta is a celebration of college life!</p>
 
         <p className='text-justify md:text-left text-primary-dark-2 text-xl mt-8 md:pr-[20%]' >
-          ANANTA'22 will continue the legacy of our previous fest with the aim to bring together people from all sections of society to commemorate the evergrowing marvels and advancements of technology with the theme “Multiverse of Technology”. During our previous fest, we got an inaugural moment from none other than the MITRA robot with Treasure Hunt, Robo War, a performance from “The Diversity” and Sunburn Campus feat. Dual Vibes.
-        </p>
+        We stand out as having a core foundation with the university's ideology and integrity of giving holistic development to its students. The prospects and objectives of this fest are to diversify the students of the university by providing them a common platform to showcase and express themselves in preceding spaces like mentorship, entrepreneurship, and managerial skills. We believe in giving opportunities and experiences which will benefit students from all walks of life. The fest is for the students, by the students, and of the students.</p>
         <img className='hidden md:block absolute h-3/4 animate-aboutAnim translate-x-1/2 right-0 top-1/2 -translate-y-1/2' src={AboutImg} alt="About Ananta" />
       </div>
     </section>
