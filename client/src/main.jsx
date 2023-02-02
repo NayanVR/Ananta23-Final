@@ -29,9 +29,9 @@ import AboutUs from './pages/AboutUs';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <Navbar />
       <Toaster />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -51,7 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
-         
+
         </Routes>
       </BrowserRouter>
       <Footer />
