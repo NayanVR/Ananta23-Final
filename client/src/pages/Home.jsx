@@ -1,37 +1,16 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Ellipse from '../assets/illustrations/Ellipse.svg'
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
 import MajorUSP from '../components/MajorUSP'
 import Acc from '../components/Acc'
+import { AuthContext } from "./../contexts/AuthContext";
 
 function Home() {
 
-    // const wH = window.innerHeight
-
-    // const [mousePos, setMousePos] = useState({ x: 0, y: wH / 2 });
-
-    // useEffect(() => {
-    //     const handleMouseMove = (event) => {
-    //         setMousePos({ x: event.clientX, y: event.clientY });
-    //     };
-
-    //     window.addEventListener('mousemove', handleMouseMove);
-
-    //     return () => {
-    //         window.removeEventListener(
-    //             'mousemove',
-    //             handleMouseMove
-    //         );
-    //     };
-    // }, []);
-
-    // //clamp value in new range
-    // function clamp(value, newMin, newMax) {
-    //     return (value / wH) * (newMax - newMin) + newMin;
-    // }
+    const { currentUser, profile, setProfile } = useContext(AuthContext);
 
     //get today date
 
@@ -120,7 +99,14 @@ function Home() {
                         DISRUPTION
                     </h1>
                 </div>
-                <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                {
+                    !currentUser ? 
+                    <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                    : profile.TxnStatus != "TXN_SUCCESS" ?
+                    <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
+                    <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
+                }
+                
             </section>
 
             {/* Stats */}

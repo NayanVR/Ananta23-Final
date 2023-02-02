@@ -9,7 +9,7 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
-const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo, getEvents } = require("./db/events");
+const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo, getEvents, deleteEvent } = require("./db/events");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
@@ -200,6 +200,22 @@ app.post("/api/secure/getEvents", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
+
+
+app.post("/api/secure/deleteEvent", async (req, res) => {
+	const { pid, eventCode, isSolo, role, teamID } = req.body;
+
+	console.log(req.body);
+	const response = await deleteEvent(conn, pid, eventCode, isSolo, role, teamID);
+
+	console.log(response);
+
+	return res.status(response.code).json(response.resMessage);
+	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+});
+
+
+
 
 
 // Forgot Password : Send OTP

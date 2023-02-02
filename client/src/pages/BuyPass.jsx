@@ -166,12 +166,14 @@ function BuyPass() {
             body: JSON.stringify({ passCode, PID }),
         });
         const check = await res.json();
+        console.log(check);
         const amt = await check.payAmount
 
         if (check.message == "Profile Not Completed") {
             window.location.href = "/profile";
         } else if (check.message == "Buying First Pass" || check.message == "Upgrade Pass") {
             makePayment(amt, profile.Email, passCode);
+            console.log("Making Payment")
         } else if (check.type === 'error') { 
             toast.error(check.message, { duration: 3000 });
         }

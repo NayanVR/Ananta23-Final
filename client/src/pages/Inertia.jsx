@@ -6,6 +6,8 @@ import { AuthContext } from "../contexts/AuthContext";
 // import profilePic from "../assets/photos/profile.jpg";
 import { Dialog, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
+import PuffLoader from "react-spinners/PuffLoader";
+
 
 function Inertia() {
 	const events = [
@@ -44,26 +46,25 @@ function Inertia() {
 
 	let [teamName, setTeamName] = useState();
 	let [teamID, setTeamID] = useState();
-  const [leader, setLeader] = useState();
+	const [leader, setLeader] = useState();
 
 	const [showInfo, setShowInfo] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
 	let email = "";
-  if(currentUser) email = currentUser["email"]
+	if (currentUser) email = currentUser["email"];
 
-	let [isSoloVisible, setIsSoloVisible] = useState(false);
+	let [loader, setLoader] = useState(false);
 	let [selectedEventCode, setSelectedEventCode] = useState();
 	let [selectedEventName, setSelectedEventName] = useState();
 
 	async function handleResposnse(eventCode, eventName) {
 		console.log(eventName, eventCode);
 
-    if(!currentUser)  { 
-      window.location.href = "/login";
-      return;
-    }
-
+		if (!currentUser) {
+			window.location.href = "/login";
+			return;
+		}
 
 		const check = await fetch(serverURL + "/api/secure/event/check", {
 			method: "POST",
@@ -80,29 +81,27 @@ function Inertia() {
 		setSelectedEventCode(eventCode);
 
 		if (response.type == "Warning") {
-      if (response.message == 'Profile') {
-        window.location.href = "/profile"
-      } else if (response.message == 'BuyPass') {
-        window.location.href = "/buypass"
-      } else {
-        toast(response.message, {
-          icon: "⚠️",
-        });
-      }
-			
+			if (response.message == "Profile") {
+				window.location.href = "/profile";
+			} else if (response.message == "BuyPass") {
+				window.location.href = "/buypass";
+			} else {
+				toast(response.message, {
+					icon: "⚠️",
+				});
+			}
 		} else if (response.type == "Info") {
 			toast(response.message, {
 				icon: "👍🏻",
 			});
 		} else {
-
-    }
+		}
 		if (response.Category == "Solo") {
 			setIsSoloOpen(true);
 		} else if (response.Category == "Team") {
 			setIsTeamOpen(true);
 		}
-    // closeModal()
+		// closeModal()
 	}
 
 	// Handling solo registration
@@ -128,27 +127,33 @@ function Inertia() {
 
 	// Handling Create Team
 	async function handleCT() {
+		setLoader(true);
 		const CT = await fetch(serverURL + "/api/secure/events/team/create", {
 			method: "POST",
 			headers: {
 				Authorization: "Bearer " + currentUser["accessToken"],
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ selectedEventCode, email, teamName, selectedEventName }),
+			body: JSON.stringify({
+				selectedEventCode,
+				email,
+				teamName,
+				selectedEventName,
+			}),
 		});
 		const response = await CT.json();
-		console.log(response);
-    if (response.type = 'success') {
-      toast.success(response.message, {duration : 3000})
-    } else {
-      toast.error(response.message, {duration : 3000})
-    }
-    closeModal();
+
+		if (response.type == "success") {
+			toast.success(response.message, { duration: 3000 });
+			closeModal();
+		} else {
+			toast.error(response.message, { duration: 3000 });
+		}
+		setLoader(false);
 	}
 
 	// Handling Join Team
 	async function handleJT() {
-
 		const JT = await fetch(serverURL + "/api/secure/events/team/join", {
 			method: "POST",
 			headers: {
@@ -159,34 +164,37 @@ function Inertia() {
 		});
 		const response = await JT.json();
 		if (response.type == "success") {
-      toast.success(response.message, {duration: 3000});
-      setTeamName("");
-    } else {
-      toast.error(response.message, {duration: 2000})
-    }
-    setShowInfo(false);
-    closeModal();
+			toast.success(response.message, { duration: 3000 });
+			setTeamName("");
+			closeModal();
+		} else {
+			toast.error(response.message, { duration: 2000 });
+		}
+		setShowInfo(false);
 	}
 
-  async function getTeamInfo() {
-    const teamInfo = await fetch(serverURL + "/api/secure/events/team/getinfo", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + currentUser["accessToken"],
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ selectedEventCode, email, teamID }),
-		});
+	async function getTeamInfo() {
+		const teamInfo = await fetch(
+			serverURL + "/api/secure/events/team/getinfo",
+			{
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + currentUser["accessToken"],
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ selectedEventCode, email, teamID }),
+			}
+		);
 		const response = await teamInfo.json();
 		console.log(response);
-    if (response.type == 'success') {
-      setLeader(response.teamLeader)
-      setTeamName(response.teamName)
-      setShowInfo(true)
-    } else {
-      toast.error(response.message, {duration: 2000})
-    }
-  }
+		if (response.type == "success") {
+			setLeader(response.teamLeader);
+			setTeamName(response.teamName);
+			setShowInfo(true);
+		} else {
+			toast.error(response.message, { duration: 2000 });
+		}
+	}
 
 	function viewDetails(eventCode) {
 		console.log(eventCode);
@@ -449,7 +457,16 @@ function Inertia() {
 												style={{ margin: "auto" }}
 												onClick={handleCT}
 											>
-												Register
+												{!loader ? (
+													<label> Register </label>
+												) : (
+													<PuffLoader
+														color={"#fff"}
+														loading={true}
+														size={20}
+														className="m-auto mx-8 items-center"
+													/>
+												)}
 											</button>
 										</div>
 									</div>
@@ -531,19 +548,25 @@ function Inertia() {
 												<p className="text-center text-sm text-gray-500">
 													<table className="m-auto">
 														<tr>
-															<td className="text-right">Team Name:</td>
-															<td className="text-left">{teamName}</td>
+															<td className="text-right">
+																Team Name:
+															</td>
+															<td className="text-left">
+																{teamName}
+															</td>
 														</tr>
 														<tr>
 															<td className="text-right">
 																Team Leader:
 															</td>
-															<td className="text-left">{leader}</td>
+															<td className="text-left">
+																{leader}
+															</td>
 														</tr>
 													</table>
 												</p>
 											</div>
-                      <div className="flex m-auto w-min mt-4">
+											<div className="flex m-auto w-min mt-4">
 												<div className="mx-4">
 													<button
 														type="button"
