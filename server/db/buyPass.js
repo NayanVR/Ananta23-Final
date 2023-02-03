@@ -1,3 +1,4 @@
+const e = require("express");
 const { genPaymentID } = require("../util");
 
 const passes = {
@@ -56,6 +57,36 @@ const passes = {
 		Atmos: 1,
 	},
 };
+
+async function updateSoldPasses(conn) {
+	const [rows, fields] = await conn.execute(
+		`select PassCode, COUNT(PassCode) as Sold from Participants where PassCode != "NIL" group by PassCode;`
+	);
+
+	if (rows.length > 0) {
+		let count = 0;
+		rows.forEach(async (element) => {
+			console.log(element);
+			const [updateRows, updateFields] = await conn.execute(
+				`update Passes set Sold = ${element.Sold} where PassCode = '${element.PassCode}'`
+			);
+			if (updateRows) {
+				count++;
+			}
+		});
+		console.log("Count is " + count)
+
+		console.log("Rows length is " + rows.Sold)
+		if (count == rows.length) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+		
+	}
+	return 0;
+}
 
 async function getOldPassAmount(conn, participantID) {
 	const [rows, fields] = await conn.execute(
@@ -329,13 +360,19 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 
 		if (parUpdateRows) {
 			res.code = 200;
-
+			
 			res.resMessage.message += ", UpdateParticipant";
 			res.resMessage.parUpdate = 1;
 		}
 
 		console.log(res);
-		return res;
+
+		if (await updateSoldPasses(conn)) {
+			res.resMessage += ", PassesSoldUpdated"
+			return res;
+		} else {
+			return res;
+		}
 	} else {
 		res.resMessage.message = "Payment Failed";
 		return res;

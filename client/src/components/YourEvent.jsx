@@ -1,6 +1,7 @@
 import { FaTrash } from "react-icons/fa";
+import { BsEye } from "react-icons/bs";
 
-function YourEvent({ data, key }) {
+function YourEvent({ data, deleteEvent, infoEvent }) {
 	let colorclass = "";
 	switch (data.EventType) {
 		case "Inertia":
@@ -28,10 +29,8 @@ function YourEvent({ data, key }) {
 			colorclass = "bg-label-light";
 	}
 
-	console.log(colorclass);
-
 	return (
-		<div className="bg-white px-4 py-5 sm:p-6">
+		<div className="bg-white px-4 sm:mb-2">
 			<div className="bg-white shadow px-4 py-3 flex justify-between items-center sm:px-6">
 				<div className="justify-center">
 					<label className="block text-lg font-medium text-gray-700">
@@ -43,16 +42,28 @@ function YourEvent({ data, key }) {
 						{data.EventType}
 					</label>
 				</div>
-				<button
-					className="inline-flex items-center justify-center py-3 px-3 h-1/4 rounded-md bg-red-400 text-white"
-				>
-					<FaTrash icon="fa fa-solid fa-trash" />
-				</button>
+				<div className="inline-flex items-center justify-center">
+					<button
+						onClick={() => {
+							infoEvent(data);
+						}}
+						className="mx-1 py-3 px-3 h-1/4 rounded-md bg-sky-400 text-white"
+					>
+						<BsEye icon="bi bi-eye" />
+					</button>
+					<button
+						onClick={() => {
+							deleteEvent(data);
+						}}
+						className="mx-1 py-3 px-3 h-1/4 rounded-md bg-red-400 text-white"
+					>
+						<FaTrash icon="fa fa-solid fa-trash" />
+					</button>
+				</div>
 			</div>
 			{/* {console.log(registeredEvents)} */}
 		</div>
 	);
 }
-
 
 export default YourEvent;

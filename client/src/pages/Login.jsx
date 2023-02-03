@@ -10,7 +10,6 @@ import { auth, provider } from "../firebase";
 import { toast } from "react-hot-toast";
 import { PuffLoader } from "react-spinners/PuffLoader";
 import { FadeLoader } from "react-spinners/FadeLoader";
-import { PulseLoader } from "react-spinners/PulseLoader";
 
 function Login() {
 	const [email, setEmail] = useState("");
@@ -145,7 +144,7 @@ function Login() {
 						required
 					/>
 					<a
-						className="self-start text-primary cursor-pointer text-sm "
+						className="self-end text-primary cursor-pointer text-sm"
 						onClick={() => setForgotPass(true)}
 					>
 						Forgot Password?
@@ -167,7 +166,7 @@ function Login() {
 						)}
 					</button>
 				</form>
-				<a className="self-start text-primary" href="/register">
+				<a className="self-center text-primary text-sm" href="/register">
 					Don't have an account?
 				</a>
 				<div className="flex row items-center w-full gap-2 text-gray-400">

@@ -27,7 +27,6 @@ function Register() {
 
 	function countDown() {
 		let t = time - 1;
-		console.log(t);
 		setTime(t);
 	}
 
@@ -46,12 +45,12 @@ function Register() {
 	async function handleGoogleSignUp() {
 		setIsGoogle(true);
 		const res = await signInWithPopup(auth, provider);
-		console.log(res);
+		// console.log(res);
 		const email = res.user.email;
 		const photoURL = res.user.photoURL;
 
 		const data = await createProfile(email, photoURL);
-		console.log(data);
+		// console.log(data);
 		setIsGoogle(false);
 		if (data.type === "success") {
 			window.location.href = "/profile";
@@ -74,7 +73,7 @@ function Register() {
 		});
 
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 		if (data.type == "error") {
 			toast.error(data.message, { duration: 3000 });
 		} else {
@@ -118,8 +117,6 @@ function Register() {
 							googleAuth: "FALSE",
 						}),
 					}).then((data) => {
-						console.log("harshal");
-						console.log(user);
 
 						setIsSubmit(false);
 						window.location.href = "/profile";
@@ -183,7 +180,7 @@ function Register() {
 							)}
 						</button>
 
-						<a className="self-start text-primary" href="/login">
+						<a className="self-center text-primary" href="/login">
 							Already have an account?
 						</a>
 
@@ -196,18 +193,7 @@ function Register() {
 							onClick={handleGoogleSignUp}
 							className="w-full py-2 border rounded-md text-primary-dark-1 border-primary-dark-1 flex flex-row justify-center items-center gap-2"
 						>
-							{!isGoogle ? (
 								<img className="h-5" src={googleLogo} />
-							) : (
-								<span>
-									<HashLoader
-										color={"#000"}
-										loading={true}
-										size={24}
-										className="m-auto items-center"
-									/>
-								</span>
-							)}
 							Continue with Google
 						</a>
 					</form>
@@ -285,18 +271,7 @@ function Register() {
 							onClick={handleGoogleSignUp}
 							className="w-full py-2 border rounded-md text-primary-dark-1 border-primary-dark-1 flex flex-row justify-center items-center gap-2"
 						>
-							{!isGoogle ? (
 								<img className="h-5" src={googleLogo} />
-							) : (
-								<span>
-									<HashLoader
-										color={"#000"}
-										loading={true}
-										size={24}
-										className="m-auto items-center"
-									/>
-								</span>
-							)}
 							Continue with Google
 						</button>
 					</form>

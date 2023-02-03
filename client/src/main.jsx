@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import AccessRoute from './components/AccessRoute.jsx';
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
@@ -29,13 +30,13 @@ import AboutUs from './pages/AboutUs';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <Navbar />
       <Toaster />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<AccessRoute element={<Login />} />} />
+          <Route path="/register" element={<AccessRoute element={<Register />} />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
           <Route path="/buypass" element={<BuyPass />} />
           <Route path="/inertia" element={<Inertia />} />
@@ -51,7 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
-         
+
         </Routes>
       </BrowserRouter>
       <Footer />
