@@ -1,38 +1,39 @@
 import React from 'react'
 import EventChip from './EventChip'
 
+
 function Events() {
 
     const events = [
         {
             title: "Inertia",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/inertia"
         },
         {
             title: "Swoosh",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/swoosh"
         },
         {
             title: "Upshot",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/upshot"
         },
         {
             title: "Zingaat",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/zingaat"
         },
         {
             title: "Kalakriti",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/kalakriti"
         },
         {
             title: "Equilibrium",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
-            link: "/"
+            link: "/equilibrium"
         },
     ]
 

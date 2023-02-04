@@ -54,8 +54,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/cd" element={<Countdown />} />
 
         </Routes>
-      </BrowserRouter>
       <Footer />
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
 )

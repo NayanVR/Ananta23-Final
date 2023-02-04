@@ -21,15 +21,9 @@ const QuesionComponent = ({ question, answer, openIndex, index, setOpenIndex }) 
                         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                 </div>
-
-                {
-                    openIndex === index && (
-                        <div className='w-full transition-opacity bg-primary p-5 text-white'>
-                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer) }} />
-                        </div>
-                    )
-                }
-
+                <div className={`${openIndex === index ? 'h-max p-5' : 'h-0 p-0'} w-full bg-primary text-white transition-all`}>
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer) }} />
+                </div>
             </button>
 
         </div>
@@ -51,7 +45,7 @@ const FAQs = ({ faqs }) => {
     )
 }
 
-const App = () => {
+const FAQSection = () => {
 
     return (
         <div>
@@ -63,4 +57,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default FAQSection;

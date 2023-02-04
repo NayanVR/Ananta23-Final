@@ -9,9 +9,11 @@ import bronzeMark from '../assets/icons/Bronze_mark.svg'
 import comboMark from '../assets/icons/Combo_mark.svg'
 import combo2Mark from '../assets/icons/Combo2_mark.svg'
 import djMark from '../assets/icons/Dj_mark.svg'
+import { useNavigate } from 'react-router-dom'
 
 function BuyPass() {
 
+    const navigate = useNavigate()
     const { currentUser, profile, setProfile } = useContext(AuthContext);
 
     console.log(profile)
@@ -149,9 +151,9 @@ function BuyPass() {
     // lifting state up
     async function handleBuyClick(passCode) {
 
-        if (currentUser == null) window.location.href = "/login";
+        if (currentUser == null) navigate("/login");
 
-        if (profile == {}) window.location.href = "/profile";
+        if (profile == {}) navigate("/profile")
 
         
         const PID = profile.ParticipantID

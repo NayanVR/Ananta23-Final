@@ -1,12 +1,12 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
 import AnantaLogo from '../assets/logos/ananta_logo.svg'
 import profileIcon from '../assets/icons/Profile.svg'
 import '../navbar.css'
 import { signOut } from 'firebase/auth'
 import { auth, provider } from "../firebase"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 
@@ -15,6 +15,13 @@ function Navbar() {
 
     const { currentUser } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
+    const [currentPath, setCurrentPath] = useState(location.pathname)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const { pathname } = location;
+        setIsOpen(false)
+    }, [location.pathname]);
 
     return (
         <>
@@ -55,7 +62,7 @@ function Navbar() {
                                 </div>
                             </button>
                             :
-                            <button className='py-2 px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { window.location.href = "/login" }}>LOGIN</button>
+                            <button className='py-2 px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { navigate("/login") }}>LOGIN</button>
                     }
                     <div onClick={_ => { setIsOpen(!isOpen) }} className="nav__toggle">
                         <span className="nav__toggle__bars"></span>
@@ -75,9 +82,9 @@ function Navbar() {
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
                 <CustomLink to="">Digital Points</CustomLink>
                 <CustomLink to="">Schedule</CustomLink>
-                <CustomLink to="">About Us</CustomLink>
-                <CustomLink to="">Our Team</CustomLink>
-                <CustomLink to="">Our Partners</CustomLink>
+                <CustomLink to="/about-us">About Us</CustomLink>
+                <CustomLink to="/contact-us">Our Team</CustomLink>
+                <CustomLink to="/our-partners">Our Partners</CustomLink>
             </div>
         </>
     )
@@ -86,6 +93,11 @@ function Navbar() {
 function DropDown({ title, children }) {
 
     const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        const { pathname } = location;
+        setIsOpen(false)
+    }, [location.pathname]);
 
     return (
         <div className='relative w-full sm:w-max group'>

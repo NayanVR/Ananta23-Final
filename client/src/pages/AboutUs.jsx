@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function AboutUs() {
     return (
@@ -22,7 +23,7 @@ function AboutUs() {
         </p>
        
         <p className="font-bold">Your Policy and condition pages</p>
-        <p>Please read our <a href="/privacy-policy" className='text-blue-900 underline'>Privacy Policy</a>,  <a href="/refund-policy" className='text-blue-900 underline'> Calcellation & Refund Policy </a> and <a href="/term&condition" className='text-blue-900 underline'>Terms and conditions</a>.</p>
+        <p>Please read our <Link to="/privacy-policy" className='text-blue-900 underline'>Privacy Policy</Link>,  <Link to="/refund-policy" className='text-blue-900 underline'> Calcellation & Refund Policy </Link> and <Link to="/term&condition" className='text-blue-900 underline'>Terms and conditions</Link>.</p>
 
         <p className="font-bold">Contact Us</p>
         <p>
@@ -39,7 +40,7 @@ function AboutUs() {
           </li>
           <li>
             By visiting this page on our website :{" "}
-            <a href="/contact-us" className='text-blue-900 underline'>anantagsfcu.in/contact-us</a>{" "}
+            <Link to="/contact-us" className='text-blue-900 underline'>anantagsfcu.in/contact-us</Link>{" "}
           </li>
         </ul>
       </div>

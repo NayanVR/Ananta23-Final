@@ -5,8 +5,8 @@ import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
 import MajorUSP from '../components/MajorUSP'
-import Acc from '../components/Acc'
 import { AuthContext } from "./../contexts/AuthContext";
+import FAQSection from '../components/FAQSection'
 
 function Home() {
 
@@ -128,11 +128,11 @@ function Home() {
                     <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                         Aftermovie
                     </h1>
-                    <iframe className='w-full sm:w-2/3 max-w-3xl h-auto aspect-video' src="https://www.youtube.com/embed/E1twFXK5aC0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe className='w-full sm:w-2/3 max-w-3xl h-auto aspect-video' src="https://www.youtube-nocookie.com/embed/89qIfl9yKOc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </section>
 
-            <Acc />
+            <FAQSection />
         </>
     )
 }
