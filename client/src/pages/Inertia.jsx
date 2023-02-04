@@ -465,7 +465,7 @@ function Inertia() {
 														loading={true}
 														size={20}
 														className="m-auto mx-8 items-center"
-													/>
+													> Wait </PuffLoader>
 												)}
 											</button>
 										</div>
