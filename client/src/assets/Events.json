@@ -1,0 +1,22 @@
+{
+    "inertia":  [
+		{
+			"eventCode": "IN_AA",
+			"name": "Agar Art",
+			"desc": "Everyone knows how colorful the world of microbes is. Why not represent it in a beautiful way? Bring out your inner artist by using streaking, preading and pouring to make a colorful creation on Agar using microbes.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_CEJ",
+			"name": "Chem E-Jeopardy",
+			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"image": "Swift.png"
+		}
+	]
+}

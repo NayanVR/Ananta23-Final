@@ -155,7 +155,7 @@ function BuyPass() {
 
         if (profile == {}) navigate("/profile")
 
-        
+
         const PID = profile.ParticipantID
         console.log(profile.ParticipantID)
 
@@ -176,7 +176,7 @@ function BuyPass() {
         } else if (check.message == "Buying First Pass" || check.message == "Upgrade Pass") {
             makePayment(amt, profile.Email, passCode);
             console.log("Making Payment")
-        } else if (check.type === 'error') { 
+        } else if (check.type === 'error') {
             toast.error(check.message, { duration: 3000 });
         }
     }

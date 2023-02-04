@@ -122,12 +122,7 @@ async function deleteEvent(
 			`DELETE FROM TeamRegistration WHERE TeamID = '${teamID}' and ParticipantID = '${participantID}'`
 		);
 
-		const data = await updateEventRegistrationCount(conn, eventCode, "dec");
-
-		console.log("Events table Decrement process running... ");
-		console.log(data);
-
-		if (deleteRows && data) {
+		if (deleteRows) {
 			if (role == "Leader") {
 				console.log("Team Leader Things under process...");
 				const [membersRows, membersFields] = await conn.execute(
@@ -179,7 +174,8 @@ async function deleteEvent(
 							eventCode,
 							participantID,
 							"dec"
-						)
+						) && 
+						await updateEventRegistrationCount(conn, eventCode, "dec")
 					) {
 						console.log("Participant events count updated...");
 						return {

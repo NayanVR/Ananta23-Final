@@ -41,9 +41,12 @@ function Pro() {
 
 	const [reloadEvents, setReloadEvents] = useState(false);
 
-	const [eventCode, setEventCode]  = useState("");
+	const [eventCode, setEventCode] = useState("");
+	const [selectedEventType, setSelectedEventType] = useState("");
 	const [selectedEventName, setSelectedEventName] = useState("");
+	const [color, setColor] = useState("");
 	const [teamID, setTeamID] = useState("");
+	const [teamName, setTeamName] = useState("");
 	const [isSolo, setIsSolo] = useState(false);
 	const [role, setRole] = useState("");
 
@@ -90,6 +93,7 @@ function Pro() {
 			}
 		};
 		fetchEvents();
+		console.log(registeredEvents);
 	}, [reloadEvents]);
 
 	function updateProfile(pro) {
@@ -187,30 +191,34 @@ function Pro() {
 				eventCode,
 				isSolo,
 				role,
-				teamID
+				teamID,
 			}),
 		});
 
 		const info = await unregister.json();
 		// console.log(info)
-		if (info.type == 'success') {
+		if (info.type == "success") {
 			toast.success(info.message, { duration: 3000 });
 		} else {
 			toast.error(info.message, { duration: 3000 });
 		}
 		closeModal();
 		setReloadEvents(!reloadEvents);
+		console.log(registeredEvents.length);
+		if (registeredEvents.length == 1) {
+			window.location.href = "profile";
+		}
 	}
 
-
-
-	function deleteEvent(info) {
+	function deleteEvent(info, color) {
 		setIsOpen(true);
 		setIsView(false);
+		setColor(color);
 		setModalColor("border-red-600");
 		setSelectedEventName(info.EventName);
+		setSelectedEventType(info.EventType);
 		setEventCode(info.EventCode);
-		// console.log(info);
+
 		if (info.HeadCount > 1) {
 			setIsSolo(false);
 			setRole(info.Role);
@@ -222,18 +230,26 @@ function Pro() {
 		}
 	}
 
-	function infoEvent(info) {
+	function infoEvent(info, color) {
+		console.log(info);
+
 		setIsOpen(true);
 		setIsView(true);
-		setModalColor("border-sky-600");
+		setColor(color);
+		setModalColor("border-black");
 		setSelectedEventName(info.EventName);
+		setSelectedEventType(info.EventType);
+		setEventCode(info.EventCode);
+		setTeamName(info.TeamName);
 
 		if (info.HeadCount > 1) {
 			setIsSolo(false);
 			setRole(info.Role);
+			setTeamID(info.TeamID);
 		} else {
 			setIsSolo(true);
 			setRole("");
+			setTeamID("");
 		}
 	}
 
@@ -460,7 +476,9 @@ function Pro() {
 												}}
 												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
 											>
-												<option value="">Select Study Year</option>
+												<option value="">
+													Select Study Year
+												</option>
 												{[1, 2, 3, 4].map(
 													(year, index) => {
 														return (
@@ -589,7 +607,7 @@ function Pro() {
 									Your Events
 								</h1>
 							</div>
-							{registeredEvents.length != 0 ? (
+							{registeredEvents.length > 0 ? (
 								registeredEvents.map((data, index) => (
 									<YourEvent
 										data={data}
@@ -644,16 +662,28 @@ function Pro() {
 								leaveTo="opacity-0 scale-95"
 							>
 								<Dialog.Panel
-									className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-10 py-6 text-left align-middle shadow-xl transition-all border-y-4 ${modalColor}`}
-									style={{ backgroundColor: "#ffffff" }}
+									className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-10 py-6 text-left align-middle shadow-xl transition-all border-y-4 ${modalColor} bg-white`}
+					
 								>
 									<Dialog.Title
 										as="h3"
 										className="text-center text-lg font-medium leading-6 text-gray-900 mb-6"
 									>
-										{selectedEventName}
+										<div className="text-center">
+											<label
+												className={`text-xs font-medium mr-2 px-1.5 py-0.5 rounded bg-${color}-100 text-${color}-800`}
+											>
+												{selectedEventType}
+											</label>
+											<label className="block text-3xl font-medium text-gray-700">
+												{selectedEventName}
+											</label>
+											{!isSolo && <>(3/5)</>}
+										</div>
 									</Dialog.Title>
 									{!isView ? (
+										// Deletion of Event --------------------------------
+
 										<>
 											<div className="mt-2">
 												<p className="text-center text-sm text-gray-500 mb-6">
@@ -698,7 +728,7 @@ function Pro() {
 													) : (
 														<>
 															<label className="mb-6">
-															By doing this,
+																By doing this,
 																you might not
 																register in this
 																event if event
@@ -715,8 +745,6 @@ function Pro() {
 												</p>
 											</div>
 
-											
-
 											<div className="flex m-auto w-min">
 												<div className="mx-4">
 													<button
@@ -725,7 +753,9 @@ function Pro() {
 														style={{
 															margin: "auto",
 														}}
-														onClick={handleDeleteEvent}
+														onClick={
+															handleDeleteEvent
+														}
 													>
 														Yes
 													</button>
@@ -745,7 +775,105 @@ function Pro() {
 											</div>
 										</>
 									) : (
-										<label>Info</label>
+										// Information -------------------------------------
+										<>
+											<div className="mt-2">
+												<p className="text-center justify-center text-sm text-gray-500 mb-6">
+													{isSolo ? (
+														<>
+															<div className="col-span-6 sm:col-span-3">
+																<label
+																	htmlFor="first-name"
+																	className="text-xs font-medium text-gray-700"
+																>
+																	Registration
+																	Time
+																</label>
+																<input
+																	type="text"
+																	autoComplete="given-name"
+																	placeholder="First Name"
+																	disabled
+																	required
+																	value={
+																		"11:00, 12 Feb 2023"
+																	}
+																	className="disabled:text-gray-500 disabled:bg-primary-light-3 m-auto text-center mt-1 block w-min rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+																/>
+															</div>
+														</>
+													) : (
+														<div className = {`drop-shadow-md bg-${color}-100 rounded-2xl py-5`}>
+															<div className="col-span-6 sm:col-span-3 mb-2 mx-2">
+																<label
+																	htmlFor="first-name"
+																	className="text-[0.8rem] block font-medium text-gray-700"
+																>
+																	Team Name
+																</label>
+																<label
+																	htmlFor="first-name"
+																	className="shadow-inner text-xl p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded-lg "
+																>
+																	{teamName}
+																</label>
+															</div>
+															<div className="col-span-6 sm:col-span-3 m-3">
+																<label
+																	htmlFor="first-name"
+																	className="text-xs block font-medium text-gray-700"
+																>
+																	Team Leader
+																</label>
+																<label
+																	htmlFor="first-name"
+																	className="shadow-inner text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-lg "
+																>
+																	Ashish Kumar Patel
+																</label>
+															</div>
+															<div className="col-span-6 sm:col-span-3 m-3">
+																<label
+																	htmlFor="first-name"
+																	className="text-xs block font-medium text-gray-700"
+																>
+																	Registration Time
+																</label>
+																<label
+																	htmlFor="first-name"
+																	className="shadow-inner text-sm p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded "
+																>
+																	11:00 AM, 12 Feb 2023	
+																</label>
+															</div>
+															
+															{role ==
+																"Leader" && (
+																	<div className = {`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}>
+																	
+																		<label  className="text-[0.8rem] block font-medium text-gray-700">Members</label>
+																		</div>
+															)}
+														</div>
+													)}
+												</p>
+											</div>
+
+											<div className="flex m-auto w-min">
+												<div className="mx-4">
+													<button
+														type="button"
+														className="shadow mx-6 text-[#1C7690] inline-flex justify-center rounded-md border border-[#1C7690] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:text-[#ffffff] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+														style={{
+															margin: "auto",
+														}}
+														onClick={closeModal}
+													>
+														Close
+													</button>
+												</div>
+											</div>
+										</>
 									)}
 								</Dialog.Panel>
 							</Transition.Child>
