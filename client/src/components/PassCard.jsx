@@ -10,7 +10,7 @@ function PassCard({ passInfo, buyClick }) {
             {passInfo.name}
             <span style={{ backgroundColor: passInfo.color }} className='w-1/2 h-1 block'></span>
           </h1>
-          <img className='h-20 -translate-y-[1px]' src={passInfo.markImg} alt="Gold Pass" />
+          <img className='h-20 -translate-y-[1px]' src={passInfo.markImg} alt={passInfo.name} />
         </div>
         <div>
           <h1 className='text-2xl text-center font-bold bg-gradient-to-b from-primary to-primary-dark-1 bg-clip-text text-transparent '>

@@ -17,6 +17,55 @@
 			"name": "Chem E-Jeopardy",
 			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
 			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_CEJ",
+			"name": "Chem E-Jeopardy",
+			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_CEJ",
+			"name": "Chem E-Jeopardy",
+			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_CEJ",
+			"name": "Chem E-Jeopardy",
+			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "IN_CEJ",
+			"name": "Chem E-Jeopardy",
+			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"image": "Swift.png"
 		}
 	]
+	
 }
