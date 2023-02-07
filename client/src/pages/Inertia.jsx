@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
 import PuffLoader from "react-spinners/PuffLoader";
 import EventsData from "../assets/Events.json"
+import { useNavigate } from "react-router-dom";
 
 
 function Inertia() {
@@ -25,6 +26,7 @@ function Inertia() {
 	const [showInfo, setShowInfo] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
+	const navigate = useNavigate();
 	let email = "";
 	if (currentUser) email = currentUser["email"];
 
@@ -36,7 +38,7 @@ function Inertia() {
 		console.log(eventName, eventCode);
 
 		if (!currentUser) {
-			window.location.href = "/login";
+			navigate("/login");
 			return;
 		}
 
@@ -56,9 +58,9 @@ function Inertia() {
 
 		if (response.type == "Warning") {
 			if (response.message == "Profile") {
-				window.location.href = "/profile";
+				navigate("/profile");
 			} else if (response.message == "BuyPass") {
-				window.location.href = "/buypass";
+				navigate("/buypass");
 			} else {
 				toast(response.message, {
 					icon: "⚠️",

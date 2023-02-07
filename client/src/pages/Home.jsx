@@ -9,10 +9,13 @@ import { AuthContext } from "./../contexts/AuthContext";
 import FAQSection from '../components/FAQSection'
 import Hero from '../assets/HeroData.json'
 import Lottie from 'lottie-react'
+import { useNavigate } from 'react-router-dom'
+import ProgressPopUp from '../components/ProgressPopUp'
 
 function Home() {
 
     const { currentUser, profile, setProfile } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     //get today date
 
@@ -20,6 +23,7 @@ function Home() {
     const [hour, setHour] = useState(0)
     const [minute, setMinute] = useState(0)
     const [second, setSecond] = useState(0)
+    const [showProgress, setShowProgress] = useState(true)
 
     useEffect(() => {
         const second = setInterval(() => {
@@ -45,6 +49,8 @@ function Home() {
 
     return (
         <>
+            <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
+
             <section className='w-full h-[calc(100vh-3.5rem)] relative flex flex-col justify-center items-center gap-10'>
 
                 <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
@@ -99,16 +105,16 @@ function Home() {
                         DISRUPTION
                     </h1>
                 </div> */}
-                <Lottie className='absolute w-[200%] md:w-[100%]  ' animationData={Hero} loop={true} />
+                <Lottie className='absolute w-[200%] md:w-[100%]' animationData={Hero} loop={false} />
                 <p className='relative uppercase text-xl text-primary after:content-[""] top-60 after:block after:absolute after:w-full after:h-full after:top-0 after:left-0 after:bg-white after:blur-md after:z-[-1]'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
                 {
                     !currentUser ?
-                        <button className='top-52 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                        <button className='top-52 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { navigate("/register") }}>Register Now</button>
                         : profile.TxnStatus != "TXN_SUCCESS" ?
-                            <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
-                            <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
+                            <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { navigate("/buypass") }}>Buy Pass</button> :
+                            <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { navigate("/inertia") }}>Start Registeration in Events</button>
                 }
 
             </section>
