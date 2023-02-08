@@ -90,14 +90,16 @@ app.post("/api/generateOTP", async (req, res) => {
 			from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
 			to: email,
 			subject: "OTP for login",
-			template: "LoginOTP",
-			context: {
-				otp: otp,
-			},
+			html: `<h1>${otp}</h1>`
+			// template: "LoginOTP",
+			// context: {
+				// otp: otp,
+			// },
 		},
 		(error, info) => {
 			if (error) {
 				delete otps[email];
+				console.log("Mail not sent")
 				return res.status(500).json({
 					isOTPGenerated: false,
 					message: "Something went Wrong",
@@ -112,30 +114,6 @@ app.post("/api/generateOTP", async (req, res) => {
 			}
 		}
 	);
-	// .then((isSent) => {
-	// 	if (isSent) {
-	// 		return res
-	// 			.status(200)
-	// 			.json({
-	// 				isOTPGenerated: true,
-	// 				message: "OTP sent successfully",
-	// 				type: "success",
-	// 			});
-	// 	} else {
-
-	// 		return res
-	// 			.status(500)
-	// 			.json({
-	// 				isOTPGenerated: false,
-	// 				message: "ahaha went wrong",
-	// 				type: "error",
-	// 			});
-	// 	}
-	// })
-	// .catch((err) => {
-	// 	delete otps[email];
-
-	// });
 });
 
 app.post("/api/verifyOTP", (req, res) => {
@@ -182,7 +160,7 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
 	const [rows, f] = await conn.execute(
-		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, Gender, DOB, City, State, ContactNo, University, Branch, StudyYear, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
+		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname,ProfileImg, Gender, City, ContactNo, University, Branch, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
 	);
 
 	if (rows.length === 0) {

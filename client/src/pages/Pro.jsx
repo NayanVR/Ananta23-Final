@@ -1,11 +1,15 @@
 import React, { useState, Fragment, useContext, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
 import profilePic from "../assets/photos/profile.jpg";
 import uniList from "../data/uniList.json";
 import YourEvent from "../components/YourEvent";
 import { Dialog, Transition } from "@headlessui/react";
 import { HiQrcode } from "react-icons/hi";
+import { QRCode } from "react-qrcode-logo";
+import a_logo from "../assets/icons/a_logo.png";
 
 function Pro() {
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
@@ -22,11 +26,8 @@ function Pro() {
 	const [contactNo, setContactNo] = useState("");
 	const [branch, setBranch] = useState("");
 	const [uniName, setUniName] = useState("");
-	const [year, setYear] = useState("");
-	const [dob, setDob] = useState("");
 	const [gender, setGender] = useState("");
 	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
 
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
@@ -34,7 +35,6 @@ function Pro() {
 	const [registeredEvents, setRegisteredEvents] = useState([]);
 
 	// Modal Stuff
-
 	const [isOpen, setIsOpen] = useState(false);
 	const [isView, setIsView] = useState(false);
 	const [modalColor, setModalColor] = useState("#c22727");
@@ -108,12 +108,9 @@ function Pro() {
 		setLName(pro.Lastname);
 		setContactNo(pro.ContactNo);
 		setBranch(pro.Branch);
-		setYear(pro.StudyYear);
-		setDob(dtStr);
 		setUniName(pro.University);
 		setGender(pro.Gender);
 		setCity(pro.City);
-		setState(pro.State);
 
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
@@ -139,11 +136,8 @@ function Pro() {
 					contactNo,
 					uniName,
 					branch,
-					year,
-					dob,
 					gender,
 					city,
-					state,
 				}),
 			})
 				.then((res) => res.json())
@@ -258,30 +252,39 @@ function Pro() {
 	}
 
 	return (
-		<div className="flex-col justify-center items-center w-full h-max px-4 lg:py-10 bg-white lg:px-40">
+		<div className="flex-col my-8 justify-center items-center w-full h-max px-4 lg:py-10 bg-white lg:px-40">
 			<div className="my-10 sm:mt-0">
-				<div className="md:grid md:grid-cols-4 md:gap-6">
-					<div className="md:col-span-1">
-						<div className="overflow-hidden shadow rounded-md">
-							<div className="bg-primary-light-3 p-1">
-								<img className="rounded-md" src={profilePic} />
-							</div>
-							<div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
-								<button className="w-full inline-flex items-center justify-center p-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
-									<label className="text-xs">
-										Participant ID:
-									</label>
-									<b>{pid}</b>
-								</button>
-								{/* <button className="inline-flex items-center justify-center mx-1 p-1 h-12 rounded-md">
+				<div className="md:grid-cols-4 gap-4">
 
-								<HiQrcode className="h-10 w-10"/>
-								</button> */}
+
+
+
+					<div className="flex border flex-col sm:flex-row border-gray flex-wrap">
+						<div className="flex grow p-6 bg-primary-light-3">
+							<div className="flex-none">
+								<img
+									src={profile.ProfileImg}
+									className="z-10 h-28 w-28 rounded-full"
+									alt=""
+								/>
+							</div>
+							<div className="flex flex-none flex-col items-left p-4">
+								<div className="flex flex-row text-xl font-semibold">
+									{profile.Firstname + " " + profile.Lastname}
+								</div>
+								<div className="text-xs">{profile.Email}</div>
+								<div>
+									<button
+										className="px-4 py-1 mt-2 shadow text-[#1C7690] rounded-md bg-white hover:bg-[#1C7690] hover:text-white"
+										onClick={() => signOut(auth)}
+									>
+										Sign Out
+									</button>
+								</div>
 							</div>
 						</div>
-
-						<div className="mt-2 overflow-hidden shadow rounded-md">
-							<div className="bg-primary-light-3 flex justify-center items-center px-1 py-1 text-right">
+						<div className="flex grow-0 bg-primary-dark-1 text-white justify-center items-center">
+							<div className="flex-none flex flex-col p-6">
 								{txnStatus != "TXN_SUCCESS" ? (
 									<button
 										className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap'
@@ -301,300 +304,396 @@ function Pro() {
 								)}
 							</div>
 						</div>
+						<div className="flex grow justify-end p-4">
+							<div className="flex-none">4</div>
+							<div className="flex-none">
+								<div className="p-2 col-span-1 bg-primary-light-3 flex-none justify-between items-center rounded-3xl">
+									<QRCode
+										value={pid}
+										size={120}
+										logoImage={a_logo}
+										qrStyle={"dots"}
+										logoOpacity={1}
+										logoHeight={40}
+										logoWidth={40}
+										eyeRadius={[
+											{
+												// top/left eye
+												outer: [0, 20, 10, 20],
+												inner: [10, 10, 10, 10],
+											},
+											{
+												// top/left eye
+												outer: [20, 0, 20, 10],
+												inner: [10, 10, 10, 10],
+											},
+											{
+												// top/left eye
+												outer: [20, 10, 20, 0],
+												inner: [10, 10, 10, 10],
+											},
+										]}
+										eyeColor={[
+											{
+												outer: "#1C7690",
+												inner: "black",
+											},
+											{
+												outer: "#1C7690",
+												inner: "black",
+											},
+											{
+												outer: "#1C7690",
+												inner: "black",
+											},
+										]}
+										bgColor={"#FFFFFF00"}
+										ecLevel={"H"}
+									/>
+								</div>
+							</div>
+						</div>
 					</div>
 
-					<div className="mt-5 md:col-span-3 md:mt-0">
-						<form onSubmit={handleSubmit}>
-							<div className="overflow-hidden shadow rounded-md">
-								<div className="bg-primary-light-2 px-4 py-3 flex justify-between items-center sm:px-6">
-									<h1 className="font-bold justify-center">
-										Personal Details
-									</h1>
-									<button
-										onClick={(e) => {
-											e.preventDefault();
-											setCanEdit(!canEdit);
-										}}
-										className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
-									>
-										{canEdit ? "Cancel" : "Edit"}
+
+
+
+
+					<div className="p-6 flex flex-wrap flex-col md:flex-row 3xl:flex-col overflow-hidden shadow rounded-md">
+						<div className="grow">
+							<div className="p-2 flex-none sm:m-auto flex justify-between items-center rounded-3xl">
+								<div className="flex-none">
+									<img
+										src={profile.ProfileImg}
+										className="z-10 h-28 w-28 rounded-full"
+										alt=""
+									/>
+								</div>
+								<div className="flex flex-col h-full p-4">
+									<div className="flex flex-row text-xs">
+										<span className="font-semibold">
+											अनंत
+										</span>
+										&nbsp;
+										<span>Account</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="grow-0"></div>
+
+						<div className="grow-1 flex flex-row">
+							<div className="p-2 sm:col-span-12 grow w-100 justify-between items-center rounded-3xl">
+								<div className="flex flex-col sm:flex-row 3xl:flex-col bg-primary-light-2 h-full p-2 text-sm text-gray-800">
+									<div className="flex flex-1 flex-row justify-end justify-between w-50">
+										<span className="font-semibold">
+											अनंत
+										</span>
+										&nbsp;
+										<span>Account</span>
+									</div>
+								</div>
+							</div>
+
+							<div
+								className="p-2 col-span-1 flex-none justify-between items-center rounded-3xl"
+								style={{ backgroundColor: `#A5D9D5` }}
+							>
+								<QRCode
+									value={pid}
+									size={120}
+									logoImage={a_logo}
+									qrStyle={"dots"}
+									logoOpacity={1}
+									logoHeight={40}
+									logoWidth={40}
+									eyeRadius={[
+										{
+											// top/left eye
+											outer: [0, 20, 10, 20],
+											inner: [10, 10, 10, 10],
+										},
+										{
+											// top/left eye
+											outer: [20, 0, 20, 10],
+											inner: [10, 10, 10, 10],
+										},
+										{
+											// top/left eye
+											outer: [20, 10, 20, 0],
+											inner: [10, 10, 10, 10],
+										},
+									]}
+									eyeColor={[
+										{
+											outer: "#1C7690",
+											inner: "black",
+										},
+										{
+											outer: "#1C7690",
+											inner: "black",
+										},
+										{
+											outer: "#1C7690",
+											inner: "black",
+										},
+									]}
+									bgColor={"#FFFFFF00"}
+									ecLevel={"H"}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div className="flex p-8">
+						<div className="justify-center items-center px-1 py-1 text-right">
+							<button className="bg-primary-dark-1 w-full inline-flex items-center justify-center p-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
+								<label className="text-xs">
+									Participant ID:
+								</label>
+								<b>{pid}</b>
+							</button>
+							{/* <button className="inline-flex items-center justify-center mx-1 p-1 h-12 rounded-md">
+
+								<HiQrcode className="h-10 w-10"/>
+								</button> */}
+						</div>
+						<div className="bg-primary-light-3 justify-center items-center px-1 py-1 text-right">
+							{txnStatus != "TXN_SUCCESS" ? (
+								<button
+									className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap'
+									onClick={(_) => {
+										window.location.href = "/buypass";
+									}}
+								>
+									Buy&nbsp;Pass
+								</button>
+							) : (
+								<button className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
+									<label className="text-xs">
+										Pass Code:
+									</label>
+									<b>{passCode}</b>
+								</button>
+							)}
+						</div>
+					</div>
+					<div className="mt-2 shadow rounded-md"></div>
+				</div>
+
+				<div className="mt-5 md:col-span-3 md:mt-0">
+					<form onSubmit={handleSubmit}>
+						<div className="overflow-hidden shadow rounded-md">
+							<div className="bg-primary-light-2 px-4 py-3 flex justify-between items-center sm:px-6">
+								<h1 className="font-bold justify-center">
+									Personal Details
+								</h1>
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+										setCanEdit(!canEdit);
+									}}
+									className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white"
+								>
+									{canEdit ? "Cancel" : "Edit"}
+								</button>
+							</div>
+							<div className="bg-primary-light-3  px-4 py-5 sm:p-6">
+								<div className="grid grid-cols-6 gap-6">
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="first-name"
+											className="block text-sm font-medium text-gray-700 bg-primary-light-3"
+										>
+											First name
+										</label>
+										<input
+											type="text"
+											autoComplete="given-name"
+											placeholder="First Name"
+											disabled={!canEdit}
+											required
+											value={fName}
+											onChange={(e) => {
+												setFName(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="last-name"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Last name
+										</label>
+										<input
+											type="text"
+											autoComplete="family-name"
+											disabled={!canEdit}
+											required
+											placeholder="Last Name"
+											value={lName}
+											onChange={(e) => {
+												setLName(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="email-address"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Email address
+										</label>
+										<input
+											type="text"
+											autoComplete="email"
+											disabled={true}
+											required
+											placeholder="Email"
+											value={email}
+											onChange={(e) => {
+												setEmail(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="email-address"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Contact No.
+										</label>
+										<input
+											type="tel"
+											placeholder="Contact No"
+											disabled={!canEdit}
+											required
+											pattern="[0-9]{10}"
+											value={contactNo}
+											onChange={(e) => {
+												setContactNo(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Gender
+										</label>
+										<select
+											required
+											disabled={!canEdit}
+											value={gender}
+											onChange={(e) => {
+												setGender(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+										>
+											<option value="">
+												Select Gender
+											</option>
+											<option value="Male">Male</option>
+											<option value="Female">
+												Female
+											</option>
+										</select>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-2">
+										<label
+											htmlFor="city"
+											className="block text-sm font-medium text-gray-700"
+										>
+											City
+										</label>
+										<input
+											type="text"
+											autoComplete="address-level2"
+											placeholder="City"
+											required
+											disabled={!canEdit}
+											value={city}
+											onChange={(e) => {
+												setCity(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-700"
+										>
+											University
+										</label>
+										<select
+											disabled={!canEdit}
+											value={uniName}
+											onChange={(e) => {
+												setUniName(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+											required
+										>
+											<option selected value="">
+												Select University
+											</option>
+											{uniList.map((uni, index) => {
+												return (
+													<option
+														key={index}
+														value={uni}
+													>
+														{uni}
+													</option>
+												);
+											})}
+										</select>
+									</div>
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="email-address"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Branch / Course
+										</label>
+										<input
+											type="text"
+											placeholder="Branch"
+											required
+											disabled={!canEdit}
+											value={branch}
+											onChange={(e) => {
+												setBranch(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
+										/>
+									</div>
+								</div>
+							</div>
+							{canEdit && (
+								<div className="bg-primary-light-2 px-4 py-3 text-right sm:px-6">
+									<button className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white">
+										Save
 									</button>
 								</div>
-								<div className="bg-primary-light-3  px-4 py-5 sm:p-6">
-									<div className="grid grid-cols-6 gap-6">
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="first-name"
-												className="block text-sm font-medium text-gray-700 bg-primary-light-3"
-											>
-												First name
-											</label>
-											<input
-												type="text"
-												autoComplete="given-name"
-												placeholder="First Name"
-												disabled={!canEdit}
-												required
-												value={fName}
-												onChange={(e) => {
-													setFName(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="last-name"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Last name
-											</label>
-											<input
-												type="text"
-												autoComplete="family-name"
-												disabled={!canEdit}
-												required
-												placeholder="Last Name"
-												value={lName}
-												onChange={(e) => {
-													setLName(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="email-address"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Email address
-											</label>
-											<input
-												type="text"
-												autoComplete="email"
-												disabled={true}
-												required
-												placeholder="Email"
-												value={email}
-												onChange={(e) => {
-													setEmail(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="email-address"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Contact No.
-											</label>
-											<input
-												type="tel"
-												placeholder="Contact No"
-												disabled={!canEdit}
-												required
-												pattern="[0-9]{10}"
-												value={contactNo}
-												onChange={(e) => {
-													setContactNo(
-														e.target.value
-													);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-6 lg:col-span-2">
-											<label
-												htmlFor="email-address"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Branch / Course
-											</label>
-											<input
-												type="text"
-												placeholder="Branch"
-												required
-												disabled={!canEdit}
-												value={branch}
-												onChange={(e) => {
-													setBranch(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-6 lg:col-span-2">
-											<label
-												htmlFor="country"
-												className="block text-sm font-medium text-gray-700"
-											>
-												University
-											</label>
-											<select
-												disabled={!canEdit}
-												value={uniName}
-												onChange={(e) => {
-													setUniName(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-												required
-											>
-												<option selected value="">
-													Select University
-												</option>
-												{uniList.map((uni, index) => {
-													return (
-														<option
-															key={index}
-															value={uni}
-														>
-															{uni}
-														</option>
-													);
-												})}
-											</select>
-										</div>
-
-										<div className="col-span-6 sm:col-span-6 lg:col-span-2">
-											<label
-												htmlFor="country"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Study Year
-											</label>
-											<select
-												required
-												disabled={!canEdit}
-												value={year}
-												onChange={(e) => {
-													setYear(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-											>
-												<option value="">
-													Select Study Year
-												</option>
-												{[1, 2, 3, 4].map(
-													(year, index) => {
-														return (
-															<option
-																key={index}
-																value={year}
-															>
-																{year}
-															</option>
-														);
-													}
-												)}
-											</select>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="first-name"
-												className="block text-sm font-medium text-gray-700"
-											>
-												D.O.B.
-											</label>
-											<input
-												type="date"
-												autoComplete="date"
-												required
-												disabled={!canEdit}
-												value={dob}
-												onChange={(e) => {
-													setDob(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="country"
-												className="block text-sm font-medium text-gray-700"
-											>
-												Gender
-											</label>
-											<select
-												required
-												disabled={!canEdit}
-												value={gender}
-												onChange={(e) => {
-													setGender(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-											>
-												<option value="">
-													Select Gender
-												</option>
-												<option value="Male">
-													Male
-												</option>
-												<option value="Female">
-													Female
-												</option>
-											</select>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="city"
-												className="block text-sm font-medium text-gray-700"
-											>
-												City
-											</label>
-											<input
-												type="text"
-												autoComplete="address-level2"
-												placeholder="City"
-												required
-												disabled={!canEdit}
-												value={city}
-												onChange={(e) => {
-													setCity(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-
-										<div className="col-span-6 sm:col-span-3">
-											<label
-												htmlFor="region"
-												className="block text-sm font-medium text-gray-700"
-											>
-												State
-											</label>
-											<input
-												type="text"
-												autoComplete="address-level1"
-												placeholder="State"
-												required
-												disabled={!canEdit}
-												value={state}
-												onChange={(e) => {
-													setState(e.target.value);
-												}}
-												className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-											/>
-										</div>
-									</div>
-								</div>
-								{canEdit && (
-									<div className="bg-primary-light-2 px-4 py-3 text-right sm:px-6">
-										<button className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-dark-1 text-white">
-											Save
-										</button>
-									</div>
-								)}
-							</div>
-						</form>
-					</div>
+							)}
+						</div>
+					</form>
 				</div>
 
 				<hr className="my-10" />
@@ -663,7 +762,6 @@ function Pro() {
 							>
 								<Dialog.Panel
 									className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-10 py-6 text-left align-middle shadow-xl transition-all border-y-4 ${modalColor} bg-white`}
-					
 								>
 									<Dialog.Title
 										as="h3"
@@ -803,7 +901,9 @@ function Pro() {
 															</div>
 														</>
 													) : (
-														<div className = {`drop-shadow-md bg-${color}-100 rounded-2xl py-5`}>
+														<div
+															className={`drop-shadow-md bg-${color}-100 rounded-2xl py-5`}
+														>
 															<div className="col-span-6 sm:col-span-3 mb-2 mx-2">
 																<label
 																	htmlFor="first-name"
@@ -829,7 +929,8 @@ function Pro() {
 																	htmlFor="first-name"
 																	className="shadow-inner text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-lg "
 																>
-																	Ashish Kumar Patel
+																	Ashish Kumar
+																	Patel
 																</label>
 															</div>
 															<div className="col-span-6 sm:col-span-3 m-3">
@@ -837,22 +938,27 @@ function Pro() {
 																	htmlFor="first-name"
 																	className="text-xs block font-medium text-gray-700"
 																>
-																	Registration Time
+																	Registration
+																	Time
 																</label>
 																<label
 																	htmlFor="first-name"
 																	className="shadow-inner text-sm p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded "
 																>
-																	11:00 AM, 12 Feb 2023	
+																	11:00 AM, 12
+																	Feb 2023
 																</label>
 															</div>
-															
+
 															{role ==
 																"Leader" && (
-																	<div className = {`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}>
-																	
-																		<label  className="text-[0.8rem] block font-medium text-gray-700">Members</label>
-																		</div>
+																<div
+																	className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+																>
+																	<label className="text-[0.8rem] block font-medium text-gray-700">
+																		Members
+																	</label>
+																</div>
 															)}
 														</div>
 													)}
