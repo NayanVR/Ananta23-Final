@@ -10,6 +10,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { HiQrcode } from "react-icons/hi";
 import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/a_logo.png";
+import Gold from "../assets/passes/Gold.png";
+import Silver from "../assets/passes/Silver.png";
+import Bronze from "../assets/passes/Bronze.png";
+import DJ from "../assets/passes/DJ.png";
+import Combo from "../assets/passes/Combo.png";
+import Passes from "./../assets/Passes.json";
 
 function Pro() {
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
@@ -29,8 +35,14 @@ function Pro() {
 	const [gender, setGender] = useState("");
 	const [city, setCity] = useState("");
 
+
+
+
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
+	const [passType, setPassType]  = useState("");
+	const [passColor, setPassColor]  = useState("");
+	const [passImg, setPassImg] = useState("");
 
 	const [registeredEvents, setRegisteredEvents] = useState([]);
 
@@ -52,6 +64,8 @@ function Pro() {
 
 	let allEvents = [];
 
+	
+
 	useEffect(() => {
 		setEmail(currentUser.email);
 
@@ -66,6 +80,16 @@ function Pro() {
 		} else {
 			setCanEdit(true);
 		}
+
+		Passes.passes.map((element) => {
+			if (element['id'] == passCode) {
+				setPassType(element['name']);
+				setPassColor(element['color']);
+				setPassImg(element['markImg'])
+				console.log(passImg);
+			}
+		})
+
 	}, [profile]);
 
 	useEffect(() => {
@@ -91,7 +115,10 @@ function Pro() {
 					setRegisteredEvents(allEvents);
 				});
 			}
-		};
+
+					};
+
+
 		fetchEvents();
 		console.log(registeredEvents);
 	}, [reloadEvents]);
@@ -255,16 +282,12 @@ function Pro() {
 		<div className="flex-col my-8 justify-center items-center w-full h-max px-4 lg:py-10 bg-white lg:px-40">
 			<div className="my-10 sm:mt-0">
 				<div className="md:grid-cols-4 gap-4">
-
-
-
-
 					<div className="flex border flex-col sm:flex-row border-gray flex-wrap">
 						<div className="flex grow p-6 bg-primary-light-3">
 							<div className="flex-none">
 								<img
 									src={profile.ProfileImg}
-									className="z-10 h-28 w-28 rounded-full"
+									className="z-10 h-24 w-24 rounded-full"
 									alt=""
 								/>
 							</div>
@@ -283,31 +306,77 @@ function Pro() {
 								</div>
 							</div>
 						</div>
-						<div className="flex grow-0 bg-primary-dark-1 text-white justify-center items-center">
-							<div className="flex-none flex flex-col p-6">
-								{txnStatus != "TXN_SUCCESS" ? (
-									<button
-										className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap'
-										onClick={(_) => {
-											window.location.href = "/buypass";
-										}}
-									>
-										Buy&nbsp;Pass
+						<div className="flex grow-0 flex-row sm:flex-col bg-primary-dark-2 text-white justify-center items-center">
+							<div className="flex flex-1 w-full">
+								<div className="ml-6 mb-4 flex-none">
+									<img src={"/src/assets/passes/"+passImg} className="w-13" alt="" />
+								</div>
+								<div className="flex-none flex flex-col mt-6 ml-4 mr-6">
+									<label className={`text-3xl font-semibold text-[${passColor}]-900`}>
+										{passType}
+									</label>
+									<button className="bg-amber-50 text-xs hover:bg-[#fff]-400 text-gray-800 font-bold py-1 px-2.5 rounded inline-flex items-center">
+										<svg
+											className="fill-current w-3 h-3 mr-1"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+										>
+											<path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+										</svg>
+										<span>&nbsp;Download</span>
 									</button>
-								) : (
-									<button className="w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-1 text-white flex-wrap">
-										<label className="text-xs">
-											Pass Code:
-										</label>
-										<b>{passCode}</b>
-									</button>
-								)}
+								</div>
+							</div>
+							<div className="flex flex-col flex-1 text-xs w-full text-right px-4">
+								<div className="flex-none flex flex-row justify-end items-center ">
+									<div className="flex-none mb-1 w-min">
+										Max&nbsp;Events Access
+									</div>
+									<div className="flex-none text-xl ml-2 p-1 px-2 text-black font-semibold rounded-md bg-primary-light-3 mb-1">
+										4
+									</div>
+								</div>
+								<div className="flex-none flex flex-row justify-end items-center mb-3">
+									<div className="flex-none mb-1 w-min">
+										Max&nbsp;Guests Access
+									</div>
+									<div className="flex-none text-xl ml-2 p-1 px-2 text-black font-semibold rounded-md bg-primary-light-3 mb-1">
+										2
+									</div>
+								</div>
 							</div>
 						</div>
+
 						<div className="flex grow justify-end p-4">
-							<div className="flex-none">4</div>
+							<div className="flex flex-col flex-none p-1">
+								<div className="flex-1 flex flex-col text-right">
+									<div className="flex-none text-xs">
+										Digital Points
+									</div>
+									<div className="flex-none text-3xl"> 
+										{profile.DigitalPoints}
+									</div>
+								</div>
+								<div className="flex-1 flex flex-col text-right">
+									<div className="flex-none text-xs">
+										Total Event Registered
+									</div>
+									<div className="flex-none text-xl"> 
+										5 / 20
+									</div>
+								</div>
+								<div className="flex-1 flex flex-col text-right">
+									<div className="flex-none text-xs">
+									Total Guests Registered
+									</div>
+									<div className="flex-none text-xl"> 
+										2 / 5
+									</div>
+								</div>
+							</div>
+
 							<div className="flex-none">
-								<div className="p-2 col-span-1 bg-primary-light-3 flex-none justify-between items-center rounded-3xl">
+								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
 										value={pid}
 										size={120}
@@ -354,10 +423,6 @@ function Pro() {
 							</div>
 						</div>
 					</div>
-
-
-
-
 
 					<div className="p-6 flex flex-wrap flex-col md:flex-row 3xl:flex-col overflow-hidden shadow rounded-md">
 						<div className="grow">
