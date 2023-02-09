@@ -9,10 +9,13 @@ import { AuthContext } from "./../contexts/AuthContext";
 import FAQSection from '../components/FAQSection'
 import Hero from '../assets/HeroData.json'
 import Lottie from 'lottie-react'
+import { useNavigate } from 'react-router-dom'
+import ProgressPopUp from '../components/ProgressPopUp'
 
 function Home() {
 
     const { currentUser, profile, setProfile } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     //get today date
 
@@ -20,6 +23,7 @@ function Home() {
     const [hour, setHour] = useState(0)
     const [minute, setMinute] = useState(0)
     const [second, setSecond] = useState(0)
+    const [showProgress, setShowProgress] = useState(true)
 
     useEffect(() => {
         const second = setInterval(() => {
@@ -45,6 +49,8 @@ function Home() {
 
     return (
         <>
+            <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
+
             <section className='w-full h-[calc(100vh-3.5rem)] relative flex flex-col justify-center items-center gap-10'>
 
                 <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
