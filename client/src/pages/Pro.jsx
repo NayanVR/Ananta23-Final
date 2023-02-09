@@ -379,7 +379,7 @@ function Pro() {
 								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
 										value={pid}
-										size={120}
+										size={150}
 										logoImage={a_logo}
 										qrStyle={"dots"}
 										logoOpacity={1}
