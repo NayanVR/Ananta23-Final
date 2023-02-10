@@ -87,14 +87,14 @@ app.post("/api/generateOTP", async (req, res) => {
 	// console.log(LoginOTPHTML(otp))
 	transporter.sendMail(
 		{
-			from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
+			from: `Ananta <${process.env.NODEMAILER_EMAIL}>`,
 			to: email,
 			subject: "OTP for login",
-			html: `<h1>${otp}</h1>`
-			// template: "LoginOTP",
-			// context: {
-				// otp: otp,
-			// },
+			html: `<h1>${otp}</h1>`,
+			template: "LoginOTP",
+			context: {
+				otp: otp,
+			},
 		},
 		(error, info) => {
 			if (error) {
@@ -172,19 +172,6 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	}
 });
 
-// Buy Pass Logic
-
-app.post("/api/secure/pass/buy", async (req, res) => {
-	const { PID, passCode, amt } = req.body;
-
-	// participantID = await getParticipantID(email);
-	console.log(req.body);
-	const response = await buyPass(conn, PID, passCode, amt);
-
-	return res.status(response.code).json(response.resMessage);
-	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
-});
-
 
 app.post("/api/secure/getEvents", async (req, res) => {
 	const { email_ } = req.body;
@@ -214,9 +201,6 @@ app.post("/api/secure/deleteEvent", async (req, res) => {
 });
 
 
-
-
-
 // Forgot Password : Send OTP
 app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	email = req.body.email;
@@ -244,10 +228,23 @@ app.post("/api/secure/pass/buy/check", async (req, res) => {
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
-// Payment Logic
+// Buy Pass Logic
+app.post("/api/secure/pass/buy", async (req, res) => {
+	const { PID, passCode, amt } = req.body;
 
+	// participantID = await getParticipantID(email);
+	console.log(req.body);
+	const response = await buyPass(conn, PID, passCode, amt);
+
+	return res.status(response.code).json(response.resMessage);
+	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+});
+
+// Payment Logic
 app.post("/api/get-payment-info", async (req, res) => {
 	const response = await makePayment(req);
+
+	
 
 	if (response.code == 200) {
 		// console.log(response.resMessage.EMAIL, response.resMessage.ORDER_ID);

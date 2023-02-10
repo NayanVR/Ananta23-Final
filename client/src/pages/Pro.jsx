@@ -75,7 +75,8 @@ function Pro() {
 		} else {
 			setCanEdit(true);
 		}
-		console.log();
+		console.log(currentUser)
+		console.log(profile);
 	}, [profile]);
 
 	useEffect(() => {
@@ -278,15 +279,14 @@ function Pro() {
 						<div className="flex grow p-6 justify-center sm:justify-start">
 							<div className="flex-none flex flex-col justify-center">
 								<img
-									src={profile.ProfileImg}
+									src={profile.ProfileImg!="NULL" ? profile.ProfileImg : profilePic}
 									className="z-10 h-24 w-24 rounded-full"
-									alt={profilePic}
 								/>
 							</div>
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
 
-									{profile.Firstname + " " + profile.Lastname}
+									{profile.Firstname != null && profile.Lastname != null ? profile.Firstname + " " + profile.Lastname : "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
 								<div>
@@ -301,7 +301,7 @@ function Pro() {
 						</div>
 						<div className="flex grow-0 flex-row sm:flex-col bg-primary-dark-2 text-white justify-center items-center">
 							{txnStatus != "TXN_SUCCESS" ? (
-								<div className="mx-10">
+								<div className="m-5 ">
 									<button
 										className='relative border border-[var(bg-primary-light-1)] before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 px-8 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-2 text-white flex-wrap'
 										onClick={(_) => {

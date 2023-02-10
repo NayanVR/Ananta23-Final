@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-hot-toast";
 import PassCard from "../components/PassCard";
@@ -78,6 +78,8 @@ function BuyPass() {
 		},
 	];
 
+	const [passCode, setPassCode] = useState("");
+
 	const isDate = (val) =>
 		Object.prototype.toString.call(val) === "[object Date]";
 
@@ -124,7 +126,7 @@ function BuyPass() {
 	};
 
 	const makePayment = (amt, clientEmail) => {
-		getData({ amount: amt.toString(), email: clientEmail }).then(
+		getData({ amount: amt.toString(), email: clientEmail, passCode: passCode }).then(
 			(response) => {
 				console.log(response);
 
@@ -138,10 +140,13 @@ function BuyPass() {
 	};
 
 	// lifting state up
-	async function handleBuyClick(passCode) {
+	async function handleBuyClick(pass) {
 		if (currentUser == null) navigate("/login");
 
 		if (profile == {}) navigate("/profile");
+
+		setPassCode(pass)
+		console.log(pass)
 
 		const PID = profile.ParticipantID;
 		console.log(profile.ParticipantID);

@@ -41,7 +41,7 @@ function Navbar() {
                             <Link className='px-6 py-2 hover:bg-gray-100' to="/equilibrium">Equilibrium</Link>
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                        <CustomLink to="">Digital Points</CustomLink>
+                        <CustomLink to="/digital-point">Digital Points</CustomLink>
                         <CustomLink to="">Schedule</CustomLink>
                         <DropDown title='More'>
                             <Link className='px-6 py-2 hover:bg-gray-100' to="/about-us">About Us</Link>
@@ -80,7 +80,7 @@ function Navbar() {
                     <Link className='px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none' to="/equilibrium">Equilibrium</Link>
                 </DropDown>
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                <CustomLink to="">Digital Points</CustomLink>
+                <CustomLink to="/digital-point">Digital Points</CustomLink>
                 <CustomLink to="">Schedule</CustomLink>
                 <CustomLink to="/about-us">About Us</CustomLink>
                 <CustomLink to="/contact-us">Our Team</CustomLink>

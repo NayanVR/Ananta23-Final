@@ -25,6 +25,7 @@ import RefundPolicy from './pages/RefundPolicy';
 import Countdown from './pages/Countdown';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
+import Digitalpoint from './pages/Digitalpoint';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -52,6 +53,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
+          <Route path="/digital-point" element={<Digitalpoint />} />
 
         </Routes>
       <Footer />
