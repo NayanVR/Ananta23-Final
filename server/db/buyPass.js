@@ -3,6 +3,11 @@ const { genPaymentID } = require("../util");
 
 const passes = require("./../assets/passes.json");
 
+let date_nz = new Date(new Date().toLocaleString("en-in", { timeZone: "Asia/Calcutta" }));
+
+const timestamp = `${date_nz.getFullYear()}-${("0" + date_nz.getDate()).slice(-2)}-${("0" + (date_nz.getMonth() + 1)).slice(-2)} ${("0" + date_nz.getHours()).slice(-2)}:${("0" + date_nz.getMinutes()).slice(-2)}:${("0" + date_nz.getSeconds()).slice(-2)}`;
+
+
 // console.log(passes);
 
 async function updateSoldPasses(conn) {

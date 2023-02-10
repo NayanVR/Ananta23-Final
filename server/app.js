@@ -9,11 +9,22 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
-const { checkEvent, registerSoloEvent, createTeam, joinTeam, getTeamInfo, getEvents, deleteEvent } = require("./db/events");
+const {
+	checkEvent,
+	registerSoloEvent,
+	createTeam,
+	joinTeam,
+	getTeamInfo,
+	getEvents,
+	deleteEvent,
+} = require("./db/events");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
-const { sendResetPassEmail, assumePassCode, getParticipantID } = require("./util");
+const {
+	sendResetPassEmail,
+	getParticipantID,
+} = require("./util");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,11 +39,21 @@ app.use(express.json());
 app.use(middleware.decodeToken);
 app.use(express.static(path.join(__dirname, "dist")));
 
+let date_nz = new Date(
+	new Date().toLocaleString("en-in", { timeZone: "Asia/Calcutta" })
+);
+
+const timestamp = `${date_nz.getFullYear()}-${("0" + date_nz.getDate()).slice(
+	-2
+)}-${("0" + (date_nz.getMonth() + 1)).slice(-2)} ${(
+	"0" + date_nz.getHours()
+).slice(-2)}:${("0" + date_nz.getMinutes()).slice(-2)}:${(
+	"0" + date_nz.getSeconds()
+).slice(-2)}`;
+
+console.log("Date and Time in YYYY-MM-DD hh:mm:ss format: " + timestamp);
+
 let otps = {};
-
-let paymentStatus = {};
-
-let orderIDEmail = {};
 
 let transporter = nodemailer.createTransport({
 	service: "Gmail",
@@ -54,12 +75,10 @@ const handlebarOptions = {
 
 transporter.use("compile", hbs(handlebarOptions));
 
-
 app.use((req, res, next) => {
-	if (req.url.includes('/api')) return next();
+	if (req.url.includes("/api")) return next();
 	else return res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
-
 
 // OTP Logic
 app.post("/api/generateOTP", async (req, res) => {
@@ -90,7 +109,6 @@ app.post("/api/generateOTP", async (req, res) => {
 			from: `Ananta <${process.env.NODEMAILER_EMAIL}>`,
 			to: email,
 			subject: "OTP for login",
-			html: `<h1>${otp}</h1>`,
 			template: "LoginOTP",
 			context: {
 				otp: otp,
@@ -99,7 +117,7 @@ app.post("/api/generateOTP", async (req, res) => {
 		(error, info) => {
 			if (error) {
 				delete otps[email];
-				console.log("Mail not sent")
+				console.log("Mail not sent");
 				return res.status(500).json({
 					isOTPGenerated: false,
 					message: "Something went Wrong",
@@ -130,7 +148,6 @@ app.post("/api/verifyOTP", (req, res) => {
 });
 
 // Profile Logic
-
 app.post("/api/create-profile", async (req, res) => {
 	const bd = req.body;
 
@@ -172,7 +189,6 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	}
 });
 
-
 app.post("/api/secure/getEvents", async (req, res) => {
 	const { email_ } = req.body;
 
@@ -187,19 +203,24 @@ app.post("/api/secure/getEvents", async (req, res) => {
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
-
 app.post("/api/secure/deleteEvent", async (req, res) => {
 	const { pid, eventCode, isSolo, role, teamID } = req.body;
 
 	console.log(req.body);
-	const response = await deleteEvent(conn, pid, eventCode, isSolo, role, teamID);
+	const response = await deleteEvent(
+		conn,
+		pid,
+		eventCode,
+		isSolo,
+		role,
+		teamID
+	);
 
 	console.log(response);
 
 	return res.status(response.code).json(response.resMessage);
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
-
 
 // Forgot Password : Send OTP
 app.post("/api/forgotpassword/checkuser", async (req, res) => {
@@ -242,27 +263,25 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 
 // Payment Logic
 app.post("/api/get-payment-info", async (req, res) => {
-	const response = await makePayment(req);
+	const participantID = await getParticipantID(conn, req.body.email);
+	const response = await makePayment(conn, req, participantID, timestamp);
 
-	
+	// if (response.code == 200) {
+	// console.log(response.resMessage.EMAIL, response.resMessage.ORDER_ID);
+	// orderIDEmail[response.resMessage.ORDER_ID] = response.resMessage.EMAIL;
+	// console.log(orderIDEmail[response.resMessage.ORDER_ID])
 
-	if (response.code == 200) {
-		// console.log(response.resMessage.EMAIL, response.resMessage.ORDER_ID);
-		orderIDEmail[response.resMessage.ORDER_ID] = response.resMessage.EMAIL;
-		console.log(orderIDEmail[response.resMessage.ORDER_ID])
+	// setTimeout(() => {
+	// 	if (orderIDEmail[response.resMessage.ORDER_ID]) delete orderIDEmail[response.resMessage.ORDER_ID];
+	// }, 30 * 60 * 1000);
 
-		setTimeout(() => {
-			if (orderIDEmail[response.resMessage.ORDER_ID]) delete orderIDEmail[response.resMessage.ORDER_ID];
-		}, 30 * 60 * 1000);
-
-	}
+	// }
 
 	return res.status(response.code).json(response.resMessage);
 });
 
 app.post("/api/payment-callback", async (req, res) => {
 	const form = new formidable.IncomingForm();
-
 
 	let resFields = new Promise((resolve, reject) => {
 		form.parse(req, async (err, fields, files) => {
@@ -324,31 +343,56 @@ app.post("/api/payment-callback", async (req, res) => {
 					const data = JSON.parse(response);
 					console.log(data);
 
-					paymentStatus[orderIDEmail[data.body.orderId]] = data.body.resultInfo.resultStatus;
 
 
-					const passCode = await assumePassCode(conn, orderIDEmail[data.body.orderId], data.body.txnAmount);
+					const [orderRow, orderField] = await conn.execute(
+						`SELECT * FROM Orders WHERE OrderID = '${data.body.orderId}'`
+					);
 
-					console.log("Email:", orderIDEmail[data.body.orderId])
-					console.log("OrderID:", data.body.orderId);
-					console.log("Amount:", data.body.txnAmount);
-					console.log("PassCode:", passCode);
+					if (orderRow.length > 0) {
+						const passCode = orderRow[0].PassCode;
+						const email = orderRow[0].Email;
+						const payAmt = orderRow[0].PayAmt;
+						const participantID = orderRow[0].ParticipantID;
 
+						// paymentStatus[orderIDEmail[data.body.orderId]] = data.body.resultInfo.resultStatus;
 
-					if (data.body.resultInfo.resultStatus === "TXN_SUCCESS") {
+						// const passCode = await assumePassCode(conn, orderIDEmail[data.body.orderId], data.body.txnAmount);
 
-						const participantID = await getParticipantID(conn, orderIDEmail[data.body.orderId])
-						console.log("Order:Email =>", orderIDEmail)
-						const updateDatabase = await buyPass(conn, participantID, passCode, data.body);
-						console.log(updateDatabase);
-						if (updateDatabase) {
-							res.redirect(`${process.env.REACT_URL}/paymentsuccess/${data.body.orderId}`);
+						console.log("Email:", email);
+						console.log("OrderID:", orderRow[0].OrderID);
+						console.log("Amount:", payAmt);
+						console.log("PassCode:", passCode);
+
+						if (
+							data.body.resultInfo.resultStatus === "TXN_SUCCESS"
+						) {
+							
+							const updateDatabase = await buyPass(
+								conn,
+								participantID,
+								passCode,
+								data.body
+							);
+							console.log(updateDatabase);
+
+							const [updateOrderStatusRow, updateOrderStatusField] = await conn.execute(`update Orders set TxnStatus = 'TXN_SUCCESS' where OrderID = '${orderRow[0].OrderID}'`)
+
+							if (updateDatabase && updateOrderStatusRow) {
+								res.redirect(
+									`${process.env.REACT_URL}/paymentsuccess`
+								);
+							} else {
+								res.redirect(
+									`${process.env.REACT_URL}/paymentfail`
+								);
+							}
 						} else {
-							res.redirect(`${process.env.REACT_URL}/paymentfail`);
+							// res.redirect(`${process.env.CLIENT_URL}/paymentfailure/${data.body.orderId}`)
+							res.redirect(
+								`${process.env.REACT_URL}/paymentfail`
+							);
 						}
-					} else {
-						// res.redirect(`${process.env.CLIENT_URL}/paymentfailure/${data.body.orderId}`)
-						res.redirect(`${process.env.REACT_URL}/paymentfail`);
 					}
 				});
 			});
@@ -367,13 +411,10 @@ app.post("/api/payment/checkPaymentStatus", async (req, res) => {
 	const { email } = req.body;
 	// console.log(paymentStatus[email]);
 
-	const txnDetails = await getTxnDetails(conn, email)
+	const txnDetails = await getTxnDetails(conn, email);
 
 	return res.json(txnDetails);
 });
-
-
-
 
 app.post("/api/secure/event/check", async (req, res) => {
 	console.log(req.body);
@@ -420,7 +461,7 @@ app.post("/api/secure/events/team/create", async (req, res) => {
 	console.log(response);
 
 	if (response.type == "success") {
-		console.log('success');
+		console.log("success");
 		await transporter
 			.sendMail({
 				from: `"Ananta" <${process.env.NODEMAILER_EMAIL}>`,
@@ -430,7 +471,7 @@ app.post("/api/secure/events/team/create", async (req, res) => {
 				context: {
 					teamName: teamName,
 					teamID: response.teamID,
-					eventName: selectedEventName
+					eventName: selectedEventName,
 				},
 			})
 			.then((info) => {
@@ -476,12 +517,9 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
-
-
-
 app.get("/api/test", (req, res) => {
-	res.json("Server is running!")
-})
+	res.json("Server is running!");
+});
 
 app.listen(port, () => {
 	console.log(`Server listening on PORT : ${port}`);

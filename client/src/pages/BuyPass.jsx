@@ -78,7 +78,6 @@ function BuyPass() {
 		},
 	];
 
-	const [passCode, setPassCode] = useState("");
 
 	const isDate = (val) =>
 		Object.prototype.toString.call(val) === "[object Date]";
@@ -125,8 +124,8 @@ function BuyPass() {
 			.catch((err) => console.log(err));
 	};
 
-	const makePayment = (amt, clientEmail) => {
-		getData({ amount: amt.toString(), email: clientEmail, passCode: passCode }).then(
+	const makePayment = (amt, clientEmail, pass) => {
+		getData({ amount: amt.toString(), email: clientEmail, passCode: pass }).then(
 			(response) => {
 				console.log(response);
 
@@ -140,13 +139,11 @@ function BuyPass() {
 	};
 
 	// lifting state up
-	async function handleBuyClick(pass) {
+	async function handleBuyClick(passCode) {
 		if (currentUser == null) navigate("/login");
 
 		if (profile == {}) navigate("/profile");
 
-		setPassCode(pass)
-		console.log(pass)
 
 		const PID = profile.ParticipantID;
 		console.log(profile.ParticipantID);
@@ -169,18 +166,18 @@ function BuyPass() {
 			check.message == "Buying First Pass" ||
 			check.message == "Upgrade Pass"
 		) {
-			// makePayment(amt, profile.Email, passCode);
-			const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + currentUser.accessToken,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ passCode, PID }),
-			});
-			const check = await res.json();
-			console.log(check);
-			console.log("Making Payment");
+			makePayment(amt, profile.Email, passCode);
+			// const buyit = await fetch(serverURL + "/api/secure/pass/buy", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		Authorization: "Bearer " + currentUser.accessToken,
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify({ PID, passCode, amt }),
+			// });
+			// const info = await buyit.json();
+			// console.log(info);
+			// console.log("Making Payment");
 		} else if (check.type === "error") {
 			toast.error(check.message, { duration: 3000 });
 		}
