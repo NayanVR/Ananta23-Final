@@ -1,6 +1,11 @@
 const { v4: uuidv4 } = require('uuid');
 const Paytm = require('paytmchecksum');
 
+
+async function storeOrderIDPassCodeEmail() {
+
+}
+
 // async function makePayment(req) {
 async function makePayment(req) {
 

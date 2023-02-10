@@ -50,7 +50,12 @@ function Home() {
 
     return (
         <>
+        {
+            profile.ProfileStatus = 0 ?
             <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
+            :
+            <></>
+        }
 
             <section className='w-full h-[calc(100vh-3.5rem)] relative flex flex-col justify-center items-center gap-10'>
 

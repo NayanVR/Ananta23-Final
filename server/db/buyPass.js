@@ -1,62 +1,9 @@
 const e = require("express");
 const { genPaymentID } = require("../util");
 
-const passes = {
-	"PS-B": {
-		Amount: 1,
-		DP: 2000,
-		Kit: 0,
-		TotalEvents: 2,
-		TotalGuests: 1,
-		TotalWorkshops: 0,
-		Atmos: 0,
-	},
-	"PS-S": {
-		Amount: 2,
-		DP: 2500,
-		Kit: 0,
-		TotalEvents: 4,
-		TotalGuests: 2,
-		TotalWorkshops: 0,
-		Atmos: 0,
-	},
-	"PS-G": {
-		Amount: 3,
-		DP: 3000,
-		Kit: 1,
-		TotalEvents: 30,
-		TotalGuests: 6,
-		TotalWorkshops: 0,
-		Atmos: 0,
-	},
-	"PS-DJ": {
-		Amount: 4,
-		DP: 4490,
-		Kit: 0,
-		TotalEvents: 0,
-		TotalGuests: 0,
-		TotalWorkshops: 0,
-		Atmos: 1,
-	},
-	"PS-C1": {
-		Amount: 5,
-		DP: 5490,
-		Kit: 1,
-		TotalEvents: 30,
-		TotalGuests: 6,
-		TotalWorkshops: 0,
-		Atmos: 1,
-	},
-	"PS-C2": {
-		Amount: 5,
-		DP: 5490,
-		Kit: 1,
-		TotalEvents: 0,
-		TotalGuests: 0,
-		TotalWorkshops: 10,
-		Atmos: 1,
-	},
-};
+const passes = require("./../assets/passes.json");
+
+// console.log(passes);
 
 async function updateSoldPasses(conn) {
 	const [rows, fields] = await conn.execute(
@@ -112,6 +59,8 @@ async function getTxnDetails(conn, email) {
 
 // Check If the Selected Pass can be buy or Upgraded...
 async function checkBuyPass(conn, selectedPassCode, participantID) {
+
+	console.log(selectedPassCode)
 	const [parRows, parfields] = await conn.execute(
 		`SELECT ParticipantID, ProfileStatus, TxnStatus, TotalWorkshops, TotalEvents, TotalGuests, PassCode FROM Participants WHERE ParticipantID = '${participantID}'`
 	);
@@ -172,10 +121,10 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 			//    PassBought is Silver(2E and 1G) and PassSelected is Gold(4E and 2G)
 			//    PassBought is Bronze(2E and 1G) and PassSelected is Combo 1(AllE and AllG + DJ)
 			if (
-				["PS-B", "PS-S", "PS-G", "PS-C1", "PS-DJ"].includes(
+				["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
 					parPassCode
 				) &&
-				["PS-S", "PS-G", "PS-C1"].includes(selectedPassCode)
+				["PS-S", "PS-G", "PS-C"].includes(selectedPassCode)
 			) {
 				return {
 					code: 200,
@@ -194,9 +143,10 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 			//    PassBought is Bronze(2E and 1G) and PassSelected is Combo2(All W)
 			//    PassBought is Combo 1(AllE and AllG + DJ) and PassSelected is Combo2(All W +DJ)
 			if (
-				["PS-B", "PS-S", "PS-G", "PS-C1", "PS-DJ"].includes(
+				["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
 					parPassCode
-				) &&
+				) 
+				&&
 				["PS-C2"].includes(selectedPassCode)
 			) {
 				if (parEventCount > 0 || parGuestCount > 0) {
@@ -255,31 +205,31 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 			// If Pass is Combo 1
 			// Eg:
 			//    PassBought is Combo 2 and PassSelected is Combo 1
-			if (
-				["PS-C2"].includes(parPassCode) &&
-				["PS-C1"].includes(selectedPassCode)
-			) {
-				if (parWorkshopCount > 0) {
-					return {
-						code: 400,
-						resMessage: {
-							message: "Remove Registered Workshops",
-							type: "error",
-						},
-					};
-				} else {
-					return {
-						code: 200,
-						resMessage: {
-							message: "Upgrade Pass",
-							type: "success",
-							payAmount:
-								passes[selectedPassCode].Amount -
-								passes[parPassCode].Amount,
-						},
-					};
-				}
-			}
+			// if (
+			// 	["PS-C2"].includes(parPassCode) &&
+			// 	["PS-C"].includes(selectedPassCode)
+			// ) {
+			// 	if (parWorkshopCount > 0) {
+			// 		return {
+			// 			code: 400,
+			// 			resMessage: {
+			// 				message: "Remove Registered Workshops",
+			// 				type: "error",
+			// 			},
+			// 		};
+			// 	} else {
+			// 		return {
+			// 			code: 200,
+			// 			resMessage: {
+			// 				message: "Upgrade Pass",
+			// 				type: "success",
+			// 				payAmount:
+			// 					passes[selectedPassCode].Amount -
+			// 					passes[parPassCode].Amount,
+			// 			},
+			// 		};
+			// 	}
+			// }
 
 			return {
 				code: 400,
@@ -334,7 +284,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 		);
 
 		if (atmosRows[0].Count == 0) {
-			if (["PS-DJ", "PS-C1", "PS-C2"].includes(passCode)) {
+			if (["PS-DJ", "PS-C", "PS-C2"].includes(passCode)) {
 				const [atmosRows, atmosFields] = await conn.execute(
 					`INSERT INTO Atmos (ParticipantID) VALUES ('${participantID}') `
 				);

@@ -77,18 +77,18 @@ function PaymentSuccess() {
 											<td className="w-full">PassType</td>
 											<td>{data.PassType}</td>
 										</tr>
-										<tr>
+										{/* <tr>
 											<td className="w-full">Transaction Status</td>
 											<td>{data.TxnStatus}</td>
-										</tr>
+										</tr> */}
 										<tr>
 											<td className="w-full">Transaction ID</td>
 											<td>{data.TxnID}</td>
 										</tr>
-										<tr>
+										{/* <tr>
 											<td className="w-full">Date</td>
 											<td>{data.TxnDate}</td>
-										</tr>
+										</tr> */}
 										
 									</tbody>);
 								})
