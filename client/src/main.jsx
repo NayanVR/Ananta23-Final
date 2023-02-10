@@ -26,6 +26,9 @@ import Countdown from './pages/Countdown';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Digitalpoint from './pages/Digitalpoint';
+import ComingSoon from './components/ComingSoon';
+import Equilibrium from './pages/Equilibrium';
+import Upshot from './pages/Upshot';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -54,9 +57,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/cd" element={<Countdown />} />
           <Route path="/digital-point" element={<Digitalpoint />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/equilibrium" element={<Equilibrium />} />
+          <Route path="/upshot" element={<Upshot />} />
 
         </Routes>
-      <Footer />
+        <Footer />
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
