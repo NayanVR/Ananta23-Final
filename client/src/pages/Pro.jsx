@@ -9,13 +9,15 @@ import YourEvent from "../components/YourEvent";
 import { Dialog, Transition } from "@headlessui/react";
 import { HiQrcode } from "react-icons/hi";
 import { QRCode } from "react-qrcode-logo";
-import a_logo from "../assets/icons/a_logo.png";
+import a_logo from "../assets/icons/faviconANA.svg";
 import Gold from "../assets/passes/Gold.png";
 import Silver from "../assets/passes/Silver.png";
 import Bronze from "../assets/passes/Bronze.png";
 import DJ from "../assets/passes/DJ.png";
 import Combo from "../assets/passes/Combo.png";
 import Passes from "./../assets/Passes.json";
+import Digitalpoint from "./Digitalpoint";
+
 
 function Pro() {
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
@@ -274,13 +276,13 @@ function Pro() {
 	return (
 		<div className="flex-col my-5 justify-center items-center w-full h-max px-4 lg:py-10 bg-white lg:px-40">
 			<div className="my-10 sm:mt-0">
-				<div className="md:grid-cols-4 gap-4">
-					<div className="flex border border-[#78BDC4] border-b-[#022539] flex-col bg-white sm:flex-row flex-wrap">
-						<div className="flex grow p-6 justify-center sm:justify-start">
+				<div className="md:grid-cols-4 gap-4 mb-10">
+					<div className="flex gap-3 flex-col bg-white sm:flex-row flex-wrap rounded-lg ">
+						<div className="flex  px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
 							<div className="flex-none flex flex-col justify-center">
 								<img
-									src={profile.ProfileImg!="NULL" ? profile.ProfileImg : profilePic}
-									className="z-10 h-24 w-24 rounded-full"
+									src={profilePic}
+									className="z-10 h-24 rounded-full border-4 border-primary-light-1 shadow-md"
 								/>
 							</div>
 							<div className="flex flex-none flex-col justify-center items-left p-4">
@@ -289,148 +291,122 @@ function Pro() {
 									{profile.Firstname != null && profile.Lastname != null ? profile.Firstname + " " + profile.Lastname : "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
+								<div className="text-s"> <span className="font-bold">ID</span> : {pid}</div>
 								<div>
 									<button
-										className="px-4 py-1 mt-2 shadow text-[#1C7690] rounded-md bg-white hover:bg-[#1C7690] hover:text-white"
+										className="w-full px-4 py-1 mt-2 text-[#1C7690] rounded-md bg-white hover:bg-red-50 hover:text-red-600 shadow-md hover:border-red-600 border border-[#1C7690]"
 										onClick={() => signOut(auth)}
 									>
 										Sign Out
 									</button>
 								</div>
+							
 							</div>
+							
 						</div>
-						<div className="flex grow-0 flex-row sm:flex-col bg-primary-dark-2 text-white justify-center items-center">
+
+						<div className="flex grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
+							 <div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
 							{txnStatus != "TXN_SUCCESS" ? (
-								<div className="m-5 ">
+								<div className="flex flex-col m-2 gap-3 justify-center items-center">
+									<p className="text-lg text-center"> you have not bought a pass or Workshop yet !!</p>
+									
+									
+									<div className="flex gap-6 justify-center items-center">
 									<button
-										className='relative border border-[var(bg-primary-light-1)] before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 px-8 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md w-full inline-flex items-center justify-center py-1 h-12 rounded-md bg-primary-dark-2 text-white flex-wrap'
+										className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
 										onClick={(_) => {
 											window.location.href = "/buypass";
 										}}
 									>
 										Buy&nbsp;Pass
+									</button> 
+								
+									<button
+										className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
+										onClick={(_) => {
+											window.location.href = "/buypass";
+										}}
+									>
+										Book&nbsp;Workshops
 									</button>
+									</div>
+								
 								</div>
 							) : (
-								<>
-									<div className="flex flex-1 w-full">
-										<div className="ml-6 mb-4 flex-none">
-											<img
-												src={`/src/assets/passes/${passImg}`}
-												className="w-13"
-												alt=""
-											/>
-										</div>
-										<div className="flex-none flex flex-col mt-6 ml-4 mr-6">
-											<label
-												className={`text-3xl font-semibold text-[${passColor}]-900`}
-											>
-												{passType}
-											</label>
-											<button className="bg-amber-50 text-xs hover:bg-[#fff]-400 text-gray-800 font-bold py-1 px-2.5 rounded inline-flex items-center">
-												<svg
-													className="fill-current w-3 h-3 mr-1"
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 20 20"
-												>
-													<path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-												</svg>
-												<span>&nbsp;Download</span>
-											</button>
-										</div>
+								<div className="flex flex-col gap-1 ">
+									<div className="flex flex-col">
+										
+										
+										{/* <div className="text-lg text-start"> <span className="font-bold">Pass Detail </span></div> */}
+										<div className="text-s flex gap-3 ">Pass Type : <span className="font-bold">{passType} </span>  </div>
+										  
+										<div className="text-s">Digital Point : <span className="font-bold">{profile.ContactNo} </span></div>
+										<div className="text-s">Events Registred : <span className="font-bold">3 Out of 5 </span> ( <span><a href="#viewevents" className="underline text-blue-700">view</a></span> ) </div>
+										<div className="text-s">Guest Lec. Registred : <span className="font-bold">1 Out of 2 </span> ( <span><a href="#viewevents" className="underline text-blue-700">view</a></span> ) </div>
 									</div>
-									<div className="flex flex-col flex-1 text-xs w-full text-right px-4">
-										<div className="flex-none flex flex-row justify-end items-center ">
-											<div className="flex-none mb-1 w-min">
-												Max&nbsp;Events Access
-											</div>
-											<div className="flex-none text-xl ml-2 p-1 px-2 text-black font-semibold rounded-md bg-primary-light-3 mb-1">
-												4
-											</div>
-										</div>
-										<div className="flex-none flex flex-row justify-end items-center mb-3">
-											<div className="flex-none mb-1 w-min">
-												Max&nbsp;Guests Access
-											</div>
-											<div className="flex-none text-xl ml-2 p-1 px-2 text-black font-semibold rounded-md bg-primary-light-3 mb-1">
-												2
-											</div>
-										</div>
+									<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
+										<div className="text-s">Workshop : <span className="font-semibold"> you have not bought a Workshop yet !!</span> </div>
+										<button
+										className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
+										onClick={(_) => {
+											window.location.href = "/buypass";
+										}}
+									>
+										Book&nbsp;Workshops
+									</button> 
 									</div>
-								</>
+								</div>
 							)}
+							</div> 
+
+						
 						</div>
+						<div className="flex items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
+					
 
-						<div className="flex grow justify-end p-4 bg-primary-light-3 border">
-							<div className="grow flex flex-col my-auto flex-none pl-1">
-								<div className="flex-1 flex flex-col text-left lg:text-right">
-									<div className="flex-none text-xs">
-										Digital Points
-									</div>
-									<div className="flex-none text-3xl">
-										{profile.DigitalPoints}
-									</div>
-								</div>
-								<div className="flex-none flex flex-col text-left lg:text-right">
-									<div className="flex-none text-xs">
-										Total Event Registered
-									</div>
-									<div className="flex-none text-xl">
-										5
-									</div>
-								</div>
-								<div className="flex-none flex flex-col text-left lg:text-right">
-									<div className="flex-none text-xs">
-										Total Guests Registered
-									</div>
-									<div className="flex-none text-xl">
-										2
-									</div>
-								</div>
-							</div>
-
-							<div className="flex-none">
+							<div >
 								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
 										value={pid}
-										size={145}
+										size={120}
 										logoImage={a_logo}
-										qrStyle={"dots"}
+										qrStyle={"square"}
 										logoOpacity={1}
 										logoHeight={40}
 										logoWidth={40}
 										eyeRadius={[
 											{
 												// top/left eye
-												outer: [0, 20, 10, 20],
-												inner: [10, 10, 10, 10],
+												outer: [1, 1, 1, 1],
+												inner: [1,1,1,1],
+											},
+											{
+												outer: [1, 1, 1, 1],
+												inner: [1,1,1,1],
 											},
 											{
 												// top/left eye
-												outer: [20, 0, 20, 10],
-												inner: [10, 10, 10, 10],
-											},
-											{
-												// top/left eye
-												outer: [20, 10, 20, 0],
-												inner: [10, 10, 10, 10],
+												outer: [1, 1, 1, 1],
+												inner: [1,1,1,1],
 											},
 										]}
 										eyeColor={[
 											{
-												outer: "#1C7690",
-												inner: "black",
+												outer: "#022539",
+												inner: "black"
 											},
 											{
-												outer: "#1C7690",
-												inner: "black",
+												outer: "#022539",
+												inner: "black"
 											},
 											{
-												outer: "#1C7690",
-												inner: "black",
-											},
+												outer: "#022539",
+												inner: "black"
+
+											}
 										]}
-										bgColor={"#FFFFFF00"}
+										bgColor={"#FFFFFF"}
 										ecLevel={"H"}
 									/>
 								</div>
@@ -443,8 +419,8 @@ function Pro() {
 
 				<div className="mt-0 md:col-span-3 md:mt-0">
 					<form onSubmit={handleSubmit}>
-						<div className="overflow-hidden shadow">
-							<div className="bg-primary-dark-2 px-4 py-3 flex justify-between items-center sm:px-6">
+						<div className="overflow-hidden shadow rounded-lg border border-[#78BDC4]">
+							<div className="bg-primary-dark-2 px-4 py-3 flex justify-between items-center sm:px-6 ">
 								<h1 className="font-bold justify-center text-[#F2FFFE]">
 									Personal Details
 								</h1>
@@ -458,7 +434,7 @@ function Pro() {
 									{canEdit ? "Cancel" : "Edit"}
 								</button>
 							</div>
-							<div className="bg-primary-light-3 border border-[#78BDC4] border-t-[#022539] px-4 py-5 sm:p-6">
+							<div className="bg-primary-light-3   border-t-[#022539] px-4 py-5 sm:p-6">
 								<div className="grid grid-cols-6 gap-6">
 									<div className="col-span-6 sm:col-span-3 md:col-span-2">
 										<label
@@ -657,7 +633,7 @@ function Pro() {
 
 				<hr className="my-10" />
 
-				<div className="md:grid md:grid-cols-4 md:gap-6">
+				<div className="md:grid md:grid-cols-4 md:gap-6" id="viewevents">
 					<div className="mt-5 md:col-span-4 md:mt-0">
 						<div className="overflow-hidden shadow rounded-md py-5">
 							<div className="bg-primary-light-2 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
