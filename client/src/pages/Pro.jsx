@@ -7,16 +7,10 @@ import profilePic from "../assets/photos/profile.jpg";
 import uniList from "../data/uniList.json";
 import YourEvent from "../components/YourEvent";
 import { Dialog, Transition } from "@headlessui/react";
-import { HiQrcode } from "react-icons/hi";
 import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
-import Gold from "../assets/passes/Gold.png";
-import Silver from "../assets/passes/Silver.png";
-import Bronze from "../assets/passes/Bronze.png";
-import DJ from "../assets/passes/DJ.png";
-import Combo from "../assets/passes/Combo.png";
 import Passes from "./../assets/Passes.json";
-import Digitalpoint from "./Digitalpoint";
+
 
 
 function Pro() {
@@ -346,7 +340,7 @@ function Pro() {
 										<div className="text-s">Guest Lec. Registred : <span className="font-bold">1 Out of 2 </span> ( <span><a href="#viewevents" className="underline text-blue-700">view</a></span> ) </div>
 									</div>
 									<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
-										<div className="text-s">Workshop : <span className="font-semibold"> you have not bought a Workshop yet !!</span> </div>
+										<div className="text-s">Workshop : <span className="font-semibold text-s"> you have not bought a Workshop yet !!</span> </div>
 										<button
 										className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
 										onClick={(_) => {
