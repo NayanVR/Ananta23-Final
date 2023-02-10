@@ -1,48 +1,16 @@
 import React from "react";
 import { useContext, Fragment, useState } from "react";
-import EventCard from "../components/EventCard";
-import Swift from "../assets/photos/upshots/swift.png";
+import EventCard from "../components/EventCardNew";
 import { AuthContext } from "../contexts/AuthContext";
-import profilePic from "../assets/photos/profile.jpg";
+// import profilePic from "../assets/photos/profile.jpg";
 import { Dialog, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
-import { PuffLoader } from "react-spinners/PuffLoader";
+import PuffLoader from "react-spinners/PuffLoader";
+import EventsData from "../assets/Events.json"
+import { useNavigate } from "react-router-dom";
 
-function Inertia() {
-	const events = [
-		{
-			eventCode: "SW_AB",
-			name: "Anime Battle",
-			desc: "Everyone knows how colorful the world of microbes is. Why not represent it in a beautiful way? Bring out your inner artist by using streaking, preading and pouring to make a colorful creation on Agar using microbes.",
-			mobDesc:
-				"Science, technology, engineering and mathematics are the four basic topics we see around ourselves everyday. Bring out working models, business models and prototypes to display your ideas and potential talent.",
-			image: Swift,
-		},
-		{
-			eventCode: "SW_ER",
-			name: "Escape Room",
-			desc: "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
-			mobDesc:
-				"Code Wars is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: profilePic,
-		},
-		{
-			eventCode: "SW_TH",
-			name: "Treasure hunt",
-			desc: "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
-			mobDesc:
-				"Hackathon is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: Swift,
-		},
-		{
-			eventCode: "SW_V",
-			name: "Valorant",
-			desc: "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
-			mobDesc:
-				"Hackathon is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: Swift,
-		},
-	];
+
+function Swoosh() {
 
 	const { currentUser } = useContext(AuthContext);
 
@@ -58,6 +26,7 @@ function Inertia() {
 	const [showInfo, setShowInfo] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
+	const navigate = useNavigate();
 	let email = "";
 	if (currentUser) email = currentUser["email"];
 
@@ -69,7 +38,7 @@ function Inertia() {
 		console.log(eventName, eventCode);
 
 		if (!currentUser) {
-			window.location.href = "/login";
+			navigate("/login");
 			return;
 		}
 
@@ -89,9 +58,9 @@ function Inertia() {
 
 		if (response.type == "Warning") {
 			if (response.message == "Profile") {
-				window.location.href = "/profile";
+				navigate("/profile");
 			} else if (response.message == "BuyPass") {
-				window.location.href = "/buypass";
+				navigate("/buypass");
 			} else {
 				toast(response.message, {
 					icon: "⚠️",
@@ -134,6 +103,7 @@ function Inertia() {
 
 	// Handling Create Team
 	async function handleCT() {
+		setLoader(true);
 		const CT = await fetch(serverURL + "/api/secure/events/team/create", {
 			method: "POST",
 			headers: {
@@ -148,13 +118,14 @@ function Inertia() {
 			}),
 		});
 		const response = await CT.json();
-		console.log(response);
-		if ((response.type = "success")) {
+
+		if (response.type == "success") {
 			toast.success(response.message, { duration: 3000 });
+			closeModal();
 		} else {
 			toast.error(response.message, { duration: 3000 });
 		}
-		closeModal();
+		setLoader(false);
 	}
 
 	// Handling Join Team
@@ -171,11 +142,11 @@ function Inertia() {
 		if (response.type == "success") {
 			toast.success(response.message, { duration: 3000 });
 			setTeamName("");
+			closeModal();
 		} else {
 			toast.error(response.message, { duration: 2000 });
 		}
 		setShowInfo(false);
-		closeModal();
 	}
 
 	async function getTeamInfo() {
@@ -217,14 +188,10 @@ function Inertia() {
 			<h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
 				Inertia
 			</h1>
-			<div
-				style={{ scrollbarWidth: "none" }}
-				className="relative h-[calc(100vh-13rem)] mb-20 w-full snap-y snap-mandatory flex gap-[10rem] flex-col items-center overflow-y-scroll"
-			>
-				{events.map((event, index) => (
+			<div className="max-w-[1200px] m-auto my-16 px-4 flex gap-16 flex-wrap justify-center items-center">
+				{EventsData.swoosh.map((event, index) => (
 					<EventCard
 						key={index}
-						index={index}
 						event={event}
 						registerNow={handleResposnse}
 						viewDetails={viewDetails}
@@ -272,7 +239,7 @@ function Inertia() {
 											Please confirm your registration by
 											typing '
 											<i>
-												<b>{ }</b>
+												<b>{selectedEventName}</b>
 											</i>
 											'.
 										</p>
@@ -462,7 +429,16 @@ function Inertia() {
 												style={{ margin: "auto" }}
 												onClick={handleCT}
 											>
-												Register
+												{!loader ? (
+													<label> Register </label>
+												) : (
+													<PuffLoader
+														color={"#fff"}
+														loading={true}
+														size={20}
+														className="m-auto mx-8 items-center"
+													> Wait </PuffLoader>
+												)}
 											</button>
 										</div>
 									</div>
@@ -605,4 +581,4 @@ function Inertia() {
 	);
 }
 
-export default Inertia;
+export default Swoosh;
