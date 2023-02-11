@@ -23,9 +23,10 @@ function Login() {
 	const [forgotPass, setForgotPass] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
-
+	
 	function handleSubmit(e) {
 		e.preventDefault();
+
 
 		
 		signInWithEmailAndPassword(auth, email, password)
@@ -88,22 +89,6 @@ function Login() {
 		setIsSend(false);
 	}
 
-	async function handleGoogleLogin(e) {
-		e.preventDefault();
-
-		const res = await signInWithPopup(auth, provider);
-		console.log(res);
-		const email = res.user.email;
-		const photoURL = res.user.photoURL;
-		const data = await createProfile(email, photoURL);
-		console.log(data);
-		if (data.type === "success") {
-			window.location.href = "/";
-		} else {
-			toast.error(data.message, { duration: 3000 });
-		}
-	}
-
 	async function createProfile(email, photoURL) {
 		const res = await fetch(serverURL + "/api/create-profile", {
 			method: "POST",
@@ -115,6 +100,25 @@ function Login() {
 		const data = await res.json();
 		return data;
 	}
+
+	async function handleGoogleLogin(e) {
+		e.preventDefault();
+
+		const res = await signInWithPopup(auth, provider);
+		console.log(res);
+		const email = res.user.email;
+		const photoURL = res.user.photoURL;
+		const data = await createProfile(email, photoURL);
+		console.log(data);
+		if (data.type === "success") {
+			console.log('success')
+			// window.location.href = "/";
+		} else {
+			toast.error(data.message, { duration: 3000 });
+		}
+	}
+
+	
 
 	return !forgotPass ? (
 		<section className="flex justify-center items-center w-full h-[calc(100vh-6rem)]">

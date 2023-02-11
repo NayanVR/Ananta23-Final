@@ -9,6 +9,9 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
+// const fs = require("fs");
+
+// console.log(__dirname);
 const {
 	checkEvent,
 	registerSoloEvent,
@@ -21,10 +24,8 @@ const {
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
-const {
-	sendResetPassEmail,
-	getParticipantID,
-} = require("./util");
+const { sendResetPassEmail, getParticipantID } = require("./util");
+const { buyPassMail } = require("./db/mails");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -343,8 +344,6 @@ app.post("/api/payment-callback", async (req, res) => {
 					const data = JSON.parse(response);
 					console.log(data);
 
-
-
 					const [orderRow, orderField] = await conn.execute(
 						`SELECT * FROM Orders WHERE OrderID = '${data.body.orderId}'`
 					);
@@ -359,15 +358,39 @@ app.post("/api/payment-callback", async (req, res) => {
 
 						// const passCode = await assumePassCode(conn, orderIDEmail[data.body.orderId], data.body.txnAmount);
 
+						console.log("ParticipantID:", participantID);
 						console.log("Email:", email);
 						console.log("OrderID:", orderRow[0].OrderID);
 						console.log("Amount:", payAmt);
 						console.log("PassCode:", passCode);
 
-						if (
-							data.body.resultInfo.resultStatus === "TXN_SUCCESS"
-						) {
-							
+						const [nameRow, nameField] = await conn.execute(
+							`SELECT Firstname, Lastname FROM Participants WHERE ParticipantID = '${participantID}'`
+						);
+
+						console.log("Name is feteched");
+
+						const [passTypeRow, npassTypeField] =
+							await conn.execute(
+								`SELECT PassType FROM Passes WHERE PassCode = '${passCode}'`
+							);
+
+						console.log("PassType is feteched");
+
+						console.log(nameRow.length, passTypeRow.length, data.body.resultInfo.resultStatus);
+						if (nameRow.length > 0 && passTypeRow.length > 0 && data.body.resultInfo.resultStatus == "TXN_SUCCESS") {
+							console.log(
+								"Pass and Name is fetched successfully"
+							);
+							const fullname =
+								nameRow[0].Firstname +
+								" " +
+								nameRow[0].Lastname;
+
+							const passType = passTypeRow[0].PassType;
+
+
+							console.log(fullname, passType)
 							const updateDatabase = await buyPass(
 								conn,
 								participantID,
@@ -376,9 +399,25 @@ app.post("/api/payment-callback", async (req, res) => {
 							);
 							console.log(updateDatabase);
 
-							const [updateOrderStatusRow, updateOrderStatusField] = await conn.execute(`update Orders set TxnStatus = 'TXN_SUCCESS' where OrderID = '${orderRow[0].OrderID}'`)
+							const [
+								updateOrderStatusRow,
+								updateOrderStatusField,
+							] = await conn.execute(
+								`update Orders set TxnStatus = 'TXN_SUCCESS' where OrderID = '${orderRow[0].OrderID}'`
+							);
 
-							if (updateDatabase && updateOrderStatusRow) {
+							if (
+								updateDatabase &&
+								updateOrderStatusRow &&
+								(await buyPassMail(
+									transporter,
+									data,
+									participantID,
+									email,
+									fullname,
+									passType
+								))
+							) {
 								res.redirect(
 									`${process.env.REACT_URL}/paymentsuccess`
 								);

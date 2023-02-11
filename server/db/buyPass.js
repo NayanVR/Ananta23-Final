@@ -147,35 +147,35 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 			// Eg:
 			//    PassBought is Bronze(2E and 1G) and PassSelected is Combo2(All W)
 			//    PassBought is Combo 1(AllE and AllG + DJ) and PassSelected is Combo2(All W +DJ)
-			if (
-				["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
-					parPassCode
-				) 
-				&&
-				["PS-C2"].includes(selectedPassCode)
-			) {
-				if (parEventCount > 0 || parGuestCount > 0) {
-					return {
-						code: 400,
-						resMessage: {
-							message:
-								"Remove Registered Events & Guest Lectures",
-							type: "error",
-						},
-					};
-				} else {
-					return {
-						code: 200,
-						resMessage: {
-							message: "Upgrade Pass",
-							type: "success",
-							payAmount:
-								passes[selectedPassCode].Amount -
-								passes[parPassCode].Amount,
-						},
-					};
-				}
-			}
+			// if (
+			// 	["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
+			// 		parPassCode
+			// 	) 
+			// 	&&
+			// 	["PS-C2"].includes(selectedPassCode)
+			// ) {
+			// 	if (parEventCount > 0 || parGuestCount > 0) {
+			// 		return {
+			// 			code: 400,
+			// 			resMessage: {
+			// 				message:
+			// 					"Remove Registered Events & Guest Lectures",
+			// 				type: "error",
+			// 			},
+			// 		};
+			// 	} else {
+			// 		return {
+			// 			code: 200,
+			// 			resMessage: {
+			// 				message: "Upgrade Pass",
+			// 				type: "success",
+			// 				payAmount:
+			// 					passes[selectedPassCode].Amount -
+			// 					passes[parPassCode].Amount,
+			// 			},
+			// 		};
+			// 	}
+			// }
 
 			// If Pass is DJ Pass
 			// Eg:
@@ -289,7 +289,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 		);
 
 		if (atmosRows[0].Count == 0) {
-			if (["PS-DJ", "PS-C", "PS-C2"].includes(passCode)) {
+			if (["PS-DJ", "PS-C"].includes(passCode)) {
 				const [atmosRows, atmosFields] = await conn.execute(
 					`INSERT INTO Atmos (ParticipantID) VALUES ('${participantID}') `
 				);
