@@ -288,7 +288,7 @@ function Pro() {
 			<div className="my-10 sm:mt-0">
 				<div className="md:grid-cols-4 gap-4 mb-10">
 					<div className="flex gap-3 flex-col bg-white sm:flex-row flex-wrap rounded-lg ">
-						<div className="flex mx-auto h-100 px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
+						<div className="flex  px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
 							<div className="flex-none flex flex-col justify-center">
 								<img
 									src={profilePic}
@@ -298,10 +298,10 @@ function Pro() {
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
 									{profile.Firstname != null &&
-									profile.Lastname != null
+										profile.Lastname != null
 										? profile.Firstname +
-										  " " +
-										  profile.Lastname
+										" " +
+										profile.Lastname
 										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
@@ -321,7 +321,7 @@ function Pro() {
 							</div>
 						</div>
 
-						<div className="flex mx-auto h-100 grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
+						<div className="flex grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
 							<div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
 								{txnStatus != "TXN_SUCCESS" ? (
 									<div className="flex flex-col m-2 gap-3 justify-center items-center">
@@ -424,7 +424,7 @@ function Pro() {
 								)}
 							</div>
 						</div>
-						<div className="flex m-auto items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
+						<div className="flex  items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
 							<div>
 								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
@@ -950,14 +950,14 @@ function Pro() {
 
 															{role ==
 																"Leader" && (
-																<div
-																	className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
-																>
-																	<label className="text-[0.8rem] block font-medium text-gray-700">
-																		Members
-																	</label>
-																</div>
-															)}
+																	<div
+																		className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+																	>
+																		<label className="text-[0.8rem] block font-medium text-gray-700">
+																			Members
+																		</label>
+																	</div>
+																)}
 														</div>
 													)}
 												</p>

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function Swoosh() {
 
+
 	const { currentUser } = useContext(AuthContext);
 
 	let [isSoloOpen, setIsSoloOpen] = useState(false);
@@ -186,7 +187,7 @@ function Swoosh() {
 	return (
 		<>
 			<h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
-				Inertia
+				SWOOSH
 			</h1>
 			<div className="max-w-[1200px] m-auto my-16 px-4 flex gap-16 flex-wrap justify-center items-center">
 				{EventsData.swoosh.map((event, index) => (

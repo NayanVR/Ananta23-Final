@@ -59,7 +59,7 @@ function Home() {
                     <></>
             }
 
-            <section className='w-full h-[calc(100vh-3.5rem)] relative flex flex-col justify-center items-center gap-10'>
+            <section className='w-full h-[calc(100vh-3.5rem)] overflow-hidden relative flex flex-col justify-center items-center gap-10'>
 
                 <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
                     <div className="grid-container">
@@ -88,7 +88,7 @@ function Home() {
                 <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
                 <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
 
-                <Lottie className='absolute  w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} />
+                <Lottie className='absolute block w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} />
                 <p className='relative uppercase text-xl text-primary z-50 after:content-[""] top-52 after:block after:absolute after:w-full after:h-full after:top-0 after:left-0 after:bg-white after:blur-md after:z-[-1]'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
