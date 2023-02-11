@@ -3,67 +3,93 @@
 		{
 			"eventCode": "IN_AA",
 			"name": "Agar Art",
-			"desc": "Everyone knows how colorful the world of microbes is. Why not represent it in a beautiful way? Bring out your inner artist by using streaking, preading and pouring to make a colorful creation on Agar using microbes.",
+			"desc": "Keep aside paint brush , colours , Pencil and eraser,Show your skills using petri dish , microbes and agar",
 			"image": "Swift.png"
 		},
 		{
 			"eventCode": "IN_VSM",
 			"name": "Virtual Stock Market",
-			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"desc": "The market is mock , But the rewards will be real,Invest in virtual stock and become a bull or bear",
 			"image": "Swift.png"
 		},
 		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
-			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"desc": "Your wit and skills are reactants , The competition is thecatalyst, Use them rightly to achieve the substance of success",
+			"image": "Swift.png"
+		},
+
+		{
+			"eventCode": "IN_MP",
+			"name": "Monopoly",
+			"desc": "Use your skills , knowledge and luck of dice,Take correct steps to win or pay a price",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_VSM",
-			"name": "Virtual Stock Market",
-			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"eventCode": "IN_ST",
+			"name": "Science-Trivia",
+			"desc": "Collect the gold in form of knowledge,After digging deep in your education mines,The gold maybe buried found at corners,Search hard to win this trivia of science.",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_CEJ",
-			"name": "Chem E-Jeopardy",
-			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"eventCode": "IN_CE",
+			"name": "Chemi-emoji",
+			"desc":"The equation of winning should be done fast, So be quick,The answer should be as perfect as your emoji’s pick",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_VSM",
-			"name": "Virtual Stock Market",
-			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"eventCode": "IN_ST",
+			"name": "SHARK TANK",
+			"desc": "Pitch your idea or product ,Display the product’s spark,Showcase your entrepreneurship skills,To get deal from shark",
+			"image": "Swift.png"
+		}
+
+		
+	
+		
+		
+		
+	
+		
+	],
+
+	"swoosh":[
+		{
+			"eventCode": "SW_IA",
+			"name": "IPL AUCTION",
+			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play your own team.",
+			"image": "Swift.png"
+
+		},
+		{
+			"eventCode": "SW_BS",
+			"name": "BEG BORROW STEAL",
+			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play yourown team.",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_CEJ",
-			"name": "Chem E-Jeopardy",
-			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"eventCode": "SW_SG",
+			"name": "SQUID GAME",
+			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
+			"image": "Swift.png"
+
+		},
+		{
+			"eventCode": "SW_RD",
+			"name": "ROADIES",
+			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_VSM",
-			"name": "Virtual Stock Market",
-			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
+			"eventCode": "SW_ER",
+			"name": "ESCAPE ROOM",
+			"desc": "Room full of puzzles,Time limit is there to tussle,To escape fast you need to hustle,To open door use brain not muscle",
 			"image": "Swift.png"
 		},
 		{
-			"eventCode": "IN_CEJ",
-			"name": "Chem E-Jeopardy",
-			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
-			"image": "Swift.png"
-		},
-		{
-			"eventCode": "IN_VSM",
-			"name": "Virtual Stock Market",
-			"desc": "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
-			"image": "Swift.png"
-		},
-		{
-			"eventCode": "IN_CEJ",
-			"name": "Chem E-Jeopardy",
-			"desc": "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
+			"eventCode": "SW_DB",
+			"name": "DOUCHE BALL",
+			"desc":"Jump , Duck, Move - Do whatever fits you,All this before the ball hits you",
 			"image": "Swift.png"
 		}
 	]
