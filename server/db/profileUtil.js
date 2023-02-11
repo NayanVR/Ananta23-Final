@@ -1,6 +1,6 @@
 const { genParticipantID } = require('../util');
 
-async function createProfile(conn, email, googleAuth, profileImg) {
+async function createProfile(conn, transporter, email, googleAuth, profileImg) {
     // console.log();
     console.log('ashish');
     //check if participant already exist with given email id
@@ -28,6 +28,21 @@ async function createProfile(conn, email, googleAuth, profileImg) {
         const [profileRows, profileFields] = await conn.execute(query)
 
         if (profileRows) {
+            transporter.sendMail(
+                {
+                    from: `Ananta <${process.env.NODEMAILER_EMAIL}>`,
+                    to: email,
+                    subject: "Account Verification and Steps for Registration",
+                    template: "InfoEmail",
+                },
+                (error, info) => {
+                    if (error) {
+                        console.log("Mail Not Sent...")
+                    } else {
+                        console.log("Mail send successfully...")
+                    }
+                }
+            );
             return { code: 200, resMessage: { message: "Profile created successfully", type: "success" } };
         } else {
             return { code: 500, resMessage: { message: "Internal Server Error", type: "error" } };

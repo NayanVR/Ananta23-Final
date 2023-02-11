@@ -135,7 +135,7 @@ app.post("/api/generateOTP", async (req, res) => {
 	);
 });
 
-app.post("/api/verifyOTP", (req, res) => {
+app.post("/api/verifyOTP", async (req, res) => {
 	const email = req.body.email;
 	const otp = req.body.otp;
 
@@ -155,6 +155,7 @@ app.post("/api/create-profile", async (req, res) => {
 	console.log(bd);
 	const response = await createProfile(
 		conn,
+		transporter,
 		bd.email,
 		bd.googleAuth,
 		bd.photoURL
@@ -377,8 +378,16 @@ app.post("/api/payment-callback", async (req, res) => {
 
 						console.log("PassType is feteched");
 
-						console.log(nameRow.length, passTypeRow.length, data.body.resultInfo.resultStatus);
-						if (nameRow.length > 0 && passTypeRow.length > 0 && data.body.resultInfo.resultStatus == "TXN_SUCCESS") {
+						console.log(
+							nameRow.length,
+							passTypeRow.length,
+							data.body.resultInfo.resultStatus
+						);
+						if (
+							nameRow.length > 0 &&
+							passTypeRow.length > 0 &&
+							data.body.resultInfo.resultStatus == "TXN_SUCCESS"
+						) {
 							console.log(
 								"Pass and Name is fetched successfully"
 							);
@@ -389,8 +398,7 @@ app.post("/api/payment-callback", async (req, res) => {
 
 							const passType = passTypeRow[0].PassType;
 
-
-							console.log(fullname, passType)
+							console.log(fullname, passType);
 							const updateDatabase = await buyPass(
 								conn,
 								participantID,
