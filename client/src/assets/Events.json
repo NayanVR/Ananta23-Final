@@ -4,44 +4,44 @@
 			"eventCode": "IN_AA",
 			"name": "Agar Art",
 			"desc": "Keep aside paint brush , colours , Pencil and eraser,Show your skills using petri dish , microbes and agar",
-			"image": "Swift.png"
+			"image": "agar.png"
 		},
 		{
 			"eventCode": "IN_VSM",
 			"name": "Virtual Stock Market",
 			"desc": "The market is mock , But the rewards will be real,Invest in virtual stock and become a bull or bear",
-			"image": "Swift.png"
+			"image": "vsm1.png"
 		},
 		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
 			"desc": "Your wit and skills are reactants , The competition is thecatalyst, Use them rightly to achieve the substance of success",
-			"image": "Swift.png"
+			"image": "jeop.png"
 		},
 
 		{
 			"eventCode": "IN_MP",
 			"name": "Monopoly",
 			"desc": "Use your skills , knowledge and luck of dice,Take correct steps to win or pay a price",
-			"image": "Swift.png"
+			"image": "mono.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "Science-Trivia",
 			"desc": "Collect the gold in form of knowledge,After digging deep in your education mines,The gold maybe buried found at corners,Search hard to win this trivia of science.",
-			"image": "Swift.png"
+			"image": "trivia.png"
 		},
 		{
 			"eventCode": "IN_CE",
 			"name": "Chemi-emoji",
 			"desc":"The equation of winning should be done fast, So be quick,The answer should be as perfect as your emoji’s pick",
-			"image": "Swift.png"
+			"image": "emoji.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "SHARK TANK",
 			"desc": "Pitch your idea or product ,Display the product’s spark,Showcase your entrepreneurship skills,To get deal from shark",
-			"image": "Swift.png"
+			"image": "ST.png"
 		}
 
 		
@@ -58,40 +58,83 @@
 			"eventCode": "SW_IA",
 			"name": "IPL AUCTION",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play your own team.",
-			"image": "Swift.png"
+			"image": "ipl.png"
 
 		},
 		{
 			"eventCode": "SW_BS",
 			"name": "BEG BORROW STEAL",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play yourown team.",
-			"image": "Swift.png"
+			"image": "Beg.png"
 		},
 		{
 			"eventCode": "SW_SG",
 			"name": "SQUID GAME",
 			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
-			"image": "Swift.png"
+			"image": "Squid.svg"
 
 		},
 		{
 			"eventCode": "SW_RD",
 			"name": "ROADIES",
 			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
-			"image": "Swift.png"
+			"image": "roadies.png"
 		},
 		{
 			"eventCode": "SW_ER",
 			"name": "ESCAPE ROOM",
 			"desc": "Room full of puzzles,Time limit is there to tussle,To escape fast you need to hustle,To open door use brain not muscle",
-			"image": "Swift.png"
+			"image": "escspe.png"
 		},
 		{
 			"eventCode": "SW_DB",
 			"name": "DOUCHE BALL",
 			"desc":"Jump , Duck, Move - Do whatever fits you,All this before the ball hits you",
-			"image": "Swift.png"
+			"image": "douch.png"
+		},
+
+		{
+			"eventCode": "",
+			"name": "Snake-O-Mystery",
+			"desc": "Snake-O-Mystery is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and ",
+			"image": "Snake.png"
+		},
+		{
+			"eventCode": "",
+			"name":"Membric",
+			"desc": "Membric is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image":"membric.png"
+		},
+
+		{
+              "eventCode": "",
+			  "name": "Free Fire",
+			  "desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
+			  "image": "freefire.png"
+		},
+
+		{
+			"eventCode": "",
+			"name": "Anime Battle",
+			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
+			"image": "anime.png"
+		} , 
+
+		{
+			"eventCode": "",
+			"name": "Valorant",
+			"desc": "Valorant is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"image": "valo1.png"
+
+		},
+
+		{
+			"eventCode": "",
+			"name": "Treasure Hunt",
+			"desc": "Treasure Hunt is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"image": "Thunt.png"
 		}
+	
 	]
 	
 }
