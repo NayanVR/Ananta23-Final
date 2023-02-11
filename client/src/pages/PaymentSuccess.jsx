@@ -10,7 +10,7 @@ import { useEffect } from "react";
 function PaymentSuccess() {
 	// const { value } = useParams();
 
-	const { currentUser } = useContext(AuthContext);
+	const { currentUser, profile, setProfile } = useContext(AuthContext);
 
 	let [PayDetails, setPayDetails] = useState([]);
 
@@ -22,6 +22,7 @@ function PaymentSuccess() {
 
 	useEffect(() => {
 		const getdetails = async () => {
+			if (profile.TxnStatus != "TXN_SUCCESS") location.href = '/';
 			console.log("varada");
 			const data = await fetch(
 				server_URL + "/api/payment/checkPaymentStatus",
@@ -101,9 +102,11 @@ function PaymentSuccess() {
 					</div>
 				</div>
 
-				<button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 py-3 mt-4 w-1/3 bg-primary-dark-1 font-heading font-bold text-white rounded-lg'>
+				<a className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 py-3 mt-4 w-1/3 bg-primary-dark-1 font-heading font-bold text-white rounded-lg'
+				onClick={server_URL+`/assets/pdfs/${profile.ParticipantID}.pdf`}
+				target = "_blank">
 					Download Pass
-				</button>
+				</a>
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useContext, useEffect } from "react";
+import React, { useRef, useState, Fragment, useContext, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -39,6 +39,8 @@ function Pro() {
 
 	// Modal Stuff
 	const [isOpen, setIsOpen] = useState(false);
+	const [guideProfile, setGuideProfile] = useState(false);
+	const [guideBuyPass, setGuideBuyPass] = useState(false);
 	const [isView, setIsView] = useState(false);
 	const [modalColor, setModalColor] = useState("#c22727");
 
@@ -53,6 +55,8 @@ function Pro() {
 	const [isSolo, setIsSolo] = useState(false);
 	const [role, setRole] = useState("");
 
+	const firstnameRef = useRef();
+
 	let allEvents = [];
 
 	useEffect(() => {
@@ -63,8 +67,12 @@ function Pro() {
 			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
 				setCanEdit(false);
-			} else {
+			} else if (profile.ProfileStatus == 0) {
+				setGuideProfile(true);
+			} 
+			else {
 				setCanEdit(true);
+				firstnameRef.current.focus();
 			}
 		} else {
 			setCanEdit(true);
@@ -168,6 +176,9 @@ function Pro() {
 							.then((res) => res.json())
 							.then((data) => {
 								toast.success("Profile updated successfully!");
+								if (profile.ProfileStatus == 0){
+									setGuideBuyPass(true);
+								}
 								setProfile(data.message);
 							})
 							.catch((err) => {
@@ -265,6 +276,11 @@ function Pro() {
 
 	function closeModal() {
 		setIsOpen(false);
+		setGuideBuyPass(false)
+	}
+	function closeGuideProfile() {
+		setGuideProfile(false);
+		firstnameRef.current.focus();
 	}
 
 	return (
@@ -272,11 +288,11 @@ function Pro() {
 			<div className="my-10 sm:mt-0">
 				<div className="md:grid-cols-4 gap-4 mb-10">
 					<div className="flex gap-3 flex-col bg-white sm:flex-row flex-wrap rounded-lg ">
-						<div className="flex m-auto px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
+						<div className="flex mx-auto h-100 px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
 							<div className="flex-none flex flex-col justify-center">
 								<img
 									src={profilePic}
-									className="z-10 h-24 rounded-full border-4 border-primary-light-1 shadow-md"
+									className="z-10 h-20 rounded-full border-4 border-primary-light-1 shadow-md"
 								/>
 							</div>
 							<div className="flex flex-none flex-col justify-center items-left p-4">
@@ -289,7 +305,7 @@ function Pro() {
 										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
-								<div className="text-s">
+								<div className="text-sm">
 									{" "}
 									<span className="font-bold">ID</span> :{" "}
 									{pid}
@@ -310,9 +326,7 @@ function Pro() {
 								{txnStatus != "TXN_SUCCESS" ? (
 									<div className="flex flex-col m-2 gap-3 justify-center items-center">
 										<p className="text-lg text-center">
-											{" "}
-											you have not bought a pass or
-											Workshop yet !!
+											You can start Events registration after buying a pass...
 										</p>
 
 										<div className="flex gap-6 justify-center items-center">
@@ -492,10 +506,12 @@ function Pro() {
 											placeholder="First Name"
 											disabled={!canEdit}
 											required
+											ref={firstnameRef}
 											value={fName}
 											onChange={(e) => {
 												setFName(e.target.value);
 											}}
+											
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
 										/>
 									</div>
@@ -681,9 +697,9 @@ function Pro() {
 					id="viewevents"
 				>
 					<div className="mt-5 md:col-span-4 md:mt-0">
-						<div className="overflow-hidden shadow rounded-md py-5">
-							<div className="bg-primary-light-2 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
-								<h1 className="font-bold text-xl text-dark justify-center m-auto">
+						<div className="overflow-hidden shadow rounded-md">
+							<div className="bg-primary-dark-1 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
+								<h1 className="font-bold text-xl text-white justify-center m-auto">
 									Your Events
 								</h1>
 							</div>
@@ -715,7 +731,8 @@ function Pro() {
 					</div>
 				</div>
 			</div>
-
+								
+			
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={closeModal}>
 					<Transition.Child
@@ -968,6 +985,147 @@ function Pro() {
 					</div>
 				</Dialog>
 			</Transition>
+
+			
+			{/* Guide for Completing the Profile First... */}
+			<Transition appear show={guideProfile} as={Fragment}>
+				<Dialog as="div" className="relative z-10" onClose={closeGuideProfile}>
+					<Transition.Child
+						as={Fragment}
+						enter="ease-out duration-300"
+						enterFrom="opacity-0"
+						enterTo="opacity-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100"
+						leaveTo="opacity-0"
+					>
+						<div className="fixed inset-0 bg-black bg-opacity-25" />
+					</Transition.Child>
+
+					<div className="fixed inset-0 overflow-y-auto">
+						<div className="flex min-h-full items-center justify-center p-4 text-center">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
+								<Dialog.Panel
+									className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border-y-4 border-[#012C3D]"
+									style={{ backgroundColor: "#ffffff" }}
+								>
+									<Dialog.Title
+										as="h3"
+										className="text-center text-lg font-medium leading-6 text-gray-900"
+									>
+										Complete Profile
+									</Dialog.Title>
+
+									<div className="mt-2">
+										<p className="text-center text-sm text-gray-500">
+											Please Fill the Information to complete the Profile.
+										</p>
+										<br />
+										<p className="text-center text-sm font-semibold text-gray-500">
+											<span>NOTE: </span><br />Please provide correct Firstname & Lastname as it is going to there in the Pass your are going to buy.
+										</p>
+									</div>
+
+									<div className="mt-2">
+										
+									</div>
+
+									<div className="flex m-auto w-min mt-4">
+										<div className="mx-4">
+											<button
+												type="button"
+												className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#012C3D] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+												style={{ margin: "auto" }}
+												onClick={closeGuideProfile}
+											>
+													<label> Ok </label>
+												
+											</button>
+										</div>
+									</div>
+								</Dialog.Panel>
+							</Transition.Child>
+						</div>
+					</div>
+				</Dialog>
+			</Transition>
+
+			{/* Guide for Navigate to Buy a Pass further... */}
+			<Transition appear show={guideBuyPass} as={Fragment}>
+				<Dialog as="div" className="relative z-10" onClose={closeModal}>
+					<Transition.Child
+						as={Fragment}
+						enter="ease-out duration-300"
+						enterFrom="opacity-0"
+						enterTo="opacity-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100"
+						leaveTo="opacity-0"
+					>
+						<div className="fixed inset-0 bg-black bg-opacity-25" />
+					</Transition.Child>
+
+					<div className="fixed inset-0 overflow-y-auto">
+						<div className="flex min-h-full items-center justify-center p-4 text-center">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
+								<Dialog.Panel
+									className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border-y-4 border-[#012C3D]"
+									style={{ backgroundColor: "#ffffff" }}
+								>
+									<Dialog.Title
+										as="h3"
+										className="text-center text-lg font-medium leading-6 text-gray-900"
+									>
+										Buy a Pass
+									</Dialog.Title>
+
+									<div className="mt-2">
+										<p className="text-center text-sm text-gray-500">
+											Now, you can move forward and Buy a Pass of your choice.<br /> <br />Would you like to go to the Buy Pass page?
+										</p>
+									</div>
+
+									<div className="mt-2">
+										
+									</div>
+
+									<div className="flex m-auto w-min mt-4">
+										<div className="mx-4">
+											<button
+												type="button"
+												className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#012C3D] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+												style={{ margin: "auto" }}
+												onClick={() => location.href = '/buypass'}
+											>
+													<label> Go </label>
+												
+											</button>
+										</div>
+									</div>
+								</Dialog.Panel>
+							</Transition.Child>
+						</div>
+					</div>
+				</Dialog>
+			</Transition>
+
+
 		</div>
 	);
 }

@@ -53,7 +53,8 @@ function Home() {
         <>
             {
                 profile.ProfileStatus == 0 ?
-                    <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
+                    location.href = "/profile"
+                    // <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
                     :
                     <></>
             }

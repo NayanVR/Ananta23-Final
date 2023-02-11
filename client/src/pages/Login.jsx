@@ -138,6 +138,7 @@ function Login() {
 						placeholder="Email"
 						className="px-4 py-2 border rounded-md"
 						required
+						autoFocus
 					/>
 
 					<input
