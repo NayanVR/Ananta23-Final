@@ -305,7 +305,7 @@ function Pro() {
 							</div>
 						</div>
 
-						<div className="flex m-auto grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
+						<div className="flex mx-auto h-100 grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
 							<div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
 								{txnStatus != "TXN_SUCCESS" ? (
 									<div className="flex flex-col m-2 gap-3 justify-center items-center">

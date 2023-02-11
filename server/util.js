@@ -5,7 +5,7 @@ async function genParticipantID(conn, email) {
 	let middleChar = emailName[Math.floor(emailName.length / 2)];
 	let lastChar = emailName[emailName.length - 1];
 
-	let CharsString = "AaBbCcDcEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz012345678"
+	let CharsString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345678"
 
 	let result = "";
 	// const charactersLength = CharsString.length;

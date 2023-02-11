@@ -112,20 +112,21 @@ function Login() {
 		console.log(data);
 		if (data.type === "success") {
 			console.log('success')
-			// window.location.href = "/";
+			window.location.href = "/";
 		} else {
 			toast.error(data.message, { duration: 3000 });
 		}
 	}
 
-	
-
 	return !forgotPass ? (
 		<section className="flex justify-center items-center w-full h-[calc(100vh-6rem)]">
 			<div className="flex flex-col w-full max-w-md items-center gap-4 px-8">
-				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-dark-1 to-primary bg-clip-text text-transparent">
 					Login
 				</h1>
+				<a className="self-center text-primary text-sm mb-6" href="/register">
+					Don't have an account?
+				</a>
 				<form
 					onSubmit={handleSubmit}
 					className="flex flex-col w-full gap-4"
@@ -170,9 +171,7 @@ function Login() {
 						)}
 					</button>
 				</form>
-				<a className="self-center text-primary text-sm" href="/register">
-					Don't have an account?
-				</a>
+				
 				<div className="flex row items-center w-full gap-2 text-gray-400">
 					<span className="h-px w-full bg-gray-300"></span>
 					OR

@@ -18,6 +18,7 @@ function Home() {
     const { currentUser, profile, setProfile } = useContext(AuthContext);
     const navigate = useNavigate()
 
+
     //get today date
 
     const [day, setDay] = useState(0)
@@ -51,10 +52,10 @@ function Home() {
     return (
         <>
             {
-                // profile.ProfileStatus = 0 ?
+                profile.ProfileStatus == 0 ?
                     <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
-                    // :
-                    // <></>
+                    :
+                    <></>
             }
 
             <section className='w-full h-[calc(100vh-3.5rem)] relative flex flex-col justify-center items-center gap-10'>

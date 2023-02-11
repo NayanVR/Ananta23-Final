@@ -117,7 +117,6 @@ function Register() {
 							googleAuth: "FALSE",
 						}),
 					}).then((data) => {
-
 						setIsSubmit(false);
 						window.location.href = "/profile";
 					});
@@ -138,9 +137,12 @@ function Register() {
 	return (
 		<section className="flex justify-center items-center w-full h-[calc(100vh-6rem)]">
 			<div className="flex flex-col w-full max-w-md items-center gap-4 px-8">
-				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-dark-1 to-primary bg-clip-text text-transparent">
 					Register
 				</h1>
+				<a className="self-center text-primary mb-6" href="/login">
+					Already have an account?
+				</a>
 				{!otpScreen ? (
 					<form
 						onSubmit={handleInfoSubmit}
@@ -180,10 +182,6 @@ function Register() {
 							)}
 						</button>
 
-						<a className="self-center text-primary" href="/login">
-							Already have an account?
-						</a>
-
 						<div className="flex row items-center w-full gap-2 text-gray-400">
 							<span className="h-px w-full bg-gray-300"></span>
 							OR
@@ -193,7 +191,7 @@ function Register() {
 							onClick={handleGoogleSignUp}
 							className="w-full py-2 border rounded-md text-primary-dark-1 border-primary-dark-1 flex flex-row justify-center items-center gap-2"
 						>
-								<img className="h-5" src={googleLogo} />
+							<img className="h-5" src={googleLogo} />
 							Continue with Google
 						</a>
 					</form>
@@ -233,7 +231,10 @@ function Register() {
 									onClick={handleInfoSubmit}
 								>
 									{!isResend ? (
-										<label className="cursor-pointer"> Resend OTP </label>
+										<label className="cursor-pointer">
+											{" "}
+											Resend OTP{" "}
+										</label>
 									) : (
 										<PulseLoader
 											color={"#fff"}
@@ -271,7 +272,7 @@ function Register() {
 							onClick={handleGoogleSignUp}
 							className="w-full py-2 border rounded-md text-primary-dark-1 border-primary-dark-1 flex flex-row justify-center items-center gap-2"
 						>
-								<img className="h-5" src={googleLogo} />
+							<img className="h-5" src={googleLogo} />
 							Continue with Google
 						</button>
 					</form>
