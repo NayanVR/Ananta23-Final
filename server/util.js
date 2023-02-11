@@ -5,19 +5,19 @@ async function genParticipantID(conn, email) {
 	let middleChar = emailName[Math.floor(emailName.length / 2)];
 	let lastChar = emailName[emailName.length - 1];
 
-	let speacialChars = ["!", "@", "#", "$", "%", "&", "*", "?"];
-	let randomSpeacialChar =
-		speacialChars[Math.floor(Math.random() * speacialChars.length)];
+	let CharsString = "AaBbCcDcEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz012345678"
 
-	let randomNum = ("" + Math.random()).substring(2, 6);
+	let result = "";
+	// const charactersLength = CharsString.length;
+	for (let i = 0; i < 12; i++) {
+		result += CharsString.charAt(
+			Math.floor(Math.random() * CharsString.length)
+		);
+	}
 
 	const id =
 		"A23_" +
-		firstChar +
-		middleChar +
-		lastChar +
-		randomSpeacialChar +
-		randomNum;
+		result
 
 
 	console.log(id);

@@ -11,8 +11,6 @@ import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
 import Passes from "./../assets/Passes.json";
 
-
-
 function Pro() {
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
 	let email_ = currentUser.email;
@@ -62,8 +60,8 @@ function Pro() {
 
 		if (profile != {}) {
 			// const pro = JSON.parse(profile);
+			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
-				updateProfile(profile);
 				setCanEdit(false);
 			} else {
 				setCanEdit(true);
@@ -71,7 +69,7 @@ function Pro() {
 		} else {
 			setCanEdit(true);
 		}
-		console.log(currentUser)
+		console.log(currentUser);
 		console.log(profile);
 	}, [profile]);
 
@@ -127,6 +125,8 @@ function Pro() {
 		setUniName(pro.University);
 		setGender(pro.Gender);
 		setCity(pro.City);
+
+		console.log("participantID: ", pid);
 
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
@@ -272,7 +272,7 @@ function Pro() {
 			<div className="my-10 sm:mt-0">
 				<div className="md:grid-cols-4 gap-4 mb-10">
 					<div className="flex gap-3 flex-col bg-white sm:flex-row flex-wrap rounded-lg ">
-						<div className="flex  px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
+						<div className="flex m-auto px-6 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
 							<div className="flex-none flex flex-col justify-center">
 								<img
 									src={profilePic}
@@ -281,85 +281,137 @@ function Pro() {
 							</div>
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
-
-									{profile.Firstname != null && profile.Lastname != null ? profile.Firstname + " " + profile.Lastname : "Participant Name"}
+									{profile.Firstname != null &&
+									profile.Lastname != null
+										? profile.Firstname +
+										  " " +
+										  profile.Lastname
+										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
-								<div className="text-s"> <span className="font-bold">ID</span> : {pid}</div>
+								<div className="text-s">
+									{" "}
+									<span className="font-bold">ID</span> :{" "}
+									{pid}
+								</div>
 								<div>
 									<button
-										className="w-full px-4 py-1 mt-2 text-[#1C7690] rounded-md bg-white hover:bg-red-50 hover:text-red-600 shadow-md hover:border-red-600 border border-[#1C7690]"
+										className="w-max px-4 py-1 mt-2 text-[#1C7690] rounded-md bg-white hover:bg-red-50 hover:text-red-600 shadow-md hover:border-red-600 border border-[#1C7690]"
 										onClick={() => signOut(auth)}
 									>
 										Sign Out
 									</button>
 								</div>
-							
 							</div>
-							
 						</div>
 
-						<div className="flex grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
-							 <div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
-							{txnStatus != "TXN_SUCCESS" ? (
-								<div className="flex flex-col m-2 gap-3 justify-center items-center">
-									<p className="text-lg text-center"> you have not bought a pass or Workshop yet !!</p>
-									
-									
-									<div className="flex gap-6 justify-center items-center">
-									<button
-										className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
-										onClick={(_) => {
-											window.location.href = "/buypass";
-										}}
-									>
-										Buy&nbsp;Pass
-									</button> 
-								
-									<button
-										className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
-										onClick={(_) => {
-											window.location.href = "/buypass";
-										}}
-									>
-										Book&nbsp;Workshops
-									</button>
-									</div>
-								
-								</div>
-							) : (
-								<div className="flex flex-col gap-1 ">
-									<div className="flex flex-col">
-										
-										
-										{/* <div className="text-lg text-start"> <span className="font-bold">Pass Detail </span></div> */}
-										<div className="text-s flex gap-3 ">Pass Type : <span className="font-bold">{passType} </span>  </div>
-										  
-										<div className="text-s">Digital Point : <span className="font-bold">{profile.ContactNo} </span></div>
-										<div className="text-s">Events Registred : <span className="font-bold">3 Out of 5 </span> ( <span><a href="#viewevents" className="underline text-blue-700">view</a></span> ) </div>
-										<div className="text-s">Guest Lec. Registred : <span className="font-bold">1 Out of 2 </span> ( <span><a href="#viewevents" className="underline text-blue-700">view</a></span> ) </div>
-									</div>
-									<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
-										<div className="text-s">Workshop : <span className="font-semibold text-s"> you have not bought a Workshop yet !!</span> </div>
-										<button
-										className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
-										onClick={(_) => {
-											window.location.href = "/buypass";
-										}}
-									>
-										Book&nbsp;Workshops
-									</button> 
-									</div>
-								</div>
-							)}
-							</div> 
+						<div className="flex m-auto grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
+							<div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
+								{txnStatus != "TXN_SUCCESS" ? (
+									<div className="flex flex-col m-2 gap-3 justify-center items-center">
+										<p className="text-lg text-center">
+											{" "}
+											you have not bought a pass or
+											Workshop yet !!
+										</p>
 
-						
+										<div className="flex gap-6 justify-center items-center">
+											<button
+												className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
+												onClick={(_) => {
+													window.location.href =
+														"/buypass";
+												}}
+											>
+												Buy&nbsp;Pass
+											</button>
+
+											<button
+												className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
+												onClick={(_) => {
+													window.location.href =
+														"/buypass";
+												}}
+											>
+												Book&nbsp;Workshops
+											</button>
+										</div>
+									</div>
+								) : (
+									<div className="flex flex-col gap-1 ">
+										<div className="flex flex-col">
+											{/* <div className="text-lg text-start"> <span className="font-bold">Pass Detail </span></div> */}
+											<div className="text-s flex gap-3 ">
+												Pass Type :{" "}
+												<span className="font-bold">
+													{passType}{" "}
+												</span>{" "}
+											</div>
+
+											<div className="text-s">
+												Digital Point :{" "}
+												<span className="font-bold">
+													{profile.ContactNo}{" "}
+												</span>
+											</div>
+											<div className="text-s">
+												Events Registred :{" "}
+												<span className="font-bold">
+													3 Out of 5{" "}
+												</span>{" "}
+												({" "}
+												<span>
+													<a
+														href="#viewevents"
+														className="underline text-blue-700"
+													>
+														view
+													</a>
+												</span>{" "}
+												){" "}
+											</div>
+											<div className="text-s">
+												Guest Lec. Registred :{" "}
+												<span className="font-bold">
+													1 Out of 2{" "}
+												</span>{" "}
+												({" "}
+												<span>
+													<a
+														href="#viewevents"
+														className="underline text-blue-700"
+													>
+														view
+													</a>
+												</span>{" "}
+												){" "}
+											</div>
+										</div>
+										<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
+											<div className="text-s">
+												Workshop :{" "}
+												<span className="font-semibold text-s">
+													{" "}
+													you have not bought a
+													Workshop yet !!
+												</span>{" "}
+											</div>
+											<button
+												className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
+												onClick={(_) => {
+													window.location.href =
+														"/buypass";
+												}}
+											>
+												Book&nbsp;Workshops
+											</button>
+										</div>
+									</div>
+								)}
+							</div>
 						</div>
-						<div className="flex items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
-					
-
-							<div >
+						<div className="flex m-auto items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
+							<div>
 								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
 										value={pid}
@@ -373,32 +425,31 @@ function Pro() {
 											{
 												// top/left eye
 												outer: [1, 1, 1, 1],
-												inner: [1,1,1,1],
+												inner: [1, 1, 1, 1],
 											},
 											{
 												outer: [1, 1, 1, 1],
-												inner: [1,1,1,1],
+												inner: [1, 1, 1, 1],
 											},
 											{
 												// top/left eye
 												outer: [1, 1, 1, 1],
-												inner: [1,1,1,1],
+												inner: [1, 1, 1, 1],
 											},
 										]}
 										eyeColor={[
 											{
 												outer: "#022539",
-												inner: "black"
+												inner: "black",
 											},
 											{
 												outer: "#022539",
-												inner: "black"
+												inner: "black",
 											},
 											{
 												outer: "#022539",
-												inner: "black"
-
-											}
+												inner: "black",
+											},
 										]}
 										bgColor={"#FFFFFF"}
 										ecLevel={"H"}
@@ -407,8 +458,6 @@ function Pro() {
 							</div>
 						</div>
 					</div>
-
-					
 				</div>
 
 				<div className="mt-0 md:col-span-3 md:mt-0">
@@ -627,7 +676,10 @@ function Pro() {
 
 				<hr className="my-10" />
 
-				<div className="md:grid md:grid-cols-4 md:gap-6" id="viewevents">
+				<div
+					className="md:grid md:grid-cols-4 md:gap-6"
+					id="viewevents"
+				>
 					<div className="mt-5 md:col-span-4 md:mt-0">
 						<div className="overflow-hidden shadow rounded-md py-5">
 							<div className="bg-primary-light-2 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
