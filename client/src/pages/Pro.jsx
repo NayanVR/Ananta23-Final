@@ -410,7 +410,7 @@ function Pro() {
 								)}
 							</div>
 						</div>
-						<div className="flex items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
+						<div className="flex  items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">
 							<div>
 								<div className="col-span-1 bg-primary-light-3 flex-none justify-between items-center ">
 									<QRCode
