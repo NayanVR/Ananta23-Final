@@ -11,40 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function Swoosh() {
-	const events = [
-		{
-			eventCode: "SW_AB",
-			name: "Anime Battle",
-			desc: "Everyone knows how colorful the world of microbes is. Why not represent it in a beautiful way? Bring out your inner artist by using streaking, preading and pouring to make a colorful creation on Agar using microbes.",
-			mobDesc:
-				"Science, technology, engineering and mathematics are the four basic topics we see around ourselves everyday. Bring out working models, business models and prototypes to display your ideas and potential talent.",
-			image: Swift,
-		},
-		{
-			eventCode: "SW_ER",
-			name: "Escape Room",
-			desc: "Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.",
-			mobDesc:
-				"Code Wars is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: profilePic,
-		},
-		{
-			eventCode: "SW_TH",
-			name: "Treasure hunt",
-			desc: "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
-			mobDesc:
-				"Hackathon is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: Swift,
-		},
-		{
-			eventCode: "SW_V",
-			name: "Valorant",
-			desc: "You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.",
-			mobDesc:
-				"Hackathon is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.",
-			image: Swift,
-		},
-	];
+
 
 	const { currentUser } = useContext(AuthContext);
 

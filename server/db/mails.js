@@ -36,25 +36,25 @@ async function generate_pdf(
 		.fontSize(17)
 		.fillColor("white")
 		.text(`Welcome To Ananta'23`, 226, 17, {
-			width: 590,
+			width: 569,
 			align: "left",
 			color: "white",
 		});
 
-	doc.font("Bold")
-		.fontSize(10)
-		.fill("#1C7690")
-		.text(`Transaction ID: ${data.body.txnId}`, 226, 34, {
-			width: 595.28,
-			align: "left",
-		});
+	// doc.font("Bold")
+	// 	.fontSize(10)
+	// 	.fill("white")
+	// 	.text(`Transaction ID: ${data.body.txnId}`, 226, 102, {
+	// 		width: 569.5,
+	// 		align: "left",
+	// 	});
 	// Name
 	doc.fontSize(10);
 	doc.font("Medium")
 		.fillColor("white")
-		.text(`Name :`, 226, 63, { width: 590, align: "left", color: "white" });
-	doc.font("Regular").text(fullname, 264, 63, {
-		width: 589.5,
+		.text(`Name :`, 226, 52, { width: 569.5, align: "left", color: "white" });
+	doc.font("Regular").text(fullname, 264, 52, {
+		width: 569.5,
 		align: "left",
 		color: "white",
 	});
@@ -63,16 +63,16 @@ async function generate_pdf(
 
 	doc.font("Medium")
 		.fillColor("white")
-		.text(`Participant ID : `, 226, 95.5, { width: 590, align: "left" });
-	doc.font("Regular").text(participantID, 300, 95.5, {
-		width: 589.5,
+		.text(`Participant ID : `, 226, 77, { width: 569.5, align: "left" });
+	doc.font("Regular").text(participantID, 300, 77, {
+		width: 569.5,
 		align: "left",
 	});
 
 	// // Email
-	doc.font("Medium").text(`Email :`, 226, 79, { width: 59, align: "left" });
-	doc.font("Regular").text(email, 260, 79, {
-		width: 589.5,
+	doc.font("Medium").text(`Email :`, 226, 64, { width: 569.5, align: "left" });
+	doc.font("Regular").text(email, 260, 64, {
+		width: 569.5,
 		align: "left",
 	});
 
@@ -87,14 +87,24 @@ async function generate_pdf(
 	// });
 
 	// // Pass Type
-	doc.font("Medium").text(`Pass Type :`, 226, 111, {
-		width: 589.5,
+	doc.font("Medium").text(`Pass Type :`, 226, 89, {
+		width: 569.5,
 		align: "left",
 	});
-	doc.font("Regular").text(passType, 282, 111, {
-		width: 589.5,
+	doc.font("Regular").text(passType, 282, 89, {
+		width: 569.5,
 		align: "left",
 	});
+
+	doc.font("Medium").text('Date :',226, 102,{
+		width: 569.5,
+		align: "left",
+	});
+	doc.font("Regular").text(data.body.txnDate,260, 102,{
+		width: 569.5,
+		align: "left",
+	});
+
 
 	// // Payment Data
 	// doc.font("Medium").text(`Payment Date`, 50, 446, {
