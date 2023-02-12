@@ -31,6 +31,7 @@ import ComingSoon from './components/ComingSoon';
 import Equilibrium from './pages/Equilibrium';
 import Upshot from './pages/Upshot';
 import Zingaat from './pages/Zingaat';
+import Partners from './pages/Partners';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -64,6 +65,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/equilibrium" element={<Equilibrium />} />
           <Route path="/upshot" element={<Upshot />} />
           <Route path="/zingaat" element={<Zingaat />} />
+          <Route path="/partners" element={<Partners />} />
 
         </Routes>
         <Footer />

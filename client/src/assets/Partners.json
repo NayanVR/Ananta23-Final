@@ -1,0 +1,57 @@
+{
+    "Partners": [
+      
+        {
+            "image": "GSFC ltd.png"
+            
+        },
+        {
+            "image": "PMC.png"
+            
+        }
+       
+      
+
+    ],
+    "Partner2": [
+        {
+            "image": "GSFC ltd.png"
+            
+            
+        },
+        {
+            "image": "GGRC.png"
+            
+        },
+        {
+            "image": "Kanan.png"
+            
+        },
+        {
+            "image": "Glocal Colliance.png"
+            
+        },
+        {
+            "image": "PMC.png"
+            
+        },
+        {
+            "image": "IMS.png"
+        },
+        {
+            "image":"AIE.png"
+        },
+        {
+            "image":"RED.png"
+        },
+        {
+            "image":"GIPCL.png"
+        },
+        {
+            "image":"ACUMEN.png"
+        },
+        {
+            "image":"AOne.png"
+        }
+    ]
+}
