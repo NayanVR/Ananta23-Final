@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import AccessRoute from './components/AccessRoute.jsx';
 import Navbar from './components/Navbar.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <Toaster />
       <BrowserRouter>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
