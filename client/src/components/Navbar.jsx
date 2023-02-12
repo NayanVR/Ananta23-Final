@@ -55,7 +55,7 @@ function Navbar() {
                                 </div>
                             </button>
                             :
-                            <button className='py-2 px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { window.location.href = "/login" }}>LOGIN</button>
+                            <button className='py-1.5 px-3 sm:py-2 sm:px-6 rounded-md bg-primary-dark-1 text-white' onClick={() => { window.location.href = "/login" }}>LOGIN</button>
                     }
                     <div onClick={_ => { setIsOpen(!isOpen) }} className="nav__toggle">
                         <span className="nav__toggle__bars"></span>
