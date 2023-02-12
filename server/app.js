@@ -78,6 +78,18 @@ app.use((req, res, next) => {
 	else return res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+app.post("/api/query", async (req, res) => {
+	const email = req.body.email;
+	const query = req.body.query;
+
+	console.log(email, query);
+
+	return res.status(200).json({
+		message: "Query Submitted",
+		type: "success",
+	});
+});
+
 // OTP Logic
 app.post("/api/generateOTP", async (req, res) => {
 	const email = req.body.email;
