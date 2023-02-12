@@ -195,9 +195,8 @@ function DropDown({ title, children }) {
 			>
 				{title}&nbsp;
 				<span
-					className={`${
-						isOpen ? "rotate-180" : "rotate-0"
-					} sm:group-hover:rotate-180 sm:rotate-0 inline-block transition-all`}
+					className={`${isOpen ? "rotate-180" : "rotate-0"
+						} sm:group-hover:rotate-180 sm:rotate-0 inline-block transition-all`}
 				>
 					<svg
 						className="w-4 h-4 shrink-0 transition-all"
@@ -213,9 +212,8 @@ function DropDown({ title, children }) {
 				</span>
 			</button>
 			<div
-				className={`${
-					isOpen ? "" : "hidden"
-				} sm:group-hover:flex sm:hidden bg-transparent sm:bg-white sm:border sm:border-primary text-center flex flex-col w-full sm:w-max sm:absolute sm:left-0`}
+				className={`${isOpen ? "" : "hidden"
+					} sm:group-hover:flex sm:hidden bg-transparent sm:bg-white sm:border sm:border-primary text-center flex flex-col w-full sm:w-max sm:absolute sm:left-0`}
 			>
 				{children}
 			</div>

@@ -9,7 +9,7 @@ const QuesionComponent = ({ question, answer, openIndex, index, setOpenIndex }) 
     }
 
     return (
-        <div className="flex flex-col justify-center items-center px-1.5 py-1.5">
+        <div className="flex flex-col justify-center items-center px-1.5 py-2.5 ">
             <button
                 onClick={handleBtnClick}
                 className="flex flex-col items-center  justify-between w-full  sm:w-3/4  font-medium text-left  border border-primary-light-1 rounded-md overflow-hidden"
@@ -49,7 +49,7 @@ const FAQSection = () => {
 
     return (
         <div>
-            <h1 className='flex justify-center items-center mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
+            <h1 className='flex justify-center items-center mb-16 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                 FAQ's
             </h1>
             <FAQs faqs={HomeFAQs} />
