@@ -1,8 +1,13 @@
 const { v4: uuidv4 } = require('uuid');
 const Paytm = require('paytmchecksum');
 
+
+async function storeOrderIDPassCodeEmail() {
+
+}
+
 // async function makePayment(req) {
-async function makePayment(req) {
+async function makePayment(conn, req, participantID, timestamp) {
 
     const totalAmount = req.body.amount;
     const email = req.body.email;
@@ -18,14 +23,19 @@ async function makePayment(req) {
     params['CALLBACK_URL'] = `${process.env.NODE_URL}/api/payment-callback`
     params['EMAIL'] = email
     params['MOBILE_NO'] = '7777777777'
-
-
+    
     console.log(params);
+
+    const orderRecord = `INSERT INTO Orders values ('${params['ORDER_ID']}', '${participantID}', '${email}', '${req.body.passCode}', ${req.body.amount}, '${timestamp}', "0")`;
+    console.log(orderRecord);
+    const [storeOrderRow, storeOrderField ] = await conn.execute(orderRecord);
+
+
 
     const paytmChecksum = await Paytm.generateSignature(params, process.env.PAYTM_MERCHANT_KEY);
 
     // if (paytmChecksum) {
-    if (paytmChecksum) {
+    if (paytmChecksum && storeOrderRow) {
         return {
             code: 200,
             resMessage: {

@@ -10,7 +10,6 @@ import { auth, provider } from "../firebase";
 import { toast } from "react-hot-toast";
 import { PuffLoader } from "react-spinners/PuffLoader";
 import { FadeLoader } from "react-spinners/FadeLoader";
-import { PulseLoader } from "react-spinners/PulseLoader";
 
 function Login() {
 	const [email, setEmail] = useState("");
@@ -24,9 +23,10 @@ function Login() {
 	const [forgotPass, setForgotPass] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
-
+	
 	function handleSubmit(e) {
 		e.preventDefault();
+
 
 		
 		signInWithEmailAndPassword(auth, email, password)
@@ -89,22 +89,6 @@ function Login() {
 		setIsSend(false);
 	}
 
-	async function handleGoogleLogin(e) {
-		e.preventDefault();
-
-		const res = await signInWithPopup(auth, provider);
-		console.log(res);
-		const email = res.user.email;
-		const photoURL = res.user.photoURL;
-		const data = await createProfile(email, photoURL);
-		console.log(data);
-		if (data.type === "success") {
-			window.location.href = "/";
-		} else {
-			toast.error(data.message, { duration: 3000 });
-		}
-	}
-
 	async function createProfile(email, photoURL) {
 		const res = await fetch(serverURL + "/api/create-profile", {
 			method: "POST",
@@ -117,12 +101,32 @@ function Login() {
 		return data;
 	}
 
+	async function handleGoogleLogin(e) {
+		e.preventDefault();
+
+		const res = await signInWithPopup(auth, provider);
+		console.log(res);
+		const email = res.user.email;
+		const photoURL = res.user.photoURL;
+		const data = await createProfile(email, photoURL);
+		console.log(data);
+		if (data.type === "success") {
+			console.log('success')
+			window.location.href = "/";
+		} else {
+			toast.error(data.message, { duration: 3000 });
+		}
+	}
+
 	return !forgotPass ? (
 		<section className="flex justify-center items-center w-full h-[calc(100vh-6rem)]">
 			<div className="flex flex-col w-full max-w-md items-center gap-4 px-8">
-				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+				<h1 className="font-heading text-4xl font-extrabold bg-gradient-to-b from-primary-dark-1 to-primary bg-clip-text text-transparent">
 					Login
 				</h1>
+				<a className="self-center text-primary text-sm mb-6" href="/register">
+					Don't have an account?
+				</a>
 				<form
 					onSubmit={handleSubmit}
 					className="flex flex-col w-full gap-4"
@@ -134,6 +138,7 @@ function Login() {
 						placeholder="Email"
 						className="px-4 py-2 border rounded-md"
 						required
+						autoFocus
 					/>
 
 					<input
@@ -145,7 +150,7 @@ function Login() {
 						required
 					/>
 					<a
-						className="self-start text-primary cursor-pointer text-sm "
+						className="self-end text-primary cursor-pointer text-sm"
 						onClick={() => setForgotPass(true)}
 					>
 						Forgot Password?
@@ -167,9 +172,7 @@ function Login() {
 						)}
 					</button>
 				</form>
-				<a className="self-start text-primary" href="/register">
-					Don't have an account?
-				</a>
+				
 				<div className="flex row items-center w-full gap-2 text-gray-400">
 					<span className="h-px w-full bg-gray-300"></span>
 					OR

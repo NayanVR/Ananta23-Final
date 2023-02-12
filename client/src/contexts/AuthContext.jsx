@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [profile, setProfile] = useState({})
+    const [pass, setPass] = useState({})
     const [loading, setLoading] = useState(true)
     const serverURL = import.meta.env.VITE_SERVER_URL
 
@@ -22,16 +23,16 @@ export function AuthProvider({ children }) {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            // localStorage.setItem("profile", JSON.stringify(data.message))
+                            console.log(data.pass)
+                            setPass(data.pass)
                             setProfile(data.message)
                         })
                         .catch(err => {
-                            // localStorage.setItem("profile", JSON.stringify({}))
                             setProfile({})
+                            setPass({})
                         })
                 })
             } else {
-                // localStorage.setItem("profile", JSON.stringify({}))
                 setProfile({})
             }
             setCurrentUser(user)
@@ -42,7 +43,7 @@ export function AuthProvider({ children }) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ currentUser, profile, setProfile }}>
+        <AuthContext.Provider value={{ currentUser, profile, setProfile, pass, setPass }}>
             {!loading && children}
         </AuthContext.Provider>
     )

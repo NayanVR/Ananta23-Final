@@ -1,0 +1,63 @@
+{
+    "passes" : [
+        {
+            "id": "PS-G",
+            "name": "GOLD",
+            "markImg": "Gold.png",
+            "price": 3,
+            "features": [
+                "Access to All Events (INERTIA & SWOOSH)",
+                "Access to All Guest Lectures",
+                "Access to Zingaat : Cultural Events",
+                "500 Digital Wallet Points"
+            ],
+            "color": "#FFDF00"
+        },
+        {
+            "id": "PS-S",
+            "name": "SILVER",
+            "markImg": "Silver.png",
+            "price": 2,
+            "features": [
+                "Access to any 3 Events (INERTIA & SWOOSH)",
+                "Access to any 2 Guest Lectures",
+                "Access to Zingaat : Cultural Events",
+                "300 Digital Wallet Points"
+            ],
+            "color": "#C0C0C0"
+        },
+        {
+            "id": "PS-B",
+            "name": "BRONZE",
+            "markImg": "Bronze.png",
+            "price": 1,
+            "features": [
+                "Access to any 2 Events (INERTIA & SWOOSH)",
+                "Access to any 1 Guest Lecture",
+                "Access to Zingaat : Cultural Events",
+                "100 Digital Wallet Points"
+            ],
+            "color": "#CD7F32"
+        },
+        {
+            "id": "PS-DJ",
+            "name": "ATMOS",
+            "markImg": "DJ.png",
+            "price": 4,
+            "features": [
+                "A night to groove on EDM beats. A spectacle not to MISS OUT!"
+            ],
+            "color": "#88D20F"
+        },
+        {
+            "id": "PS-C",
+            "name": "COMBO",
+            "markImg": "Combo.png",
+            "price": 5,
+            "features": [
+                "All benefits of GOLD & ATMOS Pass"
+            ],
+            "color": "#FFDF00"
+        }
+    ]
+}

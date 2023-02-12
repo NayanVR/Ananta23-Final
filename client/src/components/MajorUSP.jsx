@@ -5,14 +5,13 @@ import animationData from "../assets/MajorUSPAnimNew.json";
 function MajorUSP() {
 
     const points = [
-        "A fest for the students and by the students.",
-        "A fully digitalized QR based Digital Registration System.",
-        "“Equilibrium”- An elite series of stories by founders, motivational speakers and emerging creators.",
-        "“Kala Kriti”- Series of Technical and Non-Technical Workshops",
-        "“Zingaat”- Celebration of our Culture and Heritage.",
-        "“RYOS”- A concept to let students run and manage their own stalls in an attempt to sharpen up their business management skills.",
-        "Events such as “Mini Shark Tank” to promote entrepreneurship and leadership skills.",
-        "“Atmos”- A night to groove on EDM beats."
+        "“Digitalized management” system to promote a self-reliant model through a web portal developed by the students and for the students.",
+        "“K-12 outreach” to promote university culture and developinclusivity, which depicts unity, diversity, equality, andsustainability.",
+        "“Categorizing events” in order to boost crucial skills, which makes their presence worth the value.",
+        "“Emphasizing Startups” by providing them with a platform to network as well as promote their story. ",
+        "Enrich students for their domain-specific careers by providing an “Open Internship” opportunity",
+        "“SMS”- A concept to let students run and manage their own stalls in an attempt to sharpen up their business management skills."
+
     ]
 
     return (

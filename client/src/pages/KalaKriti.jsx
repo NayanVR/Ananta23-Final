@@ -2,6 +2,7 @@ import React from 'react'
 import EventCard from '../components/EventCard'
 import Swift from '../assets/photos/upshots/swift.png'
 import profilePic from '../assets/photos/profile.jpg'
+import ComingSoon from '../components/ComingSoon'
 
 function Inertia() {
 
@@ -35,20 +36,23 @@ function Inertia() {
 
   function viewDetails(eventCode) {
     console.log('View Details', eventCode)
-  } 
+  }
 
   return (
+    // <>
+    //   <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+    //     Inertia
+    //   </h1>
+    //   <div style={{ scrollbarWidth: 'none' }} className='relative h-[calc(100vh-13rem)] mb-20 w-full snap-y snap-mandatory flex gap-[10rem] flex-col items-center overflow-y-scroll'>
+    //     {
+    //       events.map((event, index) => (
+    //         <EventCard key={index} index={index} event={event} registerNow={registerNow} viewDetails={viewDetails} />
+    //       ))
+    //     }
+    //   </div>
+    // </>
     <>
-      <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
-        Inertia
-      </h1>
-      <div style={{ scrollbarWidth: 'none' }} className='relative h-[calc(100vh-13rem)] mb-20 w-full snap-y snap-mandatory flex gap-[10rem] flex-col items-center overflow-y-scroll'>
-        {
-          events.map((event, index) => (
-            <EventCard key={index} index={index} event={event} registerNow={registerNow} viewDetails={viewDetails} />
-          ))
-        }
-      </div>
+      <ComingSoon />
     </>
   )
 }

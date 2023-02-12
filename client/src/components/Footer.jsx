@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import AnantaLogo from '../assets/logos/ananta_logo.svg'
 import GSFCULogo from '../assets/logos/GSFCU_logo.svg'
 import Twitter from '../assets/icons/Twitter_icon.svg'
@@ -27,8 +28,14 @@ function Footer() {
             Vadodara - 391750, Gujarat, India</p>
           <h2 className='font-heading font-bold mt-6 text-2xl text-primary md:text-left text-center'>Contact</h2>
           <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
-            Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
+            Phone No : <a href="https://wa.me/+918140390836">+918140390836</a> / 
+                   <a href="https://wa.me/+916359812434"> +916359812434</a>
           </p>
+          <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
+            Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a> <br />
+                   <a className='ml-14' href="mailto:support@anantagsfcu.in">support@anantagsfcu.in</a>
+          </p>
+         
         </div>
         <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
           <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />
@@ -63,10 +70,10 @@ function Footer() {
       <div className='w-full h-max bg-primary-dark-1 px-8 md:px-24 py-2 flex items-center justify-center md:justify-between'>
         <p className='hidden lg:block text-white'>Made by Team Ananta</p>
         <div className='flex justify-center items-center gap-2 sm:gap-6 flex-col sm:flex-row'>
-          <a className='text-white text-center' href="/privacy-policy">Privacy Policy</a>
-          <a className='text-white text-center' href="/refund-policy">Calcellation & Refund Policy</a>
-          <a className='text-white text-center' href="/term&condition">Terms & Conditions</a>
-          <a className='text-white text-center' href="/contact-us">Contact Us</a>
+          <Link className='text-white text-center' to="/privacy-policy">Privacy Policy</Link>
+          <Link className='text-white text-center' to="/refund-policy">Calcellation & Refund Policy</Link>
+          <Link className='text-white text-center' to="/term&condition">Terms & Conditions</Link>
+          <Link className='text-white text-center' to="/contact-us">Contact Us</Link>
         </div>
       </div>
     </div>
