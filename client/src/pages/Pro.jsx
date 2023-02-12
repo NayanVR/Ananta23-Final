@@ -9,12 +9,76 @@ import YourEvent from "../components/YourEvent";
 import { Dialog, Transition } from "@headlessui/react";
 import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
-import Passes from "./../assets/Passes.json";
+// import Passes from "./../assets/Passes.json";
 import { Link, useNavigate } from "react-router-dom";
 
 
 function Pro() {
-	const { currentUser, profile, setProfile } = useContext(AuthContext);
+
+	const Passes = {
+		"passes" : [
+			{
+				"id": "PS-G",
+				"name": "GOLD",
+				"markImg": "Gold.png",
+				"price": 3,
+				"features": [
+					"Access to All Events (INERTIA & SWOOSH)",
+					"Access to All Guest Lectures",
+					"Access to Zingaat : Cultural Events",
+					"500 Digital Wallet Points"
+				],
+				"color": "#FFDF00"
+			},
+			{
+				"id": "PS-S",
+				"name": "SILVER",
+				"markImg": "Silver.png",
+				"price": 2,
+				"features": [
+					"Access to any 3 Events (INERTIA & SWOOSH)",
+					"Access to any 2 Guest Lectures",
+					"Access to Zingaat : Cultural Events",
+					"300 Digital Wallet Points"
+				],
+				"color": "#C0C0C0"
+			},
+			{
+				"id": "PS-B",
+				"name": "BRONZE",
+				"markImg": "Bronze.png",
+				"price": 1,
+				"features": [
+					"Access to any 2 Events (INERTIA & SWOOSH)",
+					"Access to any 1 Guest Lecture",
+					"Access to Zingaat : Cultural Events",
+					"100 Digital Wallet Points"
+				],
+				"color": "#CD7F32"
+			},
+			{
+				"id": "PS-DJ",
+				"name": "ATMOS",
+				"markImg": "DJ.png",
+				"price": 4,
+				"features": [
+					"A night to groove on EDM beats. A spectacle not to MISS OUT!"
+				],
+				"color": "#88D20F"
+			},
+			{
+				"id": "PS-C",
+				"name": "COMBO",
+				"markImg": "Combo.png",
+				"price": 5,
+				"features": [
+					"All benefits of GOLD & ATMOS Pass"
+				],
+				"color": "#FFDF00"
+			}
+		]
+	}
+	const { currentUser, profile, setProfile, pass } = useContext(AuthContext);
 	let email_ = currentUser.email;
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
@@ -36,8 +100,16 @@ function Pro() {
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
 	const [passType, setPassType] = useState("");
-	const [passColor, setPassColor] = useState("");
-	const [passImg, setPassImg] = useState("");
+
+	const [dP, setDP] = useState(0);
+
+	const [totalEvents, setTotalEvents] = useState(0);
+	const [totalWorkshops, setTotalWorkshops] = useState(0);
+	const [totalGuests, setTotalGuests] = useState(0);
+
+	const [maxEvents, setMaxEvents] = useState(0);
+	const [maxWorkshops, setMaxWorkshops] = useState(0);
+	const [maxGuests, setMaxGuests] = useState(0);
 
 	const [registeredEvents, setRegisteredEvents] = useState([]);
 
@@ -63,13 +135,25 @@ function Pro() {
 
 	let allEvents = [];
 
+
 	useEffect(() => {
 		setEmail(currentUser.email);
-
+		console.log("Passes Details")
+		console.log(pass);
 		if (profile != {}) {
 			// const pro = JSON.parse(profile);
 			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
+				if (pass != {}) {
+					console.log(profile)
+					setPassType(pass.PassType);
+					setTotalEvents(profile.TotalEvents);
+					setMaxEvents(pass.EventsLimit)
+					setTotalWorkshops(profile.TotalWorkshops);
+					setMaxWorkshops(pass.WorkshopsLimit);
+					setTotalGuests(profile.TotalGuests);
+					setMaxGuests(pass.GuestsLimit)
+				}
 				setCanEdit(false);
 			} else if (profile.ProfileStatus == 0) {
 				setGuideProfile(true);
@@ -78,9 +162,21 @@ function Pro() {
 				setCanEdit(true);
 				firstnameRef.current.focus();
 			}
+
+			// Passes.passes.map((element) => {
+			// 	console.log("Ashish 2003 @")
+			// 	if (element["id"] == profile.PassCode) {
+			// 		setPassType(element["name"]);
+					// setPassColor(element["color"]);
+					// setPassImg(element["markImg"]);
+					// console.log(passImg);
+			// 	}
+			// });
 		} else {
 			setCanEdit(true);
 		}
+
+		
 		console.log(currentUser);
 		console.log(profile);
 	}, [profile]);
@@ -97,14 +193,7 @@ function Pro() {
 			});
 			const fetchdata = await data.json();
 
-			Passes.passes.map((element) => {
-				if (element["id"] == profile.PassCode) {
-					setPassType(element["name"]);
-					setPassColor(element["color"]);
-					setPassImg(element["markImg"]);
-					console.log(passImg);
-				}
-			});
+			
 			if (fetchdata.type == "success") {
 				allEvents = [];
 				fetchdata.data.solo.forEach((data) => {
@@ -142,6 +231,7 @@ function Pro() {
 
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
+		setDP(pro.DigitalPoints)
 	}
 
 	function handleSubmit(e) {
@@ -223,6 +313,13 @@ function Pro() {
 		const info = await unregister.json();
 		// console.log(info)
 		if (info.type == "success") {
+			if (eventCode.includes("IN") || eventCode.includes("SW")) {
+				setTotalEvents(() => totalEvents - 1)
+			} else if (eventCode.includes("EQ")) {
+				setTotalGuests(() => totalGuests - 1)
+			} else if (eventCode.includes("KK")) {
+				setTotalGuests(() => totalWorkshops - 1)
+			}
 			toast.success(info.message, { duration: 3000 });
 		} else {
 			toast.error(info.message, { duration: 3000 });
@@ -367,13 +464,13 @@ function Pro() {
 											<div className="text-s">
 												Digital Point :{" "}
 												<span className="font-bold">
-													{profile.ContactNo}{" "}
+													{dP}
 												</span>
 											</div>
 											<div className="text-s">
 												Events Registred :{" "}
-												<span className="font-bold">
-													3 Out of 5{" "}
+												<span>
+													<strong>{totalEvents}</strong> Out of <strong>{maxEvents}</strong>{" "}
 												</span>{" "}
 												({" "}
 												<span>
@@ -389,7 +486,7 @@ function Pro() {
 											<div className="text-s">
 												Guest Lec. Registred :{" "}
 												<span className="font-bold">
-													1 Out of 2{" "}
+													{totalGuests} Out of {maxGuests}{" "}
 												</span>{" "}
 												({" "}
 												<span>

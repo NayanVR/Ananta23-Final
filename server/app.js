@@ -176,15 +176,21 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
 	const [rows, f] = await conn.execute(
-		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname,ProfileImg, Gender, City, ContactNo, University, Branch, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
+		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, ProfileImg, TotalEvents, TotalGuests, TotalWorkshops, Gender, City, ContactNo, University, Branch, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
 	);
 
 	if (rows.length === 0) {
 		// console.log(rows);
-		return res.status(404).json({ message: {}, type: "error" });
+		return res.status(404).json({ message: {}, type: "error", pass: {} });
 	} else {
 		// console.log(rows[0]);
-		return res.status(200).json({ message: rows[0], type: "success" });
+		const [passRow, passField] = await conn.execute(`select * from Passes where PassCode = (Select PassCode from Passes where PassCode = '${rows[0].PassCode}')`)
+		if (passRow.length > 0) {
+			console.log(passRow[0]);
+			return res.status(200).json({ message: rows[0], type: "success", pass: passRow[0] });
+		}
+		return res.status(200).json({ message: rows[0], type: "success", pass: {} });
+
 	}
 });
 
@@ -424,7 +430,7 @@ app.post("/api/payment-callback", async (req, res) => {
 								))
 							) {
 								res.redirect(
-									`${process.env.REACT_URL}/paymentsuccess/${orderRow[0].OrderID}`
+									`${process.env.REACT_URL}/paymentsuccess`
 								);
 							} else {
 								res.redirect(

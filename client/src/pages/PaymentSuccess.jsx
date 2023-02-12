@@ -9,7 +9,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useEffect } from "react";
 
 function PaymentSuccess() {
-	const { value } = useParams();
+	// const { value } = useParams();
 
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
 
@@ -45,11 +45,11 @@ function PaymentSuccess() {
 			// console.log(typeof fetchdata);
 
 			setPayDetails(fetchdata);
-			if (PayDetails.length > 0) {
-				if (PayDetails[0].OrderID != value) {
-					location.href = "/";
-				}
-			}
+			// if (PayDetails.length > 0) {
+			// 	if (PayDetails[0].OrderID != value) {
+			// 		location.href = "/";
+			// 	}
+			// }
 
 			setTimeout(()=>{
 				setGuidePaySuccess(true);

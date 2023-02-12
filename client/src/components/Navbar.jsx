@@ -104,7 +104,7 @@ function Navbar() {
 								/>
 							</button>
 							<div className="dropdown-content right-0 br-3">
-								<Link to="/profile">Profile</Link>
+								<a href="/profile">Profile</a>
 								<a onClick={() => signOut(auth)}>Sign Out</a>
 							</div>
 						</button>
