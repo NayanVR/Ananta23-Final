@@ -55,14 +55,14 @@
 
 	"swoosh":[
 		{
-			"eventCode": "SW_IA",
+			"eventCode": "SW_IPL",
 			"name": "IPL AUCTION",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play your own team.",
 			"image": "ipl.png"
 
 		},
 		{
-			"eventCode": "SW_BS",
+			"eventCode": "SW_BBS",
 			"name": "BEG BORROW STEAL",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play yourown team.",
 			"image": "Beg.png"
@@ -94,34 +94,34 @@
 		},
 
 		{
-			"eventCode": "",
+			"eventCode": "SW_SOM",
 			"name": "Snake-O-Mystery",
 			"desc": "Snake-O-Mystery is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and ",
 			"image": "Snake.png"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "SW_MM",
 			"name":"Membric",
 			"desc": "Membric is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
 			"image":"membric.png"
 		},
 
 		{
-              "eventCode": "",
+              "eventCode": "SW_FF",
 			  "name": "Free Fire",
 			  "desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
 			  "image": "freefire.png"
 		},
 
 		{
-			"eventCode": "",
+			"eventCode": "SW_AB",
 			"name": "Anime Battle",
 			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
 			"image": "anime.png"
 		} , 
 
 		{
-			"eventCode": "",
+			"eventCode": "SW_v",
 			"name": "Valorant",
 			"desc": "Valorant is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
 			"image": "valo1.png"
@@ -129,7 +129,7 @@
 		},
 
 		{
-			"eventCode": "",
+			"eventCode": "SW_TH",
 			"name": "Treasure Hunt",
 			"desc": "Treasure Hunt is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
 			"image": "Thunt.png"
