@@ -14,7 +14,8 @@ function PassCard({ passInfo, buyClick }) {
         </div>
         <div>
           <h1 className='text-2xl text-center font-bold bg-gradient-to-b from-primary to-primary-dark-1 bg-clip-text text-transparent '>
-            ₹ {passInfo.price}
+            {/* ₹ {passInfo.price} */}
+            To be Revealed Soon
           </h1>
           <ul className='text-center'>
             {
@@ -24,7 +25,7 @@ function PassCard({ passInfo, buyClick }) {
             }
           </ul>
         </div>
-        <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 py-3 mt-4 w-full bg-primary-dark-1 font-heading font-bold text-white rounded-lg' onClick={() => { buyClick(passInfo.id) }}>BUY NOW</button>
+        {/* <button className='relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 py-3 mt-4 w-full bg-primary-dark-1 font-heading font-bold text-white rounded-lg' onClick={() => { buyClick(passInfo.id) }}>BUY NOW</button> */}
       </div>
     </>
   )
