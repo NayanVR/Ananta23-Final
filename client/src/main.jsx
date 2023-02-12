@@ -48,7 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/swoosh" element={<Swoosh />} />
           <Route path="/kalakriti" element={<KalaKriti />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/paymentsuccess" element={<PrivateRoute element={<PaymentSuccess />} />} />
+          <Route path="/paymentsuccess/:value" element={<PrivateRoute element={<PaymentSuccess />} />} />
           <Route path="/paymentfail" element={<PrivateRoute element={<PaymentFail />} />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

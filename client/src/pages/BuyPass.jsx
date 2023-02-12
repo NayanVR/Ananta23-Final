@@ -167,17 +167,6 @@ function BuyPass() {
 			check.message == "Upgrade Pass"
 		) {
 			makePayment(amt, profile.Email, passCode);
-			// const buyit = await fetch(serverURL + "/api/secure/pass/buy", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		Authorization: "Bearer " + currentUser.accessToken,
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify({ PID, passCode, amt }),
-			// });
-			// const info = await buyit.json();
-			// console.log(info);
-			// console.log("Making Payment");
 		} else if (check.type === "error") {
 			toast.error(check.message, { duration: 3000 });
 		}

@@ -9,9 +9,6 @@ const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
 const middleware = require("./middleware");
-// const fs = require("fs");
-
-// console.log(__dirname);
 const {
 	checkEvent,
 	registerSoloEvent,
@@ -427,7 +424,7 @@ app.post("/api/payment-callback", async (req, res) => {
 								))
 							) {
 								res.redirect(
-									`${process.env.REACT_URL}/paymentsuccess`
+									`${process.env.REACT_URL}/paymentsuccess/${orderRow[0].OrderID}`
 								);
 							} else {
 								res.redirect(

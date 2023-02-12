@@ -10,12 +10,16 @@ import { Dialog, Transition } from "@headlessui/react";
 import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
 import Passes from "./../assets/Passes.json";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Pro() {
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
 	let email_ = currentUser.email;
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
+
+	const navigate = useNavigate();
 
 	const [canEdit, setCanEdit] = useState(false);
 
@@ -333,8 +337,7 @@ function Pro() {
 											<button
 												className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
 												onClick={(_) => {
-													window.location.href =
-														"/buypass";
+													navigate("/buypass");
 												}}
 											>
 												Buy&nbsp;Pass
@@ -343,8 +346,7 @@ function Pro() {
 											<button
 												className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
 												onClick={(_) => {
-													window.location.href =
-														"/buypass";
+													navigate("/buypass");
 												}}
 											>
 												Book&nbsp;Workshops
@@ -1097,7 +1099,7 @@ function Pro() {
 
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
-											Now, you can move forward and Buy a Pass of your choice.<br /> <br />Would you like to go to the Buy Pass page?
+											Now, you can move forward and can <strong>Buy a Pass</strong> of your choice.<br /> <br />Would you like to go to the Buy Pass page?
 										</p>
 									</div>
 
