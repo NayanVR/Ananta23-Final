@@ -453,8 +453,6 @@ app.post("/api/payment-callback", async (req, res) => {
 		}
 	});
 
-	// return res.status(200).json({ message: "Payment Callback", type: "success" })
-	// res.redirect(`${process.env.CLIENT_URL}/buypass`)
 });
 
 app.post("/api/payment/checkPaymentStatus", async (req, res) => {
