@@ -32,37 +32,37 @@ function Navbar() {
 						<CustomLink to="/">Home</CustomLink>
 						<DropDown title="Events">
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start px-6 py-2 hover:bg-gray-100"
 								to="/inertia"
 							>
-								Inertia (Technical)
+								Inertia (Technical Events)
 							</Link>
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
 								to="/swoosh"
 							>
-								Swoosh (Non-Technical)
+								Swoosh (Non-Technical Events)
 							</Link>
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
 								to="/upshot"
 							>
-								Upshot (Fun)
+								Upshot (Fun Events)
 							</Link>
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
 								to="/zingaat"
 							>
 								Zingaat (Cultural Night)
 							</Link>
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
 								to="/kalakriti"
 							>
 								Kala Kriti (Workshops)
 							</Link>
 							<Link
-								className="font-thin px-6 py-2 hover:bg-gray-100"
+								className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
 								to="/equilibrium"
 							>
 								Equilibrium (Guest Lectures)
