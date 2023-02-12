@@ -8,14 +8,32 @@ import Instagram from '../assets/icons/Insta_icon.svg'
 import Linkedin from '../assets/icons/linkedin_icon.svg'
 import Facebook from '../assets/icons/Facebook_icon.svg'
 import Location from '../assets/icons/Location_icon.svg'
+import { toast } from 'react-hot-toast'
 
 function Footer() {
 
   const [email, setEmail] = useState('')
   const [query, setQuery] = useState('')
 
-  function handleSubmit(e) {
+  const serverURL = import.meta.env.VITE_SERVER_URL;
+
+  async function handleSubmit(e) {
     e.preventDefault()
+    const res = await fetch(serverURL + "/api/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, query }),
+    });
+    const data = await res.json();
+    if (res.status === 200) {
+      setEmail('')
+      setQuery('')
+      toast.success(data.message)
+    } else {
+      toast.error(data.message)
+    }
   }
 
   return (
@@ -28,14 +46,14 @@ function Footer() {
             Vadodara - 391750, Gujarat, India</p>
           <h2 className='font-heading font-bold mt-6 text-2xl text-primary md:text-left text-center'>Contact</h2>
           <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
-            Phone No : <a href="https://wa.me/+918140390836">+918140390836</a> / 
-                   <a href="https://wa.me/+916359812434"> +916359812434</a>
+            Phone No : <a href="https://wa.me/+918140390836">+918140390836</a> /
+            <a href="https://wa.me/+916359812434"> +916359812434</a>
           </p>
           <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
             Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a> <br />
-                   <a className='ml-14' href="mailto:support@anantagsfcu.in">support@anantagsfcu.in</a>
+            <a className='ml-14' href="mailto:support@anantagsfcu.in">support@anantagsfcu.in</a>
           </p>
-         
+
         </div>
         <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
           <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />
