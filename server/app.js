@@ -24,6 +24,7 @@ const { makePayment } = require("./payment");
 const { sendResetPassEmail, getParticipantID } = require("./util");
 const { buyPassMail } = require("./db/mails");
 
+
 const app = express();
 const port = process.env.PORT || 3000;
 let conn;
@@ -84,10 +85,44 @@ app.post("/api/query", async (req, res) => {
 
 	console.log(email, query);
 
-	return res.status(200).json({
-		message: "Query Submitted",
-		type: "success",
-	});
+	const [addQueryRow, addQueryField] = await conn.execute(
+		`INSERT INTO Queries (Email, Query) VALUES ('${email}', '${query}')`
+	);
+
+	if (addQueryRow) {
+		console.log("Success");
+		transporter.sendMail(
+			{
+				from: `Ananta <${process.env.NODEMAILER_EMAIL}>`,
+				to: process.env.NODEMAILER_EMAIL,
+				subject: "Query",
+				template: "Query",
+				context: {
+					email: email,
+					query: query,
+				},
+			},
+			(error, info) => {
+				if (error) {
+					console.log("Mail not sent");
+					return res.status(500).json({
+						message: "Internal Server Error",
+						type: "error",
+					});
+				} else {
+					return res.status(200).json({
+						message: "Query Submitted",
+						type: "success",
+					});
+				}
+			}
+		);
+	} else {
+		return res.status(500).json({
+			message: "Internal Server Error",
+			type: "error",
+		});
+	}
 });
 
 // OTP Logic
@@ -196,13 +231,18 @@ app.get("/api/secure/get-profile", async (req, res) => {
 		return res.status(404).json({ message: {}, type: "error", pass: {} });
 	} else {
 		// console.log(rows[0]);
-		const [passRow, passField] = await conn.execute(`select * from Passes where PassCode = (Select PassCode from Passes where PassCode = '${rows[0].PassCode}')`)
+		const [passRow, passField] = await conn.execute(
+			`select * from Passes where PassCode = (Select PassCode from Passes where PassCode = '${rows[0].PassCode}')`
+		);
 		if (passRow.length > 0) {
 			console.log(passRow[0]);
-			return res.status(200).json({ message: rows[0], type: "success", pass: passRow[0] });
+			return res
+				.status(200)
+				.json({ message: rows[0], type: "success", pass: passRow[0] });
 		}
-		return res.status(200).json({ message: rows[0], type: "success", pass: {} });
-
+		return res
+			.status(200)
+			.json({ message: rows[0], type: "success", pass: {} });
 	}
 });
 
@@ -464,9 +504,6 @@ app.post("/api/payment-callback", async (req, res) => {
 			post_req.end();
 		}
 	});
-
-	// return res.status(200).json({ message: "Payment Callback", type: "success" })
-	// res.redirect(`${process.env.CLIENT_URL}/buypass`)
 });
 
 app.post("/api/payment/checkPaymentStatus", async (req, res) => {

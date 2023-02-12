@@ -9,8 +9,11 @@ import Linkedin from '../assets/icons/linkedin_icon.svg'
 import Facebook from '../assets/icons/Facebook_icon.svg'
 import Location from '../assets/icons/Location_icon.svg'
 import { toast } from 'react-hot-toast'
+import {HashLoader} from "react-spinners/HashLoader"
 
 function Footer() {
+
+  const [spin, setSpin] = useState(false);
 
   const [email, setEmail] = useState('')
   const [query, setQuery] = useState('')
@@ -27,6 +30,7 @@ function Footer() {
       body: JSON.stringify({ email, query }),
     });
     const data = await res.json();
+    console.log(data);
     if (res.status === 200) {
       setEmail('')
       setQuery('')
@@ -81,7 +85,8 @@ function Footer() {
           <form onSubmit={handleSubmit} className='flex flex-col'>
             <input onChange={e => setEmail(e.target.value)} value={email} type="email" placeholder="Email" className='px-4 py-2 border border-b-0 rounded-t-lg' required />
             <textarea onChange={e => setQuery(e.target.value)} value={query} placeholder="Type your query" className='px-4 py-2 h-24 border resize-none' style={{ scrollbarWidth: 'thin' }} required name="query"></textarea>
-            <button className='py-2 bg-primary-dark-1 text-white rounded-b-lg' type="submit">SUBMIT</button>
+            <button className='py-2 bg-primary-dark-1 text-white rounded-b-lg' type="submit">
+              SUBMIT</button>
           </form>
         </div>
       </footer>
