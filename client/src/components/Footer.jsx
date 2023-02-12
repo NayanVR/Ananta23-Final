@@ -28,8 +28,14 @@ function Footer() {
             Vadodara - 391750, Gujarat, India</p>
           <h2 className='font-heading font-bold mt-6 text-2xl text-primary md:text-left text-center'>Contact</h2>
           <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
-            Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a>
+            Phone No : <a href="https://wa.me/+918140390836">+918140390836</a> / 
+                   <a href="https://wa.me/+916359812434"> +916359812434</a>
           </p>
+          <p className='text-primary-dark-2 mt-2 md:text-left text-center'>
+            Email : <a href="mailto:ananta@gsfcuniversity.ac.in">ananta@gsfcuniversity.ac.in </a> <br />
+                   <a className='ml-14' href="mailto:support@anantagsfcu.in">support@anantagsfcu.in</a>
+          </p>
+         
         </div>
         <div className='min-w-[18rem] max-w-xl w-full flex-1 flex flex-col gap-4 justify-center items-center'>
           <img className='w-1/2' src={GSFCULogo} alt="Gsfcu Logo" />

@@ -6,32 +6,38 @@ function Events() {
 
     const events = [
         {
-            title: "Inertia",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            title: "Inertia ",
+            sub: "Technical Event",
+            desc: "Technical Skills are mastery of complexity, sharpen up your knowledge with a series of fun yet competitive events.",
             link: "/inertia"
         },
         {
             title: "Swoosh",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            sub: "Non-Technical Event",
+            desc: "Time for you to be street smart as well as book smart, prove that you are the smartest person in the room and bring out your soft skills to use.",
             link: "/swoosh"
         },
         {
             title: "Upshot",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            sub: "Fun Event",
+            desc: "Take a break from the daily ups and downs of life with these carnivalesque events and go downmemory lane.",
             link: "/upshot"
         },
         {
             title: "Zingaat",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            sub: "Cultural Night",
+            desc: "Creativity can be contagious, and it won’t just wait for the perfect moment. Join in the cultural event one of its kind packed with loads of cheers and flashes.",
             link: "/zingaat"
         },
         {
             title: "Kalakriti",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            sub: "Workshops",
+            desc: "Get introduced to new ideas, feel inspired to further explore concepts on your own, and illustrate them in a hands-on manner",
             link: "/kalakriti"
         },
         {
             title: "Equilibrium",
+            sub: "Guest Lectures",
             desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
             link: "/equilibrium"
         },
@@ -44,7 +50,7 @@ function Events() {
                     Events
                 </h1>
                 <div className='flex justify-between flex-wrap gap-12'>
-                    {events.map((item, index) => <EventChip title={item.title} desc={item.desc} link={item.link} key={index} />)}
+                    {events.map((item, index) => <EventChip title={item.title} desc={item.desc} link={item.link} sub={item.sub} key={index} />)}
                 </div>
             </div>
         </section>
