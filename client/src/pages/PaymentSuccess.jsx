@@ -21,13 +21,13 @@ function PaymentSuccess() {
 
 	const server_URL = import.meta.env.VITE_SERVER_URL;
 	const email = currentUser.email;
-	console.log(email);
+	// console.log(email);
 
 	useEffect(() => {
 		const getdetails = async () => {
-			console.log("Profile TXN Status", profile.TxnStatus);
+			// console.log("Profile TXN Status", profile.TxnStatus);
 			// if (profile.TxnStatus != "TXN_SUCCESS") location.href = '/';
-			console.log("varada");
+			// console.log("varada");
 			const data = await fetch(
 				server_URL + "/api/payment/checkPaymentStatus",
 				{
@@ -40,9 +40,9 @@ function PaymentSuccess() {
 				}
 			);
 			const fetchdata = await data.json();
-			console.log("ashishalkjsdlfjafjlsadfljasd;jk");
-			console.log(fetchdata);
-			// console.log(typeof fetchdata);
+			// console.log("ashishalkjsdlfjafjlsadfljasd;jk");
+			// console.log(fetchdata);
+			// // console.log(typeof fetchdata);
 
 			setPayDetails(fetchdata);
 			// if (PayDetails.length > 0) {
@@ -67,7 +67,7 @@ function PaymentSuccess() {
 	}
 
 	
-	console.log(PayDetails);
+	// console.log(PayDetails);
 
 	return (
 		<div className="w-full h-[calc(100vh-4rem)] flex justify-center items-center ">
@@ -83,7 +83,9 @@ function PaymentSuccess() {
 					</h1>
 					<div className="">
 						<div className="">
-							{console.log(PayDetails)}
+							{
+							// console.log(PayDetails)
+							}
 							{PayDetails.length != 0 ? (
 								PayDetails.map((data) => {
 									return (

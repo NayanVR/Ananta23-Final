@@ -36,7 +36,7 @@ function Swoosh() {
 	let [selectedEventName, setSelectedEventName] = useState();
 
 	async function handleResposnse(eventCode, eventName) {
-		console.log(eventName, eventCode);
+		// console.log(eventName, eventCode);
 
 		if (!currentUser) {
 			navigate("/login");
@@ -52,7 +52,7 @@ function Swoosh() {
 			body: JSON.stringify({ eventCode, email }),
 		});
 		const response = await check.json();
-		console.log(response);
+		// console.log(response);
 
 		setSelectedEventName(eventName);
 		setSelectedEventCode(eventCode);
@@ -95,7 +95,7 @@ function Swoosh() {
 			}
 		);
 		const response = await solo.json();
-		console.log(response);
+		// console.log(response);
 		if (response.type == "success") {
 			toast.success(response.message, { duration: 3000 });
 			closeModal();
@@ -163,7 +163,7 @@ function Swoosh() {
 			}
 		);
 		const response = await teamInfo.json();
-		console.log(response);
+		// console.log(response);
 		if (response.type == "success") {
 			setLeader(response.teamLeader);
 			setTeamName(response.teamName);
@@ -174,7 +174,7 @@ function Swoosh() {
 	}
 
 	function viewDetails(eventCode) {
-		console.log(eventCode);
+		// console.log(eventCode);
 	}
 
 	function closeModal() {

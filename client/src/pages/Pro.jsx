@@ -1,4 +1,10 @@
-import React, { useRef, useState, Fragment, useContext, useEffect } from "react";
+import React, {
+	useRef,
+	useState,
+	Fragment,
+	useContext,
+	useEffect,
+} from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -12,72 +18,68 @@ import a_logo from "../assets/icons/faviconANA.svg";
 // import Passes from "./../assets/Passes.json";
 import { Link, useNavigate } from "react-router-dom";
 
-
 function Pro() {
-
 	const Passes = {
-		"passes" : [
+		passes: [
 			{
-				"id": "PS-G",
-				"name": "GOLD",
-				"markImg": "Gold.png",
-				"price": 3,
-				"features": [
+				id: "PS-G",
+				name: "GOLD",
+				markImg: "Gold.png",
+				price: 3,
+				features: [
 					"Access to All Events (INERTIA & SWOOSH)",
 					"Access to All Guest Lectures",
 					"Access to Zingaat : Cultural Events",
-					"500 Digital Wallet Points"
+					"500 Digital Wallet Points",
 				],
-				"color": "#FFDF00"
+				color: "#FFDF00",
 			},
 			{
-				"id": "PS-S",
-				"name": "SILVER",
-				"markImg": "Silver.png",
-				"price": 2,
-				"features": [
+				id: "PS-S",
+				name: "SILVER",
+				markImg: "Silver.png",
+				price: 2,
+				features: [
 					"Access to any 3 Events (INERTIA & SWOOSH)",
 					"Access to any 2 Guest Lectures",
 					"Access to Zingaat : Cultural Events",
-					"300 Digital Wallet Points"
+					"300 Digital Wallet Points",
 				],
-				"color": "#C0C0C0"
+				color: "#C0C0C0",
 			},
 			{
-				"id": "PS-B",
-				"name": "BRONZE",
-				"markImg": "Bronze.png",
-				"price": 1,
-				"features": [
+				id: "PS-B",
+				name: "BRONZE",
+				markImg: "Bronze.png",
+				price: 1,
+				features: [
 					"Access to any 2 Events (INERTIA & SWOOSH)",
 					"Access to any 1 Guest Lecture",
 					"Access to Zingaat : Cultural Events",
-					"100 Digital Wallet Points"
+					"100 Digital Wallet Points",
 				],
-				"color": "#CD7F32"
+				color: "#CD7F32",
 			},
 			{
-				"id": "PS-DJ",
-				"name": "ATMOS",
-				"markImg": "DJ.png",
-				"price": 4,
-				"features": [
-					"A night to groove on EDM beats. A spectacle not to MISS OUT!"
+				id: "PS-DJ",
+				name: "ATMOS",
+				markImg: "DJ.png",
+				price: 4,
+				features: [
+					"A night to groove on EDM beats. A spectacle not to MISS OUT!",
 				],
-				"color": "#88D20F"
+				color: "#88D20F",
 			},
 			{
-				"id": "PS-C",
-				"name": "COMBO",
-				"markImg": "Combo.png",
-				"price": 5,
-				"features": [
-					"All benefits of GOLD & ATMOS Pass"
-				],
-				"color": "#FFDF00"
-			}
-		]
-	}
+				id: "PS-C",
+				name: "COMBO",
+				markImg: "Combo.png",
+				price: 5,
+				features: ["All benefits of GOLD & ATMOS Pass"],
+				color: "#FFDF00",
+			},
+		],
+	};
 	const { currentUser, profile, setProfile, pass } = useContext(AuthContext);
 	let email_ = currentUser.email;
 
@@ -135,50 +137,47 @@ function Pro() {
 
 	let allEvents = [];
 
-
 	useEffect(() => {
 		setEmail(currentUser.email);
-		console.log("Passes Details")
-		console.log(pass);
+		// console.log("Passes Details")
+		// console.log(pass);
 		if (profile != {}) {
 			// const pro = JSON.parse(profile);
 			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
 				if (pass != {}) {
-					console.log(profile)
+					// console.log(profile)
 					setPassType(pass.PassType);
 					setTotalEvents(profile.TotalEvents);
-					setMaxEvents(pass.EventsLimit)
+					setMaxEvents(pass.EventsLimit);
 					setTotalWorkshops(profile.TotalWorkshops);
 					setMaxWorkshops(pass.WorkshopsLimit);
 					setTotalGuests(profile.TotalGuests);
-					setMaxGuests(pass.GuestsLimit)
+					setMaxGuests(pass.GuestsLimit);
 				}
 				setCanEdit(false);
 			} else if (profile.ProfileStatus == 0) {
 				setGuideProfile(true);
-			} 
-			else {
+			} else {
 				setCanEdit(true);
 				firstnameRef.current.focus();
 			}
 
 			// Passes.passes.map((element) => {
-			// 	console.log("Ashish 2003 @")
+			// 	// console.log("Ashish 2003 @")
 			// 	if (element["id"] == profile.PassCode) {
 			// 		setPassType(element["name"]);
-					// setPassColor(element["color"]);
-					// setPassImg(element["markImg"]);
-					// console.log(passImg);
+			// setPassColor(element["color"]);
+			// setPassImg(element["markImg"]);
+			// // console.log(passImg);
 			// 	}
 			// });
 		} else {
 			setCanEdit(true);
 		}
 
-		
-		console.log(currentUser);
-		console.log(profile);
+		// console.log(currentUser);
+		// console.log(profile);
 	}, [profile]);
 
 	useEffect(() => {
@@ -193,7 +192,6 @@ function Pro() {
 			});
 			const fetchdata = await data.json();
 
-			
 			if (fetchdata.type == "success") {
 				allEvents = [];
 				fetchdata.data.solo.forEach((data) => {
@@ -208,7 +206,7 @@ function Pro() {
 		};
 
 		fetchEvents();
-		console.log(registeredEvents);
+		// console.log(registeredEvents);
 	}, [reloadEvents]);
 
 	function updateProfile(pro) {
@@ -227,15 +225,15 @@ function Pro() {
 		setGender(pro.Gender);
 		setCity(pro.City);
 
-		console.log("participantID: ", pid);
+		// console.log("participantID: ", pid);
 
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
-		setDP(pro.DigitalPoints)
+		setDP(pro.DigitalPoints);
 	}
 
 	function handleSubmit(e) {
-		// console.log(e)
+		// // console.log(e)
 		e.preventDefault();
 		setCanEdit(false);
 
@@ -270,7 +268,7 @@ function Pro() {
 							.then((res) => res.json())
 							.then((data) => {
 								toast.success("Profile updated successfully!");
-								if (profile.ProfileStatus == 0){
+								if (profile.ProfileStatus == 0) {
 									setGuideBuyPass(true);
 								}
 								setProfile(data.message);
@@ -288,7 +286,7 @@ function Pro() {
 					}
 				})
 				.catch((err) => {
-					// console.log(err);
+					// // console.log(err);
 					setCanEdit(true);
 				});
 		});
@@ -311,14 +309,14 @@ function Pro() {
 		});
 
 		const info = await unregister.json();
-		// console.log(info)
+		// // console.log(info)
 		if (info.type == "success") {
 			if (eventCode.includes("IN") || eventCode.includes("SW")) {
-				setTotalEvents(() => totalEvents - 1)
+				setTotalEvents(() => totalEvents - 1);
 			} else if (eventCode.includes("EQ")) {
-				setTotalGuests(() => totalGuests - 1)
+				setTotalGuests(() => totalGuests - 1);
 			} else if (eventCode.includes("KK")) {
-				setTotalGuests(() => totalWorkshops - 1)
+				setTotalGuests(() => totalWorkshops - 1);
 			}
 			toast.success(info.message, { duration: 3000 });
 		} else {
@@ -326,7 +324,7 @@ function Pro() {
 		}
 		closeModal();
 		setReloadEvents(!reloadEvents);
-		console.log(registeredEvents.length);
+		// console.log(registeredEvents.length);
 		if (registeredEvents.length == 1) {
 			window.location.href = "profile";
 		}
@@ -353,7 +351,7 @@ function Pro() {
 	}
 
 	function infoEvent(info, color) {
-		console.log(info);
+		// console.log(info);
 
 		setIsOpen(true);
 		setIsView(true);
@@ -377,7 +375,7 @@ function Pro() {
 
 	function closeModal() {
 		setIsOpen(false);
-		setGuideBuyPass(false)
+		setGuideBuyPass(false);
 	}
 	function closeGuideProfile() {
 		setGuideProfile(false);
@@ -399,10 +397,10 @@ function Pro() {
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
 									{profile.Firstname != null &&
-										profile.Lastname != null
+									profile.Lastname != null
 										? profile.Firstname +
-										" " +
-										profile.Lastname
+										  " " +
+										  profile.Lastname
 										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
@@ -427,7 +425,8 @@ function Pro() {
 								{txnStatus != "TXN_SUCCESS" ? (
 									<div className="flex flex-col m-2 gap-3 justify-center items-center">
 										<p className="text-lg text-center">
-											You can start Events registration after buying a pass...
+											You can start Events registration
+											after buying a pass...
 										</p>
 
 										<div className="flex gap-6 justify-center items-center">
@@ -470,7 +469,11 @@ function Pro() {
 											<div className="text-s">
 												Events Registred :{" "}
 												<span>
-													<strong>{totalEvents}</strong> Out of <strong>{maxEvents}</strong>{" "}
+													<strong>
+														{totalEvents}
+													</strong>{" "}
+													Out of{" "}
+													<strong>{maxEvents}</strong>{" "}
 												</span>{" "}
 												({" "}
 												<span>
@@ -486,7 +489,8 @@ function Pro() {
 											<div className="text-s">
 												Guest Lec. Registred :{" "}
 												<span className="font-bold">
-													{totalGuests} Out of {maxGuests}{" "}
+													{totalGuests} Out of{" "}
+													{maxGuests}{" "}
 												</span>{" "}
 												({" "}
 												<span>
@@ -610,7 +614,6 @@ function Pro() {
 											onChange={(e) => {
 												setFName(e.target.value);
 											}}
-											
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
 										/>
 									</div>
@@ -830,8 +833,7 @@ function Pro() {
 					</div>
 				</div>
 			</div>
-								
-			
+
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={closeModal}>
 					<Transition.Child
@@ -1049,14 +1051,14 @@ function Pro() {
 
 															{role ==
 																"Leader" && (
-																	<div
-																		className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
-																	>
-																		<label className="text-[0.8rem] block font-medium text-gray-700">
-																			Members
-																		</label>
-																	</div>
-																)}
+																<div
+																	className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+																>
+																	<label className="text-[0.8rem] block font-medium text-gray-700">
+																		Members
+																	</label>
+																</div>
+															)}
 														</div>
 													)}
 												</p>
@@ -1085,10 +1087,13 @@ function Pro() {
 				</Dialog>
 			</Transition>
 
-			
 			{/* Guide for Completing the Profile First... */}
 			<Transition appear show={guideProfile} as={Fragment}>
-				<Dialog as="div" className="relative z-10" onClose={closeGuideProfile}>
+				<Dialog
+					as="div"
+					className="relative z-10"
+					onClose={closeGuideProfile}
+				>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-300"
@@ -1125,17 +1130,20 @@ function Pro() {
 
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
-											Please Fill the Information to complete the Profile.
+											Please Fill the Information to
+											complete the Profile.
 										</p>
 										<br />
 										<p className="text-center text-sm font-semibold text-gray-500">
-											<span>NOTE: </span><br />Please provide correct Firstname & Lastname as it is going to there in the Pass your are going to buy.
+											<span>NOTE: </span>
+											<br />
+											Please provide correct Firstname &
+											Lastname as it is going to there in
+											the Pass your are going to buy.
 										</p>
 									</div>
 
-									<div className="mt-2">
-										
-									</div>
+									<div className="mt-2"></div>
 
 									<div className="flex m-auto w-min mt-4">
 										<div className="mx-4">
@@ -1145,8 +1153,7 @@ function Pro() {
 												style={{ margin: "auto" }}
 												onClick={closeGuideProfile}
 											>
-													<label> Ok </label>
-												
+												<label> Ok </label>
 											</button>
 										</div>
 									</div>
@@ -1196,13 +1203,16 @@ function Pro() {
 
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
-											Now, you can move forward and can <strong>Buy a Pass</strong> of your choice.<br /> <br />Would you like to go to the Buy Pass page?
+											Now, you can move forward and can{" "}
+											<strong>Buy a Pass</strong> of your
+											choice.
+											<br /> <br />
+											Would you like to go to the Buy Pass
+											page?
 										</p>
 									</div>
 
-									<div className="mt-2">
-										
-									</div>
+									<div className="mt-2"></div>
 
 									<div className="flex m-auto w-min mt-4">
 										<div className="mx-4">
@@ -1210,10 +1220,11 @@ function Pro() {
 												type="button"
 												className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#012C3D] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
 												style={{ margin: "auto" }}
-												onClick={() => location.href = '/buypass'}
+												onClick={() =>
+													(location.href = "/buypass")
+												}
 											>
-													<label> Go </label>
-												
+												<label> Go </label>
 											</button>
 										</div>
 									</div>
@@ -1223,8 +1234,6 @@ function Pro() {
 					</div>
 				</Dialog>
 			</Transition>
-
-
 		</div>
 	);
 }

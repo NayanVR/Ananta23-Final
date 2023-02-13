@@ -39,12 +39,12 @@ app.use(middleware.decodeToken);
 app.use(express.static(path.join(__dirname, "dist")));
 
 let date_nz = new Date(
-	new Date().toLocaleString("en-in", { timeZone: "Asia/Calcutta" })
+	new Date().toLocaleString("en-us", { timeZone: "Asia/Calcutta" })
 );
 
-const timestamp = `${date_nz.getFullYear()}-${("0" + date_nz.getDate()).slice(
+const timestamp = `${date_nz.getFullYear()}-${("0" + (date_nz.getMonth() + 1)).slice(-2)}-${("0" + date_nz.getDate()).slice(
 	-2
-)}-${("0" + (date_nz.getMonth() + 1)).slice(-2)} ${(
+)} ${(
 	"0" + date_nz.getHours()
 ).slice(-2)}:${("0" + date_nz.getMinutes()).slice(-2)}:${(
 	"0" + date_nz.getSeconds()

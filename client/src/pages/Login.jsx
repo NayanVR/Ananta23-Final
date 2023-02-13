@@ -32,7 +32,7 @@ function Login() {
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				console.log(user);
+				// console.log(user);
 				window.location.href = "/";
 			})
 			.catch((error) => {
@@ -40,7 +40,7 @@ function Login() {
 					.split("/")[1]
 					.replace(").", "");
 				let errorMessage = () => {
-					console.log(firebaseMessage);
+					// console.log(firebaseMessage);
 					if (firebaseMessage == "user-not-found") {
 						return "User not found!!!";
 					} else if (firebaseMessage == "wrong-password") {
@@ -64,7 +64,7 @@ function Login() {
 			body: JSON.stringify({ email }),
 		});
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 
 		if (data.type == "error" || data.type == "info") {
 			toast.error(data.message, { duration: 3000 });
@@ -79,7 +79,7 @@ function Login() {
 				.catch((error) => {
 					const errorCode = error.code;
 					const errorMessage = error.message;
-					console.log(error);
+					// console.log(error);
 					toast.error(error, {duration: 10000})
 					// ..
 				});
@@ -105,13 +105,13 @@ function Login() {
 		e.preventDefault();
 
 		const res = await signInWithPopup(auth, provider);
-		console.log(res);
+		// console.log(res);
 		const email = res.user.email;
 		const photoURL = res.user.photoURL;
 		const data = await createProfile(email, photoURL);
-		console.log(data);
+		// console.log(data);
 		if (data.type === "success") {
-			console.log('success')
+			// console.log('success')
 			window.location.href = "/";
 		} else {
 			toast.error(data.message, { duration: 3000 });

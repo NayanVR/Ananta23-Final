@@ -15,7 +15,7 @@ function BuyPass() {
 	const navigate = useNavigate();
 	const { currentUser, profile, setProfile } = useContext(AuthContext);
 
-	console.log(profile);
+	// console.log(profile);
 	const serverURL = import.meta.env.VITE_SERVER_URL;
 
 	const passes = [
@@ -93,7 +93,7 @@ function BuyPass() {
 		form.setAttribute("action", action);
 
 		Object.keys(params).forEach((key) => {
-			// console.log(params)
+			// // console.log(params)
 			const input = document.createElement("input");
 			input.setAttribute("type", "hidden");
 			input.setAttribute("name", key);
@@ -121,13 +121,16 @@ function BuyPass() {
 			body: JSON.stringify(data),
 		})
 			.then((response) => response.json())
-			.catch((err) => console.log(err));
+			.catch((err) => {
+			// console.log(err)
+			}
+			);
 	};
 
 	const makePayment = (amt, clientEmail, pass) => {
 		getData({ amount: amt.toString(), email: clientEmail, passCode: pass }).then(
 			(response) => {
-				console.log(response);
+				// console.log(response);
 
 				let information = {
 					action: "https://securegw.paytm.in/order/process",
@@ -146,7 +149,7 @@ function BuyPass() {
 
 
 		const PID = profile.ParticipantID;
-		console.log(profile.ParticipantID);
+		// console.log(profile.ParticipantID);
 
 		const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
 			method: "POST",
@@ -157,7 +160,7 @@ function BuyPass() {
 			body: JSON.stringify({ passCode, PID }),
 		});
 		const check = await res.json();
-		console.log(check);
+		// console.log(check);
 		const amt = await check.payAmount;
 
 		if (check.message == "Profile Not Completed") {

@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            console.log(data.pass)
+                            // console.log(data.pass)
                             setPass(data.pass)
                             setProfile(data.message)
                         })
