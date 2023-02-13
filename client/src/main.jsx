@@ -32,6 +32,7 @@ import Equilibrium from './pages/Equilibrium';
 import Upshot from './pages/Upshot';
 import Zingaat from './pages/Zingaat';
 import Partners from './pages/Partners';
+import PageNotFound from './pages/PageNotFound';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -53,7 +54,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/paymentsuccess" element={<PrivateRoute element={<PaymentSuccess />} />} />
           <Route path="/paymentfail" element={<PrivateRoute element={<PaymentFail />} />} />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term&condition" element={<TermCondition />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
