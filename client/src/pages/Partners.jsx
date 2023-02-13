@@ -9,7 +9,7 @@ function Partners() {
             <h1 className="font-heading text-6xl text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                 Our Partners
             </h1>
-            <div className="flex gap-10 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
+            <div className="flex gap-6 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
                 {PartnersData.Partners.map((info, index) => (
                     <PartnersCard info={info} key={index} />
                 ))}
@@ -21,7 +21,7 @@ function Partners() {
             <h1 className="font-heading text-6xl text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                 Past Partners
             </h1>
-            <div className="flex gap-10 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
+            <div className="flex gap-9 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
                 {PartnersData.Partner2.map((info, index) => (
                     <PartnersCard info={info} key={index} />
                 ))}
@@ -37,7 +37,7 @@ function Partners() {
 
 function PartnersCard({ info }) {
     return (
-        <div className="flex p-8 justify-center  sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
+        <div className="flex p-12 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
             <img src={`/partner/${info.image}`} className='h-20 items-center' alt="" />
             {/* <h1 className=" text-bold text-center text-2xl font-semibold">{info.role}</h1> */}
         </div>

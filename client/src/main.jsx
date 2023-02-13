@@ -65,8 +65,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/equilibrium" element={<Equilibrium />} />
           <Route path="/upshot" element={<Upshot />} />
           <Route path="/zingaat" element={<Zingaat />} />
-          <Route path="/partners" element={<Partners />} />
-
+          <Route path="/our-partners" element={<Partners />} />
         </Routes>
         <Footer />
       </BrowserRouter>
