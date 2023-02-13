@@ -42,11 +42,11 @@ function Login() {
 				let errorMessage = () => {
 					// console.log(firebaseMessage);
 					if (firebaseMessage == "user-not-found") {
-						return "User not found!!!";
+						return "User not found!";
 					} else if (firebaseMessage == "wrong-password") {
-						return "Wrong Password!!!";
+						return "Incorrect Password!";
 					} else {
-						return "Invalid Credentials...";
+						return "Invalid Credentials!";
 					}
 				};
 				toast.error(errorMessage, { duration: 3000 });

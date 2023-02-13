@@ -445,7 +445,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 			) {
 				return {
 					code: 200,
-					message: "Registration Complete...",
+					message: "Registration Successful...",
 					type: "success",
 				};
 			}
@@ -456,7 +456,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 				type: "error",
 			};
 		}
-		return { code: 500, message: "SQL insert error", type: "error" };
+		return { code: 500, message: "SQL Insert Error", type: "error" };
 	}
 }
 

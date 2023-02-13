@@ -236,8 +236,7 @@ function Inertia() {
 									</Dialog.Title>
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500 mb-6">
-											Please confirm your registration by
-											typing '
+											Please confirm your registration for '
 											<i>
 												<b>{selectedEventName}</b>
 											</i>
@@ -311,12 +310,12 @@ function Inertia() {
 									</Dialog.Title>
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
-											Please Choose any One of them to
-											register in '
+											You have selected '
 											<i>
 												<b>{selectedEventName}</b>
 											</i>
-											'.
+											', which is team event.<br />
+											Would you like to join an existing team, or create a new one?
 										</p>
 									</div>
 
@@ -394,8 +393,7 @@ function Inertia() {
 
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
-											Enter <b>Team Name</b> to register
-											in '
+											Enter <b>Team Name</b> to create a new team and reigster as a team leader for '
 											<i>
 												<b>{selectedEventName}</b>
 											</i>
@@ -488,8 +486,7 @@ function Inertia() {
 
 									<div className="mt-4">
 										<p className="text-center text-sm text-gray-500">
-											Enter <b>Team ID</b> of your Team
-											Leader '
+											Enter the <b>Team ID</b> emailed to your Team Leader to Join the team for '
 											<i>
 												<b>{selectedEventName}</b>
 											</i>

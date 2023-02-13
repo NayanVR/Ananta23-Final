@@ -137,7 +137,7 @@ app.post("/api/generateOTP", async (req, res) => {
 	if (rows.length > 0)
 		return res.status(400).json({
 			isOTPGenerated: false,
-			message: "User already exist",
+			message: "User Already Exists",
 			type: "error",
 		});
 

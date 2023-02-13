@@ -9,11 +9,11 @@ function Stats() {
                     <h3 className='text-xl'>Events</h3>
                 </div>
                 <div className='flex flex-col justify-center items-center text-white'>
-                    <h2 className='text-4xl font-bold'>1500+</h2>
+                    <h2 className='text-4xl font-bold'>2600+</h2>
                     <h3 className='text-xl'>Participants</h3>
                 </div>
                 <div className='flex flex-col justify-center items-center text-white'>
-                    <h2 className='text-4xl font-bold'>15+</h2>
+                    <h2 className='text-4xl font-bold'>17+</h2>
                     <h3 className='text-xl'>Associations</h3>
                 </div>
                 <div className='flex flex-col justify-center items-center text-white'>

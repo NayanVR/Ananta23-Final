@@ -163,6 +163,7 @@ function Register() {
 							value={password}
 							type="password"
 							required
+							minlength="8"
 							placeholder="Password"
 							className="px-4 py-2 border rounded-md"
 						/>

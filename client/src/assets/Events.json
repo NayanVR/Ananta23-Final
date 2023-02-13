@@ -3,44 +3,44 @@
 		{
 			"eventCode": "IN_AA",
 			"name": "Agar Art",
-			"desc": "Keep aside paint brush , colours , Pencil and eraser,Show your skills using petri dish , microbes and agar",
+			"desc": "Keep aside paint brush, colours, pencil and eraser. Show your skills using petri dish, microbes and agar!",
 			"image": "agar.png"
 		},
 		{
 			"eventCode": "IN_VSM",
 			"name": "Virtual Stock Market",
-			"desc": "The market is mock , But the rewards will be real,Invest in virtual stock and become a bull or bear",
+			"desc": "The market is mock, but the rewards will be real. Invest in virtual stock and become a bull or a bear!",
 			"image": "vsm1.png"
 		},
 		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
-			"desc": "Your wit and skills are reactants , The competition is thecatalyst, Use them rightly to achieve the substance of success",
+			"desc": "Your wit and skills are reactants, the competition is the catalyst! Use them rightly to achieve the substance of success!",
 			"image": "jeop.png"
 		},
 
 		{
 			"eventCode": "IN_MP",
 			"name": "Monopoly",
-			"desc": "Use your skills , knowledge and luck of dice,Take correct steps to win or pay a price",
+			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
 			"image": "mono.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "Science-Trivia",
-			"desc": "Collect the gold in form of knowledge,After digging deep in your education mines,The gold maybe buried found at corners,Search hard to win this trivia of science.",
+			"desc": "Collect the gold in form of knowledge. After digging deep in your education mines the gold maybe buried found at corners. Search hard to win this trivia of science!",
 			"image": "trivia.png"
 		},
 		{
 			"eventCode": "IN_CE",
 			"name": "Chemi-emoji",
-			"desc":"The equation of winning should be done fast, So be quick,The answer should be as perfect as your emoji’s pick",
+			"desc":"The equation of winning should be done fast! So be quick, the answer should be as perfect as your emoji’s pick!",
 			"image": "emoji.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "SHARK TANK",
-			"desc": "Pitch your idea or product ,Display the product’s spark,Showcase your entrepreneurship skills,To get deal from shark",
+			"desc": "Pitch your idea or product, display the product’s spark. Showcase your entrepreneurship skills to get a deal from the sharks!",
 			"image": "ST.png"
 		}
 
@@ -70,14 +70,14 @@
 		{
 			"eventCode": "SW_SG",
 			"name": "SQUID GAME",
-			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
+			"desc": "Contest with numerous opponents,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
 			"image": "Squid.svg"
 
 		},
 		{
 			"eventCode": "SW_RD",
 			"name": "ROADIES",
-			"desc": "Contest with numerous opponents ,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
+			"desc": "Contest with numerous opponents,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
 			"image": "roadies.png"
 		},
 		{
@@ -89,7 +89,7 @@
 		{
 			"eventCode": "SW_DB",
 			"name": "DOUCHE BALL",
-			"desc":"Jump , Duck, Move - Do whatever fits you,All this before the ball hits you",
+			"desc":"Jump, Duck, Move - Do whatever fits you,All this before the ball hits you",
 			"image": "douch.png"
 		},
 
@@ -118,7 +118,7 @@
 			"name": "Anime Battle",
 			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
 			"image": "anime.png"
-		} , 
+		}, 
 
 		{
 			"eventCode": "SW_v",
