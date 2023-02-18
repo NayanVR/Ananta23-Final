@@ -138,10 +138,12 @@ function BuyPass() {
 		} else if (check.message == "Buying First Pass") {
 			const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`
 			setPaymentUrl(url);
+			setIsAreadyOpened(false);
 			showPaymentModal(amt, passCode);
 		} else if (check.message == "Upgrade Pass") {
 			const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=UP_${passCode}_${PID}&cu=INR`
 			setPaymentUrl(url);
+			setIsAreadyOpened(false);
 			showPaymentModal(amt, passCode);
 		} else if (check.type === "error") {
 			toast.error(check.message, { duration: 3000 });

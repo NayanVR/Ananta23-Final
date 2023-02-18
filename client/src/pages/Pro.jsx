@@ -17,6 +17,7 @@ import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
 // import Passes from "./../assets/Passes.json";
 import { Link, useNavigate } from "react-router-dom";
+import DropDown from "../components/DropDown";
 
 function Pro() {
 	const Passes = {
@@ -397,10 +398,10 @@ function Pro() {
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
 									{profile.Firstname != null &&
-									profile.Lastname != null
+										profile.Lastname != null
 										? profile.Firstname +
-										  " " +
-										  profile.Lastname
+										" " +
+										profile.Lastname
 										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
@@ -579,7 +580,7 @@ function Pro() {
 
 				<div className="mt-0 md:col-span-3 md:mt-0">
 					<form onSubmit={handleSubmit}>
-						<div className="overflow-hidden shadow rounded-lg border border-[#78BDC4]">
+						<div className="shadow rounded-lg border border-[#78BDC4]">
 							<div className="bg-primary-dark-2 px-4 py-3 flex justify-between items-center sm:px-6 ">
 								<h1 className="font-bold justify-center text-[#F2FFFE]">
 									Personal Details
@@ -759,8 +760,40 @@ function Pro() {
 											})}
 										</select>
 									</div>
-
 									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Course
+										</label>
+										<DropDown />
+										{/* <select
+											disabled={!canEdit}
+											value={uniName}
+											onChange={(e) => {
+												setUniName(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+											required
+										>
+											<option selected value="">
+												Select University
+											</option>
+											{uniList.map((uni, index) => {
+												return (
+													<option
+														key={index}
+														value={uni}
+													>
+														{uni}
+													</option>
+												);
+											})}
+										</select> */}
+									</div>
+
+									{/* <div className="col-span-6 sm:col-span-3 md:col-span-3">
 										<label
 											htmlFor="email-address"
 											className="block text-sm font-medium text-gray-700"
@@ -778,7 +811,7 @@ function Pro() {
 											}}
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
 										/>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							{canEdit && (
@@ -1051,14 +1084,14 @@ function Pro() {
 
 															{role ==
 																"Leader" && (
-																<div
-																	className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
-																>
-																	<label className="text-[0.8rem] block font-medium text-gray-700">
-																		Members
-																	</label>
-																</div>
-															)}
+																	<div
+																		className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+																	>
+																		<label className="text-[0.8rem] block font-medium text-gray-700">
+																			Members
+																		</label>
+																	</div>
+																)}
 														</div>
 													)}
 												</p>
