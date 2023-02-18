@@ -18,7 +18,7 @@ const {
 	getEvents,
 	deleteEvent,
 } = require("./db/events");
-const { getUniNames, createUniversity } = require("./db/dropdownData");
+const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
@@ -298,7 +298,7 @@ app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	return res.status(check.code).json(check.resMessage);
 });
 
-// DropDown Logic
+// Select DropDown Data
 app.get("/api/university-list", async (req, res) => {
 	const response = await getUniNames(conn);
 
@@ -312,6 +312,21 @@ app.post("/api/university-list", async (req, res) => {
 
 	return res.status(response.code).json(response.resMessage);
 });
+
+app.get("/api/course-list", async (req, res) => {
+	const response = await getCoursesNames(conn);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+app.post("/api/course-list", async (req, res) => {
+	const { value } = req.body;
+
+	const response = await createCourse(conn, value);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
 
 //Pass Logic
 app.post("/api/secure/pass/buy/check", async (req, res) => {

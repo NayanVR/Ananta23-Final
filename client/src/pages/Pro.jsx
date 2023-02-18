@@ -95,12 +95,13 @@ function Pro() {
 	const [lName, setLName] = useState("");
 	const [email, setEmail] = useState("");
 	const [contactNo, setContactNo] = useState("");
-	const [branch, setBranch] = useState("");
+	const [course, setCourse] = useState("");
 	const [uniName, setUniName] = useState("");
 	const [gender, setGender] = useState("");
 	const [city, setCity] = useState("");
 
 	const [uniNamesList, setUniNamesList] = useState([]);
+	const [coursesNamesList, setCoursesNamesList] = useState([]);
 
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
@@ -155,6 +156,22 @@ function Pro() {
 						uniNamesOptions.push(newOption);
 					});
 					setUniNamesList(uniNamesOptions);
+				}
+				);
+
+			//fetch courses names
+			fetch(serverURL + "/api/course-list")
+				.then((res) => res.json())
+				.then((data) => {
+					let coursesNamesOptions = [];
+					data.message.forEach((course) => {
+						const newOption = {
+							value: course,
+							label: course,
+						};
+						coursesNamesOptions.push(newOption);
+					});
+					setCoursesNamesList(coursesNamesOptions);
 				}
 				);
 		}
@@ -243,13 +260,10 @@ function Pro() {
 		setFName(pro.Firstname);
 		setLName(pro.Lastname);
 		setContactNo(pro.ContactNo);
-		setBranch(pro.Branch);
+		setCourse(pro.Branch);
 		setUniName(pro.University);
 		setGender(pro.Gender);
 		setCity(pro.City);
-
-		// console.log("participantID: ", pid);
-
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
 		setDP(pro.DigitalPoints);
@@ -274,7 +288,7 @@ function Pro() {
 					lName,
 					contactNo,
 					uniName,
-					branch,
+					branch: course,
 					gender,
 					city,
 				}),
@@ -758,29 +772,13 @@ function Pro() {
 										>
 											University
 										</label>
-										<select
-											disabled={!canEdit}
-											value={uniName}
-											onChange={(e) => {
-												setUniName(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-											required
-										>
-											<option selected value="">
-												Select University
-											</option>
-											{uniList.map((uni, index) => {
-												return (
-													<option
-														key={index}
-														value={uni}
-													>
-														{uni}
-													</option>
-												);
-											})}
-										</select>
+										<DropDown
+											list={uniNamesList}
+											setList={setUniNamesList}
+											parentValue={uniName}
+											setParentValue={setUniName}
+											isDisabled={canEdit}
+											apiURL={"/api/university-list"} />
 									</div>
 									<div className="col-span-6 sm:col-span-3 md:col-span-3">
 										<label
@@ -789,51 +787,14 @@ function Pro() {
 										>
 											Course
 										</label>
-										<DropDown list={uniNamesList} setList={setUniNamesList} parentValue={uniName} setParentValue={setUniName} />
-										{/* <select
-											disabled={!canEdit}
-											value={uniName}
-											onChange={(e) => {
-												setUniName(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-											required
-										>
-											<option selected value="">
-												Select University
-											</option>
-											{uniList.map((uni, index) => {
-												return (
-													<option
-														key={index}
-														value={uni}
-													>
-														{uni}
-													</option>
-												);
-											})}
-										</select> */}
+										<DropDown
+											list={coursesNamesList}
+											setList={setCoursesNamesList}
+											parentValue={course}
+											setParentValue={setCourse}
+											isDisabled={canEdit}
+											apiURL={"/api/course-list"} />
 									</div>
-
-									{/* <div className="col-span-6 sm:col-span-3 md:col-span-3">
-										<label
-											htmlFor="email-address"
-											className="block text-sm font-medium text-gray-700"
-										>
-											Branch / Course
-										</label>
-										<input
-											type="text"
-											placeholder="Branch"
-											required
-											disabled={!canEdit}
-											value={branch}
-											onChange={(e) => {
-												setBranch(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-										/>
-									</div> */}
 								</div>
 							</div>
 							{canEdit && (
