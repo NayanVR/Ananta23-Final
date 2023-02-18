@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext, Fragment } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-hot-toast";
@@ -19,6 +19,7 @@ function BuyPass() {
 
 	// console.log(profile);
 	const serverURL = import.meta.env.VITE_SERVER_URL;
+	const UPI = import.meta.env.VITE_UPI;
 
 	const passes = [
 		{
@@ -85,6 +86,24 @@ function BuyPass() {
 	const [modalBody, setModalBody] = useState("");
 	const [paymentUrl, setPaymentUrl] = useState("");
 
+	const [isConfModalOpen, setIsConfModalOpen] = useState(false);
+	const [isAreadyOpened, setIsAreadyOpened] = useState(false);
+
+	useEffect(() => {
+		window.addEventListener('focus', handleFocusChange);
+
+		return () => {
+			window.removeEventListener('focus', handleFocusChange);
+		}
+	}, [isModalOpen, isAreadyOpened])
+
+	function handleFocusChange(e) {
+		if (isModalOpen && !isAreadyOpened) {
+			setIsModalOpen(false);
+			setIsConfModalOpen(true);
+		}
+	}
+
 
 	function showPaymentModal(amt, passCode) {
 		const passName = passes.find((pass) => pass.id === passCode).name;
@@ -117,11 +136,11 @@ function BuyPass() {
 		if (check.message == "Profile Not Completed") {
 			window.location.href = "/profile";
 		} else if (check.message == "Buying First Pass") {
-			const url = `upi://pay?pa=7574914108@paytm&pn=Ananta%202023&am=${amt}&tn=${passCode}-${PID}-FP&cu=INR`
+			const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`
 			setPaymentUrl(url);
 			showPaymentModal(amt, passCode);
 		} else if (check.message == "Upgrade Pass") {
-			const url = `upi://pay?pa=7574914108@paytm&pn=Ananta%202023&am=${amt}&tn=${passCode}-${PID}-UP&cu=INR`
+			const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=UP_${passCode}_${PID}&cu=INR`
 			setPaymentUrl(url);
 			showPaymentModal(amt, passCode);
 		} else if (check.type === "error") {
@@ -147,6 +166,8 @@ function BuyPass() {
 					))}
 				</div>
 			</div>
+
+
 			<Transition appear show={isModalOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-10" onClose={_ => { setIsModalOpen(false) }}>
 					<Transition.Child
@@ -255,6 +276,84 @@ function BuyPass() {
 										</div>
 
 
+									</div>
+
+								</Dialog.Panel>
+							</Transition.Child>
+						</div>
+					</div>
+				</Dialog>
+			</Transition>
+
+
+			<Transition appear show={isConfModalOpen} as={Fragment}>
+				<Dialog as="div" className="relative z-10" onClose={_ => {
+					setIsConfModalOpen(false)
+					setIsAreadyOpened(true)
+				}}>
+					<Transition.Child
+						as={Fragment}
+						enter="ease-out duration-300"
+						enterFrom="opacity-0"
+						enterTo="opacity-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100"
+						leaveTo="opacity-0"
+					>
+						<div className="fixed inset-0 bg-black bg-opacity-25" />
+					</Transition.Child>
+
+					<div className="fixed inset-0 overflow-y-auto">
+						<div className="flex min-h-full items-center justify-center p-4 text-center">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
+								<Dialog.Panel
+									className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border-y-4 border-[#012C3D]"
+									style={{ backgroundColor: "#ffffff" }}
+								>
+									<Dialog.Title
+										as="h3"
+										className="text-center text-lg font-medium leading-6 text-gray-900 mb-6"
+									>
+										Attention!!!
+									</Dialog.Title>
+									<button
+										type="button"
+										className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-2 py-0 text-lg font-medium text-[#F2FFFE]  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+
+										onClick={_ => {
+											setIsConfModalOpen(false)
+											setIsAreadyOpened(true)
+										}}
+									>
+										x
+									</button>
+									<div className='flex justify-center gap-4'>
+										<p className='text-black text-center mb-4'>
+											We will confirm your payment within 24 hours. Please check your email for further updates.
+										</p>
+									</div>
+									<div className='flex flex-col justify-center items-center'>
+										<div className="flex justify-center  w-[200px] align-middle ">
+											<button
+												type="button"
+												className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#012C3D] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+												style={{ margin: "auto" }}
+												onClick={() => {
+													setIsConfModalOpen(false);
+													setIsAreadyOpened(true);
+												}}
+											>
+												OKAY
+											</button>
+										</div>
 									</div>
 
 								</Dialog.Panel>
