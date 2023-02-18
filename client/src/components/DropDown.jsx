@@ -3,30 +3,42 @@ import { useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 
 
-function DropDown() {
-    const createOption = (label) => ({
-        label,
-        value: label.toLowerCase().replace(/\W/g, ''),
+function DropDown({ list, setList, parentValue, setParentValue }) {
+
+    const createOption = (name) => ({
+        label: name,
+        value: name
     });
-    const defaultOptions = [
-        createOption('One'),
-        createOption('Two'),
-        createOption('Three'),
-    ];
 
     const [isLoading, setIsLoading] = useState(false);
-    const [options, setOptions] = useState(defaultOptions);
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState(createOption(parentValue));
 
+    const serverURL = import.meta.env.VITE_SERVER_URL;
 
     const handleCreate = (inputValue) => {
         setIsLoading(true);
-        setTimeout(() => {
-            const newOption = createOption(inputValue);
-            setIsLoading(false);
-            setOptions((prev) => [...prev, newOption]);
-            setValue(newOption);
-        }, 1000);
+
+        fetch(serverURL + "/api/university-list", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                value: inputValue
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setIsLoading(false);
+                if (data.type === "success") {
+                    const newOption = createOption(inputValue);
+                    setList((prev) => [...prev, newOption])
+                    setParentValue(newOption.value);
+                }
+            })
+            .catch((err) => {
+                setIsLoading(false);
+            });
     };
     return (
         <>
@@ -34,12 +46,14 @@ function DropDown() {
                 isClearable
                 isDisabled={isLoading}
                 isLoading={isLoading}
-                onChange={(newValue) => setValue(newValue)}
+                onChange={(newValue) => {
+                    // setValue(newValue)
+                    setParentValue(newValue.value)
+                }}
                 onCreateOption={handleCreate}
-                options={options}
-                value={value}
+                options={list}
+                value={createOption(parentValue)}
             />
-
         </>
     )
 }

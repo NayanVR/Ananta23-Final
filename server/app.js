@@ -18,6 +18,7 @@ const {
 	getEvents,
 	deleteEvent,
 } = require("./db/events");
+const { getUniNames, createUniversity } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { makePayment } = require("./payment");
@@ -94,8 +95,8 @@ app.post("/api/query", async (req, res) => {
 		transporter.sendMail(
 			{
 				from: `Ananta <${process.env.NODEMAILER_EMAIL}>`,
-				to: process.env.NODEMAILER_EMAIL,
-				subject: "Query",
+				to: "support@anantagsfcu.in",
+				subject: "Query from " + email,
 				template: "Query",
 				context: {
 					email: email,
@@ -104,6 +105,7 @@ app.post("/api/query", async (req, res) => {
 			},
 			(error, info) => {
 				if (error) {
+					console.log(error);
 					console.log("Mail not sent");
 					return res.status(500).json({
 						message: "Internal Server Error",
@@ -296,6 +298,22 @@ app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	return res.status(check.code).json(check.resMessage);
 });
 
+// DropDown Logic
+app.get("/api/university-list", async (req, res) => {
+	const response = await getUniNames(conn);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+app.post("/api/university-list", async (req, res) => {
+	const { value } = req.body;
+
+	const response = await createUniversity(conn, value);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+//Pass Logic
 app.post("/api/secure/pass/buy/check", async (req, res) => {
 	const { passCode, PID } = req.body;
 

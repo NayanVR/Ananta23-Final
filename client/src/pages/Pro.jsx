@@ -100,6 +100,8 @@ function Pro() {
 	const [gender, setGender] = useState("");
 	const [city, setCity] = useState("");
 
+	const [uniNamesList, setUniNamesList] = useState([]);
+
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
 	const [passType, setPassType] = useState("");
@@ -137,6 +139,26 @@ function Pro() {
 	const firstnameRef = useRef();
 
 	let allEvents = [];
+
+	useEffect(() => {
+		if (profile != {}) {
+			//fetch uni names
+			fetch(serverURL + "/api/university-list")
+				.then((res) => res.json())
+				.then((data) => {
+					let uniNamesOptions = [];
+					data.message.forEach((uni) => {
+						const newOption = {
+							value: uni,
+							label: uni,
+						};
+						uniNamesOptions.push(newOption);
+					});
+					setUniNamesList(uniNamesOptions);
+				}
+				);
+		}
+	}, []);
 
 	useEffect(() => {
 		setEmail(currentUser.email);
@@ -767,7 +789,7 @@ function Pro() {
 										>
 											Course
 										</label>
-										<DropDown />
+										<DropDown list={uniNamesList} setList={setUniNamesList} parentValue={uniName} setParentValue={setUniName} />
 										{/* <select
 											disabled={!canEdit}
 											value={uniName}
