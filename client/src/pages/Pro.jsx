@@ -614,11 +614,11 @@ function Pro() {
 					</div>
 				</div>
 
-				<div className="mt-0 md:col-span-3 md:mt-0">
+				<div className="mt-0 md:col-span-3 md:mt-0 ">
 					<form onSubmit={handleSubmit}>
-						<div className="shadow rounded-lg border border-[#78BDC4]">
-							<div className="bg-primary-dark-2 px-4 py-3 flex justify-between items-center sm:px-6 ">
-								<h1 className="font-bold justify-center text-[#F2FFFE]">
+						<div className="shadow rounded-lg  border border-[#78BDC4]">
+							<div className="bg-primary-dark-2 rounded-t-lg px-4 py-3 flex justify-between items-center sm:px-6 ">
+								<h1 className="font-bold justify-center  text-[#F2FFFE]">
 									Personal Details
 								</h1>
 								<button
@@ -631,7 +631,7 @@ function Pro() {
 									{canEdit ? "Cancel" : "Edit"}
 								</button>
 							</div>
-							<div className="bg-primary-light-3   border-t-[#022539] px-4 py-5 sm:p-6">
+							<div className="bg-primary-light-3 rounded-b-lg  border-t-[#022539] px-4 py-5 sm:p-6">
 								<div className="grid grid-cols-6 gap-6">
 									<div className="col-span-6 sm:col-span-3 md:col-span-2">
 										<label
@@ -717,33 +717,6 @@ function Pro() {
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
 										/>
 									</div>
-
-									<div className="col-span-6 sm:col-span-3 md:col-span-2">
-										<label
-											htmlFor="country"
-											className="block text-sm font-medium text-gray-700"
-										>
-											Gender
-										</label>
-										<select
-											required
-											disabled={!canEdit}
-											value={gender}
-											onChange={(e) => {
-												setGender(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-										>
-											<option value="">
-												Select Gender
-											</option>
-											<option value="Male">Male</option>
-											<option value="Female">
-												Female
-											</option>
-										</select>
-									</div>
-
 									<div className="col-span-6 sm:col-span-3 md:col-span-2">
 										<label
 											htmlFor="city"
@@ -765,10 +738,64 @@ function Pro() {
 										/>
 									</div>
 
-									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+									<div className="col-span-6 sm:col-span-3 md:col-span-1">
 										<label
 											htmlFor="country"
 											className="block text-sm font-medium text-gray-700"
+										>
+											Gender
+										</label>
+										<select
+											required
+											disabled={!canEdit}
+											value={gender}
+											onChange={(e) => {
+												setGender(e.target.value);
+											}}
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+										>
+											<option value="" disabled>
+												Select Gender
+											</option>
+											<option value="Male">Male</option>
+											<option value="Female">
+												Female
+											</option>
+										</select>
+									</div>
+									
+									<div className="col-span-6 sm:col-span-3 md:col-span-1">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-700"
+										>
+											Study Year
+										</label>
+										<select
+											required
+											disabled={!canEdit}
+											
+											
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+										>
+											<option value="" disabled>
+												Select Study Year
+											</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">Other</option>
+											
+										</select>
+									</div>
+
+									
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-900"
 										>
 											University
 										</label>
@@ -783,7 +810,7 @@ function Pro() {
 									<div className="col-span-6 sm:col-span-3 md:col-span-3">
 										<label
 											htmlFor="country"
-											className="block text-sm font-medium text-gray-700"
+											className=" block text-sm font-medium text-gray-900"
 										>
 											Course
 										</label>
@@ -798,7 +825,7 @@ function Pro() {
 								</div>
 							</div>
 							{canEdit && (
-								<div className="bg-primary-dark-2 px-4 py-3 text-right sm:px-6">
+								<div className="bg-primary-dark-2 rounded-b-lg px-4 py-3 text-right sm:px-6">
 									<button className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-light-3 text-dark hover:bg-primary-light-2">
 										Save
 									</button>
