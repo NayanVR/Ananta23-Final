@@ -763,7 +763,7 @@ function Pro() {
 											</option>
 										</select>
 									</div>
-									
+
 									<div className="col-span-6 sm:col-span-3 md:col-span-1">
 										<label
 											htmlFor="country"
@@ -774,8 +774,6 @@ function Pro() {
 										<select
 											required
 											disabled={!canEdit}
-											
-											
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
 										>
 											<option value="" disabled>
@@ -786,11 +784,9 @@ function Pro() {
 											<option value="3">3</option>
 											<option value="4">4</option>
 											<option value="5">Other</option>
-											
 										</select>
 									</div>
 
-									
 
 									<div className="col-span-6 sm:col-span-3 md:col-span-3">
 										<label
