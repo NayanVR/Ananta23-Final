@@ -1,6 +1,6 @@
 {
 	"PS-B": {
-		"Amount": 1,
+		"Amount": 220,
 		"DP": 2000,
 		"Kit": 0,
 		"TotalEvents": 2,
@@ -9,8 +9,8 @@
 		"Atmos": 0
 	},
 	"PS-S": {
-		"Amount": 2,
-		"DP": 2500,
+		"Amount": 270,
+		"DP": 2200,
 		"Kit": 0,
 		"TotalEvents": 4,
 		"TotalGuests": 2,
@@ -18,8 +18,8 @@
 		"Atmos": 0
 	},
 	"PS-G": {
-		"Amount": 3,
-		"DP": 3000,
+		"Amount": 300,
+		"DP": 2400,
 		"Kit": 1,
 		"TotalEvents": 30,
 		"TotalGuests": 6,
@@ -27,8 +27,8 @@
 		"Atmos": 0
 	},
 	"PS-DJ": {
-		"Amount": 4,
-		"DP": 4490,
+		"Amount": 400,
+		"DP": 2600,
 		"Kit": 0,
 		"TotalEvents": 0,
 		"TotalGuests": 0,
@@ -36,8 +36,8 @@
 		"Atmos": 1
 	},
 	"PS-C": {
-		"Amount": 5,
-		"DP": 5490,
+		"Amount": 500,
+		"DP": 2800,
 		"Kit": 1,
 		"TotalEvents": 30,
 		"TotalGuests": 6,
@@ -45,7 +45,7 @@
 		"Atmos": 1
 	},
 	"KKPS-BI": {
-		"Amount": 220,
+		"Amount": 200,
 		"DP": 1000,
 		"Kit": 0,
 		"TotalEvents": 0,
@@ -54,7 +54,7 @@
 		"Atmos": 0
 	},
 	"KKPS-DR": {
-		"Amount": 210,
+		"Amount": 200,
 		"DP": 1000,
 		"Kit": 0,
 		"TotalEvents": 0,
@@ -63,7 +63,7 @@
 		"Atmos": 0
 	},
 	"KKPS-FA": {
-		"Amount": 230,
+		"Amount": 250,
 		"DP": 1000,
 		"Kit": 0,
 		"TotalEvents": 0,
@@ -72,7 +72,7 @@
 		"Atmos": 0
 	},
 	"KKPS-TB": {
-		"Amount": 260,
+		"Amount": 250,
 		"DP": 1000,
 		"Kit": 0,
 		"TotalEvents": 0,
@@ -81,7 +81,7 @@
 		"Atmos": 0
 	},
 	"KKPS-TD": {
-		"Amount": 240,
+		"Amount": 250,
 		"DP": 1000,
 		"Kit": 0,
 		"TotalEvents": 0,

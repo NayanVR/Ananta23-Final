@@ -16,7 +16,11 @@ function EventCard1({ event, registerNow, viewDetails }) {
                         <p className='text-primary-light-2 text-justify p-1 h-44 overflow-y-auto'>{event.desc}</p>
                     </div>
                     <div className='flex flex-row h-12 justify-around'>
-                        <button className='bg-primary-light-1 w-4/5 h-10 rounded-md text-lg font-semibold uppercase' onClick={() => { registerNow(event.eventCode, event.name) }}>Register</button>
+                        <button className='bg-primary-light-1 w-4/5 h-10 rounded-md text-lg font-semibold uppercase' onClick={() => { registerNow(event.eventCode, event.name) }}>
+                            {
+                                event.price ? `₹ ${event.price}` : "Register"
+                            }
+                        </button>
                         <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { viewDetails(event.eventCode) }}>
                             <img className='h-6' src={Doc} />
                         </button>

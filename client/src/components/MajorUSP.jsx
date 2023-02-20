@@ -22,7 +22,7 @@ function MajorUSP() {
                 </div>
                 <div className='flex-1'>
                     <h1 className='text-center md:text-left text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
-                        MAJOR USP
+                        MAJOR USPs
                     </h1>
                     <ul className='mt-8 ml-4 list-disc'>
                         {

@@ -1,34 +1,11 @@
 import React from 'react'
-import EventCard from '../components/EventCard'
+import EventCard from '../components/EventCardNew'
 import Swift from '../assets/photos/upshots/swift.png'
 import profilePic from '../assets/photos/profile.jpg'
+import EventsData from "../assets/Events.json"
 import ComingSoon from '../components/ComingSoon'
 
-function Inertia() {
-
-  const events = [
-    {
-      eventCode: 'IN_AA',
-      name: 'Agar Art',
-      desc: 'Everyone knows how colorful the world of microbes is. Why not represent it in a beautiful way? Bring out your inner artist by using streaking, preading and pouring to make a colorful creation on Agar using microbes.',
-      mobDesc: 'Science, technology, engineering and mathematics are the four basic topics we see around ourselves everyday. Bring out working models, business models and prototypes to display your ideas and potential talent.',
-      image: Swift,
-    },
-    {
-      eventCode: 'IN_VSM',
-      name: 'Virtual Stock Market',
-      desc: 'Explore a new world of stock market, deduce the effect of news, buy and sell virtual stocks on the stock market along with share prices in a risk-free environment.',
-      mobDesc: 'Code Wars is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.',
-      image: profilePic,
-    },
-    {
-      eventCode: 'HACKATHON',
-      name: 'Hackathon',
-      desc: 'You think you know chemistry? Take this fun quiz and show how much it takes to sort the jeopardy that is indeed chemical engineering.',
-      mobDesc: 'Hackathon is a coding competition where you can showcase your coding skills and win exciting prizes. The competition will be held in two rounds, the first round will be a coding round and the second round will be a quiz round.',
-      image: Swift,
-    }
-  ]
+function KalaKrirti() {
 
   function registerNow(eventCode) {
     console.log('Register Now', eventCode)
@@ -38,26 +15,72 @@ function Inertia() {
     console.log('View Details', eventCode)
   }
 
+  async function handleResposnse(eventCode, eventName) {
+    // console.log(eventName, eventCode);
+
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
+
+    const check = await fetch(serverURL + "/api/secure/event/check", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + currentUser["accessToken"],
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ eventCode, email }),
+    });
+    const response = await check.json();
+    // console.log(response);
+
+    setSelectedEventName(eventName);
+    setSelectedEventCode(eventCode);
+
+    if (response.type == "Warning") {
+      if (response.message == "Profile") {
+        navigate("/profile");
+      } else if (response.message == "BuyPass") {
+        navigate("/buypass");
+      } else {
+        toast(response.message, {
+          icon: "⚠️",
+        });
+      }
+    } else if (response.type == "Info") {
+      toast(response.message, {
+        icon: "👍🏻",
+      });
+    } else {
+    }
+    if (response.Category == "Solo") {
+      setIsSoloOpen(true);
+    } else if (response.Category == "Team") {
+      setIsTeamOpen(true);
+    }
+    // closeModal()
+  }
+
   return (
     // <>
-    //   <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
-    //     Inertia
-    //   </h1>
-    //   <div style={{ scrollbarWidth: 'none' }} className='relative h-[calc(100vh-13rem)] mb-20 w-full snap-y snap-mandatory flex gap-[10rem] flex-col items-center overflow-y-scroll'>
-    //     {
-    //       events.map((event, index) => (
-    //         <EventCard key={index} index={index} event={event} registerNow={registerNow} viewDetails={viewDetails} />
-    //       ))
-    //     }
-    //   </div>
     // </>
     <>
       <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
         KalaKrirti: Workshops
       </h1>
-      <ComingSoon />
+      {/* <ComingSoon /> */}
+      <div className="max-w-[1200px] m-auto my-16 px-4 flex gap-16 flex-wrap justify-center items-center">
+        {EventsData.kalakriti.map((event, index) => (
+          <EventCard
+            key={index}
+            event={event}
+            // registerNow={handleResposnse}
+            viewDetails={viewDetails}
+          />
+        ))}
+      </div>
     </>
   )
 }
 
-export default Inertia
+export default KalaKrirti

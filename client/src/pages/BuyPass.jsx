@@ -26,7 +26,7 @@ function BuyPass() {
 			id: "PS-G",
 			name: "GOLD",
 			markImg: goldMark,
-			price: 3,
+			price: 300,
 			features: [
 				"Access to All Events (INERTIA & SWOOSH)",
 				"Access to All Guest Lectures",
@@ -39,7 +39,7 @@ function BuyPass() {
 			id: "PS-S",
 			name: "SILVER",
 			markImg: silverMark,
-			price: 2,
+			price: 270,
 			features: [
 				"Access to any 3 Events (INERTIA & SWOOSH)",
 				"Access to any 2 Guest Lectures",
@@ -52,7 +52,7 @@ function BuyPass() {
 			id: "PS-B",
 			name: "BRONZE",
 			markImg: bronzeMark,
-			price: 1,
+			price: 220,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
 				"Access to any 1 Guest Lecture",
@@ -65,7 +65,7 @@ function BuyPass() {
 			id: "PS-DJ",
 			name: "ATMOS",
 			markImg: djMark,
-			price: 4,
+			price: 400,
 			features: [
 				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
 			],
@@ -75,7 +75,7 @@ function BuyPass() {
 			id: "PS-C",
 			name: "COMBO",
 			markImg: comboMark,
-			price: 5,
+			price: 500,
 			features: ["All benefits of GOLD & ATMOS Pass"],
 			color: "#FFDF00",
 		},
