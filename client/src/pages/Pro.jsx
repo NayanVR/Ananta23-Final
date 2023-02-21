@@ -17,6 +17,7 @@ import { QRCode } from "react-qrcode-logo";
 import a_logo from "../assets/icons/faviconANA.svg";
 // import Passes from "./../assets/Passes.json";
 import { Link, useNavigate } from "react-router-dom";
+import DropDown from "../components/DropDown";
 
 function Pro() {
 	const Passes = {
@@ -94,10 +95,13 @@ function Pro() {
 	const [lName, setLName] = useState("");
 	const [email, setEmail] = useState("");
 	const [contactNo, setContactNo] = useState("");
-	const [branch, setBranch] = useState("");
+	const [course, setCourse] = useState("");
 	const [uniName, setUniName] = useState("");
 	const [gender, setGender] = useState("");
 	const [city, setCity] = useState("");
+
+	const [uniNamesList, setUniNamesList] = useState([]);
+	const [coursesNamesList, setCoursesNamesList] = useState([]);
 
 	const [txnStatus, setTxnStatus] = useState("");
 	const [passCode, setPassCode] = useState("");
@@ -136,6 +140,42 @@ function Pro() {
 	const firstnameRef = useRef();
 
 	let allEvents = [];
+
+	useEffect(() => {
+		if (profile != {}) {
+			//fetch uni names
+			fetch(serverURL + "/api/university-list")
+				.then((res) => res.json())
+				.then((data) => {
+					let uniNamesOptions = [];
+					data.message.forEach((uni) => {
+						const newOption = {
+							value: uni,
+							label: uni,
+						};
+						uniNamesOptions.push(newOption);
+					});
+					setUniNamesList(uniNamesOptions);
+				}
+				);
+
+			//fetch courses names
+			fetch(serverURL + "/api/course-list")
+				.then((res) => res.json())
+				.then((data) => {
+					let coursesNamesOptions = [];
+					data.message.forEach((course) => {
+						const newOption = {
+							value: course,
+							label: course,
+						};
+						coursesNamesOptions.push(newOption);
+					});
+					setCoursesNamesList(coursesNamesOptions);
+				}
+				);
+		}
+	}, []);
 
 	useEffect(() => {
 		setEmail(currentUser.email);
@@ -220,13 +260,10 @@ function Pro() {
 		setFName(pro.Firstname);
 		setLName(pro.Lastname);
 		setContactNo(pro.ContactNo);
-		setBranch(pro.Branch);
+		setCourse(pro.Branch);
 		setUniName(pro.University);
 		setGender(pro.Gender);
 		setCity(pro.City);
-
-		// console.log("participantID: ", pid);
-
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
 		setDP(pro.DigitalPoints);
@@ -251,7 +288,7 @@ function Pro() {
 					lName,
 					contactNo,
 					uniName,
-					branch,
+					branch: course,
 					gender,
 					city,
 				}),
@@ -397,10 +434,10 @@ function Pro() {
 							<div className="flex flex-none flex-col justify-center items-left p-4">
 								<div className="flex flex-row text-xl font-semibold">
 									{profile.Firstname != null &&
-									profile.Lastname != null
+										profile.Lastname != null
 										? profile.Firstname +
-										  " " +
-										  profile.Lastname
+										" " +
+										profile.Lastname
 										: "Participant Name"}
 								</div>
 								<div className="text-xs">{profile.Email}</div>
@@ -577,11 +614,11 @@ function Pro() {
 					</div>
 				</div>
 
-				<div className="mt-0 md:col-span-3 md:mt-0">
+				<div className="mt-0 md:col-span-3 md:mt-0 ">
 					<form onSubmit={handleSubmit}>
-						<div className="overflow-hidden shadow rounded-lg border border-[#78BDC4]">
-							<div className="bg-primary-dark-2 px-4 py-3 flex justify-between items-center sm:px-6 ">
-								<h1 className="font-bold justify-center text-[#F2FFFE]">
+						<div className="shadow rounded-lg  border border-[#78BDC4]">
+							<div className="bg-primary-dark-2 rounded-t-lg px-4 py-3 flex justify-between items-center sm:px-6 ">
+								<h1 className="font-bold justify-center  text-[#F2FFFE]">
 									Personal Details
 								</h1>
 								<button
@@ -594,7 +631,7 @@ function Pro() {
 									{canEdit ? "Cancel" : "Edit"}
 								</button>
 							</div>
-							<div className="bg-primary-light-3   border-t-[#022539] px-4 py-5 sm:p-6">
+							<div className="bg-primary-light-3 rounded-b-lg  border-t-[#022539] px-4 py-5 sm:p-6">
 								<div className="grid grid-cols-6 gap-6">
 									<div className="col-span-6 sm:col-span-3 md:col-span-2">
 										<label
@@ -680,33 +717,6 @@ function Pro() {
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
 										/>
 									</div>
-
-									<div className="col-span-6 sm:col-span-3 md:col-span-2">
-										<label
-											htmlFor="country"
-											className="block text-sm font-medium text-gray-700"
-										>
-											Gender
-										</label>
-										<select
-											required
-											disabled={!canEdit}
-											value={gender}
-											onChange={(e) => {
-												setGender(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-										>
-											<option value="">
-												Select Gender
-											</option>
-											<option value="Male">Male</option>
-											<option value="Female">
-												Female
-											</option>
-										</select>
-									</div>
-
 									<div className="col-span-6 sm:col-span-3 md:col-span-2">
 										<label
 											htmlFor="city"
@@ -728,61 +738,90 @@ function Pro() {
 										/>
 									</div>
 
-									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+									<div className="col-span-6 sm:col-span-3 md:col-span-1">
 										<label
 											htmlFor="country"
 											className="block text-sm font-medium text-gray-700"
 										>
-											University
+											Gender
 										</label>
 										<select
+											required
 											disabled={!canEdit}
-											value={uniName}
+											value={gender}
 											onChange={(e) => {
-												setUniName(e.target.value);
+												setGender(e.target.value);
 											}}
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
-											required
 										>
-											<option selected value="">
-												Select University
+											<option value="" disabled>
+												Select Gender
 											</option>
-											{uniList.map((uni, index) => {
-												return (
-													<option
-														key={index}
-														value={uni}
-													>
-														{uni}
-													</option>
-												);
-											})}
+											<option value="Male">Male</option>
+											<option value="Female">
+												Female
+											</option>
 										</select>
 									</div>
 
-									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+									<div className="col-span-6 sm:col-span-3 md:col-span-1">
 										<label
-											htmlFor="email-address"
+											htmlFor="country"
 											className="block text-sm font-medium text-gray-700"
 										>
-											Branch / Course
+											Study Year
 										</label>
-										<input
-											type="text"
-											placeholder="Branch"
+										<select
 											required
 											disabled={!canEdit}
-											value={branch}
-											onChange={(e) => {
-												setBranch(e.target.value);
-											}}
-											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
-										/>
+											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
+										>
+											<option value="" disabled>
+												Select Study Year
+											</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">Other</option>
+										</select>
+									</div>
+
+
+									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="country"
+											className="block text-sm font-medium text-gray-900"
+										>
+											University
+										</label>
+										<DropDown
+											list={uniNamesList}
+											setList={setUniNamesList}
+											parentValue={uniName}
+											setParentValue={setUniName}
+											isDisabled={canEdit}
+											apiURL={"/api/university-list"} />
+									</div>
+									<div className="col-span-6 sm:col-span-3 md:col-span-3">
+										<label
+											htmlFor="country"
+											className=" block text-sm font-medium text-gray-900"
+										>
+											Course
+										</label>
+										<DropDown
+											list={coursesNamesList}
+											setList={setCoursesNamesList}
+											parentValue={course}
+											setParentValue={setCourse}
+											isDisabled={canEdit}
+											apiURL={"/api/course-list"} />
 									</div>
 								</div>
 							</div>
 							{canEdit && (
-								<div className="bg-primary-dark-2 px-4 py-3 text-right sm:px-6">
+								<div className="bg-primary-dark-2 rounded-b-lg px-4 py-3 text-right sm:px-6">
 									<button className="inline-flex items-center justify-center py-1 px-5 h-1/4 rounded-md bg-primary-light-3 text-dark hover:bg-primary-light-2">
 										Save
 									</button>
@@ -1051,14 +1090,14 @@ function Pro() {
 
 															{role ==
 																"Leader" && (
-																<div
-																	className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
-																>
-																	<label className="text-[0.8rem] block font-medium text-gray-700">
-																		Members
-																	</label>
-																</div>
-															)}
+																	<div
+																		className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+																	>
+																		<label className="text-[0.8rem] block font-medium text-gray-700">
+																			Members
+																		</label>
+																	</div>
+																)}
 														</div>
 													)}
 												</p>

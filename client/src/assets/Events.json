@@ -135,6 +135,16 @@
 			"image": "Thunt.png"
 		}
 	
+	],
+
+	"kalakriti":[
+		{
+              "eventCode": "KK_DR",
+			  "name": "Deep Racer",
+			  "desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
+			  "image": "freefire.png",
+			  "price": "200"
+		}
 	]
 	
 }

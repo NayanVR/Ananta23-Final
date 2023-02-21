@@ -51,7 +51,7 @@ async function createProfile(conn, transporter, email, googleAuth, profileImg) {
 }
 
 async function updateProfile(conn, email, body) {
-    const { fName, lName, contactNo, uniName, branch, year, dob, gender, city, state } = body;
+    const { fName, lName, contactNo, uniName, branch, gender, city } = body;
 
     const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', University='${uniName}', Branch='${branch}', Gender='${gender}', City='${city}' WHERE Email = '${email}'`);
 
