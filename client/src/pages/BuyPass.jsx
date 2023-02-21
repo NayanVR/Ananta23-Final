@@ -23,17 +23,17 @@ function BuyPass() {
 
 	const passes = [
 		{
-			id: "PS-G",
-			name: "GOLD",
-			markImg: goldMark,
-			price: 300,
+			id: "PS-B",
+			name: "BRONZE",
+			markImg: bronzeMark,
+			price: 220,
 			features: [
-				"Access to All Events (INERTIA & SWOOSH)",
-				"Access to All Guest Lectures",
+				"Access to any 2 Events (INERTIA & SWOOSH)",
+				"Access to any 1 Guest Lecture",
 				"Access to Zingaat : Cultural Events",
-				"500 Digital Wallet Points",
+				"100 Digital Wallet Points",
 			],
-			color: "#FFDF00",
+			color: "#CD7F32",
 		},
 		{
 			id: "PS-S",
@@ -49,17 +49,17 @@ function BuyPass() {
 			color: "#C0C0C0",
 		},
 		{
-			id: "PS-B",
-			name: "BRONZE",
-			markImg: bronzeMark,
-			price: 220,
+			id: "PS-G",
+			name: "GOLD",
+			markImg: goldMark,
+			price: 300,
 			features: [
-				"Access to any 2 Events (INERTIA & SWOOSH)",
-				"Access to any 1 Guest Lecture",
+				"Access to All Events (INERTIA & SWOOSH)",
+				"Access to All Guest Lectures",
 				"Access to Zingaat : Cultural Events",
-				"100 Digital Wallet Points",
+				"500 Digital Wallet Points",
 			],
-			color: "#CD7F32",
+			color: "#FFDF00",
 		},
 		{
 			id: "PS-DJ",
