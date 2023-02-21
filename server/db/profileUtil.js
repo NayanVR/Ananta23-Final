@@ -1,4 +1,4 @@
-const { genParticipantID } = require('../util');
+const { genParticipantID } = require('util');
 
 async function createProfile(conn, transporter, email, googleAuth, profileImg) {
     // console.log();

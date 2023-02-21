@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-hot-toast";
 import PassCard from "../components/PassCard";
@@ -9,6 +10,7 @@ import bronzeMark from "../assets/icons/Bronze_mark.svg";
 import comboMark from "../assets/icons/Combo_mark.svg";
 import combo2Mark from "../assets/icons/Combo2_mark.svg";
 import djMark from "../assets/icons/Dj_mark.svg";
+import { QRCode } from "react-qrcode-logo";
 import { useNavigate } from "react-router-dom";
 
 function BuyPass() {
@@ -78,75 +80,24 @@ function BuyPass() {
 		},
 	];
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalTitle, setModalTitle] = useState("");
+	const [modalBody, setModalBody] = useState("");
+	const [paymentUrl, setPaymentUrl] = useState("");
 
-	const isDate = (val) =>
-		Object.prototype.toString.call(val) === "[object Date]";
 
-	const isObj = (val) => typeof val === "object";
-
-	const stringifyValue = (val) =>
-		isObj(val) && !isDate(val) ? JSON.stringify(val) : val;
-
-	function buildForm({ action, params }) {
-		const form = document.createElement("form");
-		form.setAttribute("method", "post");
-		form.setAttribute("action", action);
-
-		Object.keys(params).forEach((key) => {
-			// // console.log(params)
-			const input = document.createElement("input");
-			input.setAttribute("type", "hidden");
-			input.setAttribute("name", key);
-			input.setAttribute("value", stringifyValue(params[key]));
-			form.appendChild(input);
-		});
-
-		return form;
+	function showPaymentModal(amt, passCode) {
+		const passName = passes.find((pass) => pass.id === passCode).name;
+		setModalTitle(passName + " Pass");
+		setModalBody(`You are about to pay ₹${amt} for ${passName} pass.`);
+		setIsModalOpen(true);
 	}
 
-	function post(details) {
-		const form = buildForm(details);
-		document.body.appendChild(form);
-		form.submit();
-		form.remove();
-	}
-
-	const getData = (data) => {
-		return fetch(`${serverURL}/api/get-payment-info`, {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.catch((err) => {
-			// console.log(err)
-			}
-			);
-	};
-
-	const makePayment = (amt, clientEmail, pass) => {
-		getData({ amount: amt.toString(), email: clientEmail, passCode: pass }).then(
-			(response) => {
-				// console.log(response);
-
-				let information = {
-					action: "https://securegw.paytm.in/order/process",
-					params: response,
-				};
-				post(information);
-			}
-		);
-	};
-
-	// lifting state up
 	async function handleBuyClick(passCode) {
+
 		if (currentUser == null) navigate("/login");
 
 		if (profile == {}) navigate("/profile");
-
 
 		const PID = profile.ParticipantID;
 		// console.log(profile.ParticipantID);
@@ -165,28 +116,154 @@ function BuyPass() {
 
 		if (check.message == "Profile Not Completed") {
 			window.location.href = "/profile";
-		} else if (
-			check.message == "Buying First Pass" ||
-			check.message == "Upgrade Pass"
-		) {
-			makePayment(amt, profile.Email, passCode);
+		} else if (check.message == "Buying First Pass") {
+			const url = `upi://pay?pa=7574914108@paytm&pn=Ananta%202023&am=${amt}&tn=${passCode}-${PID}-FP&cu=INR`
+			setPaymentUrl(url);
+			showPaymentModal(amt, passCode);
+		} else if (check.message == "Upgrade Pass") {
+			const url = `upi://pay?pa=7574914108@paytm&pn=Ananta%202023&am=${amt}&tn=${passCode}-${PID}-UP&cu=INR`
+			setPaymentUrl(url);
+			showPaymentModal(amt, passCode);
 		} else if (check.type === "error") {
 			toast.error(check.message, { duration: 3000 });
 		}
 	}
 
 	return (
-		<div className="flex justify-center items-center">
-			<div className="max-w-[1300px] m-auto flex gap-16 flex-wrap justify-center items-center">
-				{passes.map((pass, index) => (
-					<PassCard
-						buyClick={handleBuyClick}
-						passInfo={pass}
-						key={index}
-					/>
-				))}
+		<>
+			<div className="flex relative h-full justify-center items-center">
+				{/* Gradient */}
+				<div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+				<div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+
+				<div className="max-w-[1300px] m-auto flex gap-16 flex-wrap justify-center items-center">
+
+					{passes.map((pass, index) => (
+						<PassCard
+							buyClick={handleBuyClick}
+							passInfo={pass}
+							key={index}
+						/>
+					))}
+				</div>
 			</div>
-		</div>
+			<Transition appear show={isModalOpen} as={Fragment}>
+				<Dialog as="div" className="relative z-10" onClose={_ => { setIsModalOpen(false) }}>
+					<Transition.Child
+						as={Fragment}
+						enter="ease-out duration-300"
+						enterFrom="opacity-0"
+						enterTo="opacity-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100"
+						leaveTo="opacity-0"
+					>
+						<div className="fixed inset-0 bg-black bg-opacity-25" />
+					</Transition.Child>
+
+					<div className="fixed inset-0 overflow-y-auto">
+						<div className="flex min-h-full items-center justify-center p-4 text-center">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
+								<Dialog.Panel
+									className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border-y-4 border-[#012C3D]"
+									style={{ backgroundColor: "#ffffff" }}
+								>
+									<Dialog.Title
+										as="h3"
+										className="text-center text-lg font-medium leading-6 text-gray-900 mb-6"
+									>
+										{modalTitle}
+
+									</Dialog.Title>
+									<button
+										type="button"
+										className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-2 py-0 text-lg font-medium text-[#F2FFFE]  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+
+										onClick={_ => { setIsModalOpen(false) }}
+									>
+										x
+									</button>
+									<div className='flex justify-center gap-4'>
+										<p className='text-black mb-4'>
+											{modalBody}
+										</p>
+									</div>
+									<div className='flex flex-col justify-center items-center'>
+										<QRCode className='flex items-center'
+											value={paymentUrl}
+											size={200}
+											qrStyle={"square"}
+											logoOpacity={1}
+											logoHeight={40}
+											logoWidth={40}
+											eyeRadius={[
+												{
+													// top/left eye
+													outer: [1, 1, 1, 1],
+													inner: [1, 1, 1, 1],
+												},
+												{
+													outer: [1, 1, 1, 1],
+													inner: [1, 1, 1, 1],
+												},
+												{
+													// top/left eye
+													outer: [1, 1, 1, 1],
+													inner: [1, 1, 1, 1],
+												},
+											]}
+											eyeColor={[
+												{
+													outer: "#022539",
+													inner: "black",
+												},
+												{
+													outer: "#022539",
+													inner: "black",
+												},
+												{
+													outer: "#022539",
+													inner: "black",
+												},
+											]}
+											bgColor={"#FFFFFF"}
+											ecLevel={"H"}
+										/>
+										<div className="flex row items-center w-[200px] gap-2 text-gray-400">
+											<span className="h-px w-full bg-gray-300"></span>
+											OR
+											<span className="h-px w-full bg-gray-300"></span>
+										</div>
+										<div className="flex justify-center  w-[200px] align-middle ">
+
+											<a
+												className=" btn my-1 w-full inline-flex justify-center rounded-md border border-transparent bg-primary-dark-2 px-4 py-2 text-sm font-medium text-[#F2FFFE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+												href={paymentUrl} >Pay&nbsp;Now
+											</a>
+
+
+
+
+										</div>
+
+
+									</div>
+
+								</Dialog.Panel>
+							</Transition.Child>
+						</div>
+					</div>
+				</Dialog>
+			</Transition>
+		</>
 	);
 }
 

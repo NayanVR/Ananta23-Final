@@ -6,14 +6,23 @@ async function generate_pdf(
 	data,
 	participantID,
 	email,
-    fullname,
+	fullname,
 	passType,
 	qr_code_url
 ) {
+	// =====================================Generate Pdf===================
 
-    // =====================================Generate Pdf===================
+	let title = "";
 
-	console.log("--------------- Sending Pass Confirmation Mail --------------");
+	if (passType == "Combo" || passType == "Atmos" || passType == "Gold" || passType == "Silver" || passType == "Bronze" ) {
+		title += "Pass Type :";
+	} else {
+		title += "Workshop :"
+	}
+
+	console.log(
+		"--------------- Sending Pass Confirmation Mail --------------"
+	);
 
 	// Create a document
 	const doc = new PDFDocument({ size: [595, 200] });
@@ -28,7 +37,10 @@ async function generate_pdf(
 	doc.registerFont("Bold1", "./assets/fonts/AnekLatin-Bold.ttf");
 
 	// Template
-	doc.image("./assets/Templates/pass_template.png", 0, 0, { width: 595, height: 200 });
+	doc.image("./assets/Templates/pass_template.png", 0, 0, {
+		width: 595,
+		height: 200,
+	});
 
 	doc.fontSize(12);
 
@@ -41,18 +53,15 @@ async function generate_pdf(
 			color: "white",
 		});
 
-	// doc.font("Bold")
-	// 	.fontSize(10)
-	// 	.fill("white")
-	// 	.text(`Transaction ID: ${data.body.txnId}`, 226, 102, {
-	// 		width: 569.5,
-	// 		align: "left",
-	// 	});
 	// Name
 	doc.fontSize(10);
 	doc.font("Medium")
 		.fillColor("white")
-		.text(`Name :`, 226, 52, { width: 569.5, align: "left", color: "white" });
+		.text(`Name :`, 226, 52, {
+			width: 569.5,
+			align: "left",
+			color: "white",
+		});
 	doc.font("Regular").text(fullname, 264, 52, {
 		width: 569.5,
 		align: "left",
@@ -70,24 +79,17 @@ async function generate_pdf(
 	});
 
 	// // Email
-	doc.font("Medium").text(`Email :`, 226, 64, { width: 569.5, align: "left" });
+	doc.font("Medium").text(`Email :`, 226, 64, {
+		width: 569.5,
+		align: "left",
+	});
 	doc.font("Regular").text(email, 260, 64, {
 		width: 569.5,
 		align: "left",
 	});
 
-	// // Phone No.
-	// doc.font("Medium").text(`Phone No`, 50, 398, {
-	// 	width: 595.28,
-	// 	align: "left",
-	// });
-	// doc.font("Regular").text(`7567956523`, 160, 398, {
-	// 	width: 595.28,
-	// 	align: "left",
-	// });
-
 	// // Pass Type
-	doc.font("Medium").text(`Pass Type :`, 226, 89, {
+	doc.font("Medium").text(title, 226, 89, {
 		width: 569.5,
 		align: "left",
 	});
@@ -96,26 +98,14 @@ async function generate_pdf(
 		align: "left",
 	});
 
-	doc.font("Medium").text('Date :',226, 102,{
+	doc.font("Medium").text("Date :", 226, 102, {
 		width: 569.5,
 		align: "left",
 	});
-	doc.font("Regular").text(data.body.txnDate,260, 102,{
+	doc.font("Regular").text(data.body.txnDate, 260, 102, {
 		width: 569.5,
 		align: "left",
 	});
-
-
-	// // Payment Data
-	// doc.font("Medium").text(`Payment Date`, 50, 446, {
-	// 	width: 595.28,
-	// 	align: "left",
-	// });
-	// doc.font("Regular").text(`Address : Event Room, GUIITAR Lab 7,
-	//  `, 226, 143, {
-
-	// 	align: "left",
-	// });
 
 	doc.fontSize(10)
 		.font("Regular")
@@ -154,32 +144,28 @@ async function generate_pdf(
 			"https://anantagsfcu.in/"
 		);
 
-	// doc.text("CANCELLATION & REFUND POLICY", 59, 715)
-	//
-	// 	.link(
-	// 		59,
-	// 		715,
-	// 		doc.widthOfString("CANCELLATION & REFUND POLICY"),
-	// 		doc.currentLineHeight(),
-	// 		""
-	// 	);
-
 	doc.image(`${qr_code_url}`, 32, 32, { fit: [137, 137], align: "center" });
 
-
-    // console.log(doc);
+	// console.log(doc);
 
 	doc.end();
 
-    console.log("PDF Generated...");
+	console.log("PDF Generated...");
 	// ===============Pdf  generated=========================
-    // while(!fs.existsSync(`./assets/pdfs/${participantID}.pdf`));
+	// while(!fs.existsSync(`./assets/pdfs/${participantID}.pdf`));
 
-    console.log("Sending True to buymail...")
-    return true
+	console.log("Sending True to buymail...");
+	return true;
 }
 
-async function buyPassMail(transporter, data, participantID, email, fullname, passType) {
+async function buyPassMail(
+	transporter,
+	data,
+	participantID,
+	email,
+	fullname,
+	passType
+) {
 	let options = {
 		text: participantID,
 		width: 256,
@@ -196,7 +182,7 @@ async function buyPassMail(transporter, data, participantID, email, fullname, pa
 		logoBackgroundTransparent: true,
 		logoWidth: 100,
 		logoHeight: 100,
-        quietZone: 10
+		quietZone: 10,
 	};
 
 	let qr_code = new QRCode(options);
@@ -205,52 +191,63 @@ async function buyPassMail(transporter, data, participantID, email, fullname, pa
 
 	console.log(qrURL);
 
-    // console.log(await generate_pdf(data, participantID, email, fullname, passType, qrURL));
+	// console.log(await generate_pdf(data, participantID, email, fullname, passType, qrURL));
 
-    if (await generate_pdf(data, participantID, email, fullname, passType, qrURL)) {
-        console.log("------------------------------------------------")
-        // return true;
+	if (
+		await generate_pdf(
+			data,
+			participantID,
+			email,
+			fullname,
+			passType,
+			qrURL
+		)
+	) {
+		console.log("------------------------------------------------");
+		// return true;
 
-        setTimeout(()=> {
-            transporter.sendMail(
-            {
-                from: "20bt04004@gsfcuniversity.ac.in",
-                to: email,
-                subject: "Payment Confirmation | Ananta'23",
-                template: "PassSend",
-                context: {
-                    fullname: fullname
-                },
-                attachments: [
-                    {
-                        filename: `Events_Entry_Pass_${participantID}.pdf`,
-                        contentType: "application/pdf",
-                        path: `assets/pdfs/${participantID}.pdf`,
-                    },
-                ],
-            },
-    
-            //this function is for delete pdf's which generated and sent successfully to participate
-            (error, info) => {
-                if (info) {
-                    console.log("PDF Send...")
-                    console.log(info);
-                    console.log("Mailing the Pass with Attachment is Done....");
-                    return true
-                } else {
-                    console.log(error);
-                    return false
-                    // fs.unlinkSync(`./pdfs/859203990odllald.pdf`);
-                }
-            }
-        ) 
-    }, 5000);
-        console.log("sending back true to callback function....")
-        return true;
-    } else {
-    //     return false;
-    }
+		setTimeout(() => {
+			transporter.sendMail(
+				{
+					from: "20bt04004@gsfcuniversity.ac.in",
+					to: email,
+					subject: "Payment Confirmation | Ananta'23",
+					template: "PassSend",
+					context: {
+						fullname: fullname,
+					},
+					attachments: [
+						{
+							filename: `Events_Entry_Pass_${participantID}.pdf`,
+							contentType: "application/pdf",
+							path: `assets/pdfs/${participantID}.pdf`,
+						},
+					],
+				},
+
+				//this function is for delete pdf's which generated and sent successfully to participate
+				(error, info) => {
+					if (info) {
+						console.log("PDF Send...");
+						console.log(info);
+						console.log(
+							"Mailing the Pass with Attachment is Done...."
+						);
+						return true;
+					} else {
+						console.log(error);
+						return false;
+						// fs.unlinkSync(`./pdfs/859203990odllald.pdf`);
+					}
+				}
+			);
+		}, 5000);
+		console.log("sending back true to callback function....");
+		return true;
+	} else {
+		//     return false;
 	}
+}
 
 module.exports = {
 	buyPassMail,

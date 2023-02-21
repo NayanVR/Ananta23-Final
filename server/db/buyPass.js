@@ -1,20 +1,18 @@
-const e = require("express");
-const { genPaymentID } = require("../util");
-
+// Dependencies
+const { genPaymentID } = require("util");
 const passes = require("./../assets/passes.json");
 
-let date_nz = new Date(new Date().toLocaleString("en-in", { timeZone: "Asia/Calcutta" }));
+// 🗸 ✗ 
 
-const timestamp = `${date_nz.getFullYear()}-${("0" + date_nz.getDate()).slice(-2)}-${("0" + (date_nz.getMonth() + 1)).slice(-2)} ${("0" + date_nz.getHours()).slice(-2)}:${("0" + date_nz.getMinutes()).slice(-2)}:${("0" + date_nz.getSeconds()).slice(-2)}`;
-
-
-// console.log(passes);
-
+// Method for Updating the No. of Passes Sold in Passes Table...
 async function updateSoldPasses(conn) {
+
+	// Fetching all the Passes count from Participant table groupwise...
 	const [rows, fields] = await conn.execute(
 		`select PassCode, COUNT(PassCode) as Sold from Participants where PassCode != "NIL" group by PassCode;`
 	);
-
+	
+	// Updating the Individaul Sold count of each Pass in Passes Table.
 	if (rows.length > 0) {
 		let count = 0;
 		rows.forEach(async (element) => {
@@ -26,13 +24,12 @@ async function updateSoldPasses(conn) {
 				count++;
 			}
 		});
-		console.log("Count is " + count)
-
-		console.log("Rows length is " + rows.Sold)
 		if (count == rows.length) {
+			console.log("🗸 Passes Sold count is updated")
 			return 1;
 		}
 		else {
+			console.log("✗ Passes Sold Not updated xxxx")
 			return 0;
 		}
 		
@@ -40,38 +37,43 @@ async function updateSoldPasses(conn) {
 	return 0;
 }
 
+// Method to Fetch Last Pass Bought by Participant for Upgrade of Pass.
 async function getOldPassAmount(conn, participantID) {
+
 	const [rows, fields] = await conn.execute(
 		`SELECT TxnAmount FROM Participants where ParticipantID = '${participantID}'`
 	);
 
 	if (rows.length > 0) {
+		console.log("🗸 Last Pass Amount is fetched.")
 		return rows[0].TxnAmount;
 	}
 	return 0;
 }
 
+// Method to Fetch Last Transaction Details
 async function getTxnDetails(conn, email) {
     const [rows, fields] = await conn.execute(
 		`SELECT py.OrderID as OrderID, pa.PassType as PassType, py.TxnStatus as TxnStatus, py.TxnID as TxnID, py.TxnDate as TxnDate FROM Payments as py inner join Passes as pa on py.PassCode = pa.PassCode and py.PaymentID = ( SELECT PaymentID FROM Participants WHERE Email = '${email}')`
 	);
 
 	if (rows.length > 0) {
+		console.log("🗸 Transaction Details Fetched.")
 		return rows;
 	}
 	return {};
 }
 
-// Check If the Selected Pass can be buy or Upgraded...
+// Method to Check If the Selected Pass can be buy or Upgraded...
 async function checkBuyPass(conn, selectedPassCode, participantID) {
 
-	console.log(selectedPassCode)
 	const [parRows, parfields] = await conn.execute(
 		`SELECT ParticipantID, ProfileStatus, TxnStatus, TotalWorkshops, TotalEvents, TotalGuests, PassCode FROM Participants WHERE ParticipantID = '${participantID}'`
 	);
 
 	// Check If Participant Exists
 	if (parRows.length < 1) {
+		console.log("✗ Participant Not Found.")
 		return {
 			code: 404,
 			resMessage: { message: "Participant Not Found", type: "error" },
@@ -79,6 +81,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 	} else {
 		// Check If Profile is Completed
 		if (parRows[0].ProfileStatus == 0) {
+			console.log("✗ Participant has not setup his/her profile...")
 			return {
 				code: 400,
 				resMessage: { message: "Profile Not Completed", type: "error" },
@@ -87,6 +90,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 
 		// Check if new Registration or need Upgrade
 		if (parRows[0].TxnStatus == 0) {
+			console.log("🗸 Buying the Pass First Time.")
 			return {
 				code: 200,
 				resMessage: {
@@ -111,10 +115,11 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 
 			// If Amount of Selected Pass is Less than that of Purchased Pass
 			if (passes[parPassCode].Amount > passes[selectedPassCode].Amount) {
+				console.log("✗ ")
 				return {
 					code: 400,
 					resMessage: {
-						message: "Can't Downgrade Pass",
+						message: "You can't Down",
 						type: "error",
 					},
 				};
@@ -142,40 +147,6 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 					},
 				};
 			}
-
-			// If Pass is Combo 2(AllW + DJ)
-			// Eg:
-			//    PassBought is Bronze(2E and 1G) and PassSelected is Combo2(All W)
-			//    PassBought is Combo 1(AllE and AllG + DJ) and PassSelected is Combo2(All W +DJ)
-			// if (
-			// 	["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
-			// 		parPassCode
-			// 	) 
-			// 	&&
-			// 	["PS-C2"].includes(selectedPassCode)
-			// ) {
-			// 	if (parEventCount > 0 || parGuestCount > 0) {
-			// 		return {
-			// 			code: 400,
-			// 			resMessage: {
-			// 				message:
-			// 					"Remove Registered Events & Guest Lectures",
-			// 				type: "error",
-			// 			},
-			// 		};
-			// 	} else {
-			// 		return {
-			// 			code: 200,
-			// 			resMessage: {
-			// 				message: "Upgrade Pass",
-			// 				type: "success",
-			// 				payAmount:
-			// 					passes[selectedPassCode].Amount -
-			// 					passes[parPassCode].Amount,
-			// 			},
-			// 		};
-			// 	}
-			// }
 
 			// If Pass is DJ Pass
 			// Eg:
@@ -207,35 +178,6 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 				}
 			}
 
-			// If Pass is Combo 1
-			// Eg:
-			//    PassBought is Combo 2 and PassSelected is Combo 1
-			// if (
-			// 	["PS-C2"].includes(parPassCode) &&
-			// 	["PS-C"].includes(selectedPassCode)
-			// ) {
-			// 	if (parWorkshopCount > 0) {
-			// 		return {
-			// 			code: 400,
-			// 			resMessage: {
-			// 				message: "Remove Registered Workshops",
-			// 				type: "error",
-			// 			},
-			// 		};
-			// 	} else {
-			// 		return {
-			// 			code: 200,
-			// 			resMessage: {
-			// 				message: "Upgrade Pass",
-			// 				type: "success",
-			// 				payAmount:
-			// 					passes[selectedPassCode].Amount -
-			// 					passes[parPassCode].Amount,
-			// 			},
-			// 		};
-			// 	}
-			// }
-
 			return {
 				code: 400,
 				resMessage: { message: "Invalid Pass", type: "error" },
@@ -244,7 +186,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 	}
 }
 
-// Database Queries to commit the Buy Pass and Upgrade... ------------------------------------
+// Method for Database Queries to commit the Buy Pass and Upgrade... ------------------------------------
 async function buyPass(conn, participantID, passCode, paymentData) {
 	/* 
     Following Steps must follow to Complete the Payment Process:
@@ -322,6 +264,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 
 		console.log(res);
 
+		// Updating No. of Passes Sold in Passes Table...
 		if (await updateSoldPasses(conn)) {
 			res.resMessage += ", PassesSoldUpdated"
 			return res;

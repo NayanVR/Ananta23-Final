@@ -33,6 +33,7 @@ import Upshot from './pages/Upshot';
 import Zingaat from './pages/Zingaat';
 import Partners from './pages/Partners';
 import PageNotFound from './pages/PageNotFound';
+import Team from './pages/Team';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -67,6 +68,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/upshot" element={<Upshot />} />
           <Route path="/zingaat" element={<Zingaat />} />
           <Route path="/our-partners" element={<Partners />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
         <Footer />
       </BrowserRouter>

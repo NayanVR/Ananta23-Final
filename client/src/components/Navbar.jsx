@@ -82,7 +82,7 @@ function Navbar() {
                             </Link>
                             <Link
                                 className="px-6 py-2 hover:bg-gray-100"
-                                to="/contact-us"
+                                to="/team"
                             >
                                 Our Team
                             </Link>

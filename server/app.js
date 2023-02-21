@@ -1,3 +1,4 @@
+// Dependencies
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -8,6 +9,9 @@ const mysql = require("mysql2/promise");
 const formidable = require("formidable");
 const Paytm = require("paytmchecksum");
 const https = require("https");
+
+
+// Required Modules
 const middleware = require("./middleware");
 const {
 	checkEvent,
@@ -20,15 +24,16 @@ const {
 } = require("./db/events");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
-const { makePayment } = require("./payment");
-const { sendResetPassEmail, getParticipantID } = require("./util");
+const { buyPassOffline } = require("./db/buyPassOffline");
+const { makePayment } = require("./db/payment");
+const { sendResetPassEmail, getParticipantID } = require("./db/util");
 const { buyPassMail } = require("./db/mails");
-
 
 const app = express();
 const port = process.env.PORT || 3000;
 let conn;
 
+// --------------- Initializing the MySQL Database Connection....
 (async function initDB() {
 	conn = await mysql.createConnection(process.env.DATABASE_URL);
 })();
@@ -42,16 +47,6 @@ let date_nz = new Date(
 	new Date().toLocaleString("en-us", { timeZone: "Asia/Calcutta" })
 );
 
-const timestamp = `${date_nz.getFullYear()}-${("0" + (date_nz.getMonth() + 1)).slice(-2)}-${("0" + date_nz.getDate()).slice(
-	-2
-)} ${(
-	"0" + date_nz.getHours()
-).slice(-2)}:${("0" + date_nz.getMinutes()).slice(-2)}:${(
-	"0" + date_nz.getSeconds()
-).slice(-2)}`;
-
-console.log("Date and Time in YYYY-MM-DD hh:mm:ss format: " + timestamp);
-
 let otps = {};
 
 let transporter = nodemailer.createTransport({
@@ -61,7 +56,7 @@ let transporter = nodemailer.createTransport({
 		pass: process.env.NODEMAILER_EMAIL_PASS,
 	},
 });
-// console.log("Ashish", path.resolve("./Templates"));
+
 const handlebarOptions = {
 	viewEngine: {
 		extName: ".handlebars",
@@ -279,7 +274,6 @@ app.post("/api/secure/deleteEvent", async (req, res) => {
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
-// Forgot Password : Send OTP
 app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	email = req.body.email;
 
@@ -316,6 +310,23 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 
 	return res.status(response.code).json(response.resMessage);
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+});
+
+app.post("/api/buyPassOffline", async (req, res) => {
+	console.log(req.body);
+
+	const response = await buyPassOffline(
+		conn,
+		transporter,
+		req.body.participantID,
+		req.body.passCode,
+		req.body.passAmt,
+		req.body.enrollmentNo,
+		req.body.accessToken,
+		req.body.payMode
+	);
+
+	return res.json(response.resMessage);
 });
 
 // Payment Logic
