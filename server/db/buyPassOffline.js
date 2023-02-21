@@ -4,11 +4,6 @@ const { buyPassMail } = require("./mails");
 
 const passes = require("../assets/passes.json");
 
-// let timezone = new Date().toLocaleString("en-in", { timeZone: "Asia/Calcutta" })
-
-let timeZone = new Date().toLocaleString("en-us", {
-	timeZone: "Asia/Calcutta",
-});
 
 async function updateSoldPasses(conn) {
 	const [rows, fields] = await conn.execute(
@@ -20,18 +15,15 @@ async function updateSoldPasses(conn) {
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
-			// console.log(element);
 			const [updateRows, updateFields] = await conn.execute(
 				`update Passes set Sold = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
 			);
 		}
-		console.log("Count is ->");
-		console.log(i);
-
-		console.log("Rows length is " + rows.length);
 		if (i == rows.length) {
+			console.log("✔ PassSold Updation Complete.")
 			return true;
 		} else {
+			console.log("✘ PassSold Updation Failed.")
 			return false;
 		}
 	}
@@ -56,6 +48,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 
 	if (authAccessRow.length > 0) {
 		if (authAccessRow[0].AccessToken == accessToken) {
+			console.log("⦿ Authenticated Successfully...")
 			return {
 				code: 200,
 				resMessage: {
@@ -64,6 +57,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 				},
 			};
 		} else {
+			console.log("⊘ Authenticated Failed...")
 			return {
 				code: 200,
 				resMessage: {
@@ -73,6 +67,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 			};
 		}
 	} else {
+		console.log("🌻User Not Found")
 		return {
 			code: 200,
 			resMessage: {
@@ -107,8 +102,6 @@ async function buyPassOffline(
     3. UPDATE the Participants table with new pass if the pass is Upgrade.
     */
 
-	// console.log(participantID, passCode, paymentData);
-
 	const res = {
 		code: 400,
 		resMessage: {
@@ -122,7 +115,9 @@ async function buyPassOffline(
 
 	const paymentID = await genPaymentID(conn, passCode);
 
-	const date = new Date(timeZone);
+	const date = new Date(new Date().toLocaleString("en-us", {
+		timeZone: "Asia/Calcutta",
+	}));
 	const timestamp = `${date.getFullYear()}-${(
 		"0" +
 		(date.getMonth() + 1)
@@ -131,14 +126,14 @@ async function buyPassOffline(
 	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
 		"0" + date.getSeconds()
 	).slice(-2)}`;
-	console.log(timestamp);
 
-	const query = `INSERT INTO PaymentsOffline (PaymentID, ParticipantID, PassCode, TxnStatus, TxnAmount, PaymentMode, TxnDate, ContactPerson) VALUES ('${paymentID}', '${participantID}', '${passCode}', 'TXN_SUCCESS', ${payAmt}, '${payMode}', '${timestamp}', '${enrollmentNo}')`;
-	console.log(query);
-	const [insertPaymentRows, insertPaymentFields] = await conn.execute(query);
+	const [insertPaymentRows, insertPaymentFields] = await conn.execute(`INSERT INTO PaymentsOffline (PaymentID, ParticipantID, PassCode, TxnStatus, TxnAmount, PaymentMode, TxnDate, ContactPerson) VALUES ('${paymentID}', '${participantID}', '${passCode}', 'TXN_SUCCESS', ${payAmt}, '${payMode}', '${timestamp}', '${enrollmentNo}')`);
 
 	// INSERT into Payments
 	if (insertPaymentRows && passCode.includes("PS-")) {
+		console.log("✔ Payment Record inserted into PaymentsOffline Table.")
+		console.log("⟴ Pass Registration Started...")
+
 		res.resMessage.message += "Payment";
 		res.resMessage.payInsert = 1;
 		res.resMessage.type = "success";
@@ -155,6 +150,7 @@ async function buyPassOffline(
 				);
 
 				if (atmosRows) {
+					console.log("✔ Atmos Registration is complete.")
 					res.resMessage.message += ", Atmos";
 					res.resMessage.atmos = 1;
 				}
@@ -162,7 +158,6 @@ async function buyPassOffline(
 		}
 
 		const oldAmount = await getOldPassAmount(conn, participantID);
-		console.log(oldAmount);
 
 		// Updating the Participant's Pass and Payment Info...
 		const [parUpdateRows, parUpdateFields] = await conn.execute(
@@ -176,17 +171,23 @@ async function buyPassOffline(
 		);
 
 		if (parUpdateRows) {
+			console.log("✔ Participant Record updated with new Pass.")
 			res.code = 200;
 			res.resMessage.message += ", UpdateParticipant";
 			res.resMessage.parUpdate = 1;
+		} else {
+			console.log("✘ Participant Record updated with new Pass Failed...")
+			res.code = 200;
+			res.resMessage.message += ", UpdateParticipantFailed";
+			res.resMessage.parUpdate = 0;
 		}
-	} else {
-		res.resMessage.message = "PassNotFound";
-		res.resMessage.passFound = 0;
 	}
 
 	// KalaKriti Registration
 	if (insertPaymentRows && passCode.includes("KK_")) {
+		console.log("✔ Payment Record inserted into PaymentsOffline Table.")
+		console.log("⟴ Workshops Registration Started");
+		
 		res.resMessage.message += "Payment, KK Found";
 		res.resMessage.payInsert = 1;
 		res.resMessage.kkFound = 1;
@@ -197,6 +198,7 @@ async function buyPassOffline(
 		);
 
 		if (regKKRows) {
+			console.log("✔ Payment Record inserted into SoloRegistration Table.")
 			res.code = 200;
 			res.resMessage.message += ", InertKK";
 			res.resMessage.insertKK = 1;
@@ -212,31 +214,31 @@ async function buyPassOffline(
 					} where ParticipantID = '${participantID}'`
 				);
 				if (updateParRows) {
+					console.log("✔ Total Workshop count is updated in Participant Table.")
 					res.code = 200;
 					res.resMessage.message += ", updateParticipant";
 					res.resMessage.parUpdate = 1;
 				} else {
+					console.log("✘ Participant Record updated with new Pass Failed...");
 					res.code = 500;
 					res.resMessage.message += ", updateParticipantFailed";
 					res.resMessage.parUpdate = 0;
 					res.resMessage.type = "error";
 				}
 			} else {
+				console.log("✘ Participant Not Found...")
 				res.code = 500;
 				res.resMessage.message += ", ParticipantNotFound";
 				res.resMessage.parFound = 0;
 				res.resMessage.type = "error";
 			}
 		} else {
+			console.log("✘ Participant Not Found...")
 			res.code = 200;
 			res.resMessage.message += ", InertKKFailed";
 			res.resMessage.insertKK = 0;
 			res.resMessage.type = "error";
 		}
-	} else {
-		res.resMessage.message = "KKNotFound";
-		res.resMessage.kkFound = 0;
-		res.resMessage.type = "error";
 	}
 
 	if (await updateSoldPasses(conn)) {
@@ -251,11 +253,13 @@ async function buyPassOffline(
 	//Sending Mail
 
 	if (passCode.includes("PS-")) {
+		console.log(`➔ Pass Sending it to Mail Begins.............`)
 		const [parRows, parFields] = await conn.execute(
 			`SELECT Participants.ParticipantID, Email, Firstname, Lastname, PassType, PaymentsOffline.TxnDate AS Timestamp FROM Participants INNER JOIN Passes INNER JOIN PaymentsOffline ON Participants.PassCode = Passes.PassCode AND Participants.PaymentID = PaymentsOffline.PaymentID WHERE Participants.ParticipantID = '${participantID}'`
 		);
 
 		if (parRows.length > 0) {
+			
 			let data = { body: { txnDate: parRows[0].Timestamp } };
 			const sendMail = await buyPassMail(
 				transporter,
@@ -275,6 +279,7 @@ async function buyPassOffline(
 			}
 		}
 	} else {
+		console.log("⋙ Workshop Sending it to Mail Begins.............")
 		const [parRows, parFields] = await conn.execute(
 			`SELECT * FROM Participants where ParticipantID = '${participantID}'`
 		);

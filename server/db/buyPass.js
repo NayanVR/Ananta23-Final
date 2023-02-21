@@ -2,7 +2,7 @@
 const { genPaymentID } = require("util");
 const passes = require("./../assets/passes.json");
 
-// 🗸 ✗ 
+// ✔ ✘ ⟳
 
 // Method for Updating the No. of Passes Sold in Passes Table...
 async function updateSoldPasses(conn) {
@@ -25,11 +25,11 @@ async function updateSoldPasses(conn) {
 			}
 		});
 		if (count == rows.length) {
-			console.log("🗸 Passes Sold count is updated")
+			console.log("✔ Passes Sold count is updated")
 			return 1;
 		}
 		else {
-			console.log("✗ Passes Sold Not updated xxxx")
+			console.log("✘ Passes Sold Not updated xxxx")
 			return 0;
 		}
 		
@@ -45,7 +45,7 @@ async function getOldPassAmount(conn, participantID) {
 	);
 
 	if (rows.length > 0) {
-		console.log("🗸 Last Pass Amount is fetched.")
+		console.log("✔ Last Pass Amount is fetched.")
 		return rows[0].TxnAmount;
 	}
 	return 0;
@@ -58,7 +58,7 @@ async function getTxnDetails(conn, email) {
 	);
 
 	if (rows.length > 0) {
-		console.log("🗸 Transaction Details Fetched.")
+		console.log("✔ Transaction Details Fetched.")
 		return rows;
 	}
 	return {};
@@ -73,7 +73,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 
 	// Check If Participant Exists
 	if (parRows.length < 1) {
-		console.log("✗ Participant Not Found.")
+		console.log("✘ Participant Not Found.")
 		return {
 			code: 404,
 			resMessage: { message: "Participant Not Found", type: "error" },
@@ -81,7 +81,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 	} else {
 		// Check If Profile is Completed
 		if (parRows[0].ProfileStatus == 0) {
-			console.log("✗ Participant has not setup his/her profile...")
+			console.log("✘ Participant has not setup his/her profile...")
 			return {
 				code: 400,
 				resMessage: { message: "Profile Not Completed", type: "error" },
@@ -90,7 +90,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 
 		// Check if new Registration or need Upgrade
 		if (parRows[0].TxnStatus == 0) {
-			console.log("🗸 Buying the Pass First Time.")
+			console.log("✔ Buying the Pass First Time.")
 			return {
 				code: 200,
 				resMessage: {
@@ -115,7 +115,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 
 			// If Amount of Selected Pass is Less than that of Purchased Pass
 			if (passes[parPassCode].Amount > passes[selectedPassCode].Amount) {
-				console.log("✗ ")
+				console.log("✘ ")
 				return {
 					code: 400,
 					resMessage: {

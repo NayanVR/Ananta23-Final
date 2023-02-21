@@ -10,8 +10,6 @@ async function generate_pdf(
 	passType,
 	qr_code_url
 ) {
-	// =====================================Generate Pdf===================
-
 	let title = "";
 
 	if (passType == "Combo" || passType == "Atmos" || passType == "Gold" || passType == "Silver" || passType == "Bronze" ) {
@@ -19,10 +17,6 @@ async function generate_pdf(
 	} else {
 		title += "Workshop :"
 	}
-
-	console.log(
-		"--------------- Sending Pass Confirmation Mail --------------"
-	);
 
 	// Create a document
 	const doc = new PDFDocument({ size: [595, 200] });
@@ -68,8 +62,7 @@ async function generate_pdf(
 		color: "white",
 	});
 
-	// Passid
-
+	// Participant ID
 	doc.font("Medium")
 		.fillColor("white")
 		.text(`Participant ID : `, 226, 77, { width: 569.5, align: "left" });
@@ -78,7 +71,7 @@ async function generate_pdf(
 		align: "left",
 	});
 
-	// // Email
+	// Email
 	doc.font("Medium").text(`Email :`, 226, 64, {
 		width: 569.5,
 		align: "left",
@@ -88,7 +81,7 @@ async function generate_pdf(
 		align: "left",
 	});
 
-	// // Pass Type
+	// Pass Type
 	doc.font("Medium").text(title, 226, 89, {
 		width: 569.5,
 		align: "left",
@@ -97,7 +90,8 @@ async function generate_pdf(
 		width: 569.5,
 		align: "left",
 	});
-
+	
+	// Date of Transaction
 	doc.font("Medium").text("Date :", 226, 102, {
 		width: 569.5,
 		align: "left",
@@ -107,11 +101,11 @@ async function generate_pdf(
 		align: "left",
 	});
 
+	// Contact Link
 	doc.fontSize(10)
 		.font("Regular")
 		.fillColor("#1C7690")
 		.text("Contact Us", 537, 144)
-
 		.link(
 			524,
 			144,
@@ -119,6 +113,8 @@ async function generate_pdf(
 			doc.currentLineHeight(),
 			"https://anantagsfcu.in/"
 		);
+
+	// Ananta Website Link
 	doc.fontSize(10)
 		.font("Regular")
 		.fillColor("#1C7690")
@@ -131,6 +127,8 @@ async function generate_pdf(
 			doc.currentLineHeight(),
 			"https://anantagsfcu.in/"
 		);
+
+	// Refund Policy Link
 	doc.fontSize(10)
 		.font("Regular")
 		.fillColor("#1C7690")
@@ -146,15 +144,11 @@ async function generate_pdf(
 
 	doc.image(`${qr_code_url}`, 32, 32, { fit: [137, 137], align: "center" });
 
-	// console.log(doc);
-
 	doc.end();
 
-	console.log("PDF Generated...");
-	// ===============Pdf  generated=========================
-	// while(!fs.existsSync(`./assets/pdfs/${participantID}.pdf`));
+	console.log("✔ Pass PDF Generated successfully.");
 
-	console.log("Sending True to buymail...");
+	console.log();
 	return true;
 }
 
@@ -173,25 +167,22 @@ async function buyPassMail(
 		colorDark: "#000",
 		colorLight: "#ffffff",
 		correctLevel: QRCode.CorrectLevel.H,
-		// dotoptions: {
-		// 	color: "#012C3D",
-		// 	type : "rounded"
-		// },
+		dotoptions: {
+			color: "#012C3D",
+			type : "rounded"
+		},
 		dotScale: 1,
 		// logo: "./img/gsfcu_logo.png",
 		logoBackgroundTransparent: true,
 		logoWidth: 100,
 		logoHeight: 100,
-		quietZone: 10,
+		quietZone: 4,
 	};
 
 	let qr_code = new QRCode(options);
-
 	let qrURL = await qr_code.toDataURL();
 
-	console.log(qrURL);
-
-	// console.log(await generate_pdf(data, participantID, email, fullname, passType, qrURL));
+	console.log("✔ QrCode generated successfully.");
 
 	if (
 		await generate_pdf(
@@ -203,10 +194,9 @@ async function buyPassMail(
 			qrURL
 		)
 	) {
-		console.log("------------------------------------------------");
-		// return true;
 
 		setTimeout(() => {
+			console.log(`➾ Sending mail to ${email} ....`)
 			transporter.sendMail(
 				{
 					from: "20bt04004@gsfcuniversity.ac.in",
@@ -227,25 +217,21 @@ async function buyPassMail(
 
 				//this function is for delete pdf's which generated and sent successfully to participate
 				(error, info) => {
+					// fs.unlinkSync(`./../assets/pdfs/${participantID}.pdf`);
+					// console.log("♻️ Pass PDF is Deleted from the Server...")
 					if (info) {
-						console.log("PDF Send...");
-						console.log(info);
-						console.log(
-							"Mailing the Pass with Attachment is Done...."
-						);
+						console.log(`✔ Mail sent to ${email}`);
 						return true;
 					} else {
-						console.log(error);
+						console.log(`✘ Failed to send mail to ${email}`);
 						return false;
-						// fs.unlinkSync(`./pdfs/859203990odllald.pdf`);
 					}
 				}
 			);
 		}, 5000);
-		console.log("sending back true to callback function....");
 		return true;
 	} else {
-		//     return false;
+		console.log("✘ Failed to generated Pass PDF")
 	}
 }
 

@@ -43,12 +43,11 @@ app.use(express.json());
 app.use(middleware.decodeToken);
 app.use(express.static(path.join(__dirname, "dist")));
 
-let date_nz = new Date(
-	new Date().toLocaleString("en-us", { timeZone: "Asia/Calcutta" })
-);
 
+// OTPs Storage Object
 let otps = {};
 
+// Creating a Nodemailer Tranporter
 let transporter = nodemailer.createTransport({
 	service: "Gmail",
 	auth: {
@@ -57,6 +56,7 @@ let transporter = nodemailer.createTransport({
 	},
 });
 
+// Handlebars Option for sending HTML templates in mail...
 const handlebarOptions = {
 	viewEngine: {
 		extName: ".handlebars",
@@ -67,13 +67,16 @@ const handlebarOptions = {
 	extName: ".handlebars",
 };
 
+// Compiling the Handlebars Options.
 transporter.use("compile", hbs(handlebarOptions));
 
+// Setting up the routes paths for React and Node seperately. 
 app.use((req, res, next) => {
 	if (req.url.includes("/api")) return next();
 	else return res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+// Route - Footer User Query
 app.post("/api/query", async (req, res) => {
 	const email = req.body.email;
 	const query = req.body.query;
@@ -120,7 +123,7 @@ app.post("/api/query", async (req, res) => {
 	}
 });
 
-// OTP Logic
+// Route - Generating the Sending OTP to participant mail.
 app.post("/api/generateOTP", async (req, res) => {
 	const email = req.body.email;
 	console.log(email);
@@ -128,7 +131,6 @@ app.post("/api/generateOTP", async (req, res) => {
 		`SELECT * FROM Participants WHERE Email = '${email}';`
 	);
 
-	// console.log( path.dirname() );
 	if (rows.length > 0)
 		return res.status(400).json({
 			isOTPGenerated: false,
@@ -174,6 +176,7 @@ app.post("/api/generateOTP", async (req, res) => {
 	);
 });
 
+// Route - Verifying the OTP.
 app.post("/api/verifyOTP", async (req, res) => {
 	const email = req.body.email;
 	const otp = req.body.otp;
@@ -187,7 +190,7 @@ app.post("/api/verifyOTP", async (req, res) => {
 	});
 });
 
-// Profile Logic
+// Creating a New User Profile
 app.post("/api/create-profile", async (req, res) => {
 	const bd = req.body;
 
@@ -205,6 +208,7 @@ app.post("/api/create-profile", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Updating the User Profile
 app.post("/api/secure/update-profile", async (req, res) => {
 	const body = req.body;
 	const email = req.user.email;
@@ -214,6 +218,7 @@ app.post("/api/secure/update-profile", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Fetching all the Information of a User
 app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
@@ -240,6 +245,7 @@ app.get("/api/secure/get-profile", async (req, res) => {
 			.json({ message: rows[0], type: "success", pass: {} });
 	}
 });
+
 
 app.post("/api/secure/getEvents", async (req, res) => {
 	const { email_ } = req.body;
@@ -313,7 +319,6 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 });
 
 app.post("/api/buyPassOffline", async (req, res) => {
-	console.log(req.body);
 
 	const response = await buyPassOffline(
 		conn,
