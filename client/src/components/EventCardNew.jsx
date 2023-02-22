@@ -18,7 +18,7 @@ function EventCard1({ event, registerNow, viewDetails }) {
                     <div className='flex flex-row h-12 justify-around'>
                         <button className='bg-primary-light-1 w-4/5 h-10 rounded-md text-lg font-semibold uppercase' onClick={() => { registerNow(event.eventCode, event.name) }}>
                             {
-                                event.price ? `₹ ${event.price}` : "Register"
+                                event.price ? `Pay ₹${event.price}` : "Register"
                             }
                         </button>
                         <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { viewDetails(event.eventCode) }}>
