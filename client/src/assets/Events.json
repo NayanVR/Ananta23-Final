@@ -7,23 +7,10 @@
 			"image": "agar.png"
 		},
 		{
-			"eventCode": "IN_VSM",
-			"name": "Virtual Stock Market",
-			"desc": "The market is mock, but the rewards will be real. Invest in virtual stock and become a bull or a bear!",
-			"image": "vsm1.png"
-		},
-		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
 			"desc": "Your wit and skills are reactants, the competition is the catalyst! Use them rightly to achieve the substance of success!",
 			"image": "jeop.png"
-		},
-
-		{
-			"eventCode": "IN_MP",
-			"name": "Monopoly",
-			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
-			"image": "mono.png"
 		},
 		{
 			"eventCode": "IN_ST",
@@ -32,15 +19,35 @@
 			"image": "trivia.png"
 		},
 		{
-			"eventCode": "IN_CE",
-			"name": "Chemi-emoji",
-			"desc":"The equation of winning should be done fast! So be quick, the answer should be as perfect as your emoji’s pick!",
-			"image": "emoji.png"
+			"eventCode": "IN_VSM",
+			"name": "Virtual Stock Market",
+			"desc": "The market is mock, but the rewards will be real. Invest in virtual stock and become a bull or a bear!",
+			"image": "vsm1.png"
+		},
+
+		{
+			"eventCode": "IN_MP",
+			"name": "Monopoly",
+			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
+			"image": "mono.png"
+		},
+	
+		{
+			"eventCode": "IN_ST",
+			"name": "GSFCU SHARK TANK",
+			"desc": "Pitch your idea or product, display the product’s spark. Showcase your entrepreneurship skills to get a deal from the sharks!",
+			"image": "ST.png"
 		},
 		{
 			"eventCode": "IN_ST",
-			"name": "SHARK TANK",
-			"desc": "Pitch your idea or product, display the product’s spark. Showcase your entrepreneurship skills to get a deal from the sharks!",
+			"name": "Language Mystery",
+			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
+			"image": "ST.png"
+		},
+		{
+			"eventCode": "IN_ST",
+			"name": "Master's Eye",
+			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
 			"image": "ST.png"
 		}
 
@@ -105,35 +112,43 @@
 			"desc": "Membric is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
 			"image":"membric.png"
 		},
-
-		{
-              "eventCode": "SW_FF",
-			  "name": "Free Fire",
-			  "desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
-			  "image": "freefire.png"
-		},
-
-		{
-			"eventCode": "SW_AB",
-			"name": "Anime Battle",
-			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
-			"image": "anime.png"
-		}, 
-
-		{
-			"eventCode": "SW_v",
-			"name": "Valorant",
-			"desc": "Valorant is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
-			"image": "valo1.png"
-
-		},
-
 		{
 			"eventCode": "SW_TH",
 			"name": "Treasure Hunt",
 			"desc": "Treasure Hunt is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
 			"image": "Thunt.png"
+		},
+		
+		 
+		{
+			"eventCode": "SW_CK",
+			"name": "BGMI",
+			"desc": "BGMI is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"image": "valo1.png"
+		},
+		
+		{
+			"eventCode": "SW_FF",
+			"name": "Free Fire",
+			"desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
+			"image": "freefire.png"
+		},
+		{
+			"eventCode": "SW_v",
+			"name": "Valorant",
+			"desc": "Valorant is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"image": "valo1.png"
+			
+		},
+		{
+			"eventCode": "SW_AB",
+			"name": "Anime Battle",
+			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
+			"image": "anime.png"
 		}
+
+
+		
 	
 	],
 
@@ -149,6 +164,13 @@
 			"eventCode": "KK_BI",
 			"name": "Power BI",
 			"desc": "Power BI is a business analytics service by Microsoft. It aims to provide interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
+			"image": "vsm1.png",
+			"price": "200"
+		},
+		{
+            "eventCode": "KK_VS",
+			"name": "GSBTM",
+			"desc":"Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
 			"image": "vsm1.png",
 			"price": "200"
 		},
@@ -184,6 +206,54 @@
 			"desc": "7 Up 7 Down is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
 			"image": "vsm1.png"
 
+		},
+		{
+			"eventCode": "US_BD",
+			"name": "Housie",
+			"desc": "Housie is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "US_BD",
+			"name": "Tic Tac Toe",
+			"desc": "Human Tic Tac Toe is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "US_BD",
+			"name": "Swift Fingers",
+			"desc": "Swift Fingers is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "Swift.png"
+		},
+		{
+			"eventCode": "",
+			"name" : "Floating Balls",
+			"desc": "Floating Balls is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "",
+			"name": "3 Rings in a Cup",
+			"desc": "3 Rings in a Cup is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "",
+			"name": "3 Shots in Basket",
+			"desc": "3 Shots in Basket is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "",
+			"name": "Glass Pyramid",
+			"desc": "Glass Pyramid is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
+		},
+		{
+			"eventCode": "",
+			"name": "Cup Stacking",
+			"desc": "Cup Stacking is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"image": "vsm1.png"
 		}
 		
 
