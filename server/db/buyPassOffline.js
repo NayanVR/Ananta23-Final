@@ -4,6 +4,29 @@ const { buyPassMail } = require("./mails");
 
 const passes = require("../assets/passes.json");
 
+async function updateUniversityRegistratioin(conn) {
+	const [rows, fields] = await conn.execute(
+`select count(*) as count, University from Participants where University != '' group by University`	);
+
+	if (rows.length > 0) {
+		await conn.execute(`update Universities set TotalRegistration=0, Funds = 0`);
+
+		let i = 0;
+		for (i; i < rows.length; i++) {
+			const [updateRows, updateFields] = await conn.execute(
+				`update Passes set Sold = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
+			);
+		}
+		if (i == rows.length) {
+			console.log("✔ PassSold Updation Complete.")
+			return true;
+		} else {
+			console.log("✘ PassSold Updation Failed.")
+			return false;
+		}
+	}
+	return false;
+}
 
 async function updateSoldPasses(conn) {
 	const [rows, fields] = await conn.execute(

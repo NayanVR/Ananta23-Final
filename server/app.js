@@ -192,7 +192,7 @@ app.post("/api/verifyOTP", async (req, res) => {
 	});
 });
 
-// Creating a New User Profile
+// Route - Creating a New User Profile
 app.post("/api/create-profile", async (req, res) => {
 	const bd = req.body;
 
@@ -210,7 +210,7 @@ app.post("/api/create-profile", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
-// Updating the User Profile
+// Route - Updating the User Profile
 app.post("/api/secure/update-profile", async (req, res) => {
 	const body = req.body;
 	const email = req.user.email;
@@ -220,7 +220,7 @@ app.post("/api/secure/update-profile", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
-// Fetching all the Information of a User
+// Route - Fetching all the Information of a User
 app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
@@ -248,21 +248,18 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	}
 });
 
-
+// Route - Fetch all the Events that Participant has registered in.
 app.post("/api/secure/getEvents", async (req, res) => {
 	const { email_ } = req.body;
 
-	// participantID = await getParticipantID(email);
-	console.log(req.body);
 	const participantID = await getParticipantID(conn, email_);
 
-	console.log(participantID);
 	const response = await getEvents(conn, participantID);
 
 	return res.status(response.code).json(response.resMessage);
-	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
+// Route - Deleting an Event..
 app.post("/api/secure/deleteEvent", async (req, res) => {
 	const { pid, eventCode, isSolo, role, teamID } = req.body;
 
@@ -282,6 +279,7 @@ app.post("/api/secure/deleteEvent", async (req, res) => {
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
+// Route - Forgot PassWord -> Reset Pass Mail with Firebase.
 app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	email = req.body.email;
 
@@ -298,13 +296,14 @@ app.post("/api/forgotpassword/checkuser", async (req, res) => {
 	return res.status(check.code).json(check.resMessage);
 });
 
-// Select DropDown Data
+// Route - Select DropDown Data
 app.get("/api/university-list", async (req, res) => {
 	const response = await getUniNames(conn);
 
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Route - Create University which is not exists in database.
 app.post("/api/university-list", async (req, res) => {
 	const { value } = req.body;
 
@@ -313,12 +312,14 @@ app.post("/api/university-list", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Route - Select Courses list
 app.get("/api/course-list", async (req, res) => {
 	const response = await getCoursesNames(conn);
 
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Route - Create Course which does not exists in database.
 app.post("/api/course-list", async (req, res) => {
 	const { value } = req.body;
 
@@ -327,8 +328,7 @@ app.post("/api/course-list", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
-
-//Pass Logic
+// Route - Checking whether Participant can buy the pass or not...
 app.post("/api/secure/pass/buy/check", async (req, res) => {
 	const { passCode, PID } = req.body;
 
@@ -336,19 +336,22 @@ app.post("/api/secure/pass/buy/check", async (req, res) => {
 
 	console.log(response);
 	return res.status(response.code).json(response.resMessage);
-	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
-// Buy Pass Logic
+// Route - Checking whether participant can register in Workshop or not.
+app.post("/api/secure/workshop/check", async (req, res) => {
+	console.log(req.body);
+})
+
+
+// Route - Buy Pass Logic
 app.post("/api/secure/pass/buy", async (req, res) => {
 	const { PID, passCode, amt } = req.body;
 
-	// participantID = await getParticipantID(email);
 	console.log(req.body);
 	const response = await buyPass(conn, PID, passCode, amt);
 
 	return res.status(response.code).json(response.resMessage);
-	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
 });
 
 app.post("/api/buyPassOffline", async (req, res) => {
@@ -367,25 +370,15 @@ app.post("/api/buyPassOffline", async (req, res) => {
 	return res.json(response.resMessage);
 });
 
-// Payment Logic
+// Route - Payment Info send to client
 app.post("/api/get-payment-info", async (req, res) => {
 	const participantID = await getParticipantID(conn, req.body.email);
 	const response = await makePayment(conn, req, participantID, timestamp);
 
-	// if (response.code == 200) {
-	// console.log(response.resMessage.EMAIL, response.resMessage.ORDER_ID);
-	// orderIDEmail[response.resMessage.ORDER_ID] = response.resMessage.EMAIL;
-	// console.log(orderIDEmail[response.resMessage.ORDER_ID])
-
-	// setTimeout(() => {
-	// 	if (orderIDEmail[response.resMessage.ORDER_ID]) delete orderIDEmail[response.resMessage.ORDER_ID];
-	// }, 30 * 60 * 1000);
-
-	// }
-
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Route - Callback function redirected by Payment Gateway.
 app.post("/api/payment-callback", async (req, res) => {
 	const form = new formidable.IncomingForm();
 
@@ -555,6 +548,7 @@ app.post("/api/payment-callback", async (req, res) => {
 	});
 });
 
+// Route - Getting Payment Transaction Information to display it to the Participant.
 app.post("/api/payment/checkPaymentStatus", async (req, res) => {
 	const { email } = req.body;
 	// console.log(paymentStatus[email]);
@@ -564,6 +558,7 @@ app.post("/api/payment/checkPaymentStatus", async (req, res) => {
 	return res.json(txnDetails);
 });
 
+// Route - Checking if Participant can register in event or not.
 app.post("/api/secure/event/check", async (req, res) => {
 	console.log(req.body);
 	const { eventCode, email } = req.body;
@@ -578,6 +573,7 @@ app.post("/api/secure/event/check", async (req, res) => {
 	return res.status(response.code).json(response);
 });
 
+// Route - Solo Registration
 app.post("/api/secure/events/solo/register", async (req, res) => {
 	console.log(req.body);
 	const { selectedEventCode, email } = req.body;
@@ -594,6 +590,7 @@ app.post("/api/secure/events/solo/register", async (req, res) => {
 	return res.status(response.code).json(response);
 });
 
+// Route - Create team For Team Event Registration.
 app.post("/api/secure/events/team/create", async (req, res) => {
 	console.log(req.body);
 	const { selectedEventCode, email, teamName, selectedEventName } = req.body;
@@ -639,6 +636,7 @@ app.post("/api/secure/events/team/create", async (req, res) => {
 	return res.status(response.code).json(response);
 });
 
+// Route - Join Team for Team Event Registration.
 app.post("/api/secure/events/team/join", async (req, res) => {
 	console.log(req.body);
 	const { selectedEventCode, email, teamID } = req.body;
@@ -656,6 +654,7 @@ app.post("/api/secure/events/team/join", async (req, res) => {
 	return res.status(response.code).json(response);
 });
 
+// Route - Fetching the Information of the Team
 app.post("/api/secure/events/team/getinfo", async (req, res) => {
 	console.log(req.body);
 	const { teamID } = req.body;
@@ -665,10 +664,13 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Just for Testing for Hosting...
 app.get("/api/test", (req, res) => {
 	res.json("Server is running!");
 });
 
+
+// Server listens at port ...
 app.listen(port, () => {
 	console.log(`Server listening on PORT : ${port}`);
 });
