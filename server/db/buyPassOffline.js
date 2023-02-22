@@ -14,7 +14,7 @@ async function updateUniversityRegistratioin(conn) {
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Passes set Sold = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
+				`update Universities set TotalRegistration = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
 			);
 		}
 		if (i == rows.length) {
