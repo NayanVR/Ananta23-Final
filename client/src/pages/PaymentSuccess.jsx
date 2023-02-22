@@ -42,7 +42,7 @@ function PaymentSuccess() {
 			const fetchdata = await data.json();
 			// console.log("ashishalkjsdlfjafjlsadfljasd;jk");
 			// console.log(fetchdata);
-			// // console.log(typeof fetchdata);
+			// console.log(typeof fetchdata);
 
 			setPayDetails(fetchdata);
 			// if (PayDetails.length > 0) {

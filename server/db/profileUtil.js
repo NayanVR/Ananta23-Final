@@ -8,7 +8,6 @@ async function createProfile(conn, transporter, email, googleAuth, profileImg) {
     console.log(checkRows)
     if (checkRows.length > 0) {
         console.log('aman')
-        //!TODO handle if user's log in method is email&pass
         if (checkRows[0].GoogleAuth === 0 && googleAuth === 'TRUE') {
             // update info if user is migrating account to google
             const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`);
