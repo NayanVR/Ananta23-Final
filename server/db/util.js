@@ -33,7 +33,7 @@ async function genParticipantID(conn, email) {
 	if (checkParticipantIDRows.length > 0) {
 		return await genParticipantID(conn, email);
 	} else {
-	console.log(id);
+		console.log(id);
 		return id;
 	}
 }
