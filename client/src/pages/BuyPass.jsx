@@ -31,7 +31,7 @@ function BuyPass() {
 				"Access to any 2 Events (INERTIA & SWOOSH)",
 				"Access to any 1 Guest Lecture",
 				"Access to Zingaat : Cultural Events",
-				"100 Digital Wallet Points",
+				"2000 Ananta Coins",
 			],
 			color: "#CD7F32",
 		},
@@ -44,7 +44,7 @@ function BuyPass() {
 				"Access to any 3 Events (INERTIA & SWOOSH)",
 				"Access to any 2 Guest Lectures",
 				"Access to Zingaat : Cultural Events",
-				"300 Digital Wallet Points",
+				"2200 Ananta Coins",
 			],
 			color: "#C0C0C0",
 		},
@@ -57,7 +57,7 @@ function BuyPass() {
 				"Access to All Events (INERTIA & SWOOSH)",
 				"Access to All Guest Lectures",
 				"Access to Zingaat : Cultural Events",
-				"500 Digital Wallet Points",
+				"2400 Ananta Coins",
 			],
 			color: "#FFDF00",
 		},
@@ -68,6 +68,8 @@ function BuyPass() {
 			price: 400,
 			features: [
 				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
+				"Access to Zingaat : Cultural Events",
+				"2600 Ananta Coins"
 			],
 			color: "#88D20F",
 		},
@@ -76,7 +78,11 @@ function BuyPass() {
 			name: "COMBO",
 			markImg: comboMark,
 			price: 500,
-			features: ["All benefits of GOLD & ATMOS Pass"],
+			features: [
+				"All benefits of GOLD & ATMOS Pass",
+				"2800 Ananta Coins"
+
+			],
 			color: "#FFDF00",
 		},
 	];
