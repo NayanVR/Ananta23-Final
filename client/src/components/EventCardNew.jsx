@@ -13,7 +13,7 @@ function EventCard1({ event, registerNow, viewDetails }) {
                 <div className='p-4 flex flex-col justify-between rounded-b-md w-full h-2/3 bg-primary-dark-1'>
                     <div>
                         <h1 className="text-white text-bold text-center text-2xl font-semibold">{event.name}</h1>
-                        <p className='text-primary-light-2 text-justify p-1 h-44 overflow-y-auto'>{event.desc}</p>
+                        <p className='text-primary-light-2 text-justify p-1 h-44 overflow-y-auto no-scrollbar'>{event.desc}</p>
                     </div>
                     <div className='flex flex-row h-12 justify-around'>
                         <button className='bg-primary-light-1 w-4/5 h-10 rounded-md text-lg font-semibold uppercase' onClick={() => { registerNow(event.eventCode, event.name) }}>

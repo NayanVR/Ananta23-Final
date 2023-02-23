@@ -34,22 +34,51 @@ async function getEvents(conn, participantID) {
 		`select * from Events inner join Teams inner join TeamRegistration on Teams.TeamID = TeamRegistration.TeamID and Events.EventCode = Teams.EventCode where TeamRegistration.ParticipantID = '${participantID}'`
 	);
 
+
 	console.log(soloRows.length);
 	console.log(teamRows.length);
 
 	if (soloRows.length > 0 || teamRows.length > 0) {
-		console.log("success.");
-		return {
-			code: 200,
-			resMessage: {
-				message: "Information Fetch complete...",
-				data: {
-					solo: soloRows,
-					team: teamRows,
+
+		if (teamRows.length > 0) {
+			let membersOfEvents = []
+			await teamRows.forEach(async (team) => {
+				if (team.Role != "Leader") return;
+				
+				const teamID = team.TeamID
+				const [membersRows, membersFields] = await conn.execute(
+					`select par.ParticipantID, par.Firstname, par.Lastname from Participants as par inner Join TeamRegistration as tr on tr.ParticipantID = par.ParticipantID  where tr.TeamID = '${teamID}' and tr.Role = "Member"`
+				);
+				
+				await membersOfEvents.push(membersRows)
+			})
+			console.log(membersOfEvents)
+			return {
+				code: 200,
+				resMessage: {
+					message: "Information Fetch complete...",
+					data: {
+						solo: soloRows,
+						team: teamRows,
+						members: membersOfEvents
+					},
+					type: "success",
 				},
-				type: "success",
-			},
-		};
+			};
+		} else {
+			return {
+				code: 200,
+				resMessage: {
+					message: "Information Fetch complete...",
+					data: {
+						solo: soloRows,
+						team: teamRows,
+						members: []
+					},
+					type: "success",
+				},
+			};
+		}
 	}
 	return {
 		code: 500,

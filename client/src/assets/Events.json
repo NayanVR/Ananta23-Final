@@ -35,20 +35,20 @@
 		{
 			"eventCode": "IN_ST",
 			"name": "GSFCU SHARK TANK",
-			"desc": "Pitch your idea or product, display the product’s spark. Showcase your entrepreneurship skills to get a deal from the sharks!",
+			"desc": "You remember startups like Scrub Daddy, Sleep Styler from Shark Tank- USA and Bamboo India, Skippi from Shark Tank- India. Now, it's time for you to showcase your startup and product with Shark Tank- GSFCU.",
 			"image": "ST.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "Language Mystery",
 			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
-			"image": "ST.png"
+			"image": "LM.png"
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "Master's Eye",
-			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
-			"image": "ST.png"
+			"desc": "  This isn’t just any normal rookie level programming. Read  the problem statement(s) , place your cursor on screen and poof! The display is gone and then starts the challenge of coding with no lookbacks.",
+			"image": "ME.png"
 		}
 
 		
@@ -64,7 +64,7 @@
 		{
 			"eventCode": "SW_IPL",
 			"name": "IPL AUCTION",
-			"desc":"Don’t just be a couch cricket pundit just seeing the game,Ananta provides you a chance to create and play your own team.",
+			"desc":"Don’t just be a couch cricket pundit just seeing the game, Ananta provides you a chance to create and play your own team.",
 			"image": "ipl.png"
 
 		},
@@ -77,25 +77,25 @@
 		{
 			"eventCode": "SW_SG",
 			"name": "SQUID GAME",
-			"desc": "Contest with numerous opponents,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
+			"desc": "Contest with numerous opponents,The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
 			"image": "Squid.svg"
 
 		},
 		{
 			"eventCode": "SW_RD",
 			"name": "ROADIES",
-			"desc": "Contest with numerous opponents,The winner will be the one who survived,The thrill and excitement will be same as series,Just your death is deprived ;)",
+			"desc": "Contest with numerous opponents, The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
 			"image": "roadies.png"
 		},
 		{
 			"eventCode": "SW_ER",
 			"name": "ESCAPE ROOM",
-			"desc": "Room full of puzzles,Time limit is there to tussle,To escape fast you need to hustle,To open door use brain not muscle",
+			"desc": "Room full of puzzles, Time limit is there to tussle,To escape fast you need to hustle, To open door use brain not muscle",
 			"image": "escspe.png"
 		},
 		{
 			"eventCode": "SW_DB",
-			"name": "DOUCHE BALL",
+			"name": "DODGE BALL",
 			"desc":"Jump, Duck, Move - Do whatever fits you,All this before the ball hits you",
 			"image": "douch.png"
 		},
@@ -109,13 +109,13 @@
 		{
 			"eventCode": "SW_MM",
 			"name":"Membric",
-			"desc": "Membric is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Join us for an exciting memory game event! This classic game is a great way to challenge your memory skills and have some fun with friends.",
 			"image":"membric.png"
 		},
 		{
 			"eventCode": "SW_TH",
 			"name": "Treasure Hunt",
-			"desc": "Treasure Hunt is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"desc": " ``Of course. Treasure Hunts make much better stories when there's treasure at the end.`` is what Eric Berlin wrote in 'The Puzzling World of Winston Breen'. Hunt down the clues, follow your hunch and solve them before the time runs out.",
 			"image": "Thunt.png"
 		},
 		
@@ -123,27 +123,27 @@
 		{
 			"eventCode": "SW_CK",
 			"name": "BGMI",
-			"desc": "BGMI is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
-			"image": "valo1.png"
+			"desc": "Battleroyale has taken over almost every single device in this country so time for you to update your phones, get your best headsets and get ready for the most fun battle royale match.",
+			"image": "BGMI.png"
 		},
 		
 		{
 			"eventCode": "SW_FF",
 			"name": "Free Fire",
-			"desc": "Free Fire is a battle royale game, developed by 111dots Studio and published by Garena for Android and iOS. Players enter a battlefield where they",
+			"desc": "With immersive gameplay, realistic graphics, and a range of characters and weapons to choose from, Free Fire offers an intense gaming experience that keeps players coming back for more.",
 			"image": "freefire.png"
 		},
 		{
 			"eventCode": "SW_v",
 			"name": "Valorant",
-			"desc": "Valorant is a free-to-play multiplayer first-person shooter developed and published by Riot Games. The game is a tactical first-person shooter",
+			"desc": " The stakes are high and the situation is critical so, buckle up with your best gaming gears for this 5v5 custom match, get your updates done, cause this isn’t your average game of Valorant",
 			"image": "valo1.png"
 			
 		},
 		{
 			"eventCode": "SW_AB",
 			"name": "Anime Battle",
-			"desc": "Anime Battle is a battle royale game, developed by 111dots Studio and published by Garena for Android and ",
+			"desc": "Test your knowledge about anime in this event against other anime fans. So gather your nakama and sharpen your kunai to prove who is the best!!!",
 			"image": "anime.png"
 		}
 
@@ -210,7 +210,7 @@
 		{
 			"eventCode": "US_BD",
 			"name": "Housie",
-			"desc": "Housie is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Isn’t it fun when you get together with your friends and family just to sit around chit-chat and play some random game. With housie it feels like home and getting together all over again, gather around with your fifteen friends and come try your luck out.",
 			"image": "vsm1.png"
 		},
 		{
@@ -222,7 +222,7 @@
 		{
 			"eventCode": "US_BD",
 			"name": "Swift Fingers",
-			"desc": "Swift Fingers is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Everyone loves typing tests and taking typing test with their friends for fun everyday, what if we told you that you can stand a chance to win exciting prizes by just typing fast.",
 			"image": "Swift.png"
 		},
 		{
@@ -233,7 +233,7 @@
 		},
 		{
 			"eventCode": "",
-			"name": "3 Rings in a Cup",
+			"name": "Target The Rings",
 			"desc": "3 Rings in a Cup is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
 			"image": "vsm1.png"
 		},
