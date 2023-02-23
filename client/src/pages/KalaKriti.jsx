@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
 import { useState, useContext, Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import EventCard from '../components/EventCardNew'
+import EventCard from "../components/EventCardNew";
 import { AuthContext } from "../contexts/AuthContext";
-import Swift from '../assets/photos/upshots/swift.png'
-import profilePic from '../assets/photos/profile.jpg'
-import EventsData from "../assets/Events.json"
+import Swift from "../assets/photos/upshots/swift.png";
+import profilePic from "../assets/photos/profile.jpg";
+import EventsData from "../assets/Events.json";
+import { toast } from "react-hot-toast";
 import { QRCode } from "react-qrcode-logo";
-import ComingSoon from '../components/ComingSoon'
+import ComingSoon from "../components/ComingSoon";
+import { useNavigate } from "react-router-dom";
+
 
 function KalaKrirti() {
   const { currentUser, profile, setProfile } = useContext(AuthContext);
@@ -24,59 +27,11 @@ function KalaKrirti() {
   const [isConfModalOpen, setIsConfModalOpen] = useState(false);
   const [isAreadyOpened, setIsAreadyOpened] = useState(false);
 
+  const navigate = useNavigate();
 
-  function registerNow(eventCode) {
-    console.log('Register Now', eventCode)
-  }
 
   function viewDetails(eventCode) {
-    console.log('View Details', eventCode)
-  }
-
-  async function handleResposnse(eventCode, eventName) {
-    // console.log(eventName, eventCode);
-
-    if (!currentUser) {
-      navigate("/login");
-      return;
-    }
-
-    const check = await fetch(serverURL + "/api/secure/event/check", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + currentUser["accessToken"],
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ eventCode, email }),
-    });
-    const response = await check.json();
-    // console.log(response);
-
-    setSelectedEventName(eventName);
-    setSelectedEventCode(eventCode);
-
-    if (response.type == "Warning") {
-      if (response.message == "Profile") {
-        navigate("/profile");
-      } else if (response.message == "BuyPass") {
-        navigate("/buypass");
-      } else {
-        toast(response.message, {
-          icon: "⚠️",
-        });
-      }
-    } else if (response.type == "Info") {
-      toast(response.message, {
-        icon: "👍🏻",
-      });
-    } else {
-    }
-    if (response.Category == "Solo") {
-      setIsSoloOpen(true);
-    } else if (response.Category == "Team") {
-      setIsTeamOpen(true);
-    }
-    // closeModal()
+    console.log("View Details", eventCode);
   }
 
   function showPaymentModal(amt, passCode) {
@@ -87,15 +42,15 @@ function KalaKrirti() {
   }
 
   async function handleBuyClick(passCode, name) {
-
     if (currentUser == null) navigate("/login");
 
     if (profile == {}) navigate("/profile");
 
-    const PID = profile.ParticipantID;
-    // console.log(profile.ParticipantID);
+    if (profile.ProfileStatus == 0) navigate("/profile");
 
-    const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
+    const PID = profile.ParticipantID;
+
+    const res = await fetch(serverURL + "/api/secure/workshop/check", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + currentUser.accessToken,
@@ -103,19 +58,16 @@ function KalaKrirti() {
       },
       body: JSON.stringify({ passCode, PID }),
     });
-    const check = await res.json();
-    // console.log(check);
-    const amt = await check.payAmount;
 
-    if (check.message == "Profile Not Completed") {
-      window.location.href = "/profile";
-    } else if (check.message == "Buying First Pass") {
-      const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`
-      setPaymentUrl(url);
-      setIsAreadyOpened(false);
-      showPaymentModal(amt, passCode);
-    } else if (check.message == "Upgrade Pass") {
-      const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=UP_${passCode}_${PID}&cu=INR`
+    const check = await res.json();
+    const amt = await check.payAmount;
+    if (check.type == "info") {
+      toast(check.message, {
+        icon: "👍🏻",
+      });
+
+    } else if (check.type == "success") {
+      const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
       setPaymentUrl(url);
       setIsAreadyOpened(false);
       showPaymentModal(amt, passCode);
@@ -125,11 +77,9 @@ function KalaKrirti() {
   }
 
   return (
-    // <>
-    // </>
     <>
-      <h1 className="font-heading text-center my-12 text-[2rem] sm:text-[4rem]  font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
-        KalaKriti: Workshops
+      <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+        KalaKrirti: Workshops
       </h1>
 
       {/* <ComingSoon /> */}
@@ -145,7 +95,13 @@ function KalaKrirti() {
       </div>
 
       <Transition appear show={isModalOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={_ => { setIsModalOpen(false) }}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={(_) => {
+            setIsModalOpen(false);
+          }}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -178,23 +134,24 @@ function KalaKrirti() {
                     className="text-center text-lg font-medium leading-6 text-gray-900 mb-6"
                   >
                     {modalTitle}
-
                   </Dialog.Title>
                   <button
                     type="button"
                     className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-2 py-0 text-lg font-medium text-[#F2FFFE]  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
-
-                    onClick={_ => { setIsModalOpen(false) }}
+                    onClick={(_) => {
+                      setIsModalOpen(false);
+                    }}
                   >
                     x
                   </button>
-                  <div className='flex justify-center gap-4'>
-                    <p className='text-black mb-4'>
+                  <div className="flex justify-center gap-4">
+                    <p className="text-black mb-4">
                       {modalBody}
                     </p>
                   </div>
-                  <div className='flex flex-col justify-center items-center'>
-                    <QRCode className='flex items-center'
+                  <div className="flex flex-col justify-center items-center">
+                    <QRCode
+                      className="flex items-center"
                       value={paymentUrl}
                       size={200}
                       qrStyle={"square"}
@@ -240,20 +197,14 @@ function KalaKrirti() {
                       <span className="h-px w-full bg-gray-300"></span>
                     </div>
                     <div className="flex justify-center  w-[200px] align-middle ">
-
                       <a
                         className=" btn my-1 w-full inline-flex justify-center rounded-md border border-transparent bg-primary-dark-2 px-4 py-2 text-sm font-medium text-[#F2FFFE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
-                        href={paymentUrl} >Pay&nbsp;Now
+                        href={paymentUrl}
+                      >
+                        Pay&nbsp;Now
                       </a>
-
-
-
-
                     </div>
-
-
                   </div>
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -261,12 +212,15 @@ function KalaKrirti() {
         </Dialog>
       </Transition>
 
-
       <Transition appear show={isConfModalOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={_ => {
-          setIsConfModalOpen(false)
-          setIsAreadyOpened(true)
-        }}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={(_) => {
+            setIsConfModalOpen(false);
+            setIsAreadyOpened(true);
+          }}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -303,20 +257,21 @@ function KalaKrirti() {
                   <button
                     type="button"
                     className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-2 py-0 text-lg font-medium text-[#F2FFFE]  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
-
-                    onClick={_ => {
-                      setIsConfModalOpen(false)
-                      setIsAreadyOpened(true)
+                    onClick={(_) => {
+                      setIsConfModalOpen(false);
+                      setIsAreadyOpened(true);
                     }}
                   >
                     x
                   </button>
-                  <div className='flex justify-center gap-4'>
-                    <p className='text-black text-center mb-4'>
-                      We will confirm your payment within 24 hours. Please check your email for further updates.
+                  <div className="flex justify-center gap-4">
+                    <p className="text-black text-center mb-4">
+                      We will confirm your payment within
+                      24 hours. Please check your email
+                      for further updates.
                     </p>
                   </div>
-                  <div className='flex flex-col justify-center items-center'>
+                  <div className="flex flex-col justify-center items-center">
                     <div className="flex justify-center  w-[200px] align-middle ">
                       <button
                         type="button"
@@ -331,7 +286,6 @@ function KalaKrirti() {
                       </button>
                     </div>
                   </div>
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -339,7 +293,7 @@ function KalaKrirti() {
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }
 
-export default KalaKrirti
+export default KalaKrirti;

@@ -29,6 +29,7 @@ const { buyPassOffline } = require("./db/buyPassOffline");
 const { makePayment } = require("./db/payment");
 const { sendResetPassEmail, getParticipantID } = require("./db/util");
 const { buyPassMail } = require("./db/mails");
+const { checkForWorkshop } = require("./db/workshopRegister");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -341,8 +342,11 @@ app.post("/api/secure/pass/buy/check", async (req, res) => {
 // Route - Checking whether participant can register in Workshop or not.
 app.post("/api/secure/workshop/check", async (req, res) => {
 	console.log(req.body);
-})
 
+	const check = await checkForWorkshop(conn, req.body.passCode, req.body.PID)
+
+	return res.status(check.code).json(check.resMessage);
+})
 
 // Route - Buy Pass Logic
 app.post("/api/secure/pass/buy", async (req, res) => {
