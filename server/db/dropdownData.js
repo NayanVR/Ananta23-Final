@@ -1,7 +1,7 @@
 // get University Names
 async function getUniNames(conn) {
     const [rows, fields] = await conn.execute(
-        `SELECT University FROM Universities`
+        `SELECT University FROM Universities order by University`
     );
     if (rows.length > 0) {
         let uniNames = [];
@@ -50,7 +50,7 @@ async function createUniversity(conn, uniName) {
 
 async function getCoursesNames(conn) {
     const [rows, fields] = await conn.execute(
-        `SELECT Course FROM Courses`
+        `SELECT Course FROM Courses order by Course`
     );
     if (rows.length > 0) {
         let courseNames = [];

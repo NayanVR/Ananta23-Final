@@ -172,10 +172,6 @@ function Inertia() {
 		}
 	}
 
-	function viewDetails(eventCode) {
-		// console.log(eventCode);
-	}
-
 	function closeModal() {
 		setIsSoloOpen(false);
 		setIsTeamOpen(false);
