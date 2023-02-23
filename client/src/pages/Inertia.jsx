@@ -34,6 +34,10 @@ function Inertia() {
 	let [selectedEventCode, setSelectedEventCode] = useState();
 	let [selectedEventName, setSelectedEventName] = useState();
 
+	function viewDetails() {
+
+	}
+
 	async function handleResposnse(eventCode, eventName) {
 		// console.log(eventName, eventCode);
 

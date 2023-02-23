@@ -34,59 +34,54 @@ async function getEvents(conn, participantID) {
 		`select * from Events inner join Teams inner join TeamRegistration on Teams.TeamID = TeamRegistration.TeamID and Events.EventCode = Teams.EventCode where TeamRegistration.ParticipantID = '${participantID}'`
 	);
 
-
-	console.log(soloRows.length);
-	console.log(teamRows.length);
-
 	if (soloRows.length > 0 || teamRows.length > 0) {
-
-		if (teamRows.length > 0) {
-			let membersOfEvents = []
-			await teamRows.forEach(async (team) => {
-				if (team.Role != "Leader") return;
-				
-				const teamID = team.TeamID
-				const [membersRows, membersFields] = await conn.execute(
-					`select par.ParticipantID, par.Firstname, par.Lastname from Participants as par inner Join TeamRegistration as tr on tr.ParticipantID = par.ParticipantID  where tr.TeamID = '${teamID}' and tr.Role = "Member"`
-				);
-				
-				await membersOfEvents.push(membersRows)
-			})
-			console.log(membersOfEvents)
-			return {
-				code: 200,
-				resMessage: {
-					message: "Information Fetch complete...",
-					data: {
-						solo: soloRows,
-						team: teamRows,
-						members: membersOfEvents
-					},
-					type: "success",
+		return {
+			code: 200,
+			resMessage: {
+				message: "Information Fetch complete...",
+				data: {
+					solo: soloRows,
+					team: teamRows
 				},
-			};
-		} else {
-			return {
-				code: 200,
-				resMessage: {
-					message: "Information Fetch complete...",
-					data: {
-						solo: soloRows,
-						team: teamRows,
-						members: []
-					},
-					type: "success",
-				},
-			};
-		}
+				type: "success",
+			},
+		};
+	} else {
+		return {
+			code: 500,
+			resMessage: {
+				message: "Failed",
+				type: "error",
+			},
+		};
 	}
-	return {
-		code: 500,
-		resMessage: {
-			message: "Failed",
-			type: "error",
-		},
-	};
+}
+
+async function getTeamMembers(conn, teamID) {
+
+	const [rows, fields] = await conn.execute(
+		`select par.ParticipantID, par.Firstname, par.Lastname, tr.Role from Participants as par inner Join TeamRegistration as tr on tr.ParticipantID = par.ParticipantID  where tr.TeamID = '${teamID}'`
+	);
+
+
+	if (rows.length > 0) {
+		return {
+			code: 200,
+			resMessage: {
+				message: "Members Found",
+				data: rows,
+				type: "success",
+			},
+		};
+	} else {
+		return {
+			code: 500,
+			resMessage: {
+				message: "Failed",
+				type: "error",
+			},
+		};
+	}
 }
 
 async function updateEventRegistrationCount(conn, eventCode, option) {
@@ -203,7 +198,7 @@ async function deleteEvent(
 							eventCode,
 							participantID,
 							"dec"
-						) && 
+						) &&
 						await updateEventRegistrationCount(conn, eventCode, "dec")
 					) {
 						console.log("Participant events count updated...");
@@ -298,21 +293,21 @@ async function checkEvent(conn, eventCode, participantID) {
 	);
 
 	/* 
-    Check Criteria:
+	Check Criteria:
 
-    1. Events Category includes INERTIA('IN'), SWOOSH('SW')
-    2. Guests Category includes INERTIA('EQ')
-    3. Workshops Category includes INERTIA('IN')
+	1. Events Category includes INERTIA('IN'), SWOOSH('SW')
+	2. Guests Category includes INERTIA('EQ')
+	3. Workshops Category includes INERTIA('IN')
 
-    If total registration of above categories of Participant is less than that of Pass which he/she bought, then and then he/she are eligible to register for event.
+	If total registration of above categories of Participant is less than that of Pass which he/she bought, then and then he/she are eligible to register for event.
 
-    And also whether the Event vacancy is Full or not.
-    If Full, the one is not allow to register
-    else, yes.
+	And also whether the Event vacancy is Full or not.
+	If Full, the one is not allow to register
+	else, yes.
 
-    Other Scenario also need to be consider given below...
+	Other Scenario also need to be consider given below...
 
-    */
+	*/
 
 	if (checkEventRows.length > 0 && parRows.length > 0) {
 		const [passRows, passFields] = await conn.execute(
@@ -725,4 +720,5 @@ module.exports = {
 	getTeamInfo,
 	getEvents,
 	deleteEvent,
+	getTeamMembers
 };

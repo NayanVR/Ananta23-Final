@@ -21,6 +21,7 @@ const {
 	getTeamInfo,
 	getEvents,
 	deleteEvent,
+	getTeamMembers
 } = require("./db/events");
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
@@ -256,6 +257,15 @@ app.post("/api/secure/getEvents", async (req, res) => {
 	const participantID = await getParticipantID(conn, email_);
 
 	const response = await getEvents(conn, participantID);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+// Route - Fetch members of given team.
+app.post("/api/secure/getTeamMembers", async (req, res) => {
+	const { teamID } = req.body;
+
+	const response = await getTeamMembers(conn, teamID);
 
 	return res.status(response.code).json(response.resMessage);
 });

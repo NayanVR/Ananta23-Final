@@ -31,6 +31,9 @@ export default function MyEvents() {
     const [teamID, setTeamID] = useState("");
     const [teamName, setTeamName] = useState("");
 
+    const [members, setMembers] = useState([])
+    const [teamLeader, setTeamLeader] = useState('')
+
     const [isSolo, setIsSolo] = useState(false);
     const [role, setRole] = useState("");
 
@@ -130,6 +133,28 @@ export default function MyEvents() {
     function infoEvent(info, color) {
         console.log(info);
 
+        // Fetching team data
+        if (info.Role) {
+            currentUser.getIdToken().then(async (token) => {
+                fetch(serverURL + "/api/secure/getTeamMembers", {
+                    method: "POST",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        teamID: info.TeamID,
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        const members = data.data;
+                        setTeamLeader(members.filter((member) => member.Role == "Leader")[0]);
+                        setMembers(members.filter((member) => member.Role != "Leader"));
+                    });
+            });
+        }
+
         setIsOpen(true);
         setIsView(true);
         setColor(color);
@@ -152,7 +177,6 @@ export default function MyEvents() {
 
     function closeModal() {
         setIsOpen(false);
-        setGuideBuyPass(false);
     }
 
     return (
@@ -390,8 +414,7 @@ export default function MyEvents() {
                                                                     htmlFor="first-name"
                                                                     className="shadow-inner text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-lg "
                                                                 >
-                                                                    {/* {teamLeader} */}
-                                                                    Pratham
+                                                                    {teamLeader['Firstname']} {teamLeader['Lastname']}
                                                                 </label>
                                                             </div>
                                                             <div className="col-span-6 sm:col-span-3 m-3">
@@ -416,9 +439,15 @@ export default function MyEvents() {
                                                                     <div
                                                                         className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
                                                                     >
-                                                                        <label className="text-[0.8rem] block font-medium text-gray-700">
-                                                                            Members
-                                                                        </label>
+                                                                        {
+                                                                            members.map((member) => {
+                                                                                return (
+                                                                                    <label className="text-[0.8rem] block font-medium text-gray-700">
+                                                                                        {member['Firstname']} {member['Lastname']}
+                                                                                    </label>
+                                                                                )
+                                                                            })
+                                                                        }
                                                                     </div>
                                                                 )}
                                                         </div>

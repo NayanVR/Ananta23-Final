@@ -104,8 +104,13 @@ function Navbar() {
                                 />
                             </button>
                             <div className="dropdown-content right-0 br-3">
-                                <a href="/profile">Profile</a>
-                                <a onClick={() => signOut(auth)}>Sign Out</a>
+                                <Link to="/profile">Profile</Link>
+                                <Link to="/myevents">My Events</Link>
+                                <button
+                                    className="px-6 py-2 w-full text-black hover:bg-gray-100"
+                                    onClick={() => signOut(auth)}>
+                                    Sign Out
+                                </button>
                             </div>
                         </button>
                     ) : (
