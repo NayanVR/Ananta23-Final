@@ -134,6 +134,7 @@ function Pro() {
 	const [color, setColor] = useState("");
 	const [teamID, setTeamID] = useState("");
 	const [teamName, setTeamName] = useState("");
+
 	const [isSolo, setIsSolo] = useState(false);
 	const [role, setRole] = useState("");
 
@@ -388,7 +389,7 @@ function Pro() {
 	}
 
 	function infoEvent(info, color) {
-		// console.log(info);
+		console.log(info);
 
 		setIsOpen(true);
 		setIsView(true);
@@ -1067,8 +1068,8 @@ function Pro() {
 																	htmlFor="first-name"
 																	className="shadow-inner text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-lg "
 																>
-																	Ashish Kumar
-																	Patel
+																	{/* {teamLeader} */}
+																	Pratham
 																</label>
 															</div>
 															<div className="col-span-6 sm:col-span-3 m-3">

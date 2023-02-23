@@ -35,37 +35,37 @@ function Navbar() {
                                 className="font-thin text-start px-6 py-2 hover:bg-gray-100"
                                 to="/inertia"
                             >
-                                Inertia (Technical Events)
+                                <span className="font-semibold"> Inertia</span> : Technical Events
                             </Link>
                             <Link
                                 className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
                                 to="/swoosh"
                             >
-                                Swoosh (Non-Technical Events)
-                            </Link>
-                            <Link
-                                className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
-                                to="/upshot"
-                            >
-                                Upshot (Fun Events)
-                            </Link>
-                            <Link
-                                className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
-                                to="/zingaat"
-                            >
-                                Zingaat (Cultural Night)
+                                <span className="font-semibold"> Swoosh</span> : Non-Technical Events
                             </Link>
                             <Link
                                 className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
                                 to="/kalakriti"
                             >
-                                Kala Kriti (Workshops)
+                                <span className="font-semibold"> Kala Kriti</span> : Workshops
                             </Link>
                             <Link
                                 className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
                                 to="/equilibrium"
                             >
-                                Equilibrium (Guest Lectures)
+                                <span className="font-semibold"> Equilibrium </span>: Talk Show
+                            </Link>
+                            <Link
+                                className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
+                                to="/upshot"
+                            >
+                                <span className="font-semibold"> Upshot </span>  : Fun Events
+                            </Link>
+                            <Link
+                                className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
+                                to="/zingaat"
+                            >
+                                <span className="font-semibold">Zingaat </span>  : Cultural Night
                             </Link>
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
@@ -135,37 +135,38 @@ function Navbar() {
                         className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
                         to="/inertia"
                     >
-                        Inertia (Technical)
+                        <span className="font-semibold">  Inertia </span> : Technical Events
                     </Link>
                     <Link
                         className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
                         to="/swoosh"
                     >
-                        Swoosh (Non-Technical)
-                    </Link>
-                    <Link
-                        className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
-                        to="/upshot"
-                    >
-                        Upshot (Fun)
-                    </Link>
-                    <Link
-                        className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
-                        to="/zingaat"
-                    >
-                        Zingaat (Cultural Night)
+                        <span className="font-semibold">  Swoosh </span> : Non-Technical Events
+
                     </Link>
                     <Link
                         className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
                         to="/kalakriti"
                     >
-                        Kala Kriti (Workshop)
+                        <span className="font-semibold"> Kala Kriti </span>  : Workshops
                     </Link>
                     <Link
                         className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
                         to="/equilibrium"
                     >
-                        Equilibrium (Guest Lectures)
+                        <span className="font-semibold"> Equilibrium </span> : Talk Show
+                    </Link>
+                    <Link
+                        className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
+                        to="/upshot"
+                    >
+                        <span className="font-semibold">  Upshot </span> : Fun Events
+                    </Link>
+                    <Link
+                        className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
+                        to="/zingaat"
+                    >
+                        <span className="font-semibold"> Zingaat </span> : Cultural Night
                     </Link>
                 </DropDown>
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
