@@ -21,6 +21,8 @@ const {
 	getTeamInfo,
 	getEvents,
 	deleteEvent,
+	getTeamMembers,
+	removeTeamMember
 } = require("./db/events");
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
@@ -260,11 +262,21 @@ app.post("/api/secure/getEvents", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+// Route - Fetch members of given team.
+app.post("/api/secure/getTeamMembers", async (req, res) => {
+	const { teamID } = req.body;
+
+	const response = await getTeamMembers(conn, teamID);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
 // Route - Deleting an Event..
 app.post("/api/secure/deleteEvent", async (req, res) => {
 	const { pid, eventCode, isSolo, role, teamID } = req.body;
 
-	console.log(req.body);
+	console.log(pid, eventCode, isSolo, role, teamID);
+
 	const response = await deleteEvent(
 		conn,
 		pid,
@@ -274,10 +286,17 @@ app.post("/api/secure/deleteEvent", async (req, res) => {
 		teamID
 	);
 
-	console.log(response);
-
 	return res.status(response.code).json(response.resMessage);
 	// res.json({ParticipantID : ParticipantID,SelectedEvent : EventCode})
+});
+
+// Route - Remove Team Member
+app.post("/api/secure/removeTeamMember", async (req, res) => {
+	const { teamID, participantID } = req.body;
+
+	const response = await removeTeamMember(conn, teamID, participantID);
+
+	return res.status(response.code).json(response.resMessage);
 });
 
 // Route - Forgot PassWord -> Reset Pass Mail with Firebase.

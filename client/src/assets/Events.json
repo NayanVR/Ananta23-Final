@@ -39,13 +39,13 @@
 			"image": "ST.png"
 		},
 		{
-			"eventCode": "IN_ST",
+			"eventCode": "IN_LM",
 			"name": "Language Mystery",
 			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
 			"image": "LM.png"
 		},
 		{
-			"eventCode": "IN_ST",
+			"eventCode": "IN_ME",
 			"name": "Master's Eye",
 			"desc": "  This isn’t just any normal rookie level programming. Read  the problem statement(s) , place your cursor on screen and poof! The display is gone and then starts the challenge of coding with no lookbacks.",
 			"image": "ME.png"
