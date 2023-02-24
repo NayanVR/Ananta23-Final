@@ -6,7 +6,7 @@ const passes = require("../assets/passes.json");
 
 async function updateUniversityRegistratioin(conn) {
 	const [rows, fields] = await conn.execute(
-`select count(*) as count, University from Participants where University != '' group by University`	);
+`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' group by University`	);
 
 	if (rows.length > 0) {
 		await conn.execute(`update Universities set TotalRegistration=0, Funds = 0`);
@@ -14,14 +14,14 @@ async function updateUniversityRegistratioin(conn) {
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
+				`update Universities set TotalRegistration = ${rows[i].Sold}, Funds = ${rows[i].Funds} where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {
-			console.log("✔ PassSold Updation Complete.")
+			console.log("✔ University Records has been updated successfully.")
 			return true;
 		} else {
-			console.log("✘ PassSold Updation Failed.")
+			console.log("✘ Universities Records Updation Failed.")
 			return false;
 		}
 	}
@@ -264,7 +264,7 @@ async function buyPassOffline(
 		}
 	}
 
-	if (await updateSoldPasses(conn)) {
+	if (await updateSoldPasses(conn) && await updateUniversityRegistratioin(conn)) {
 		res.resMessage.message += ", PassesSoldUpdated";
 		res.resMessage.updateSold = 1;
 	} else {
