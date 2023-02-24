@@ -193,7 +193,108 @@
             "linkedin": "https://www.linkedin.com/in/samarth-desai-02b870205/",
             "image":"Samarth4.jpg"
         }
+    ],
+    "web1":[
+        
+       {
+            "name": "Ashish Kumar Patel",
+            "role": "Back-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Ashish4.jpg"
+       },
+
+       
+        {
+            "name": "Nishant Viroja",
+            "role": "Front-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Nishant4.jpg"
+        },
+        {
+            "name": "Pratham Pathak",
+            "role": "Front-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Pratham4.jpg"
+
+        },
+        {
+            "name": "Nayan Radadiya",
+            "role": "Full-Stack Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Nayan4.jpg"
+
+        },
+        {
+            "name": "Harshal Patel",
+            "role": "Back-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Harshal4.jpg"
+        },
+        {
+            "name":"Dhruv Patel",
+            "role":"Back-End Developer",
+            "email":"",
+            "phone":"",
+            "linkedin":"",
+            "image":"Dhruv4.jpg"
+
+        },
+        {
+            "name": "Devanshi Patel",
+            "role": "Front-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Devanshi4.jpg"
+        },
+        {
+            "name": "Arjav Jani",
+            "role": "Junior Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Arjav4.jpg"
+        },
+        {
+            "name": "Arnav Shah",
+            "role": "Junior Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Arnav4.jpg"
+        },
+        {
+            "name":"Krishna Viradiya",
+            "role":"Lead Graphic Designer",
+            "email":"",
+            "phone":"",
+            "linkedin":"",
+            "image":"Krishna4.jpg"
+
+        }
+
+    ],
+    
+    "creative1":[
+        {
+            "name": "Shubham Parmar",
+            "role": "Content Creator",
+            "email": "",
+            "phone": "",
+            "linkedin": ""
+        }
     ]
+
 
    
 
