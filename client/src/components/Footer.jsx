@@ -91,7 +91,7 @@ function Footer() {
         </div>
       </footer>
       <div className='w-full h-max bg-primary-dark-1 px-8 md:px-24 py-2 flex items-center justify-center md:justify-between'>
-        <p className='hidden lg:block text-white'>Made by Team Ananta'23</p>
+        <Link className='hidden lg:block text-white' to="/hardworkers">Made by Team Ananta'23</Link>
         <div className='flex justify-center items-center gap-2 sm:gap-6 flex-col sm:flex-row'>
           <Link className='text-white text-center' to="/privacy-policy">Privacy Policy</Link>
           <Link className='text-white text-center' to="/refund-policy">Calcellation & Refund Policy</Link>

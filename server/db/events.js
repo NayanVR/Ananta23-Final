@@ -42,7 +42,7 @@ async function getEvents(conn, participantID) {
 
 		if (teamRows.length > 0) {
 			let membersOfEvents = []
-			await teamRows.forEach(async (team) => {
+			teamRows.forEach(async (team) => {
 				if (team.Role != "Leader") return;
 				
 				const teamID = team.TeamID
@@ -50,7 +50,7 @@ async function getEvents(conn, participantID) {
 					`select par.ParticipantID, par.Firstname, par.Lastname from Participants as par inner Join TeamRegistration as tr on tr.ParticipantID = par.ParticipantID  where tr.TeamID = '${teamID}' and tr.Role = "Member"`
 				);
 				
-				await membersOfEvents.push(membersRows)
+				membersOfEvents.push(membersRows)
 			})
 			console.log(membersOfEvents)
 			return {
