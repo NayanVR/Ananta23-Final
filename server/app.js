@@ -292,9 +292,9 @@ app.post("/api/secure/deleteEvent", async (req, res) => {
 
 // Route - Remove Team Member
 app.post("/api/secure/removeTeamMember", async (req, res) => {
-	const { teamID, participantID } = req.body;
+	const { participantID, teamID } = req.body;
 
-	const response = await removeTeamMember(conn, teamID, participantID);
+	const response = await removeTeamMember(conn, participantID, teamID);
 
 	return res.status(response.code).json(response.resMessage);
 });

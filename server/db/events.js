@@ -90,8 +90,11 @@ async function removeTeamMember(conn, participantID, teamID) {
 	const [rows, fields] = await conn.execute(
 		`DELETE FROM TeamRegistration WHERE ParticipantID = '${participantID}' and TeamID = '${teamID}'`
 	);
+	const eventID = teamID.split("_")[0] + "_" + teamID.split("_")[1];
+	const isUpdateRegCount = await updateRegCount(conn, eventID, participantID, "dec");
+	const isupdateEventRegCount = await updateEventRegistrationCount(conn, eventID, "dec");
 
-	if (rows) {
+	if (rows && isUpdateRegCount && isupdateEventRegCount) {
 		return {
 			code: 200,
 			resMessage: {

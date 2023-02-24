@@ -186,7 +186,31 @@ export default function MyEvents() {
     }
 
     function handleRemoveMember(pid, teamID_) {
-        console.log(pid, teamID_);
+        setIsOpen(false);
+        currentUser.getIdToken().then(async (token) => {
+            fetch(serverURL + "/api/secure/removeTeamMember", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    participantID: pid,
+                    teamID: teamID_
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.type == "success") {
+                        toast.success(data.message, { duration: 3000 });
+                    } else {
+                        toast.error(data.message, { duration: 3000 });
+                    }
+                    setReloadEvents(!reloadEvents);
+                }
+                );
+        });
     }
 
     function closeModal() {
