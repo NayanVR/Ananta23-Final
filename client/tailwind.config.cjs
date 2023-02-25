@@ -31,15 +31,27 @@ module.exports = {
           '100%': {
             transform: 'translateX(50%) translateY(-50%) rotate(360deg)',
           }
+        },
+        videoContent: {
+          '0%': {
+            opacity: '0',
+          },
+          '70%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
+          }
         }
       },
       animation: {
         levitate: 'levitate 5s ease-in-out infinite',
         aboutAnim: 'aboutAnim 30s linear infinite',
+        videoContent: 'videoContent 8s ease-in-out',
       }
     },
   },
   plugins: [
-     require('@tailwindcss/forms'),
+    require('@tailwindcss/forms'),
   ],
 }
