@@ -350,9 +350,10 @@ app.post("/api/course-list", async (req, res) => {
 
 // Route - Checking whether Participant can buy the pass or not...
 app.post("/api/secure/pass/buy/check", async (req, res) => {
-	const { passCode, PID } = req.body;
+	const { passCode, PID, fName, lName, passName } = req.body;
+	const { email } = req.user;
 
-	const response = await checkBuyPass(conn, passCode, PID);
+	const response = await checkBuyPass(conn, passCode, PID, email, fName, lName, passName);
 
 	console.log(response);
 	return res.status(response.code).json(response.resMessage);

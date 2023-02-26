@@ -11,7 +11,7 @@ async function updateSoldPasses(conn) {
 	const [rows, fields] = await conn.execute(
 		`select PassCode, COUNT(PassCode) as Sold from Participants where PassCode != "NIL" group by PassCode;`
 	);
-	
+
 	// Updating the Individaul Sold count of each Pass in Passes Table.
 	if (rows.length > 0) {
 		let count = 0;
@@ -32,7 +32,7 @@ async function updateSoldPasses(conn) {
 			console.log("✘ Passes Sold Not updated xxxx")
 			return 0;
 		}
-		
+
 	}
 	return 0;
 }
@@ -53,7 +53,7 @@ async function getOldPassAmount(conn, participantID) {
 
 // Method to Fetch Last Transaction Details
 async function getTxnDetails(conn, email) {
-    const [rows, fields] = await conn.execute(
+	const [rows, fields] = await conn.execute(
 		`SELECT py.OrderID as OrderID, pa.PassType as PassType, py.TxnStatus as TxnStatus, py.TxnID as TxnID, py.TxnDate as TxnDate FROM Payments as py inner join Passes as pa on py.PassCode = pa.PassCode and py.PaymentID = ( SELECT PaymentID FROM Participants WHERE Email = '${email}')`
 	);
 
@@ -65,7 +65,7 @@ async function getTxnDetails(conn, email) {
 }
 
 // Method to Check If the Selected Pass can be buy or Upgraded...
-async function checkBuyPass(conn, selectedPassCode, participantID) {
+async function checkBuyPass(conn, selectedPassCode, participantID, email, fName, lName, passName) {
 
 	const [parRows, parfields] = await conn.execute(
 		`SELECT ParticipantID, ProfileStatus, TxnStatus, TotalWorkshops, TotalEvents, TotalGuests, PassCode FROM Participants WHERE ParticipantID = '${participantID}'`
@@ -91,6 +91,11 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 		// Check if new Registration or need Upgrade
 		if (parRows[0].TxnStatus == 0) {
 			console.log("✔ Buying the Pass First Time.")
+
+			const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+				`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'FirstPass', ${passes[selectedPassCode].Amount});`
+			);
+
 			return {
 				code: 200,
 				resMessage: {
@@ -136,6 +141,12 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 				) &&
 				["PS-S", "PS-G", "PS-C"].includes(selectedPassCode)
 			) {
+
+				const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+					`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
+					passes[parPassCode].Amount});`
+				);
+
 				return {
 					code: 200,
 					resMessage: {
@@ -165,6 +176,12 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 						},
 					};
 				} else {
+
+					const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+						`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
+						passes[parPassCode].Amount});`
+					);
+
 					return {
 						code: 200,
 						resMessage: {
@@ -189,11 +206,11 @@ async function checkBuyPass(conn, selectedPassCode, participantID) {
 // Method for Database Queries to commit the Buy Pass and Upgrade... ------------------------------------
 async function buyPass(conn, participantID, passCode, paymentData) {
 	/* 
-    Following Steps must follow to Complete the Payment Process:
-    1. INSERT into Payments table.
-    2. Check if Pass includes Atmos and insert it into if Participant is not in Atmos table..
-    3. UPDATE the Participants table with new pass if the pass is Upgrade.
-    */
+	Following Steps must follow to Complete the Payment Process:
+	1. INSERT into Payments table.
+	2. Check if Pass includes Atmos and insert it into if Participant is not in Atmos table..
+	3. UPDATE the Participants table with new pass if the pass is Upgrade.
+	*/
 
 	console.log(participantID, passCode, paymentData);
 
@@ -243,7 +260,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 			}
 		}
 
-        const oldAmount = await getOldPassAmount(conn, participantID)
+		const oldAmount = await getOldPassAmount(conn, participantID)
 		console.log(oldAmount)
 
 		// Updating the Participant's Pass and Payment Info...
@@ -257,7 +274,7 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 
 		if (parUpdateRows) {
 			res.code = 200;
-			
+
 			res.resMessage.message += ", UpdateParticipant";
 			res.resMessage.parUpdate = 1;
 		}
@@ -280,5 +297,5 @@ async function buyPass(conn, participantID, passCode, paymentData) {
 module.exports = {
 	checkBuyPass,
 	buyPass,
-    getTxnDetails
+	getTxnDetails
 };

@@ -125,6 +125,9 @@ function BuyPass() {
 		if (profile == {}) navigate("/profile");
 
 		const PID = profile.ParticipantID;
+		const fName = profile.Firstname;
+		const lName = profile.Lastname;
+		const passName = passes.find((pass) => pass.id === passCode).name;
 		// console.log(profile.ParticipantID);
 
 		const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
@@ -133,7 +136,7 @@ function BuyPass() {
 				Authorization: "Bearer " + currentUser.accessToken,
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ passCode, PID }),
+			body: JSON.stringify({ passCode, PID, fName, lName, passName }),
 		});
 		const check = await res.json();
 		// console.log(check);
