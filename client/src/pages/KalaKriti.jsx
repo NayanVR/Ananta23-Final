@@ -29,13 +29,50 @@ function KalaKrirti() {
 
   const navigate = useNavigate();
 
+  const passes = [
+    {
+      eventCode: "KK_DR",
+      name: "Deep Racer",
+      desc: "Developers of all skill levels can get hands on with machine learning through a cloud based 3D racing simulator, fully autonomous 1/18th scale race car driven by reinforcement learning, and global racing league.",
+      image: "freefire.png",
+      price: 200
+    },
+    {
+      eventCode: "KK_BI",
+      name: "Power BI",
+      desc: "Power BI is a business analytics service by Microsoft. It aims to provide interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
+      image: "vsm1.png",
+      price: 200
+    },
+    {
+      eventCode: "KK_TD",
+      name: "Tie and Dye",
+      desc: "Tie-dye is a term used to describe a number of resist dyeing techniques and the resulting dyed products of these processes.",
+      image: "vsm1.png",
+      price: 250
+    },
+    {
+      eventCode: "KK_TB",
+      name: "Tote Bag",
+      desc: "Tote Bag ",
+      image: "vsm1.png",
+      price: 250
+    },
+    {
+      eventCode: "KK_FA",
+      name: "Fluid Art",
+      desc: "Whether you want to call it fluid art, liquid art, or acrylic pouring, there’s nothing more satisfying than creating abstract masterpieces by letting pigment run amok. ",
+      image: "vsm1.png",
+      price: 250
+    }
+  ];
 
   function viewDetails(eventCode) {
     console.log("View Details", eventCode);
   }
 
   function showPaymentModal(amt, passCode) {
-    const passName = passes.find((pass) => pass.id === passCode).name;
+    const passName = passes.find((pass) => pass.eventCode === passCode).name;
     setModalTitle(passName + " Pass");
     setModalBody(`You are about to pay ₹${amt} for ${passName} pass.`);
     setIsModalOpen(true);
@@ -50,30 +87,33 @@ function KalaKrirti() {
 
     const PID = profile.ParticipantID;
 
-    const res = await fetch(serverURL + "/api/secure/workshop/check", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + currentUser.accessToken,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ passCode, PID }),
-    });
+    currentUser.getIdToken().then((token) => {
+      fetch(serverURL + "/api/secure/workshop/check", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + currentUser.accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ passCode, PID }),
+      })
+        .then(data => data.json())
+        .then(data => {
+          const amt = data.Amount;
+          if (data.type === "info") {
+            toast(data.message, {
+              icon: "👍🏻",
+            });
+          } else if (data.type === "success") {
+            const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
+            setPaymentUrl(url);
+            setIsAreadyOpened(false);
+            showPaymentModal(amt, passCode);
+          } else if (data.type === "error") {
+            toast.error(data.message, { duration: 3000 });
+          }
+        })
 
-    const check = await res.json();
-    const amt = await check.payAmount;
-    if (check.type == "info") {
-      toast(check.message, {
-        icon: "👍🏻",
-      });
-
-    } else if (check.type == "success") {
-      const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
-      setPaymentUrl(url);
-      setIsAreadyOpened(false);
-      showPaymentModal(amt, passCode);
-    } else if (check.type === "error") {
-      toast.error(check.message, { duration: 3000 });
-    }
+    })
   }
 
   return (
@@ -84,7 +124,7 @@ function KalaKrirti() {
 
       {/* <ComingSoon /> */}
       <div className="max-w-[1200px] m-auto my-16 px-4 flex gap-16 flex-wrap justify-center items-center">
-        {EventsData.kalakriti.map((event, index) => (
+        {passes.map((event, index) => (
           <EventCard
             key={index}
             event={event}

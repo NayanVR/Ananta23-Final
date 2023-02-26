@@ -12,7 +12,7 @@ import ProgressPopUp from '../components/ProgressPopUp'
 import Ellipse from '../assets/illustrations/Ellipse.svg'
 import Hero from '../assets/HeroData.json'
 import WaveAnim from '../assets/WaveAnim.json'
-import HeroVideo from '../assets/HeroSectionVideo.mp4'
+import HeroVideo from '../assets/HeroSectionVideoHigh.mp4'
 
 function Home() {
 
