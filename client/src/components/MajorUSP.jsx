@@ -5,12 +5,12 @@ import animationData from "../assets/MajorUSPAnimNew.json";
 function MajorUSP() {
 
     const points = [
-        "“Digitalized management” system to promote a self-reliant model through a web portal developed by the students and for the students.",
-        "“K-12 outreach” to promote university culture and developinclusivity, which depicts unity, diversity, equality, andsustainability.",
-        "“Categorizing events” in order to boost crucial skills, which makes their presence worth the value.",
+        "Digital money-handling experience to enhance financial skills and attract more participants by having a positive and competitive environment throughout the event.",
+        "Enrich students for their domain-specific careers by providing an open internship opportunity.",
+        "Strengthening students' managerial, entrepreneurial, and leadership skills by giving students an opportunity to manage and run their own stalls throughout the event.",
         "“Emphasizing Startups” by providing them with a platform to network as well as promote their story. ",
-        "Enrich students for their domain-specific careers by providing an “Open Internship” opportunity",
-        "“SMS”- A concept to let students run and manage their own stalls in an attempt to sharpen up their business management skills."
+        "Digitized management system to promote a self-reliant model through a web portal developed by the students and for the students.",
+        "K-12 outreach to promote university culture and develop inclusivity, which depicts unity, diversity, equality, and sustainability."
 
     ]
 

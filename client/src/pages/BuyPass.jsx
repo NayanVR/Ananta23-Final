@@ -36,19 +36,6 @@ function BuyPass() {
 			color: "#CD7F32",
 		},
 		{
-			id: "PS-S",
-			name: "SILVER",
-			markImg: silverMark,
-			price: 270,
-			features: [
-				"Access to any 3 Events (INERTIA & SWOOSH)",
-				"Access to any 2 Guest Lectures",
-				"Access to Zingaat : Cultural Events",
-				"2200 Ananta Coins",
-			],
-			color: "#C0C0C0",
-		},
-		{
 			id: "PS-G",
 			name: "GOLD",
 			markImg: goldMark,
@@ -60,6 +47,19 @@ function BuyPass() {
 				"2400 Ananta Coins",
 			],
 			color: "#FFDF00",
+		},
+		{
+			id: "PS-S",
+			name: "SILVER",
+			markImg: silverMark,
+			price: 270,
+			features: [
+				"Access to any 2 Events (INERTIA & SWOOSH)",
+				"Access to any  Guest Lectures",
+				"Access to Zingaat : Cultural Events",
+				"2200 Ananta Coins",
+			],
+			color: "#C0C0C0",
 		},
 		{
 			id: "PS-DJ",
@@ -161,12 +161,35 @@ function BuyPass() {
 
 	return (
 		<>
-			<div className="flex relative h-full justify-center items-center">
+			<div className="relative h-full flex justify-center items-center overflow-hidden">
+				<div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container opacity-20">
+					<div className="grid-container">
+						<div className='grid-top-gradient'></div>
+						{
+							[...Array(250)].map((_, i) => {
+
+								return (
+									<div key={i} className='grid-item'></div>
+								)
+							})
+						}
+					</div>
+				</div>
+				<div className="wrap-grid-container opacity-20">
+					<div className="grid-container">
+						<div className='grid-top-gradient'></div>
+						{
+							[...Array(250)].map((_, i) => (
+								<div key={i} className='grid-item'></div>
+							))
+						}
+					</div>
+				</div>
 				{/* Gradient */}
 				<div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
 				<div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
 
-				<div className="max-w-[1300px] m-auto flex gap-16 flex-wrap justify-center items-center">
+				<div className="max-w-[1300px] mx-auto my-16 flex gap-8 flex-wrap justify-center items-center">
 
 					{passes.map((pass, index) => (
 						<PassCard

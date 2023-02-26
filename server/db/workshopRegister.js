@@ -1,21 +1,19 @@
-const { Connect } = require("aws-sdk");
+async function checkForWorkshop(conn, passCode, participantID) {
 
-async function checkForWorkshop(conn, eventCode, participantID) {
+    console.log(passCode)
 
-    console.log(eventCode)
-
-    const [checkRegisteredRow, checkRegisteredField] = await conn.execute(`SELECT * FROM SoloRegistration WHERE EventCode = '${eventCode}' and ParticipantID = '${participantID}'`);
+    const [checkRegisteredRow, checkRegisteredField] = await conn.execute(`SELECT * FROM SoloRegistration WHERE EventCode = '${passCode}' and ParticipantID = '${participantID}'`);
 
     if (checkRegisteredRow.length > 0) {
         return {
-            code: 500,
+            code: 400,
             resMessage: {
                 message: "You have Already Registered in this Workshop",
                 type: "info"
             }
         }
     } else {
-        const [fetchAmtRow, fetchAmtField] = await conn.execute(`SELECT PassAmt FROM Passes WHERE PassCode = '${eventCode}'`);
+        const [fetchAmtRow, fetchAmtField] = await conn.execute(`SELECT PassAmt FROM Passes WHERE PassCode = '${passCode}'`);
 
         console.log(fetchAmtRow)
 

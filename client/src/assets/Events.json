@@ -151,73 +151,27 @@
 		
 	
 	],
-
-	"kalakriti":[
-		{
-              "eventCode": "KK_DR",
-			  "name": "Deep Racer",
-			  "desc": "Developers of all skill levels can get hands on with machine learning through a cloud based 3D racing simulator, fully autonomous 1/18th scale race car driven by reinforcement learning, and global racing league.",
-			  "image": "freefire.png",
-			  "price": "200"
-		},
-		{
-			"eventCode": "KK_BI",
-			"name": "Power BI",
-			"desc": "Power BI is a business analytics service by Microsoft. It aims to provide interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
-			"image": "vsm1.png",
-			"price": "200"
-		},
-		{
-            "eventCode": "KK_VS",
-			"name": "GSBTM",
-			"desc":"Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
-			"image": "vsm1.png",
-			"price": "200"
-		},
-		{
-			"eventCode": "KK_TD",
-			"name": "Tie and Dye",
-			"desc": "Tie-dye is a term used to describe a number of resist dyeing techniques and the resulting dyed products of these processes.",
-			"image": "vsm1.png",
-			"price": "250"
-		},
-		{
-			"eventCode": "KK_TB",
-			"name": "Tote Bag",
-			"desc": "Tote Bag ",
-			"image": "vsm1.png",
-			"price": "250"
-		},
-		{
-			"eventCode": "KK_FA",
-			"name": "Fluid Art",
-			"desc": "Whether you want to call it fluid art, liquid art, or acrylic pouring, there’s nothing more satisfying than creating abstract masterpieces by letting pigment run amok. ",
-			"image": "vsm1.png",
-			"price": "250"
-		}
-		
-	],
 	
 	"upshot" :[
         
 		{
 			"eventCode": "US_UD",
 			"name": "7 Up 7 Down",
-			"desc": "7 Up 7 Down is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"desc": "Ready for a guessing game to test your luck? Join us with 7 Up 7 Down and forecast your fortune and win exciting prizes!",
+			"image": "77.png"
 
 		},
 		{
 			"eventCode": "US_BD",
 			"name": "Housie",
-			"desc": "Isn’t it fun when you get together with your friends and family just to sit around chit-chat and play some random game. With housie it feels like home and getting together all over again, gather around with your fifteen friends and come try your luck out.",
-			"image": "vsm1.png"
+			"desc": "Bingo! You found yourself a great way of fun and friendly competition with a reminiscence of family time. Join us in this popular game of chance where players match numbers on their cards to the numbers called out by the game host. Are you lucky enough to win and take home the rewards?",
+			"image": "housie.png"
 		},
 		{
 			"eventCode": "US_BD",
-			"name": "Tic Tac Toe",
-			"desc": "Human Tic Tac Toe is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"name": "Gobblet Gobblers",
+			"desc": "Outsmart your opponent and gobble up victory in Gobblet Gobblers - the strategic game of memory and deduction! Gobblet Gobblers is a strategic feast of memory and deduction where players aim to devour their opponent's chances of winning. With cunning moves and a keen eye, line up your game pieces to form a triumphant row of three before your opponent can!",
+			"image": "gg.png"
 		},
 		{
 			"eventCode": "US_BD",
@@ -229,31 +183,31 @@
 			"eventCode": "",
 			"name" : "Floating Balls",
 			"desc": "Floating Balls is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"image": "fb.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Target The Rings",
 			"desc": "3 Rings in a Cup is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"image": "3ring.png"
 		},
 		{
 			"eventCode": "",
 			"name": "3 Shots in Basket",
 			"desc": "3 Shots in Basket is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"image": "3ball.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Glass Pyramid",
 			"desc": "Glass Pyramid is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"image": "gp.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Cup Stacking",
 			"desc": "Cup Stacking is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
-			"image": "vsm1.png"
+			"image": "cs.png"
 		}
 		
 
