@@ -3,6 +3,7 @@ import { useState, useEffect, useContext, Fragment } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import YourEvent from "../components/YourEvent";
 import { Dialog, Transition } from "@headlessui/react";
+import { toast } from "react-hot-toast";
 
 
 export default function MyEvents() {
@@ -73,41 +74,50 @@ export default function MyEvents() {
 
 
     async function handleDeleteEvent() {
-        const unregister = await fetch(serverURL + "/api/secure/deleteEvent", {
-            method: "POST",
-            headers: {
-                Authorization: "Bearer " + currentUser.accessToken,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                pid,
-                eventCode,
-                isSolo,
-                role,
-                teamID,
-            }),
+        const pid = profile.ParticipantID;
+        currentUser.getIdToken().then(async (token) => {
+
+            fetch(serverURL + "/api/secure/deleteEvent", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + currentUser.accessToken,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    pid,
+                    eventCode,
+                    isSolo,
+                    role,
+                    teamID,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.type == "success") {
+                        if (eventCode.includes("IN") || eventCode.includes("SW")) {
+                            setTotalEvents(() => totalEvents - 1);
+                        } else if (eventCode.includes("EQ")) {
+                            setTotalGuests(() => totalGuests - 1);
+                        } else if (eventCode.includes("KK")) {
+                            setTotalGuests(() => totalWorkshops - 1);
+                        }
+                        toast.success(data.message, { duration: 3000 });
+                    } else {
+                        toast.error(data.message, { duration: 3000 });
+                    }
+                    closeModal();
+                    setReloadEvents(!reloadEvents);
+                    // console.log(registeredEvents.length);
+                    if (registeredEvents.length == 1) {
+                        window.location.href = "profile";
+                    }
+                });
         });
 
-        const info = await unregister.json();
+        // const info = await unregister.json();
         // // console.log(info)
-        if (info.type == "success") {
-            if (eventCode.includes("IN") || eventCode.includes("SW")) {
-                setTotalEvents(() => totalEvents - 1);
-            } else if (eventCode.includes("EQ")) {
-                setTotalGuests(() => totalGuests - 1);
-            } else if (eventCode.includes("KK")) {
-                setTotalGuests(() => totalWorkshops - 1);
-            }
-            toast.success(info.message, { duration: 3000 });
-        } else {
-            toast.error(info.message, { duration: 3000 });
-        }
-        closeModal();
-        setReloadEvents(!reloadEvents);
-        // console.log(registeredEvents.length);
-        if (registeredEvents.length == 1) {
-            window.location.href = "profile";
-        }
+
     }
 
     function deleteEvent(info, color) {
@@ -173,6 +183,34 @@ export default function MyEvents() {
             setRole("");
             setTeamID("");
         }
+    }
+
+    function handleRemoveMember(pid, teamID_) {
+        setIsOpen(false);
+        currentUser.getIdToken().then(async (token) => {
+            fetch(serverURL + "/api/secure/removeTeamMember", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    participantID: pid,
+                    teamID: teamID_
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.type == "success") {
+                        toast.success(data.message, { duration: 3000 });
+                    } else {
+                        toast.error(data.message, { duration: 3000 });
+                    }
+                    setReloadEvents(!reloadEvents);
+                }
+                );
+        });
     }
 
     function closeModal() {
@@ -398,23 +436,9 @@ export default function MyEvents() {
                                                                 </label>
                                                                 <label
                                                                     htmlFor="first-name"
-                                                                    className="shadow-inner text-xl p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded-lg "
+                                                                    className=" text-xl p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded-sm "
                                                                 >
                                                                     {teamName}
-                                                                </label>
-                                                            </div>
-                                                            <div className="col-span-6 sm:col-span-3 m-3">
-                                                                <label
-                                                                    htmlFor="first-name"
-                                                                    className="text-xs block font-medium text-gray-700"
-                                                                >
-                                                                    Team Leader
-                                                                </label>
-                                                                <label
-                                                                    htmlFor="first-name"
-                                                                    className="shadow-inner text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-lg "
-                                                                >
-                                                                    {teamLeader['Firstname']} {teamLeader['Lastname']}
                                                                 </label>
                                                             </div>
                                                             <div className="col-span-6 sm:col-span-3 m-3">
@@ -427,24 +451,43 @@ export default function MyEvents() {
                                                                 </label>
                                                                 <label
                                                                     htmlFor="first-name"
-                                                                    className="shadow-inner text-sm p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded "
+                                                                    className=" text-sm p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded "
                                                                 >
                                                                     11:00 AM, 12
                                                                     Feb 2023
+                                                                </label>
+                                                            </div>
+                                                            <div className="col-span-6 sm:col-span-3 m-3">
+                                                                <label
+                                                                    htmlFor="first-name"
+                                                                    className="text-xs block font-medium text-gray-700"
+                                                                >
+                                                                    Team Leader
+                                                                </label>
+                                                                <label
+                                                                    htmlFor="first-name"
+                                                                    className=" text-md p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-bold text-gray-700 rounded-sm "
+                                                                >
+                                                                    {teamLeader['Firstname']} {teamLeader['Lastname']}
                                                                 </label>
                                                             </div>
 
                                                             {role ==
                                                                 "Leader" && (
                                                                     <div
-                                                                        className={`drop-shadow-md bg-white mx-5 rounded-2xl py-2`}
+                                                                        className={` bg-white mx-5  rounded-sm py-2`}
                                                                     >
                                                                         {
                                                                             members.map((member) => {
                                                                                 return (
-                                                                                    <label className="text-[0.8rem] block font-medium text-gray-700">
-                                                                                        {member['Firstname']} {member['Lastname']}
-                                                                                    </label>
+                                                                                    <>
+                                                                                        <div className='flex justify-between px-4'>
+                                                                                            <label className="text-[0.8rem] text-semibold block font-medium text-gray-700">
+                                                                                                {member['Firstname']} {member['Lastname']}
+                                                                                            </label>
+                                                                                            <button onClick={() => { handleRemoveMember(member.ParticipantID, teamID) }} className='text-red-600 px-2 my-1 rounded-sm '>Remove</button>
+                                                                                        </div>
+                                                                                    </>
                                                                                 )
                                                                             })
                                                                         }

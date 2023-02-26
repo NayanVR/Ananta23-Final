@@ -1,17 +1,18 @@
 import React from 'react'
 import { useEffect, useState, useContext } from 'react'
-import Ellipse from '../assets/illustrations/Ellipse.svg'
+import Lottie from 'lottie-react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from "./../contexts/AuthContext";
 import Stats from '../components/Stats'
 import AboutUs from '../components/AboutUs'
 import Events from '../components/Events'
 import MajorUSP from '../components/MajorUSP'
-import { AuthContext } from "./../contexts/AuthContext";
 import FAQSection from '../components/FAQSection'
+import ProgressPopUp from '../components/ProgressPopUp'
+import Ellipse from '../assets/illustrations/Ellipse.svg'
 import Hero from '../assets/HeroData.json'
 import WaveAnim from '../assets/WaveAnim.json'
-import Lottie from 'lottie-react'
-import { useNavigate } from 'react-router-dom'
-import ProgressPopUp from '../components/ProgressPopUp'
+import HeroVideo from '../assets/HeroSectionVideo.mp4'
 
 function Home() {
 
@@ -53,15 +54,27 @@ function Home() {
         <>
             {
                 // profile.ProfileStatus == 0 ?
-                    // location.href = "/profile"
-                    // <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
-                    // :
-                    // <></>
+                // location.href = "/profile"
+                // <ProgressPopUp isOpen={showProgress} setIsOpen={setShowProgress} authStatus={true} profileStatus={false} paymentStatus={false} />
+                // :
+                // <></>
             }
-
             <section className='w-full h-[calc(100vh-3.5rem)] overflow-hidden relative flex flex-col justify-center items-center gap-10'>
 
-                <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
+                <video className='absolute top-0 left-0 w-full h-full object-cover' autoPlay muted>
+                    <source src={HeroVideo} type="video/mp4" />
+                </video>
+                <p className='animate-videoContent relative uppercase text-xl text-white z-50 top-32'>
+                    {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
+                </p>
+                {
+                    !currentUser ?
+                        <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                        : profile.TxnStatus != "TXN_SUCCESS" ?
+                            <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
+                            <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
+                }
+                {/* <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
                     <div className="grid-container">
                         <div className='grid-top-gradient'></div>
                         {
@@ -83,22 +96,22 @@ function Home() {
                             ))
                         }
                     </div>
-                </div>
+                </div> */}
                 {/* Gradient */}
-                <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
-                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+                {/* <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' /> */}
 
-                <Lottie className='absolute block w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} />
-                <p className='relative uppercase text-xl text-primary z-50 after:content-[""] top-52 after:block after:absolute after:w-full after:h-full after:top-0 after:left-0 after:bg-white after:blur-md after:z-[-1]'>
+                {/* <Lottie className='absolute block w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} /> */}
+                {/* <p className='relative uppercase text-xl text-white z-50 top-32'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
                 {
                     !currentUser ?
-                        <button className='top-48 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                        <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
                         : profile.TxnStatus != "TXN_SUCCESS" ?
-                            <button className='top-48 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
-                            <button className='top-48 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
-                }
+                            <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
+                            <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
+                } */}
 
             </section>
 

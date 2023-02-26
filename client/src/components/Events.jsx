@@ -1,4 +1,5 @@
 import React from 'react'
+import EventBox from './EventBox'
 import EventChip from './EventChip'
 
 
@@ -49,8 +50,8 @@ function Events() {
                 <h1 className='mb-12 text-4xl font-heading font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent'>
                     Events
                 </h1>
-                <div className='flex justify-between flex-wrap gap-12'>
-                    {events.map((item, index) => <EventChip title={item.title} desc={item.desc} link={item.link} sub={item.sub} key={index} />)}
+                <div className='max-w-[1200px] m-auto grid gap-8 grid-cols-1 md:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-16 place-items-center my-16'>
+                    {events.map((item, index) => <EventBox title={item.title} desc={item.desc} link={item.link} sub={item.sub} key={index} />)}
                 </div>
             </div>
         </section>

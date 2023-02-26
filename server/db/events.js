@@ -84,6 +84,35 @@ async function getTeamMembers(conn, teamID) {
 	}
 }
 
+// Remove Team Member
+async function removeTeamMember(conn, participantID, teamID) {
+
+	const [rows, fields] = await conn.execute(
+		`DELETE FROM TeamRegistration WHERE ParticipantID = '${participantID}' and TeamID = '${teamID}'`
+	);
+	const eventID = teamID.split("_")[0] + "_" + teamID.split("_")[1];
+	const isUpdateRegCount = await updateRegCount(conn, eventID, participantID, "dec");
+	const isupdateEventRegCount = await updateEventRegistrationCount(conn, eventID, "dec");
+
+	if (rows && isUpdateRegCount && isupdateEventRegCount) {
+		return {
+			code: 200,
+			resMessage: {
+				message: "Member Removed",
+				type: "success",
+			},
+		};
+	} else {
+		return {
+			code: 500,
+			resMessage: {
+				message: "Failed",
+				type: "error",
+			},
+		};
+	}
+}
+
 async function updateEventRegistrationCount(conn, eventCode, option) {
 	const [rows, fields] = await conn.execute(
 		`SELECT TotalRegistration FROM Events where EventCode = '${eventCode}'`
@@ -107,11 +136,12 @@ async function updateEventRegistrationCount(conn, eventCode, option) {
 
 		if (updateRows) {
 			return true;
+		} else {
+			return false;
 		}
-
+	} else {
 		return false;
 	}
-	return false;
 }
 
 async function deleteEvent(
@@ -122,21 +152,28 @@ async function deleteEvent(
 	role,
 	teamID
 ) {
-	console.log();
-	if (isSolo == true) {
+	if (isSolo) {
 		const [deleteRows, deleteFields] = await conn.execute(
 			`DELETE FROM SoloRegistration WHERE EventCode = '${eventCode}' and ParticipantID = '${participantID}'`
 		);
-		if (
-			deleteRows &&
-			(await updateEventRegistrationCount(conn, eventCode, "dec")) &&
-			(await updateRegCount(conn, eventCode, participantID, "dec"))
-		) {
+		const isEventRegCount = await updateEventRegistrationCount(conn, eventCode, "dec");
+		const isUpdateRegCount = await updateRegCount(conn, eventCode, participantID, "dec");
+
+		if (deleteRows && isEventRegCount && isUpdateRegCount) {
 			return {
 				code: 200,
 				resMessage: {
 					type: "success",
 					message: "Event Unregistration Complete...",
+					category: "Solo",
+				},
+			};
+		} else {
+			return {
+				code: 500,
+				resMessage: {
+					type: "error",
+					message: "Event Unregisteration Failed...",
 					category: "Solo",
 				},
 			};
@@ -424,11 +461,13 @@ async function updateRegCount(conn, eventCode, participantID, option) {
 		// Return if Updated Successfully...
 		if (updateParRows) {
 			return true;
+		} else {
+			return false;
 		}
+	} else {
 		return false;
 	}
 
-	return false;
 }
 
 // =========================== Registration Count Update +1 Ends ===========================
@@ -720,5 +759,6 @@ module.exports = {
 	getTeamInfo,
 	getEvents,
 	deleteEvent,
-	getTeamMembers
+	getTeamMembers,
+	removeTeamMember
 };

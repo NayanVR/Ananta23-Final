@@ -194,18 +194,32 @@
             "image":"Samarth4.jpg"
         }
     ],
-    "web1":[
-        
-       {
-            "name": "Ashish Kumar Patel",
-            "role": "Back-End Developer",
+
+    "web2":[
+        {
+            "name": "Nayan Radadiya",
+            "role": "Full-Stack Developer",
             "email": "",
             "phone": "",
             "linkedin": "",
-            "image":"Ashish4.jpg"
-       },
+            "image":"Nayan.jpg"
+        }
+        
+        ],
 
-       
+    "web1":[
+        
+        
+        
+        {
+            "name": "Pratham Pathak",
+            "role": "Front-End Developer",
+            "email": "",
+            "phone": "",
+            "linkedin": "",
+            "image":"Prthm.jpg"
+            
+        },
         {
             "name": "Nishant Viroja",
             "role": "Front-End Developer",
@@ -215,23 +229,22 @@
             "image":"Nishant4.jpg"
         },
         {
-            "name": "Pratham Pathak",
+            "name": "Devanshi Patel",
             "role": "Front-End Developer",
             "email": "",
             "phone": "",
             "linkedin": "",
-            "image":"Pratham4.jpg"
-
+            "image":"Devanshi4.jpg"
         },
         {
-            "name": "Nayan Radadiya",
-            "role": "Full-Stack Developer",
-            "email": "",
-            "phone": "",
-            "linkedin": "",
-            "image":"Nayan4.jpg"
-
+             "name": "Ashish Kumar Patel",
+             "role": "Back-End Developer",
+             "email": "",
+             "phone": "",
+             "linkedin": "",
+             "image":"Ashish4.jpg"
         },
+        
         {
             "name": "Harshal Patel",
             "role": "Back-End Developer",
@@ -248,14 +261,6 @@
             "linkedin":"",
             "image":"Dhruv4.jpg"
 
-        },
-        {
-            "name": "Devanshi Patel",
-            "role": "Front-End Developer",
-            "email": "",
-            "phone": "",
-            "linkedin": "",
-            "image":"Devanshi4.jpg"
         },
         {
             "name": "Arjav Jani",
@@ -291,7 +296,8 @@
             "role": "Content Creator",
             "email": "",
             "phone": "",
-            "linkedin": ""
+            "linkedin": "",
+            "image":"Shubham.jpg"
         }
     ]
 

@@ -14,6 +14,13 @@ function Hardworking() {
                 <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                     WEB TEAM
                 </h1>
+                <div className='flex flex-wrap gap-8 justify-center items-center max-w-[64rem] my-5 '>
+
+                    {TeamData.web2.map((info, index) => (
+                        <TeamCard info={info} key={index} />
+                    ))}
+
+                </div>
                 <div className='flex flex-wrap gap-8 justify-center items-center max-w-[64rem]  '>
 
                     {TeamData.web1.map((info, index) => (
@@ -24,9 +31,9 @@ function Hardworking() {
             </div>
             <div className='flex flex-col items-center justify-center  '>
                 <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
-                    LEADERSHIP TEAM
+                    SOCIAL MEADIA TEAM
                 </h1>
-                <div className='flex flex-wrap gap-8 justify-center items-center max-w-[64rem]  '>
+                <div className='flex flex-wrap gap-8 justify-center items-center max-w-[64rem] my-4 '>
 
                     {TeamData.creative1.map((info, index) => (
                         <TeamCard info={info} key={index} />
