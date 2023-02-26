@@ -4,24 +4,154 @@ const { buyPassMail } = require("./mails");
 
 const passes = require("../assets/passes.json");
 
-async function updateUniversityRegistratioin(conn) {
+async function updateMarketeersRegistrationCount(conn) {
 	const [rows, fields] = await conn.execute(
-`select count(*) as count, University from Participants where University != '' group by University`	);
+		`SELECT TotalRegistration, TotalSchools, TotalWorkshops, Funds, AllInOne.EnrollmentNo from 
+		(select count(*) as TotalRegistration, Marketeers.EnrollmentNo from Participants 
+		inner join Marketeers 
+		on 
+		Marketeers.EnrollmentNo = Participants.ContactPerson 
+		group by Marketeers.EnrollmentNo
+		) as AllPasses 
+		
+	right join
+	
+		(select TotalWorkshops, TotalSchools, Funds, Funds.EnrollmentNo from 
+			(select TotalSchools, TotalWorkshops, AllWorkshops.EnrollmentNo as EnrollmentNo from 
+				(select count(*) as TotalWorkshops, Marketeers.EnrollmentNo as EnrollmentNo from PaymentsOffline 
+				inner join 
+				Marketeers 
+				on 
+				Marketeers.EnrollmentNo = PaymentsOffline.ContactPerson 
+				and 
+				PaymentsOffline.PassCode like "KK%" 
+				group by Marketeers.EnrollmentNo
+				) as AllWorkshops 
+			
+			left join
+			
+				(select count(*) as TotalSchools, Marketeers.EnrollmentNo as EnrollmentNo from PaymentsOffline 
+				inner join 
+				Marketeers 
+				on 
+				Marketeers.EnrollmentNo = PaymentsOffline.ContactPerson 
+				and 
+				PaymentsOffline.PassCode = "SP" 
+				group by Marketeers.EnrollmentNo
+				) as AllSchools 
+				
+			on AllSchools.EnrollmentNo = AllWorkshops.EnrollmentNo
+			
+			) as OnForAll
+			
+		inner join 
+		
+			(select sum(PaymentsOffline.TxnAmount) as Funds, Marketeers.EnrollmentNo from PaymentsOffline 
+			inner join Marketeers 
+			on 
+			Marketeers.EnrollmentNo = PaymentsOffline.ContactPerson
+			group by Marketeers.EnrollmentNo
+			) as Funds 
+			
+		on Funds.EnrollmentNo = OnForAll.EnrollmentNo
+		
+	) as AllInOne on AllPasses.EnrollmentNo = AllInOne.EnrollmentNo`
+	);
 
 	if (rows.length > 0) {
-		await conn.execute(`update Universities set TotalRegistration=0, Funds = 0`);
+		await conn.execute(
+			`update Marketeers set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0`
+		);
+		
+		console.log(rows);
+		let i = 0;
+		for (i; i < rows.length; i++) {
+			console.log("\tEnrollmentNo: " + rows[i].EnrollmentNo != null ? rows[i].EnrollmentNo: 0);
+			console.log("\tTotalRegistration: " + rows[i].TotalRegistration);
+			console.log("\tIncome: "+ rows[i].Funds != null ? rows[i].Funds : 0)
+			console.log("\tTotalWorkshop: "+ rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0)
+			console.log("\TotalSchools: "+ rows[i].TotalSchools != null ? rows[i].TotalSchools : 0)
+			const sqlquery = `update Marketeers set TotalRegistrations = ${
+				rows[i].TotalRegistration != null
+					? rows[i].TotalRegistration
+					: 0
+			}, Income = ${
+				rows[i].Funds != null ? rows[i].Funds : 0
+			}, TotalWorkshopsReg = ${
+				rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0
+			}, TotalSchools = ${
+				rows[i].TotalSchools != null ? rows[i].TotalSchools : 0
+			} where EnrollmentNo = '${rows[i].EnrollmentNo}'`;
+			console.log(sqlquery);
+			const [updateRows, updateFields] = await conn.execute(sqlquery);
+		}
+		if (i == rows.length) {
+			console.log("✔ Marketeers Records has been updated successfully.");
+
+			const [rows, fields] = await conn.execute(`SELECT TeamID, sum(TotalWorkshopsReg) as Workshops, sum(TotalRegistrations) as Reg, sum(TotalSchools) as School, sum(Income) as Income from Marketeers group by TeamID;`);
+
+			if (rows.length > 0) {
+				await conn.execute(
+					`update MarketingTeams set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0`
+				);
+
+				let i = 0;
+				for (i; i < rows.length; i++) {
+					const [updateRows, updateFields] = await conn.execute(
+						`update MarketingTeams set TotalRegistrations = ${
+							rows[i].Reg != null
+								? rows[i].Reg
+								: 0
+						}, Income = ${
+							rows[i].Income != null ? rows[i].Income : 0
+						}, TotalWorkshopsReg = ${
+							rows[i].Workshops != null ? rows[i].Workshops : 0
+						}, TotalSchools = ${
+							rows[i].School != null ? rows[i].School : 0
+						} where TeamID = '${rows[i].TeamID}'`
+					);
+				}
+				if (i == rows.length) {
+					console.log(
+						"✔ MarketingTeams Records has been updated successfully."
+					);
+
+					return true;
+				} else {
+					console.log("✘ MarketingTeams Records Updation Failed.");
+					return false;
+				}
+			}
+			return false;
+		} else {
+			console.log("✘ Marketeers Records Updation Failed.");
+			return false;
+		}
+	}
+	return false;
+}
+
+async function updateUniversityRegistratioin(conn) {
+	const [rows, fields] = await conn.execute(
+		`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' group by University`
+	);
+
+	if (rows.length > 0) {
+		await conn.execute(
+			`update Universities set TotalRegistration=0, Funds = 0`
+		);
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
+				`update Universities set TotalRegistration = ${rows[i].Sold}, Funds = ${rows[i].Funds} where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {
-			console.log("✔ PassSold Updation Complete.")
+			console.log("✔ University Records has been updated successfully.");
 			return true;
 		} else {
-			console.log("✘ PassSold Updation Failed.")
+			console.log("✘ Universities Records Updation Failed.");
 			return false;
 		}
 	}
@@ -43,10 +173,10 @@ async function updateSoldPasses(conn) {
 			);
 		}
 		if (i == rows.length) {
-			console.log("✔ PassSold Updation Complete.")
+			console.log("✔ PassSold Updation Complete.");
 			return true;
 		} else {
-			console.log("✘ PassSold Updation Failed.")
+			console.log("✘ PassSold Updation Failed.");
 			return false;
 		}
 	}
@@ -71,7 +201,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 
 	if (authAccessRow.length > 0) {
 		if (authAccessRow[0].AccessToken == accessToken) {
-			console.log("⦿ Authenticated Successfully...")
+			console.log("⦿ Authenticated Successfully...");
 			return {
 				code: 200,
 				resMessage: {
@@ -80,7 +210,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 				},
 			};
 		} else {
-			console.log("⊘ Authenticated Failed...")
+			console.log("⊘ Authenticated Failed...");
 			return {
 				code: 200,
 				resMessage: {
@@ -90,7 +220,7 @@ async function autheticateUser(conn, enrollmentNo, accessToken) {
 			};
 		}
 	} else {
-		console.log("🌻User Not Found")
+		console.log("🌻User Not Found");
 		return {
 			code: 200,
 			resMessage: {
@@ -138,9 +268,11 @@ async function buyPassOffline(
 
 	const paymentID = await genPaymentID(conn, passCode);
 
-	const date = new Date(new Date().toLocaleString("en-us", {
-		timeZone: "Asia/Calcutta",
-	}));
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
 	const timestamp = `${date.getFullYear()}-${(
 		"0" +
 		(date.getMonth() + 1)
@@ -150,12 +282,14 @@ async function buyPassOffline(
 		"0" + date.getSeconds()
 	).slice(-2)}`;
 
-	const [insertPaymentRows, insertPaymentFields] = await conn.execute(`INSERT INTO PaymentsOffline (PaymentID, ParticipantID, PassCode, TxnStatus, TxnAmount, PaymentMode, TxnDate, ContactPerson) VALUES ('${paymentID}', '${participantID}', '${passCode}', 'TXN_SUCCESS', ${payAmt}, '${payMode}', '${timestamp}', '${enrollmentNo}')`);
+	const [insertPaymentRows, insertPaymentFields] = await conn.execute(
+		`INSERT INTO PaymentsOffline (PaymentID, ParticipantID, PassCode, TxnStatus, TxnAmount, PaymentMode, TxnDate, ContactPerson) VALUES ('${paymentID}', '${participantID}', '${passCode}', 'TXN_SUCCESS', ${payAmt}, '${payMode}', '${timestamp}', '${enrollmentNo}')`
+	);
 
 	// INSERT into Payments
 	if (insertPaymentRows && passCode.includes("PS-")) {
-		console.log("✔ Payment Record inserted into PaymentsOffline Table.")
-		console.log("⟴ Pass Registration Started...")
+		console.log("✔ Payment Record inserted into PaymentsOffline Table.");
+		console.log("⟴ Pass Registration Started...");
 
 		res.resMessage.message += "Payment";
 		res.resMessage.payInsert = 1;
@@ -173,7 +307,7 @@ async function buyPassOffline(
 				);
 
 				if (atmosRows) {
-					console.log("✔ Atmos Registration is complete.")
+					console.log("✔ Atmos Registration is complete.");
 					res.resMessage.message += ", Atmos";
 					res.resMessage.atmos = 1;
 				}
@@ -190,16 +324,16 @@ async function buyPassOffline(
 				passes[passCode]["Kit"]
 			}, DigitalPoints = ${
 				passes[passCode]["DP"]
-			} WHERE ParticipantID = '${participantID}'`
+			}, ContactPerson = '${enrollmentNo}' WHERE ParticipantID = '${participantID}'`
 		);
 
 		if (parUpdateRows) {
-			console.log("✔ Participant Record updated with new Pass.")
+			console.log("✔ Participant Record updated with new Pass.");
 			res.code = 200;
 			res.resMessage.message += ", UpdateParticipant";
 			res.resMessage.parUpdate = 1;
 		} else {
-			console.log("✘ Participant Record updated with new Pass Failed...")
+			console.log("✘ Participant Record updated with new Pass Failed...");
 			res.code = 200;
 			res.resMessage.message += ", UpdateParticipantFailed";
 			res.resMessage.parUpdate = 0;
@@ -208,9 +342,9 @@ async function buyPassOffline(
 
 	// KalaKriti Registration
 	if (insertPaymentRows && passCode.includes("KK_")) {
-		console.log("✔ Payment Record inserted into PaymentsOffline Table.")
+		console.log("✔ Payment Record inserted into PaymentsOffline Table.");
 		console.log("⟴ Workshops Registration Started");
-		
+
 		res.resMessage.message += "Payment, KK Found";
 		res.resMessage.payInsert = 1;
 		res.resMessage.kkFound = 1;
@@ -221,7 +355,9 @@ async function buyPassOffline(
 		);
 
 		if (regKKRows) {
-			console.log("✔ Payment Record inserted into SoloRegistration Table.")
+			console.log(
+				"✔ Payment Record inserted into SoloRegistration Table."
+			);
 			res.code = 200;
 			res.resMessage.message += ", InertKK";
 			res.resMessage.insertKK = 1;
@@ -237,26 +373,30 @@ async function buyPassOffline(
 					} where ParticipantID = '${participantID}'`
 				);
 				if (updateParRows) {
-					console.log("✔ Total Workshop count is updated in Participant Table.")
+					console.log(
+						"✔ Total Workshop count is updated in Participant Table."
+					);
 					res.code = 200;
 					res.resMessage.message += ", updateParticipant";
 					res.resMessage.parUpdate = 1;
 				} else {
-					console.log("✘ Participant Record updated with new Pass Failed...");
+					console.log(
+						"✘ Participant Record updated with new Pass Failed..."
+					);
 					res.code = 500;
 					res.resMessage.message += ", updateParticipantFailed";
 					res.resMessage.parUpdate = 0;
 					res.resMessage.type = "error";
 				}
 			} else {
-				console.log("✘ Participant Not Found...")
+				console.log("✘ Participant Not Found...");
 				res.code = 500;
 				res.resMessage.message += ", ParticipantNotFound";
 				res.resMessage.parFound = 0;
 				res.resMessage.type = "error";
 			}
 		} else {
-			console.log("✘ Participant Not Found...")
+			console.log("✘ Participant Not Found...");
 			res.code = 200;
 			res.resMessage.message += ", InertKKFailed";
 			res.resMessage.insertKK = 0;
@@ -264,7 +404,11 @@ async function buyPassOffline(
 		}
 	}
 
-	if (await updateSoldPasses(conn)) {
+	if (
+		(await updateSoldPasses(conn)) &&
+		(await updateUniversityRegistratioin(conn)) &&
+		(await updateMarketeersRegistrationCount(conn))
+	) {
 		res.resMessage.message += ", PassesSoldUpdated";
 		res.resMessage.updateSold = 1;
 	} else {
@@ -276,13 +420,12 @@ async function buyPassOffline(
 	//Sending Mail
 
 	if (passCode.includes("PS-")) {
-		console.log(`➔ Pass Sending it to Mail Begins.............`)
+		console.log(`➔ Pass Sending it to Mail Begins.............`);
 		const [parRows, parFields] = await conn.execute(
 			`SELECT Participants.ParticipantID, Email, Firstname, Lastname, PassType, PaymentsOffline.TxnDate AS Timestamp FROM Participants INNER JOIN Passes INNER JOIN PaymentsOffline ON Participants.PassCode = Passes.PassCode AND Participants.PaymentID = PaymentsOffline.PaymentID WHERE Participants.ParticipantID = '${participantID}'`
 		);
 
 		if (parRows.length > 0) {
-			
 			let data = { body: { txnDate: parRows[0].Timestamp } };
 			const sendMail = await buyPassMail(
 				transporter,
@@ -302,7 +445,7 @@ async function buyPassOffline(
 			}
 		}
 	} else {
-		console.log("⋙ Workshop Sending it to Mail Begins.............")
+		console.log("⋙ Workshop Sending it to Mail Begins.............");
 		const [parRows, parFields] = await conn.execute(
 			`SELECT * FROM Participants where ParticipantID = '${participantID}'`
 		);
