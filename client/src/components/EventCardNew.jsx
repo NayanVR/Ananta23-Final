@@ -18,7 +18,22 @@ function EventCard1({ event, registerNow, viewDetails }) {
                     <div className='flex flex-row h-12 justify-around'>
                         <button className='bg-primary-light-1 w-4/5 h-10 rounded-md text-lg font-semibold uppercase' onClick={() => { registerNow(event.eventCode, event.name) }}>
                             {
-                                event.price ? `Pay ₹${event.price}` : "Register"
+                                event.price
+                                    ?
+                                    event.fakePrice
+                                        ?
+                                        <>
+                                            PAY&nbsp;
+                                            <span className='relative line-through after:content-[""] after:block after:w-full after:h-[1px] after:bg-black after:absolute after:top-1/2 after:left-0'>₹{event.fakePrice}</span>
+                                            &nbsp;
+                                            <span className=''>
+                                                ₹ {event.price}
+                                            </span>
+                                        </>
+                                        :
+                                        `Pay ₹${event.price}`
+                                    :
+                                    "Register"
                             }
                         </button>
                         <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { viewDetails(event.eventCode) }}>

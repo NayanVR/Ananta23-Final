@@ -56,14 +56,16 @@ function KalaKrirti() {
       name: "Deep Racer",
       desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
       image: "Dr.png",
-      price: 200
+      price: 200,
+      fakePrice: 250
     },
     {
       eventCode: "KK_BI",
       name: "Power BI",
       desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
       image: "Bi.png",
-      price: 200
+      price: 200,
+      fakePrice: 250
     }
   ];
 

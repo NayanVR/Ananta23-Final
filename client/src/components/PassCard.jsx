@@ -14,7 +14,21 @@ function PassCard({ passInfo, buyClick }) {
         </div>
         <div>
           <h1 className='text-2xl text-center font-bold bg-gradient-to-b from-primary to-primary-dark-1 bg-clip-text text-transparent '>
-            ₹ {passInfo.price}
+            {
+              passInfo.fakePrice
+                ?
+                <>
+                  <span className='relative line-through after:content-[""] after:block after:w-full after:h-[2px] after:bg-primary after:absolute after:top-1/2 after:left-0'>₹ {passInfo.fakePrice}</span>
+                  &nbsp;
+                  <span className=''>
+                    ₹ {passInfo.price}
+                  </span>
+                </>
+                :
+                <>
+                  ₹ {passInfo.price}
+                </>
+            }
           </h1>
           <ul className='text-center'>
             {

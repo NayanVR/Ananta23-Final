@@ -26,7 +26,7 @@ function BuyPass() {
 			id: "PS-B",
 			name: "BRONZE",
 			markImg: bronzeMark,
-			price: 220,
+			price: 200,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
 				"Access to any 1 Guest Lecture",
@@ -39,7 +39,7 @@ function BuyPass() {
 			id: "PS-G",
 			name: "GOLD",
 			markImg: goldMark,
-			price: 300,
+			price: 250,
 			features: [
 				"Access to All Events (INERTIA & SWOOSH)",
 				"Access to All Guest Lectures",
@@ -52,7 +52,7 @@ function BuyPass() {
 			id: "PS-S",
 			name: "SILVER",
 			markImg: silverMark,
-			price: 270,
+			price: 230,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
 				"Access to any  Guest Lectures",
@@ -66,6 +66,7 @@ function BuyPass() {
 			name: "ATMOS",
 			markImg: djMark,
 			price: 400,
+			fakePrice: 450,
 			features: [
 				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
 				"Access to Zingaat : Cultural Events",
@@ -78,10 +79,10 @@ function BuyPass() {
 			name: "COMBO",
 			markImg: comboMark,
 			price: 500,
+			fakePrice: 600,
 			features: [
 				"All benefits of GOLD & ATMOS Pass",
 				"2800 Ananta Coins"
-
 			],
 			color: "#FFDF00",
 		},
