@@ -136,12 +136,21 @@ app.post("/api/generateOTP", async (req, res) => {
 		`SELECT * FROM Participants WHERE Email = '${email}';`
 	);
 
-	if (rows.length > 0)
-		return res.status(400).json({
-			isOTPGenerated: false,
-			message: "User Already Exists",
-			type: "error",
-		});
+	if (rows.length > 0) {
+		if (rows[0].GoogleAuth === 1) {
+			return res.status(400).json({
+				isOTPGenerated: false,
+				message: "User already exists, Please Sign in with Google",
+				type: "error",
+			});
+		} else {
+			return res.status(400).json({
+				isOTPGenerated: false,
+				message: "User already exists, Please Login with email and password",
+				type: "error",
+			});
+		}
+	}
 
 	const otp = ("" + Math.random()).substring(2, 8);
 
