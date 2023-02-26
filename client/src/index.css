@@ -51,6 +51,7 @@ body {
 body::-webkit-scrollbar {
   background-color: var(--primary-light-1);
   width: 0.5rem;
+  border-radius: 2rem;
 }
 body::-webkit-scrollbar-thumb {
   background-color: var(--primary);

@@ -31,39 +31,39 @@ function KalaKrirti() {
 
   const passes = [
     {
-      eventCode: "KK_DR",
-      name: "Deep Racer",
-      desc: "Developers of all skill levels can get hands on with machine learning through a cloud based 3D racing simulator, fully autonomous 1/18th scale race car driven by reinforcement learning, and global racing league.",
-      image: "freefire.png",
-      price: 200
-    },
-    {
-      eventCode: "KK_BI",
-      name: "Power BI",
-      desc: "Power BI is a business analytics service by Microsoft. It aims to provide interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
-      image: "vsm1.png",
-      price: 200
-    },
-    {
       eventCode: "KK_TD",
       name: "Tie and Dye",
-      desc: "Tie-dye is a term used to describe a number of resist dyeing techniques and the resulting dyed products of these processes.",
-      image: "vsm1.png",
+      desc: "Looking to add some vibrant and unique flair to your wardrobe? Join our Tie and Dye workshop and learn the art of creating eye-catching designs on fabric with beautiful color patterns. This hands-on experience is perfect for anyone looking to unleash their creativity and add a personal touch to their fashion statement.",
+      image: "td.png",
       price: 250
     },
     {
       eventCode: "KK_TB",
       name: "Tote Bag",
-      desc: "Tote Bag ",
-      image: "vsm1.png",
+      desc: "“Transform a simple tote bag into a work of art with our hands-on customization workshop.” Learn how to transform an ordinary tote bag into a stunning accessory that reflects your personal style. Join us for a fun and interactive session that's perfect for fashion enthusiasts and craft lovers alike.",
+      image: "tb.png",
       price: 250
     },
     {
       eventCode: "KK_FA",
       name: "Fluid Art",
-      desc: "Whether you want to call it fluid art, liquid art, or acrylic pouring, there’s nothing more satisfying than creating abstract masterpieces by letting pigment run amok. ",
-      image: "vsm1.png",
+      desc: "Dive into a sea of vibrant colors and create stunning works of art with our Fluid Art workshop! Unleash your inner artist and learn how to create mesmerizing abstract pieces in our immersive session ",
+      image: "fa.png",
       price: 250
+    },
+    {
+      eventCode: "KK_DR",
+      name: "Deep Racer",
+      desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
+      image: "Dr.png",
+      price: 200
+    },
+    {
+      eventCode: "KK_BI",
+      name: "Power BI",
+      desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
+      image: "Bi.png",
+      price: 200
     }
   ];
 

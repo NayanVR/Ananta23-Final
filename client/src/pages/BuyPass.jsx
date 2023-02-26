@@ -54,8 +54,8 @@ function BuyPass() {
 			markImg: silverMark,
 			price: 270,
 			features: [
-				"Access to any 3 Events (INERTIA & SWOOSH)",
-				"Access to any 2 Guest Lectures",
+				"Access to any 2 Events (INERTIA & SWOOSH)",
+				"Access to any  Guest Lectures",
 				"Access to Zingaat : Cultural Events",
 				"2200 Ananta Coins",
 			],
