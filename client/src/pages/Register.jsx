@@ -173,7 +173,7 @@ function Register() {
 							className="py-2 bg-primary-dark-1 text-white rounded-md"
 						>
 							{!isNext ? (
-								<label> Next </label>
+								"Next"
 							) : (
 								<PuffLoader
 									color={"#fff"}
@@ -254,7 +254,7 @@ function Register() {
 							className="py-2 bg-primary-dark-1 text-white rounded-md"
 						>
 							{!isSubmit ? (
-								<label> Submit </label>
+								"Submit"
 							) : (
 								<PuffLoader
 									color={"#fff"}

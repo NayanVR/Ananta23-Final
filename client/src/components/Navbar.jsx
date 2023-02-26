@@ -69,10 +69,8 @@ function Navbar() {
                             </Link>
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                        <CustomLink to="/digital-point">
-                            Digital Points
-                        </CustomLink>
-                        <CustomLink to="">Schedule</CustomLink>
+                        <CustomLink to="/digital-point">Digital Points</CustomLink>
+                        {/* <CustomLink to="">Schedule</CustomLink> */}
                         <DropDown title="More">
                             <Link
                                 className="px-6 py-2 hover:bg-gray-100"
@@ -176,7 +174,7 @@ function Navbar() {
                 </DropDown>
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
                 <CustomLink to="/digital-point">Digital Points</CustomLink>
-                <CustomLink to="">Schedule</CustomLink>
+                {/* <CustomLink to="">Schedule</CustomLink> */}
                 <CustomLink to="/about-us">About Us</CustomLink>
                 <CustomLink to="/contact-us">Our Team</CustomLink>
                 <CustomLink to="/our-partners">Our Partners</CustomLink>
