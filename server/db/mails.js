@@ -111,7 +111,7 @@ async function generate_pdf(
 			144,
 			doc.widthOfString("ANANTAGSFCU.IN"),
 			doc.currentLineHeight(),
-			"https://anantagsfcu.in/"
+			"https://anantagsfcu.in/contact-us"
 		);
 
 	// Ananta Website Link
@@ -125,7 +125,7 @@ async function generate_pdf(
 			156,
 			doc.widthOfString("ANANTAGSFCU.IN"),
 			doc.currentLineHeight(),
-			"https://anantagsfcu.in/"
+			"https://goo.gl/maps/7n3bPjJNzENRBMu5A"
 		);
 
 	// Refund Policy Link
@@ -139,7 +139,7 @@ async function generate_pdf(
 			168,
 			doc.widthOfString("ANANTAGSFCU.IN"),
 			doc.currentLineHeight(),
-			"https://anantagsfcu.in/"
+			"https://anantagsfcu.in/refund-policy"
 		);
 
 	doc.image(`${qr_code_url}`, 32, 32, { fit: [137, 137], align: "center" });

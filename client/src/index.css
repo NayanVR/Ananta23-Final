@@ -45,9 +45,23 @@
   --grid-rotate-x: 40deg;
 }
 
+body {
+  scrollbar-width: thin;
+}
+body::-webkit-scrollbar {
+  background-color: var(--primary-light-1);
+  width: 0.5rem;
+  border-radius: 2rem;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 2rem;
+}
+
 div::-webkit-scrollbar {
   width: 0;
 }
+
 
 .wrap-grid-container {
   position: absolute;

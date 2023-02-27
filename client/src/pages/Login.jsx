@@ -23,12 +23,10 @@ function Login() {
 	const [forgotPass, setForgotPass] = useState(false);
 
 	const serverURL = import.meta.env.VITE_SERVER_URL;
-	
+
 	function handleSubmit(e) {
 		e.preventDefault();
 
-
-		
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user;
@@ -41,13 +39,9 @@ function Login() {
 					.replace(").", "");
 				let errorMessage = () => {
 					// console.log(firebaseMessage);
-					if (firebaseMessage == "user-not-found") {
-						return "User not found!";
-					} else if (firebaseMessage == "wrong-password") {
-						return "Incorrect Password!";
-					} else {
-						return "Invalid Credentials!";
-					}
+					if (firebaseMessage == "user-not-found") return "User not found!"
+					else if (firebaseMessage == "wrong-password") return "Incorrect Password!";
+					else return "Invalid Credentials!";
 				};
 				toast.error(errorMessage, { duration: 3000 });
 			});
@@ -72,7 +66,7 @@ function Login() {
 			sendPasswordResetEmail(auth, email)
 				.then((result) => {
 					if (result) {
-						toast.success(result, {duration: 10000});
+						toast.success(result, { duration: 10000 });
 					}
 
 				})
@@ -80,7 +74,7 @@ function Login() {
 					const errorCode = error.code;
 					const errorMessage = error.message;
 					// console.log(error);
-					toast.error(error, {duration: 10000})
+					toast.error(error, { duration: 10000 })
 					// ..
 				});
 			toast.success(data.message, { duration: 3000 });
@@ -161,7 +155,7 @@ function Login() {
 						className="py-2 bg-primary-dark-1 text-white rounded-md"
 					>
 						{!isLogin ? (
-							<label> Login </label>
+							"Login"
 						) : (
 							<PuffLoader
 								color={"#fff"}
@@ -172,7 +166,7 @@ function Login() {
 						)}
 					</button>
 				</form>
-				
+
 				<div className="flex row items-center w-full gap-2 text-gray-400">
 					<span className="h-px w-full bg-gray-300"></span>
 					OR

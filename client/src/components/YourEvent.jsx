@@ -60,14 +60,18 @@ function YourEvent({ data, deleteEvent, infoEvent }) {
 					>
 						<BsEye icon="bi bi-eye" />
 					</button>
-					<button
-						onClick={() => {
-							deleteEvent(data, bgColor);
-						}}
-						className="mx-1 py-3 px-3 h-1/4 rounded-md bg-red-400 text-white"
-					>
-						<FaTrash icon="fa fa-solid fa-trash" />
-					</button>
+					{
+						data.EventType !== "KalaKriti"
+						&&
+						<button
+							onClick={() => {
+								deleteEvent(data, bgColor);
+							}}
+							className="mx-1 py-3 px-3 h-1/4 rounded-md bg-red-400 text-white"
+						>
+							<FaTrash icon="fa fa-solid fa-trash" />
+						</button>
+					}
 				</div>
 			</div>
 			{/* {console.log(registeredEvents)} */}

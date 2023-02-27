@@ -29,13 +29,52 @@ function KalaKrirti() {
 
   const navigate = useNavigate();
 
+  const passes = [
+    {
+      eventCode: "KK_TD",
+      name: "Tie and Dye",
+      desc: "Looking to add some vibrant and unique flair to your wardrobe? Join our Tie and Dye workshop and learn the art of creating eye-catching designs on fabric with beautiful color patterns. This hands-on experience is perfect for anyone looking to unleash their creativity and add a personal touch to their fashion statement.",
+      image: "td.png",
+      price: 250
+    },
+    {
+      eventCode: "KK_TB",
+      name: "Tote Bag",
+      desc: "“Transform a simple tote bag into a work of art with our hands-on customization workshop.” Learn how to transform an ordinary tote bag into a stunning accessory that reflects your personal style. Join us for a fun and interactive session that's perfect for fashion enthusiasts and craft lovers alike.",
+      image: "tb.png",
+      price: 250
+    },
+    {
+      eventCode: "KK_FA",
+      name: "Fluid Art",
+      desc: "Dive into a sea of vibrant colors and create stunning works of art with our Fluid Art workshop! Unleash your inner artist and learn how to create mesmerizing abstract pieces in our immersive session ",
+      image: "fa.png",
+      price: 250
+    },
+    {
+      eventCode: "KK_DR",
+      name: "Deep Racer",
+      desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
+      image: "Dr.png",
+      price: 200,
+      fakePrice: 250
+    },
+    {
+      eventCode: "KK_BI",
+      name: "Power BI",
+      desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
+      image: "Bi.png",
+      price: 200,
+      fakePrice: 250
+    }
+  ];
 
   function viewDetails(eventCode) {
     console.log("View Details", eventCode);
   }
 
   function showPaymentModal(amt, passCode) {
-    const passName = passes.find((pass) => pass.id === passCode).name;
+    const passName = passes.find((pass) => pass.eventCode === passCode).name;
     setModalTitle(passName + " Pass");
     setModalBody(`You are about to pay ₹${amt} for ${passName} pass.`);
     setIsModalOpen(true);
@@ -50,30 +89,33 @@ function KalaKrirti() {
 
     const PID = profile.ParticipantID;
 
-    const res = await fetch(serverURL + "/api/secure/workshop/check", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + currentUser.accessToken,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ passCode, PID }),
-    });
+    currentUser.getIdToken().then((token) => {
+      fetch(serverURL + "/api/secure/workshop/check", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + currentUser.accessToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ passCode, PID }),
+      })
+        .then(data => data.json())
+        .then(data => {
+          const amt = data.Amount;
+          if (data.type === "info") {
+            toast(data.message, {
+              icon: "👍🏻",
+            });
+          } else if (data.type === "success") {
+            const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
+            setPaymentUrl(url);
+            setIsAreadyOpened(false);
+            showPaymentModal(amt, passCode);
+          } else if (data.type === "error") {
+            toast.error(data.message, { duration: 3000 });
+          }
+        })
 
-    const check = await res.json();
-    const amt = await check.payAmount;
-    if (check.type == "info") {
-      toast(check.message, {
-        icon: "👍🏻",
-      });
-
-    } else if (check.type == "success") {
-      const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
-      setPaymentUrl(url);
-      setIsAreadyOpened(false);
-      showPaymentModal(amt, passCode);
-    } else if (check.type === "error") {
-      toast.error(check.message, { duration: 3000 });
-    }
+    })
   }
 
   return (
@@ -84,7 +126,7 @@ function KalaKrirti() {
 
       {/* <ComingSoon /> */}
       <div className="max-w-[1200px] m-auto my-16 px-4 flex gap-16 flex-wrap justify-center items-center">
-        {EventsData.kalakriti.map((event, index) => (
+        {passes.map((event, index) => (
           <EventCard
             key={index}
             event={event}

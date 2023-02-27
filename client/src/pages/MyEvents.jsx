@@ -224,21 +224,60 @@ export default function MyEvents() {
                 id="viewevents"
             >
                 <div className="mt-5 md:col-span-4 md:mt-0">
-                    <div className="overflow-hidden shadow rounded-md">
+                    <div className="overflow-hidden shadow py-4 rounded-md">
                         <div className="bg-primary-dark-1 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
                             <h1 className="font-bold text-xl text-white justify-center m-auto">
                                 Your Events
                             </h1>
                         </div>
                         {registeredEvents.length > 0 ? (
-                            registeredEvents.map((data, index) => (
-                                <YourEvent
-                                    data={data}
-                                    deleteEvent={deleteEvent}
-                                    infoEvent={infoEvent}
-                                    key={index}
-                                />
-                            ))
+                            registeredEvents.map((data, index) => {
+                                if (data.EventType !== "KalaKriti") {
+                                    return (
+                                        <YourEvent
+                                            data={data}
+                                            deleteEvent={deleteEvent}
+                                            infoEvent={infoEvent}
+                                            key={index}
+                                        />
+                                    )
+                                }
+                            })
+                        ) : (
+                            <div className="bg-white px-4 py-5 sm:p-6">
+                                <div className="bg-white shadow px-4 py-3 flex justify-between items-center sm:px-6">
+                                    <div className="justify-center">
+                                        <label className="block text-lg font-medium text-gray-700">
+                                            No Event Found
+                                        </label>
+                                        <label
+                                            htmlFor="first-name"
+                                            className="block text-xs font-extralight text-gray-700"
+                                        ></label>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <div className="overflow-hidden mt-16 py-4 shadow rounded-md">
+                        <div className="bg-primary-dark-1 mb-5 px-4 py-3 flex justify-between items-center sm:px-6">
+                            <h1 className="font-bold text-xl text-white justify-center m-auto">
+                                Your Workshops
+                            </h1>
+                        </div>
+                        {registeredEvents.length > 0 ? (
+                            registeredEvents.map((data, index) => {
+                                if (data.EventType === "KalaKriti") {
+                                    return (
+                                        <YourEvent
+                                            data={data}
+                                            deleteEvent={deleteEvent}
+                                            infoEvent={infoEvent}
+                                            key={index}
+                                        />
+                                    )
+                                }
+                            })
                         ) : (
                             <div className="bg-white px-4 py-5 sm:p-6">
                                 <div className="bg-white shadow px-4 py-3 flex justify-between items-center sm:px-6">

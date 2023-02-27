@@ -26,7 +26,7 @@ function BuyPass() {
 			id: "PS-B",
 			name: "BRONZE",
 			markImg: bronzeMark,
-			price: 220,
+			price: 200,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
 				"Access to any 1 Guest Lecture",
@@ -36,23 +36,10 @@ function BuyPass() {
 			color: "#CD7F32",
 		},
 		{
-			id: "PS-S",
-			name: "SILVER",
-			markImg: silverMark,
-			price: 270,
-			features: [
-				"Access to any 3 Events (INERTIA & SWOOSH)",
-				"Access to any 2 Guest Lectures",
-				"Access to Zingaat : Cultural Events",
-				"2200 Ananta Coins",
-			],
-			color: "#C0C0C0",
-		},
-		{
 			id: "PS-G",
 			name: "GOLD",
 			markImg: goldMark,
-			price: 300,
+			price: 250,
 			features: [
 				"Access to All Events (INERTIA & SWOOSH)",
 				"Access to All Guest Lectures",
@@ -62,10 +49,24 @@ function BuyPass() {
 			color: "#FFDF00",
 		},
 		{
+			id: "PS-S",
+			name: "SILVER",
+			markImg: silverMark,
+			price: 230,
+			features: [
+				"Access to any 2 Events (INERTIA & SWOOSH)",
+				"Access to any  Guest Lectures",
+				"Access to Zingaat : Cultural Events",
+				"2200 Ananta Coins",
+			],
+			color: "#C0C0C0",
+		},
+		{
 			id: "PS-DJ",
 			name: "ATMOS",
 			markImg: djMark,
 			price: 400,
+			fakePrice: 450,
 			features: [
 				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
 				"Access to Zingaat : Cultural Events",
@@ -78,10 +79,10 @@ function BuyPass() {
 			name: "COMBO",
 			markImg: comboMark,
 			price: 500,
+			fakePrice: 600,
 			features: [
 				"All benefits of GOLD & ATMOS Pass",
 				"2800 Ananta Coins"
-
 			],
 			color: "#FFDF00",
 		},
@@ -125,6 +126,9 @@ function BuyPass() {
 		if (profile == {}) navigate("/profile");
 
 		const PID = profile.ParticipantID;
+		const fName = profile.Firstname;
+		const lName = profile.Lastname;
+		const passName = passes.find((pass) => pass.id === passCode).name;
 		// console.log(profile.ParticipantID);
 
 		const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
@@ -133,7 +137,7 @@ function BuyPass() {
 				Authorization: "Bearer " + currentUser.accessToken,
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ passCode, PID }),
+			body: JSON.stringify({ passCode, PID, fName, lName, passName }),
 		});
 		const check = await res.json();
 		// console.log(check);
@@ -158,12 +162,35 @@ function BuyPass() {
 
 	return (
 		<>
-			<div className="flex relative h-full justify-center items-center">
+			<div className="relative h-full flex justify-center items-center overflow-hidden">
+				<div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container opacity-20">
+					<div className="grid-container">
+						<div className='grid-top-gradient'></div>
+						{
+							[...Array(250)].map((_, i) => {
+
+								return (
+									<div key={i} className='grid-item'></div>
+								)
+							})
+						}
+					</div>
+				</div>
+				<div className="wrap-grid-container opacity-20">
+					<div className="grid-container">
+						<div className='grid-top-gradient'></div>
+						{
+							[...Array(250)].map((_, i) => (
+								<div key={i} className='grid-item'></div>
+							))
+						}
+					</div>
+				</div>
 				{/* Gradient */}
 				<div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
 				<div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
 
-				<div className="max-w-[1300px] m-auto flex gap-16 flex-wrap justify-center items-center">
+				<div className="max-w-[1300px] mx-auto my-16 flex gap-8 flex-wrap justify-center items-center">
 
 					{passes.map((pass, index) => (
 						<PassCard
