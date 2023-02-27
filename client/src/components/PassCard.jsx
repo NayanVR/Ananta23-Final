@@ -13,7 +13,7 @@ function PassCard({ passInfo, buyClick }) {
           <img className='h-20 -translate-y-[1px]' src={passInfo.markImg} alt={passInfo.name} />
         </div>
         <div>
-          <h1 className='text-2xl text-center font-bold bg-gradient-to-b from-primary to-primary-dark-1 bg-clip-text text-transparent '>
+          <h1 className='text-2xl text-center font-bold bg-gradient-to-b from-primary to-primary-dark-1 bg-clip-text'>
             {
               passInfo.fakePrice
                 ?

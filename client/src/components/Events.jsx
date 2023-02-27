@@ -15,13 +15,13 @@ function Events() {
         {
             title: "Swoosh",
             sub: "Non-Technical Event",
-            desc: "Time for you to be street smart as well as book smart, prove that you are the smartest person in the room and bring out your soft skills to use.",
+            desc: " Flaunt your skills and prove how smart you are. Planning each and every move will make you the king!",
             link: "/swoosh"
         },
         {
             title: "Upshot",
             sub: "Fun Event",
-            desc: "Take a break from the daily ups and downs of life with these carnivalesque events and go downmemory lane.",
+            desc: "Go down the memory lane by taking a break from the daily ups and downs and  experience the adrenaline rush like never before!",
             link: "/upshot"
         },
         {
@@ -32,14 +32,14 @@ function Events() {
         },
         {
             title: "Kalakriti",
-            sub: "Workshops",
-            desc: "Get introduced to new ideas, feel inspired to further explore concepts on your own, and illustrate them in a hands-on manner",
+            sub: "Talk Show",
+            desc: " Grab the chance to get hands-on experience of learning and showcasing your potential skills. This is definitely everything you want to explore!",
             link: "/kalakriti"
         },
         {
             title: "Equilibrium",
             sub: "Guest Lectures",
-            desc: "Knowledge is an ever-expanding concept, explore the equilibrium panel and find the expert that ignites the best out of you.",
+            desc: "Knowledge is an ever expanding concept, witnessing exceptional journeys and stories of our esteemed guests,  igniting the best out of you!",
             link: "/equilibrium"
         },
     ]

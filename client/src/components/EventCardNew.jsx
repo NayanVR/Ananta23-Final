@@ -5,7 +5,7 @@ import Doc from '../assets/icons/Doc1.svg'
 function EventCard1({ event, registerNow, viewDetails }) {
     return (
         <>
-            <div className='flex my-10 flex-col justify-center items-center h-[70vh] max-h-[30rem] w-full max-w-xs'>
+            <div className='flex my-10 flex-col justify-center items-center h-[70vh] max-h-[50rem] w-full max-w-xs'>
                 <div className='relative w-full h-1/3 bg-gradient-to-t from-[rgba(120,189,196)]'>
                     <img src={`/events/${event.image}`} className='absolute w-40 top-1/2 left-1/2 -translate-x-1/2 animate-levitate' />
                     <img src={Divider} className='absolute bottom-0 left-0' alt="Divider" />

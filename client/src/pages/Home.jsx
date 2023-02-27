@@ -64,9 +64,10 @@ function Home() {
                 <video className='absolute top-0 left-0 w-full h-full object-cover' autoPlay muted>
                     <source src={HeroVideo} type="video/mp4" />
                 </video>
-                <p className='animate-videoContent relative uppercase text-xl text-white z-50 top-32'>
+                <p className='animate-videoContent relative uppercase text-xl text-white z-50 top-40'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
+                <p className='animate-videoContent relative uppercase text-4xl font-bold text-white z-50 top-40'>17-18-19 March</p>
                 {
                     !currentUser ?
                         <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>

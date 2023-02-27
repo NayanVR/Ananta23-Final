@@ -37,6 +37,7 @@ function KalaKrirti() {
       image: "Dr.png",
       price: 200,
       fakePrice: 250
+
     },
     {
       eventCode: "KK_BI",
@@ -58,14 +59,16 @@ function KalaKrirti() {
       name: "Tote Bag",
       desc: "“Transform a simple tote bag into a work of art with our hands-on customization workshop.” Learn how to transform an ordinary tote bag into a stunning accessory that reflects your personal style. Join us for a fun and interactive session that's perfect for fashion enthusiasts and craft lovers alike.",
       image: "tb.png",
-      price: 250
+      price: 250,
+      fakePrice: 450
     },
     {
       eventCode: "KK_FA",
       name: "Fluid Art",
       desc: "Dive into a sea of vibrant colors and create stunning works of art with our Fluid Art workshop! Unleash your inner artist and learn how to create mesmerizing abstract pieces in our immersive session ",
       image: "fa.png",
-      price: 250
+      price: 250,
+      fakePrice: 450
     }
   ];
 

@@ -47,7 +47,7 @@ module.exports = {
       animation: {
         levitate: 'levitate 5s ease-in-out infinite',
         aboutAnim: 'aboutAnim 30s linear infinite',
-        videoContent: 'videoContent 8s ease-in-out',
+        videoContent: 'videoContent 10s ease-in-out',
       }
     },
   },

@@ -6,8 +6,15 @@
             
         },
         {
+            "image": "GGRC.png"
+            
+        },
+        {
             "image": "PMC.png"
             
+        },
+        {
+            "image": "IMS.png"
         },
         {
             "image": "AWS.png"
@@ -17,6 +24,16 @@
         },
         {
             "image": "PaperCut.png"
+        },
+
+        {
+            "image":"sahaj.jpg"
+        },
+        {
+            "image":"goodwing.png"
+        },
+        {
+            "image" : "JG.png"
         }
        
       
