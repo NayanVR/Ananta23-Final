@@ -44,7 +44,7 @@ async function updateMarketeersRegistrationCount(conn) {
 			
 			) as OnForAll
 			
-		inner join 
+		right join 
 		
 			(select sum(PaymentsOffline.TxnAmount) as Funds, Marketeers.EnrollmentNo from PaymentsOffline 
 			inner join Marketeers 
@@ -133,7 +133,7 @@ async function updateMarketeersRegistrationCount(conn) {
 
 async function updateUniversityRegistratioin(conn) {
 	const [rows, fields] = await conn.execute(
-		`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' group by University`
+		`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' and TxnAmount > 0 group by University`
 	);
 
 	if (rows.length > 0) {
@@ -418,7 +418,6 @@ async function buyPassOffline(
 	}
 
 	//Sending Mail
-
 	if (passCode.includes("PS-")) {
 		console.log(`➔ Pass Sending it to Mail Begins.............`);
 		const [parRows, parFields] = await conn.execute(
