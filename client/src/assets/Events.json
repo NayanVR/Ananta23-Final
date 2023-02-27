@@ -158,7 +158,7 @@
 			"eventCode": "US_UD",
 			"name": "7 Up 7 Down",
 			"desc": "Ready for a guessing game to test your luck? Join us with 7 Up 7 Down and forecast your fortune and win exciting prizes!",
-			"image": "77.png"
+			"image": "7u7.png"
 
 		},
 		{
@@ -171,42 +171,42 @@
 			"eventCode": "US_BD",
 			"name": "Gobble Gobble",
 			"desc": "Outsmart your opponent and gobble up victory in Gobble Gobble - the strategic game of memory and deduction! Gobblet Gobblers is a strategic feast of memory and deduction where players aim to devour their opponent's chances of winning. With cunning moves and a keen eye, line up your game pieces to form a triumphant row of three before your opponent can!",
-			"image": "gg.png"
+			"image": "gag.png"
 		},
 		{
 			"eventCode": "US_BD",
 			"name": "Swift Fingers",
 			"desc": "Everyone loves typing tests and taking typing test with their friends for fun everyday, what if we told you that you can stand a chance to win exciting prizes by just typing fast.",
-			"image": "Swift.png"
+			"image": "sf.png"
 		},
 		{
 			"eventCode": "",
 			"name" : "Floating Balls",
-			"desc": "Floating Balls is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Get hooked and hold tight as you navigate the watery challenge of the Floating Ball Game - a team event that requires coordination, strategy, and a steady hand. Can you keep your cup upright and your eyes on the prize?",
 			"image": "fb.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Target The Rings",
-			"desc": "3 Rings in a Cup is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Ring in the Fun with Target the Rings! - Come test your skills and see if you can land the rings on the pegs to win big prizes! A classic game that never gets old, Target the Rings is perfect for all ages and levels of experience.",
 			"image": "3ring.png"
 		},
 		{
 			"eventCode": "",
 			"name": "3 Shots in Basket",
-			"desc": "3 Shots in Basket is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Rise above the rim and leave your mark on the game! Test your precision, speed, and agility, and basket more balls than your opponent can! ;)",
 			"image": "3ball.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Glass Pyramid",
-			"desc": "Glass Pyramid is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "“Ready, aim, smash! Test your accuracy and win big in our smash the pyramid game. Can you knock down all the glasses and become the ultimate champion?",
 			"image": "gp.png"
 		},
 		{
 			"eventCode": "",
 			"name": "Cup Stacking",
-			"desc": "Cup Stacking is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and 10 columns.",
+			"desc": "Stack your way to victory with our bucket of fun! Join our cup stacking challenge and test your teamwork and coordination skills as you race to the finish line with a bucket full of water. Will you spill or thrill in this ultimate challenge?",
 			"image": "cs.png"
 		}
 		

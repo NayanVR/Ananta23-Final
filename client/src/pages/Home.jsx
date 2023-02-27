@@ -61,21 +61,21 @@ function Home() {
             }
             <section className='w-full h-[calc(100vh-3.5rem)] overflow-hidden relative flex flex-col justify-center items-center gap-10'>
 
-                <video className='absolute top-0 left-0 w-full h-full object-cover' autoPlay muted>
+                {/* <video className='absolute top-0 left-0 w-full h-full object-cover' autoPlay muted>
                     <source src={HeroVideo} type="video/mp4" />
-                </video>
-                <p className='animate-videoContent relative uppercase text-xl text-white z-50 top-40'>
+                </video> */}
+                {/* <p className='animate-videoContent relative uppercase text-xl text-white z-50 top-40'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
-                <p className='animate-videoContent relative uppercase text-4xl font-bold text-white z-50 top-40'>17-18-19 March</p>
-                {
+                <p className='animate-videoContent relative uppercase text-4xl font-bold text-white z-50 top-40'>17-18-19 March</p> */}
+                {/* {
                     !currentUser ?
                         <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
                         : profile.TxnStatus != "TXN_SUCCESS" ?
                             <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
                             <button className='animate-videoContent top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-dark-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-light-2 to-primary-light-3 text-primary-dark-2 rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
-                }
-                {/* <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
+                } */}
+                <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container">
                     <div className="grid-container">
                         <div className='grid-top-gradient'></div>
                         {
@@ -97,22 +97,24 @@ function Home() {
                             ))
                         }
                     </div>
-                </div> */}
+                </div>
                 {/* Gradient */}
-                {/* <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
-                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' /> */}
 
-                {/* <Lottie className='absolute block w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} /> */}
-                {/* <p className='relative uppercase text-xl text-white z-50 top-32'>
+                <div className='absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+                <div className='absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-primary-light-2 to-transparent opacity-50 pointer-events-none' />
+
+                <Lottie className='absolute block w-[200%] md:w-[100%]  ' animationData={Hero} loop={false} />
+                <p className='relative uppercase text-xl text-black z-50 top-60'>
                     {`${day} Days ${hour}H ${minute}M ${second}S To Go`}
                 </p>
+                <p className=' relative uppercase text-4xl font-bold text-black z-50 top-56'>17-18-19 March</p>
                 {
                     !currentUser ?
-                        <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
+                        <button className='top-52 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/register" }}>Register Now</button>
                         : profile.TxnStatus != "TXN_SUCCESS" ?
-                            <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
-                            <button className='top-40 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
-                } */}
+                            <button className='top-52 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/buypass" }}>Buy Pass</button> :
+                            <button className='top-52 z-50 relative before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-2 transition-all overflow-hidden py-2 px-16 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2 text-white rounded-md' onClick={_ => { window.location.href = "/inertia" }}>Start Registeration in Events</button>
+                }
 
             </section>
 

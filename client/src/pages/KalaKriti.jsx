@@ -123,7 +123,7 @@ function KalaKrirti() {
 
   return (
     <>
-      <h1 className="font-heading text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
+      <h1 className="font-heading text-center my-12 text-[2rem] sm:text-[4rem]  font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
         KalaKrirti: Workshops
       </h1>
 

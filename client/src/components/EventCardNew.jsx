@@ -24,7 +24,7 @@ function EventCard1({ event, registerNow, viewDetails }) {
                                         ?
                                         <>
                                             PAY&nbsp;
-                                            <span className='relative line-through after:content-[""] after:block after:w-full after:h-[1px] after:bg-black after:absolute after:top-1/2 after:left-0'>₹{event.fakePrice}</span>
+                                            <span className='relative line-through after:content-[""] after:block after:w-full after:h-[1px] after:bg-black after:text-black after:absolute after:top-1/2 after:left-0'>₹{event.fakePrice}</span>
                                             &nbsp;
                                             <span className=''>
                                                 ₹ {event.price}

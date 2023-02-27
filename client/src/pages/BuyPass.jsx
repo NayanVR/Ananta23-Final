@@ -36,19 +36,6 @@ function BuyPass() {
 			color: "#CD7F32",
 		},
 		{
-			id: "PS-G",
-			name: "GOLD",
-			markImg: goldMark,
-			price: 250,
-			features: [
-				"Access to All Events (INERTIA & SWOOSH)",
-				"Access to All Guest Lectures",
-				"Access to Zingaat : Cultural Events",
-				"2400 Ananta Coins",
-			],
-			color: "#FFDF00",
-		},
-		{
 			id: "PS-S",
 			name: "SILVER",
 			markImg: silverMark,
@@ -60,6 +47,19 @@ function BuyPass() {
 				"2200 Ananta Coins",
 			],
 			color: "#C0C0C0",
+		},
+		{
+			id: "PS-G",
+			name: "GOLD",
+			markImg: goldMark,
+			price: 250,
+			features: [
+				"Access to All Events (INERTIA & SWOOSH)",
+				"Access to All Guest Lectures",
+				"Access to Zingaat : Cultural Events",
+				"2400 Ananta Coins",
+			],
+			color: "#FFDF00",
 		},
 		{
 			id: "PS-DJ",
