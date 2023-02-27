@@ -1,9 +1,4 @@
 async function genParticipantID(conn, email) {
-	let emailName = email.split("@")[0];
-
-	let firstChar = emailName[0];
-	let middleChar = emailName[Math.floor(emailName.length / 2)];
-	let lastChar = emailName[emailName.length - 1];
 
 	let CharsString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	let date = new Date(
@@ -12,7 +7,6 @@ async function genParticipantID(conn, email) {
 	const today = String(date.getDate()).padStart(2, '0')
 
 	let result = "";
-	// const charactersLength = CharsString.length;
 	for (let i = 0; i < 4; i++) {
 		result += CharsString.charAt(
 			Math.floor(Math.random() * CharsString.length)
