@@ -25,19 +25,7 @@
 			"image": "vsm1.png"
 		},
 
-		{
-			"eventCode": "IN_MP",
-			"name": "Monopoly",
-			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
-			"image": "mono.png"
-		},
-	
-		{
-			"eventCode": "IN_ST",
-			"name": "GSFCU SHARK TANK",
-			"desc": "You remember startups like Scrub Daddy, Sleep Styler from Shark Tank- USA and Bamboo India, Skippi from Shark Tank- India. Now, it's time for you to showcase your startup and product with Shark Tank- GSFCU.",
-			"image": "ST.png"
-		},
+		
 		{
 			"eventCode": "IN_LM",
 			"name": "Language Mystery",
@@ -45,34 +33,46 @@
 			"image": "LM.png"
 		},
 		{
+			"eventCode": "IN_MP",
+			"name": "Monopoly",
+			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
+			"image": "mono.png"
+		},
+		{
 			"eventCode": "IN_ME",
 			"name": "Master's Eye",
 			"desc": "  This isn’t just any normal rookie level programming. Read  the problem statement(s) , place your cursor on screen and poof! The display is gone and then starts the challenge of coding with no lookbacks.",
 			"image": "ME.png"
 		}
-
-		
-	
 		
 		
 		
-	
+		
+		
+		
+		
 		
 	],
-
+	
 	"swoosh":[
 		{
 			"eventCode": "SW_IPL",
 			"name": "IPL AUCTION",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game, Ananta provides you a chance to create and play your own team.",
 			"image": "ipl.png"
-
+			
 		},
 		{
 			"eventCode": "SW_BBS",
 			"name": "BEG BORROW STEAL",
 			"desc":"Collect listed item to complete your deal, Beg it, Borrow it or just steal",
 			"image": "Beg.png"
+		},
+		{
+			"eventCode": "SW_ST",
+			"name": "GSFCU SHARK TANK",
+			"desc": "You remember startups like Scrub Daddy, Sleep Styler from Shark Tank- USA and Bamboo India, Skippi from Shark Tank- India. Now, it's time for you to showcase your startup and product with Shark Tank- GSFCU.",
+			"image": "ST.png"
 		},
 		{
 			"eventCode": "SW_SG",
@@ -169,8 +169,8 @@
 		},
 		{
 			"eventCode": "US_BD",
-			"name": "Gobblet Gobblers",
-			"desc": "Outsmart your opponent and gobble up victory in Gobblet Gobblers - the strategic game of memory and deduction! Gobblet Gobblers is a strategic feast of memory and deduction where players aim to devour their opponent's chances of winning. With cunning moves and a keen eye, line up your game pieces to form a triumphant row of three before your opponent can!",
+			"name": "Gobble Gobble",
+			"desc": "Outsmart your opponent and gobble up victory in Gobble Gobble - the strategic game of memory and deduction! Gobblet Gobblers is a strategic feast of memory and deduction where players aim to devour their opponent's chances of winning. With cunning moves and a keen eye, line up your game pieces to form a triumphant row of three before your opponent can!",
 			"image": "gg.png"
 		},
 		{

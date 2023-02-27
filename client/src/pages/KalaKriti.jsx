@@ -31,6 +31,22 @@ function KalaKrirti() {
 
   const passes = [
     {
+      eventCode: "KK_DR",
+      name: "Deep Racer",
+      desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
+      image: "Dr.png",
+      price: 200,
+      fakePrice: 250
+    },
+    {
+      eventCode: "KK_BI",
+      name: "Power BI",
+      desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
+      image: "Bi.png",
+      price: 200,
+      fakePrice: 250
+    },
+    {
       eventCode: "KK_TD",
       name: "Tie and Dye",
       desc: "Looking to add some vibrant and unique flair to your wardrobe? Join our Tie and Dye workshop and learn the art of creating eye-catching designs on fabric with beautiful color patterns. This hands-on experience is perfect for anyone looking to unleash their creativity and add a personal touch to their fashion statement.",
@@ -50,22 +66,6 @@ function KalaKrirti() {
       desc: "Dive into a sea of vibrant colors and create stunning works of art with our Fluid Art workshop! Unleash your inner artist and learn how to create mesmerizing abstract pieces in our immersive session ",
       image: "fa.png",
       price: 250
-    },
-    {
-      eventCode: "KK_DR",
-      name: "Deep Racer",
-      desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
-      image: "Dr.png",
-      price: 200,
-      fakePrice: 250
-    },
-    {
-      eventCode: "KK_BI",
-      name: "Power BI",
-      desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
-      image: "Bi.png",
-      price: 200,
-      fakePrice: 250
     }
   ];
 
