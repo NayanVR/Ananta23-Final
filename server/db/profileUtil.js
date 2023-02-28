@@ -1,6 +1,24 @@
 const { genParticipantID } = require('./util');
 
 async function createProfile(conn, transporter, email, googleAuth, profileImg) {
+
+    const date = new Date(
+		new Date().toLocaleString("en-in", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
+    console.log(timestamp);
+
+
     // console.log();
     console.log('ashish');
     //check if participant already exist with given email id
@@ -22,7 +40,9 @@ async function createProfile(conn, transporter, email, googleAuth, profileImg) {
         let id = await genParticipantID(conn, email);
 
         // create new participant
-        let query = `INSERT INTO Participants (ProfileStatus, TxnStatus, ParticipantID, Email, ProfileImg, GoogleAuth) VALUES (FALSE, FALSE, '${id}', '${email}', '${profileImg}', ${googleAuth});`;
+        let query = `INSERT INTO Participants (ProfileStatus, TxnStatus, ParticipantID, Email, ProfileImg, GoogleAuth, Timestamp, UpdatedAt) VALUES (FALSE, FALSE, '${id}', '${email}', '${profileImg}', ${googleAuth}, '${timestamp}', '${timestamp}');`;
+
+        console.log(query);
 
         const [profileRows, profileFields] = await conn.execute(query)
 
