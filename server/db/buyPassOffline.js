@@ -85,6 +85,7 @@ async function updateMarketeersRegistrationCount(conn) {
 			console.log(sqlquery);
 			const [updateRows, updateFields] = await conn.execute(sqlquery);
 		}
+		
 		if (i == rows.length) {
 			console.log("✔ Marketeers Records has been updated successfully.");
 

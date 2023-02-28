@@ -15,6 +15,11 @@ function DropDown({ list, setList, parentValue, setParentValue, isDisabled, apiU
     const serverURL = import.meta.env.VITE_SERVER_URL;
 
     const handleCreate = (inputValue) => {
+
+        if (inputValue === "") {
+            return;
+        }
+
         setIsLoading(true);
 
         fetch(serverURL + apiURL, {

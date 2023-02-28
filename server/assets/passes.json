@@ -1,6 +1,6 @@
 {
 	"PS-B": {
-		"Amount": 220,
+		"Amount": 200,
 		"DP": 2000,
 		"Kit": 0,
 		"TotalEvents": 2,
@@ -9,7 +9,7 @@
 		"Atmos": 0
 	},
 	"PS-S": {
-		"Amount": 270,
+		"Amount": 230,
 		"DP": 2200,
 		"Kit": 0,
 		"TotalEvents": 4,
@@ -18,10 +18,10 @@
 		"Atmos": 0
 	},
 	"PS-G": {
-		"Amount": 300,
+		"Amount": 250,
 		"DP": 2400,
 		"Kit": 1,
-		"TotalEvents": 30,
+		"TotalEvents": 21,
 		"TotalGuests": 6,
 		"TotalWorkshops": 0,
 		"Atmos": 0
@@ -39,7 +39,7 @@
 		"Amount": 500,
 		"DP": 2800,
 		"Kit": 1,
-		"TotalEvents": 30,
+		"TotalEvents": 21,
 		"TotalGuests": 6,
 		"TotalWorkshops": 0,
 		"Atmos": 1
