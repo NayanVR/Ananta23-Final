@@ -41,7 +41,7 @@ async function getEvents(conn, participantID) {
 				message: "Information Fetch complete...",
 				data: {
 					solo: soloRows,
-					team: teamRows
+					team: teamRows,
 				},
 				type: "success",
 			},
@@ -58,11 +58,9 @@ async function getEvents(conn, participantID) {
 }
 
 async function getTeamMembers(conn, teamID) {
-
 	const [rows, fields] = await conn.execute(
 		`select par.ParticipantID, par.Firstname, par.Lastname, tr.Role from Participants as par inner Join TeamRegistration as tr on tr.ParticipantID = par.ParticipantID  where tr.TeamID = '${teamID}'`
 	);
-
 
 	if (rows.length > 0) {
 		return {
@@ -86,13 +84,21 @@ async function getTeamMembers(conn, teamID) {
 
 // Remove Team Member
 async function removeTeamMember(conn, participantID, teamID) {
-
 	const [rows, fields] = await conn.execute(
 		`DELETE FROM TeamRegistration WHERE ParticipantID = '${participantID}' and TeamID = '${teamID}'`
 	);
 	const eventID = teamID.split("_")[0] + "_" + teamID.split("_")[1];
-	const isUpdateRegCount = await updateRegCount(conn, eventID, participantID, "dec");
-	const isupdateEventRegCount = await updateEventRegistrationCount(conn, eventID, "dec");
+	const isUpdateRegCount = await updateRegCount(
+		conn,
+		eventID,
+		participantID,
+		"dec"
+	);
+	const isupdateEventRegCount = await updateEventRegistrationCount(
+		conn,
+		eventID,
+		"dec"
+	);
 
 	if (rows && isUpdateRegCount && isupdateEventRegCount) {
 		return {
@@ -156,8 +162,17 @@ async function deleteEvent(
 		const [deleteRows, deleteFields] = await conn.execute(
 			`DELETE FROM SoloRegistration WHERE EventCode = '${eventCode}' and ParticipantID = '${participantID}'`
 		);
-		const isEventRegCount = await updateEventRegistrationCount(conn, eventCode, "dec");
-		const isUpdateRegCount = await updateRegCount(conn, eventCode, participantID, "dec");
+		const isEventRegCount = await updateEventRegistrationCount(
+			conn,
+			eventCode,
+			"dec"
+		);
+		const isUpdateRegCount = await updateRegCount(
+			conn,
+			eventCode,
+			participantID,
+			"dec"
+		);
 
 		if (deleteRows && isEventRegCount && isUpdateRegCount) {
 			return {
@@ -230,13 +245,17 @@ async function deleteEvent(
 				);
 				if (deleteTeamRows) {
 					if (
-						await updateRegCount(
+						(await updateRegCount(
 							conn,
 							eventCode,
 							participantID,
 							"dec"
-						) &&
-						await updateEventRegistrationCount(conn, eventCode, "dec")
+						)) &&
+						(await updateEventRegistrationCount(
+							conn,
+							eventCode,
+							"dec"
+						))
 					) {
 						console.log("Participant events count updated...");
 						return {
@@ -467,7 +486,6 @@ async function updateRegCount(conn, eventCode, participantID, option) {
 	} else {
 		return false;
 	}
-
 }
 
 // =========================== Registration Count Update +1 Ends ===========================
@@ -487,6 +505,20 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 
   */
 
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
 	// Checking
 	const [checkRegRows, checkRegFields] = await conn.execute(
 		`SELECT * FROM SoloRegistration WHERE EventCode = '${eventCode}' AND ParticipantID = '${participantID}'`
@@ -498,7 +530,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 	} else {
 		//insert into
 		const [soloRegisterRows, soloRegisterFields] = await conn.execute(
-			`INSERT INTO SoloRegistration (ParticipantID, EventCode) VALUES ('${participantID}', '${eventCode}')`
+			`INSERT INTO SoloRegistration (ParticipantID, EventCode, Timestamp) VALUES ('${participantID}', '${eventCode}', '${timestamp}')`
 		);
 
 		if (soloRegisterRows) {
@@ -555,6 +587,21 @@ async function genTeamID(conn, eventCode) {
 // =========================== Create Team Starts ===========================
 
 async function createTeam(conn, eventCode, participantID, teamName) {
+
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
 	const [checkTeamRows, checkTeamFields] = await conn.execute(
 		`SELECT Count(TeamName) as count from Teams where TeamName = '${teamName}'`
 	);
@@ -587,12 +634,12 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 		console.log(teamID);
 
 		const [insertTeamRows, insertTeamFields] = await conn.execute(
-			`INSERT INTO Teams (TeamID, TeamName, EventCode) VALUES ('${teamID}', '${teamName}', '${eventCode}')`
+			`INSERT INTO Teams (TeamID, TeamName, EventCode, Timestamp) VALUES ('${teamID}', '${teamName}', '${eventCode}', '${timestamp}')`
 		);
 
 		if (insertTeamRows) {
 			const [insertParRows, insertParFields] = await conn.execute(
-				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role) VALUES ('${teamID}', '${participantID}', 'Leader')`
+				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp) VALUES ('${teamID}', '${participantID}', 'Leader', '${timestamp}')`
 			);
 
 			if (insertParRows) {
@@ -637,6 +684,21 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 // =========================== Join Team Starts ===========================
 
 async function joinTeam(conn, eventCode, participantID, teamID) {
+
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
 	const [checkTeamExistRows, checkTeamExistFields] = await conn.execute(
 		`SELECT Count(TeamID) as count FROM Teams WHERE TeamID = '${teamID}' and EventCode = '${eventCode}'`
 	);
@@ -654,7 +716,8 @@ async function joinTeam(conn, eventCode, participantID, teamID) {
 			if (countRows[0].count >= headCountRows[0].HeadCount) {
 				return {
 					code: 200,
-					message: "You Can't Join!!\nMaximum Capacity of Team reached...",
+					message:
+						"You Can't Join!!\nMaximum Capacity of Team reached...",
 					type: "error",
 				};
 			}
@@ -671,7 +734,7 @@ async function joinTeam(conn, eventCode, participantID, teamID) {
 			return { code: 200, message: "AlreadyRegistered", type: "error" };
 		} else {
 			const [insertTRRows, insertTRFields] = await conn.execute(
-				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role) VALUES ('${teamID}', '${participantID}', 'Member')`
+				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp) VALUES ('${teamID}', '${participantID}', 'Member', '${timestamp}')`
 			);
 
 			if (insertTRRows) {
@@ -760,5 +823,5 @@ module.exports = {
 	getEvents,
 	deleteEvent,
 	getTeamMembers,
-	removeTeamMember
+	removeTeamMember,
 };

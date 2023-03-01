@@ -31,6 +31,7 @@ export default function MyEvents() {
     const [color, setColor] = useState("");
     const [teamID, setTeamID] = useState("");
     const [teamName, setTeamName] = useState("");
+    const [timestamp, setTimestamp] = useState("");
 
     const [members, setMembers] = useState([])
     const [teamLeader, setTeamLeader] = useState('')
@@ -173,6 +174,9 @@ export default function MyEvents() {
         setSelectedEventType(info.EventType);
         setEventCode(info.EventCode);
         setTeamName(info.TeamName);
+        setTimestamp(info.Timestamp);
+
+        console.log(info)
 
         if (info.HeadCount > 1) {
             setIsSolo(false);
@@ -456,7 +460,7 @@ export default function MyEvents() {
                                                                     disabled
                                                                     required
                                                                     value={
-                                                                        "11:00, 12 Feb 2023"
+                                                                        [timestamp]
                                                                     }
                                                                     className="disabled:text-gray-500 disabled:bg-primary-light-3 m-auto text-center mt-1 block w-min rounded-md border-gray-300 shadow-sm focus:border-primary-dark-1 focus:ring-primary-dark-1 sm:text-sm"
                                                                 />
@@ -492,8 +496,7 @@ export default function MyEvents() {
                                                                     htmlFor="first-name"
                                                                     className=" text-sm p-2 text-center m-auto bg-white block w-max px-5 mt-0.5 font-medium text-gray-700 rounded "
                                                                 >
-                                                                    11:00 AM, 12
-                                                                    Feb 2023
+                                                                    {timestamp}
                                                                 </label>
                                                             </div>
                                                             <div className="col-span-6 sm:col-span-3 m-3">

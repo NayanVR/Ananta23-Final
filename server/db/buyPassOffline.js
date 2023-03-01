@@ -5,6 +5,22 @@ const { buyPassMail } = require("./mails");
 const passes = require("../assets/passes.json");
 
 async function updateMarketeersRegistrationCount(conn) {
+
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
+
 	const [rows, fields] = await conn.execute(
 		`SELECT TotalRegistration, TotalSchools, TotalWorkshops, Funds, AllInOne.EnrollmentNo from 
 		(select count(*) as TotalRegistration, Marketeers.EnrollmentNo from Participants 
@@ -60,7 +76,7 @@ async function updateMarketeersRegistrationCount(conn) {
 
 	if (rows.length > 0) {
 		await conn.execute(
-			`update Marketeers set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0`
+			`update Marketeers set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0, updated_at = '${timestamp}'`
 		);
 		
 		console.log(rows);
@@ -81,10 +97,11 @@ async function updateMarketeersRegistrationCount(conn) {
 				rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0
 			}, TotalSchools = ${
 				rows[i].TotalSchools != null ? rows[i].TotalSchools : 0
-			} where EnrollmentNo = '${rows[i].EnrollmentNo}'`;
+			}, updated_at = '${timestamp}' where EnrollmentNo = '${rows[i].EnrollmentNo}'`;
 			console.log(sqlquery);
 			const [updateRows, updateFields] = await conn.execute(sqlquery);
 		}
+		
 		if (i == rows.length) {
 			console.log("✔ Marketeers Records has been updated successfully.");
 
@@ -92,7 +109,7 @@ async function updateMarketeersRegistrationCount(conn) {
 
 			if (rows.length > 0) {
 				await conn.execute(
-					`update MarketingTeams set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0`
+					`update MarketingTeams set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0, updated_at = '${timestamp}'`
 				);
 
 				let i = 0;
@@ -108,7 +125,7 @@ async function updateMarketeersRegistrationCount(conn) {
 							rows[i].Workshops != null ? rows[i].Workshops : 0
 						}, TotalSchools = ${
 							rows[i].School != null ? rows[i].School : 0
-						} where TeamID = '${rows[i].TeamID}'`
+						}, updated_at = '${timestamp}' where TeamID = '${rows[i].TeamID}'`
 					);
 				}
 				if (i == rows.length) {
@@ -132,19 +149,36 @@ async function updateMarketeersRegistrationCount(conn) {
 }
 
 async function updateUniversityRegistratioin(conn) {
+
+
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
+
 	const [rows, fields] = await conn.execute(
 		`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' and TxnAmount > 0 group by University`
 	);
 
 	if (rows.length > 0) {
 		await conn.execute(
-			`update Universities set TotalRegistration=0, Funds = 0`
+			`update Universities set TotalRegistration=0, Funds = 0, updated_at = '${timestamp}'`
 		);
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].Sold}, Funds = ${rows[i].Funds} where University = '${rows[i].University}'`
+				`update Universities set TotalRegistration = ${rows[i].Sold}, Funds = ${rows[i].Funds}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {
@@ -159,17 +193,32 @@ async function updateUniversityRegistratioin(conn) {
 }
 
 async function updateSoldPasses(conn) {
+
+	const date = new Date(
+		new Date().toLocaleString("en-us", {
+			timeZone: "Asia/Calcutta",
+		})
+	);
+	const timestamp = `${date.getFullYear()}-${(
+		"0" +
+		(date.getMonth() + 1)
+	).slice(-2)}-${("0" + date.getDate()).slice(-2)} ${(
+		"0" + date.getHours()
+	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
+		"0" + date.getSeconds()
+	).slice(-2)}`;
+
 	const [rows, fields] = await conn.execute(
 		`SELECT PassCode, COUNT(PassCode) as Sold from Participants where PassCode != "NIL" group by PassCode union select EventCode as PassCode, COUNT(EventCode) as Sold from SoloRegistration where EventCode like "KK%" group by EventCode`
 	);
 
 	if (rows.length > 0) {
-		const [r, f] = await conn.execute(`update Passes set Sold=0`);
+		const [r, f] = await conn.execute(`update Passes set Sold=0, Timestamp = '${timestamp}'`);
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Passes set Sold = ${rows[i].Sold} where PassCode = '${rows[i].PassCode}'`
+				`update Passes set Sold = ${rows[i].Sold}, Timestamp = '${timestamp}' where PassCode = '${rows[i].PassCode}'`
 			);
 		}
 		if (i == rows.length) {
@@ -303,7 +352,7 @@ async function buyPassOffline(
 		if (atmosRows[0].Count == 0) {
 			if (["PS-DJ", "PS-C"].includes(passCode)) {
 				const [atmosRows, atmosFields] = await conn.execute(
-					`INSERT INTO Atmos (ParticipantID) VALUES ('${participantID}') `
+					`INSERT INTO Atmos (ParticipantID, Timestamp) VALUES ('${participantID}', '${timestamp}') `
 				);
 
 				if (atmosRows) {
@@ -324,7 +373,7 @@ async function buyPassOffline(
 				passes[passCode]["Kit"]
 			}, DigitalPoints = ${
 				passes[passCode]["DP"]
-			}, ContactPerson = '${enrollmentNo}' WHERE ParticipantID = '${participantID}'`
+			}, ContactPerson = '${enrollmentNo}', Timestamp = '${timestamp}', UpdatedAt = '${timestamp}' WHERE ParticipantID = '${participantID}'`
 		);
 
 		if (parUpdateRows) {
@@ -351,7 +400,7 @@ async function buyPassOffline(
 		res.resMessage.type = "success";
 
 		const [regKKRows, regKKFields] = await conn.execute(
-			`insert into SoloRegistration (EventCode, ParticipantID) values ('${passCode}', '${participantID}')`
+			`insert into SoloRegistration (EventCode, ParticipantID, Timestamp) values ('${passCode}', '${participantID}', '${timestamp}')`
 		);
 
 		if (regKKRows) {
