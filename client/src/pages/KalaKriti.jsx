@@ -36,7 +36,8 @@ function KalaKrirti() {
       desc: "Rev up your engines and get ready for a thrilling ride with our the ultimate test of your coding skills.Join our exhilarating DeepRacer workshop and discover how to construct and program your very own autonomous race car. Embrace the thrill of racing against other expert drivers and master the art of machine learning in this dynamic and innovative workshop that will leave you on the edge of your seat.",
       image: "Dr.png",
       price: 200,
-      fakePrice: 250
+      fakePrice: 250,
+      "link": "https://drive.google.com/file/d/1CsqPAtcjUV-mYS_iIUEirYY07r-V8MQn/view?usp=share_link"
 
     },
     {
@@ -45,14 +46,16 @@ function KalaKrirti() {
       desc: "Are you ready to become a data visualization wizard?Join our community of data-driven experts and discover how to harness the power of Power BI in this dynamic and engaging workshop!",
       image: "Bi.png",
       price: 200,
-      fakePrice: 250
+      fakePrice: 250,
+      "link": "https://drive.google.com/file/d/1sq0FTcax63XJefVs8FAmYv8UJSIyVcjy/view?usp=share_link"
     },
     {
       eventCode: "KK_TD",
       name: "Tie and Dye",
       desc: "Looking to add some vibrant and unique flair to your wardrobe? Join our Tie and Dye workshop and learn the art of creating eye-catching designs on fabric with beautiful color patterns. This hands-on experience is perfect for anyone looking to unleash their creativity and add a personal touch to their fashion statement.",
       image: "td.png",
-      price: 250
+      price: 250,
+      "link": "https://drive.google.com/file/d/1GmlDbVqL0RjrblRqZT2H0Da_Od3G9D0t/view?usp=share_link"
     },
     {
       eventCode: "KK_TB",
@@ -60,7 +63,8 @@ function KalaKrirti() {
       desc: "“Transform a simple tote bag into a work of art with our hands-on customization workshop.” Learn how to transform an ordinary tote bag into a stunning accessory that reflects your personal style. Join us for a fun and interactive session that's perfect for fashion enthusiasts and craft lovers alike.",
       image: "tb.png",
       price: 250,
-      fakePrice: 450
+      fakePrice: 450,
+      "link": "https://drive.google.com/file/d/1oj8vy9sqnqj0ZM5ZsxI12MSTktf3NX-E/view?usp=share_link"
     },
     {
       eventCode: "KK_FA",
@@ -68,7 +72,8 @@ function KalaKrirti() {
       desc: "Dive into a sea of vibrant colors and create stunning works of art with our Fluid Art workshop! Unleash your inner artist and learn how to create mesmerizing abstract pieces in our immersive session ",
       image: "fa.png",
       price: 250,
-      fakePrice: 450
+      fakePrice: 450,
+      "link": "https://drive.google.com/file/d/19ysR7nIOY-GoaGuGc1sZxFf8CWFruRp_/view?usp=share_link"
     }
   ];
 

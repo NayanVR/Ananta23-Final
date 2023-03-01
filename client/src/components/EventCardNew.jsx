@@ -36,7 +36,7 @@ function EventCard1({ event, registerNow, viewDetails }) {
                                     "Register"
                             }
                         </button>
-                        <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { viewDetails(event.eventCode) }}>
+                        <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { window.open(event.link, "_blank") }}>
                             <img className='h-6' src={Doc} />
                         </button>
                     </div>

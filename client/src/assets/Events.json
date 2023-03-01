@@ -4,25 +4,31 @@
 			"eventCode": "IN_AA",
 			"name": "Agar Art",
 			"desc": "Keep aside paint brush, colours, pencil and eraser. Show your skills using petri dish, microbes and agar!",
-			"image": "agar.png"
+			"image": "agar.png",
+			"link" : "https://drive.google.com/file/d/1s1elIOCmcwI85eJ7ri7vnQ6CbPtLpuUR/view?usp=share_link"
+			
 		},
 		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
 			"desc": "Your wit and skills are reactants, the competition is the catalyst! Use them rightly to achieve the substance of success!",
-			"image": "jeop.png"
+			"image": "jeop.png",
+			"link" : "https://drive.google.com/file/d/11YMY-FCbKn1oQHe1eSedK5mDmmXUMQgz/view?usp=share_link"
+
 		},
 		{
 			"eventCode": "IN_ST",
 			"name": "Science-Trivia",
 			"desc": "Collect the gold in form of knowledge. After digging deep in your education mines the gold maybe buried found at corners. Search hard to win this trivia of science!",
-			"image": "trivia.png"
+			"image": "trivia.png",
+			"link" : "https://drive.google.com/file/d/1s1elIOCmcwI85eJ7ri7vnQ6CbPtLpuUR/view?usp=share_link"
 		},
 		{
 			"eventCode": "IN_VSM",
 			"name": "Virtual Stock Market",
 			"desc": "The market is mock, but the rewards will be real. Invest in virtual stock and become a bull or a bear!",
-			"image": "vsm1.png"
+			"image": "vsm1.png",
+			"link" : "https://drive.google.com/file/d/13AyD-Q9290nBneKhdpgNTxSqRW6b9tQJ/view?usp=share_link"
 		},
 
 		
@@ -30,19 +36,23 @@
 			"eventCode": "IN_LM",
 			"name": "Language Mystery",
 			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
-			"image": "LM.png"
+			"image": "LM.png",
+			"link": "https://drive.google.com/file/d/11u9xNcVg9pMMHXAXHDSkg7UFX4HlSdn7/view?usp=share_link"
 		},
 		{
 			"eventCode": "IN_MP",
 			"name": "Monopoly",
 			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
-			"image": "mono.png"
+			"image": "mono.png",
+			"link": "https://drive.google.com/file/d/1JOsICgxOaxLf3d4WON4JL2WDhPzOXtp7/view?usp=share_link"
+
 		},
 		{
 			"eventCode": "IN_ME",
 			"name": "Master's Eye",
 			"desc": "  This isn’t just any normal rookie level programming. Read  the problem statement(s) , place your cursor on screen and poof! The display is gone and then starts the challenge of coding with no lookbacks.",
-			"image": "ME.png"
+			"image": "ME.png",
+			"link": "https://drive.google.com/file/d/1po-mxM8RWi8-Fgb5IUX7tNQL2E-xAz23/view?usp=share_link"
 		}
 		
 		
@@ -59,52 +69,61 @@
 			"eventCode": "SW_IPL",
 			"name": "IPL AUCTION",
 			"desc":"Don’t just be a couch cricket pundit just seeing the game, Ananta provides you a chance to create and play your own team.",
-			"image": "ipl.png"
+			"image": "ipl.png",
+			"link": "https://drive.google.com/file/d/12_F-zoDKB-XNAVIJ9uEeb2zKpae1KbJU/view?usp=share_link"
+
 			
 		},
 		{
 			"eventCode": "SW_BBS",
 			"name": "BEG BORROW STEAL",
 			"desc":"Collect listed item to complete your deal, Beg it, Borrow it or just steal",
-			"image": "Beg.png"
+			"image": "Beg.png",
+			"link" : "https://drive.google.com/file/d/12W1DEEAQUQPNChpXY6eaK1L_VBUlLfMJ/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_ST",
 			"name": "GSFCU SHARK TANK",
 			"desc": "You remember startups like Scrub Daddy, Sleep Styler from Shark Tank- USA and Bamboo India, Skippi from Shark Tank- India. Now, it's time for you to showcase your startup and product with Shark Tank- GSFCU.",
-			"image": "ST.png"
+			"image": "ST.png",
+			"link" : "https://drive.google.com/file/d/1FqJyn9afbWbHYZHKELbSKgF0ff4WV6UG/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_SG",
 			"name": "SQUID GAME",
 			"desc": "Contest with numerous opponents,The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
-			"image": "Squid.svg"
+			"image": "Squid.svg",
+			"link" : "https://drive.google.com/file/d/1DpRMIPh_Lx-uJxhu47nOWPKw4yHPo4AV/view?usp=share_link"
 
 		},
 		{
 			"eventCode": "SW_RD",
 			"name": "ROADIES",
 			"desc": "Contest with numerous opponents, The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
-			"image": "roadies.png"
+			"image": "roadies.png",
+			"link" : "https://drive.google.com/file/d/1prmYgfHjY3FDvyGZCiYGm92ZGMAt2z8y/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_ER",
 			"name": "ESCAPE ROOM",
 			"desc": "Room full of puzzles, Time limit is there to tussle,To escape fast you need to hustle, To open door use brain not muscle",
-			"image": "escspe.png"
+			"image": "escspe.png",
+			"link" : "https://drive.google.com/file/d/1_hO-w4D-kWRouFPQVlcg5nbvMWneyJD0/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_DB",
 			"name": "DODGE BALL",
 			"desc":"Jump, Duck, Move - Do whatever fits you,All this before the ball hits you",
-			"image": "douch.png"
+			"image": "douch.png",
+			"link" : "https://drive.google.com/file/d/1jX-bnozUBDSK7iSAZfjR-EGPS5DjZxXJ/view?usp=share_link"
 		},
 
 		{
 			"eventCode": "SW_SOM",
 			"name": "Snake-O-Mystery",
 			"desc": "Snake-O-Mystery is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and ",
-			"image": "Snake.png"
+			"image": "Snake.png",
+			"link" : "https://drive.google.com/file/d/1o76eQ6hjTLG3bo3sTRN_7lOJLYBUSEKe/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_MM",
@@ -116,7 +135,8 @@
 			"eventCode": "SW_TH",
 			"name": "Treasure Hunt",
 			"desc": " ``Of course. Treasure Hunts make much better stories when there's treasure at the end.`` is what Eric Berlin wrote in 'The Puzzling World of Winston Breen'. Hunt down the clues, follow your hunch and solve them before the time runs out.",
-			"image": "Thunt.png"
+			"image": "Thunt.png",
+			"link" : "https://drive.google.com/file/d/17J_Seab7RK-ZgR_UPDIsV6osogipFSgw/view?usp=share_link"
 		},
 		
 		 
@@ -124,27 +144,32 @@
 			"eventCode": "SW_CK",
 			"name": "BGMI",
 			"desc": "Battleroyale has taken over almost every single device in this country so time for you to update your phones, get your best headsets and get ready for the most fun battle royale match.",
-			"image": "BGMI.png"
+			"image": "BGMI.png",
+			"link" : "https://drive.google.com/file/d/1i_6sltdQlw19mCBoKDKPlFWyx9RKtW3W/view?usp=share_link"
 		},
 		
 		{
 			"eventCode": "SW_FF",
 			"name": "Free Fire",
 			"desc": "With immersive gameplay, realistic graphics, and a range of characters and weapons to choose from, Free Fire offers an intense gaming experience that keeps players coming back for more.",
-			"image": "freefire.png"
+			"image": "freefire.png",
+			"link" : "https://drive.google.com/file/d/1KxiLSKfjg9u-3nAyuvzWvZZaOp-oeAdO/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_v",
 			"name": "Valorant",
 			"desc": " The stakes are high and the situation is critical so, buckle up with your best gaming gears for this 5v5 custom match, get your updates done, cause this isn’t your average game of Valorant",
-			"image": "valo1.png"
+			"image": "valo1.png",
+			"link" : "https://drive.google.com/file/d/1AzKB5_A1-PElBdtW7gDdTc-dFzqUiGSV/view?usp=share_link"
 			
 		},
 		{
 			"eventCode": "SW_AB",
 			"name": "Anime Battle",
 			"desc": "Test your knowledge about anime in this event against other anime fans. So gather your nakama and sharpen your kunai to prove who is the best!!!",
-			"image": "anime.png"
+			"image": "anime.png",
+            "link" : "https://drive.google.com/file/d/1ZsF2kO4sp4kOzNlUbvc4MqQHn1VEFndy/view?usp=share_link"
+
 		}
 
 
@@ -158,56 +183,66 @@
 			"eventCode": "US_UD",
 			"name": "7 Up 7 Down",
 			"desc": "Ready for a guessing game to test your luck? Join us with 7 Up 7 Down and forecast your fortune and win exciting prizes!",
-			"image": "7u7.png"
+			"image": "7u7.png",
+			"link" : "https://drive.google.com/file/d/1rfDaruoKQDTCo1Bzgn7PhemVt11JIXHi/view?usp=share_link"
+			
 
 		},
 		{
 			"eventCode": "US_BD",
 			"name": "Housie",
 			"desc": "Bingo! You found yourself a great way of fun and friendly competition with a reminiscence of family time. Join us in this popular game of chance where players match numbers on their cards to the numbers called out by the game host. Are you lucky enough to win and take home the rewards?",
-			"image": "housie.png"
+			"image": "housie.png",
+			"link" : "https://drive.google.com/file/d/1rfDaruoKQDTCo1Bzgn7PhemVt11JIXHi/view?usp=share_link"
 		},
 		{
 			"eventCode": "US_BD",
 			"name": "Gobble Gobble",
 			"desc": "Outsmart your opponent and gobble up victory in Gobble Gobble - the strategic game of memory and deduction! Gobblet Gobblers is a strategic feast of memory and deduction where players aim to devour their opponent's chances of winning. With cunning moves and a keen eye, line up your game pieces to form a triumphant row of three before your opponent can!",
-			"image": "gag.png"
+			"image": "gag.png",
+			"link" : "https://drive.google.com/file/d/1brn0Pwh-UyK5RwpVwsuvsC3o9Apgpvdh/view?usp=share_link"
 		},
 		{
 			"eventCode": "US_BD",
 			"name": "Swift Fingers",
 			"desc": "Everyone loves typing tests and taking typing test with their friends for fun everyday, what if we told you that you can stand a chance to win exciting prizes by just typing fast.",
-			"image": "sf.png"
+			"image": "sf.png",
+			"link" : "https://drive.google.com/file/d/1brn0Pwh-UyK5RwpVwsuvsC3o9Apgpvdh/view?usp=share_link "
 		},
 		{
 			"eventCode": "",
 			"name" : "Floating Balls",
 			"desc": "Get hooked and hold tight as you navigate the watery challenge of the Floating Ball Game - a team event that requires coordination, strategy, and a steady hand. Can you keep your cup upright and your eyes on the prize?",
-			"image": "fb.png"
+			"image": "fb.png",
+			"link" : "https://drive.google.com/file/d/1GUyMjaRBWJUePvqxMXVOnCUYvAa_GggT/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
 			"name": "Target The Rings",
 			"desc": "Ring in the Fun with Target the Rings! - Come test your skills and see if you can land the rings on the pegs to win big prizes! A classic game that never gets old, Target the Rings is perfect for all ages and levels of experience.",
-			"image": "3ring.png"
+			"image": "3ring.png",
+			"link" : "https://drive.google.com/file/d/1GUyMjaRBWJUePvqxMXVOnCUYvAa_GggT/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
 			"name": "3 Shots in Basket",
 			"desc": "Rise above the rim and leave your mark on the game! Test your precision, speed, and agility, and basket more balls than your opponent can! ;)",
-			"image": "3ball.png"
+			"image": "3ball.png",
+			"link" : "https://drive.google.com/file/d/1ih-Fnx1cX2Fe61eXlkEZy88mHf1W7V6O/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
 			"name": "Glass Pyramid",
 			"desc": "“Ready, aim, smash! Test your accuracy and win big in our smash the pyramid game. Can you knock down all the glasses and become the ultimate champion?",
-			"image": "gp.png"
+			"image": "gp.png",
+			"link" : "https://drive.google.com/file/d/1raczm1VW2gCVhdCmLIuN-o6ThYrc-ZgB/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
 			"name": "Cup Stacking",
 			"desc": "Stack your way to victory with our bucket of fun! Join our cup stacking challenge and test your teamwork and coordination skills as you race to the finish line with a bucket full of water. Will you spill or thrill in this ultimate challenge?",
-			"image": "cs.png"
+			"image": "cs.png",
+			"link" : "https://drive.google.com/file/d/17-ivXc9E0PpV6Y-0mJ025YTZimWv-mNs/view?usp=share_link"
 		}
 		
 

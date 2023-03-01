@@ -13,6 +13,7 @@ import ScrollToTop from './components/ScrollToTop.jsx';
 import ComingSoon from './components/ComingSoon';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
+import FirebaseAnalytics from './components/FirebaseAnalytics';
 
 // import Home from './pages/Home.jsx'
 // import Login from './pages/Login.jsx'
@@ -70,6 +71,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <ScrollToTop />
         <Navbar />
+        <FirebaseAnalytics />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
