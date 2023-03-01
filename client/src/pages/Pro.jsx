@@ -108,6 +108,7 @@ function Pro() {
 			// const pro = JSON.parse(profile);
 			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
+				console.log(profile);
 				if (pass != {}) {
 					// console.log(profile)
 					setPassType(pass.PassType);
@@ -272,109 +273,139 @@ function Pro() {
 
 						<div className="flex grow p-2 shadow-md rounded-lg bg-primary-light-3 flex-row sm:flex-col  border-2 justify-center  text-prim items-center border-[#78BDC4] ">
 							<div className="flex  bg-primary-light-3  flex-row sm:flex-col  text-prim justify-center items-center">
-								{txnStatus != "TXN_SUCCESS" ? (
-									<div className="flex flex-col m-2 gap-3 justify-center items-center">
-										<p className="text-lg text-center">
-											You can start Events registration
-											after buying a pass...
-										</p>
+								{
+									(txnStatus === "TXN_SUCCESS") || (totalWorkshops > 0) ? (
+										<div className="flex flex-col gap-1 ">
+											<div className="flex flex-col">
+												{/* <div className="text-lg text-start"> <span className="font-bold">Pass Detail </span></div> */}
+												<div className="text-s flex gap-3 ">
+													Pass Type :{" "}
+													<span className="font-bold">
+														{passType}{" "}
+													</span>{" "}
+												</div>
 
-										<div className="flex gap-6 justify-center items-center">
-											<button
-												className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
-												onClick={(_) => {
-													navigate("/buypass");
-												}}
-											>
-												Buy&nbsp;Pass
-											</button>
+												<div className="text-s">
+													Digital Point :{" "}
+													<span className="font-bold">
+														{dP}
+													</span>
+												</div>
+												<div className="text-s">
+													Events Registred :{" "}
+													<span>
+														<strong>
+															{totalEvents}
+														</strong>{" "}
+														Out of{" "}
+														<strong>{maxEvents}</strong>{" "}
+													</span>{" "}
+													({" "}
+													<span>
+														<Link
+															to="/myevents"
+															className="underline text-blue-700"
+														>
+															view
+														</Link>
+													</span>{" "}
+													){" "}
+												</div>
+												<div className="text-s">
+													Talk Show Registred :{" "}
+													<span className="font-bold">
+														{totalGuests}
+														{/* Out of{" "} 
+														{maxGuests}{" "} */}
+													</span>{" "}
+													({" "}
+													<span>
+														<Link
+															to="/myevents"
+															className="underline text-blue-700"
+														>
+															view
+														</Link>
+													</span>{" "}
+													){" "}
+												</div>
+											</div>
+											<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
+												{
+													totalWorkshops > 0 ? (
+														<>
+															<div className="text-s">
+																Workshop :{" "}
+																<span className="font-semibold text-s">
+																	{" "}
+																	You have registred for{" "}
+																	{totalWorkshops}{" "}
+																	Workshops{" "}
+																</span>{" "}
+																({" "}
+																<span>
+																	<Link
+																		to="/myevents"
+																		className="underline text-blue-700"
+																	>
+																		view
+																	</Link>
+																</span>{" "}
+																){" "}
+															</div>
+														</>
+													) : (
+														<>
+															<div className="text-s">
+																Workshop :{" "}
+																<span className="font-semibold text-s">
+																	{" "}
+																	You have not bought a
+																	Workshop yet !!
+																</span>{" "}
+															</div>
+															<button
+																className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
+																onClick={(_) => {
+																	window.location.href = "/kalakriti";
+																}}
+															>
+																Book&nbsp;Workshops
+															</button>
+														</>
+													)
+												}
 
-											<button
-												className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
-												onClick={(_) => {
-													navigate("/kalakriti");
-												}}
-											>
-												Book&nbsp;Workshops
-											</button>
-										</div>
-									</div>
-								) : (
-									<div className="flex flex-col gap-1 ">
-										<div className="flex flex-col">
-											{/* <div className="text-lg text-start"> <span className="font-bold">Pass Detail </span></div> */}
-											<div className="text-s flex gap-3 ">
-												Pass Type :{" "}
-												<span className="font-bold">
-													{passType}{" "}
-												</span>{" "}
 											</div>
+										</div>
+									) : (
+										<div className="flex flex-col m-2 gap-3 justify-center items-center">
+											<p className="text-lg text-center">
+												You can start Events registration
+												after buying a pass...
+											</p>
 
-											<div className="text-s">
-												Digital Point :{" "}
-												<span className="font-bold">
-													{dP}
-												</span>
-											</div>
-											<div className="text-s">
-												Events Registred :{" "}
-												<span>
-													<strong>
-														{totalEvents}
-													</strong>{" "}
-													Out of{" "}
-													<strong>{maxEvents}</strong>{" "}
-												</span>{" "}
-												({" "}
-												<span>
-													<a
-														href="#viewevents"
-														className="underline text-blue-700"
-													>
-														view
-													</a>
-												</span>{" "}
-												){" "}
-											</div>
-											<div className="text-s">
-												Guest Lec. Registred :{" "}
-												<span className="font-bold">
-													{totalGuests} Out of{" "}
-													{maxGuests}{" "}
-												</span>{" "}
-												({" "}
-												<span>
-													<a
-														href="#viewevents"
-														className="underline text-blue-700"
-													>
-														view
-													</a>
-												</span>{" "}
-												){" "}
+											<div className="flex gap-6 justify-center items-center">
+												<button
+													className='relative px-6   before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
+													onClick={(_) => {
+														navigate("/buypass");
+													}}
+												>
+													Buy&nbsp;Pass
+												</button>
+
+												<button
+													className='relative px-6  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-2 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center w-full rounded-md bg-primary-dark-2 text-white flex-wrap'
+													onClick={(_) => {
+														navigate("/kalakriti");
+													}}
+												>
+													Book&nbsp;Workshops
+												</button>
 											</div>
 										</div>
-										<div className="flex flex-col sm:flex-row gap-5 justify-center items-center ">
-											<div className="text-s">
-												Workshop :{" "}
-												<span className="font-semibold text-s">
-													{" "}
-													you have not bought a
-													Workshop yet !!
-												</span>{" "}
-											</div>
-											<button
-												className='relative px-3  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
-												onClick={(_) => {
-													window.location.href =
-														"/buypass";
-												}}
-											>
-												Book&nbsp;Workshops
-											</button>
-										</div>
-									</div>
-								)}
+									)}
 							</div>
 						</div>
 						<div className="flex  items-center justify-center rounded-lg border-2 shadow-md border-[#78BDC4] p-2 ">

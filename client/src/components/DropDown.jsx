@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
+import { toast } from 'react-hot-toast';
 
 
 function DropDown({ list, setList, parentValue, setParentValue, isDisabled, apiURL }) {
@@ -16,7 +17,12 @@ function DropDown({ list, setList, parentValue, setParentValue, isDisabled, apiU
 
     const handleCreate = (inputValue) => {
 
-        if (inputValue === "") {
+        inputValue = inputValue.trim();
+
+        if (inputValue === "") return;
+
+        if (list.find((option) => option.value.toUpperCase() === inputValue.toUpperCase())) {
+            toast.error("This value already exists");
             return;
         }
 
