@@ -28,6 +28,7 @@ function DropDown({ list, setList, parentValue, setParentValue, isDisabled, apiU
 
         setIsLoading(true);
 
+        
         fetch(serverURL + apiURL, {
             method: "POST",
             headers: {

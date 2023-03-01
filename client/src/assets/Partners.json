@@ -2,13 +2,13 @@
     "Partners": [
       
         {
-            "image": "GSFC ltd.png",
-            "title" : "Title Sponsors"
+            "image": "GSFC ltd.png"
+            
             
         },
         {
-            "image": "GGRC.png",
-            "title" : "Co-Sponsors"
+            "image": "GGRC.png"
+            
 
             
         },
@@ -27,23 +27,9 @@
         },
         {
             "image": "PaperCut.png"
-        },
-
-        {
-            "image":"sahaj.jpg",
-            "title" : "Associate Sponsors"
-        },
-        {
-            "image": "cutz1.png",
-            "title" : "Grooming Partner"
-        },
-
-        {
-            "image":"goodwing.png"
-        },
-        {
-            "image" : "JG.png"
         }
+
+       
        
       
 
