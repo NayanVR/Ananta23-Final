@@ -21,7 +21,7 @@
 			"name": "Science-Trivia",
 			"desc": "Collect the gold in form of knowledge. After digging deep in your education mines the gold maybe buried found at corners. Search hard to win this trivia of science!",
 			"image": "trivia.png",
-			"link" : "https://drive.google.com/file/d/1s1elIOCmcwI85eJ7ri7vnQ6CbPtLpuUR/view?usp=share_link"
+			"link" : "https://drive.google.com/file/d/1jcFQ2LjfmU1Zlg0tEerI9BYsfFZ8NKZx/view?usp=share_link"
 		},
 		{
 			"eventCode": "IN_VSM",
@@ -129,7 +129,10 @@
 			"eventCode": "SW_MM",
 			"name":"Membric",
 			"desc": "Join us for an exciting memory game event! This classic game is a great way to challenge your memory skills and have some fun with friends.",
-			"image":"membric.png"
+			"image":"membric.png",
+			"link" : "https://drive.google.com/file/d/1rgOWnHGhZXh6kd5SUB_Q3zbrwVirwr2Q/view?usp=share_link"
+
+
 		},
 		{
 			"eventCode": "SW_TH",
@@ -221,7 +224,7 @@
 			"name": "Target The Rings",
 			"desc": "Ring in the Fun with Target the Rings! - Come test your skills and see if you can land the rings on the pegs to win big prizes! A classic game that never gets old, Target the Rings is perfect for all ages and levels of experience.",
 			"image": "3ring.png",
-			"link" : "https://drive.google.com/file/d/1GUyMjaRBWJUePvqxMXVOnCUYvAa_GggT/view?usp=share_link"
+			"link" : "https://drive.google.com/file/d/1uqmxb5i5p4taeBLndfInQ1xqLzEtrSFP/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
