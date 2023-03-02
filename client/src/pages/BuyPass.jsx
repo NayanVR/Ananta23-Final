@@ -68,8 +68,8 @@ function BuyPass() {
 			price: 400,
 			fakePrice: 450,
 			features: [
-				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
-
+				"A night to groove on EDM beats.",
+				"A spectacle not to MISS OUT!"
 			],
 			color: "#88D20F",
 		},

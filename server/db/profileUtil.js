@@ -19,13 +19,10 @@ async function createProfile(conn, transporter, email, googleAuth, profileImg) {
     console.log(timestamp);
 
 
-    // console.log();
-    console.log('ashish');
     //check if participant already exist with given email id
     const [checkRows, checkFields] = await conn.execute(`SELECT * FROM Participants WHERE Email = '${email}';`)
     console.log(checkRows)
     if (checkRows.length > 0) {
-        console.log('aman')
         if (checkRows[0].GoogleAuth === 0 && googleAuth === 'TRUE') {
             // update info if user is migrating account to google
             const [updateRows, updateFields] = await conn.execute(`UPDATE Participants SET GoogleAuth=${googleAuth}, ProfileImg='${profileImg}' WHERE Email = '${email}';`);
