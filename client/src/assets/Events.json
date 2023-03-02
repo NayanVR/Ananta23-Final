@@ -3,7 +3,7 @@
 		{
 			"eventCode": "IN_AA",
 			"name": "Agar Art",
-			"desc": "Keep aside paint brush, colours, pencil and eraser. Show your skills using petri dish, microbes and agar!",
+			"desc": "Are you an Artist or a Biotechnologist? Well now you’ve found your right spot. Come forward and show your creativity, not with colors but with bacterias in Agar Art!! ",
 			"image": "agar.png",
 			"link" : "https://drive.google.com/file/d/1s1elIOCmcwI85eJ7ri7vnQ6CbPtLpuUR/view?usp=share_link"
 			
@@ -11,7 +11,7 @@
 		{
 			"eventCode": "IN_CEJ",
 			"name": "Chem E-Jeopardy",
-			"desc": "Your wit and skills are reactants, the competition is the catalyst! Use them rightly to achieve the substance of success!",
+			"desc": "Here Your Chemical Knowledge Takes the Lead! Buzz your answers before your opponents can, and get closer to winning your exciting prize!",
 			"image": "jeop.png",
 			"link" : "https://drive.google.com/file/d/11YMY-FCbKn1oQHe1eSedK5mDmmXUMQgz/view?usp=share_link"
 
@@ -19,14 +19,14 @@
 		{
 			"eventCode": "IN_ST",
 			"name": "Science-Trivia",
-			"desc": "Collect the gold in form of knowledge. After digging deep in your education mines the gold maybe buried found at corners. Search hard to win this trivia of science!",
+			"desc": "Test your knowledge, explore the unknown - join the quest for scientific discovery! Unleash your science knowledge and get a chance to win breathtaking prizes.",
 			"image": "trivia.png",
 			"link" : "https://drive.google.com/file/d/1jcFQ2LjfmU1Zlg0tEerI9BYsfFZ8NKZx/view?usp=share_link"
 		},
 		{
 			"eventCode": "IN_VSM",
 			"name": "Virtual Stock Market",
-			"desc": "The market is mock, but the rewards will be real. Invest in virtual stock and become a bull or a bear!",
+			"desc": "Think you have what it takes to navigate the stock market? Prove it in our virtual trading challenge!” Put your stock market knowledge to the test and show you have what it takes to succeed!",
 			"image": "vsm1.png",
 			"link" : "https://drive.google.com/file/d/13AyD-Q9290nBneKhdpgNTxSqRW6b9tQJ/view?usp=share_link"
 		},
@@ -42,7 +42,7 @@
 		{
 			"eventCode": "IN_MP",
 			"name": "Monopoly",
-			"desc": "Use your skills, knowledge and luck of dice. Take correct steps to win or pay a price!",
+			"desc": "Board game that won't let you get bored. Check your financial as well as statistical skills and be the winner of the game that everyone wants to concur!",
 			"image": "mono.png",
 			"link": "https://drive.google.com/file/d/1JOsICgxOaxLf3d4WON4JL2WDhPzOXtp7/view?usp=share_link"
 
@@ -50,7 +50,7 @@
 		{
 			"eventCode": "IN_ME",
 			"name": "Master's Eye",
-			"desc": "  This isn’t just any normal rookie level programming. Read  the problem statement(s) , place your cursor on screen and poof! The display is gone and then starts the challenge of coding with no lookbacks.",
+			"desc": "Coding with a screen is easy but a real coder is the one who can code without the screens on! Inspect your coding skills with us and win amazing prizes!",
 			"image": "ME.png",
 			"link": "https://drive.google.com/file/d/1po-mxM8RWi8-Fgb5IUX7tNQL2E-xAz23/view?usp=share_link"
 		}
@@ -66,87 +66,54 @@
 	
 	"swoosh":[
 		{
+			"eventCode": "SW_TH",
+			"name": "Treasure Hunt",
+			"desc": "Hunting for a suitable job can be difficult and frustrating, but hunting for treasure is always fun and exciting. Join us in our event where you find treasure from the clues and have a great time of your life!",
+			"image": "Thunt.png",
+			"link" : "https://drive.google.com/file/d/17J_Seab7RK-ZgR_UPDIsV6osogipFSgw/view?usp=share_link"
+		},
+		{
+			"eventCode": "SW_RD",
+			"name": "ROADIES",
+			"desc": "Strength, courage, and determination. The ultimate test of endurance, resilience, and gritJoin the Roadies tribe and experience the thrill of adventure, danger, and victory!",
+			"image": "roadies.png",
+			"link" : "https://drive.google.com/file/d/1prmYgfHjY3FDvyGZCiYGm92ZGMAt2z8y/view?usp=share_link"
+		},
+		{
+			"eventCode": "SW_ST",
+			"name": "GSFCU SHARK TANK",
+			"desc": "Shark Tank: where innovation, investment, and inspiration come together to make history!Pitch your ideas, face the sharks, and strike the deal of a lifetime!",
+			"image": "ST.png",
+			"link" : "https://drive.google.com/file/d/1FqJyn9afbWbHYZHKELbSKgF0ff4WV6UG/view?usp=share_link"
+		},
+		{
 			"eventCode": "SW_IPL",
 			"name": "IPL AUCTION",
-			"desc":"Don’t just be a couch cricket pundit just seeing the game, Ananta provides you a chance to create and play your own team.",
+			"desc":"Where stars are made and fortunes are won. PL Auction - the ultimate game of cricket bidding! Who Will Strike the Best Deal and become the king of the world of bidding? ",
 			"image": "ipl.png",
 			"link": "https://drive.google.com/file/d/12_F-zoDKB-XNAVIJ9uEeb2zKpae1KbJU/view?usp=share_link"
 
 			
 		},
 		{
-			"eventCode": "SW_BBS",
-			"name": "BEG BORROW STEAL",
-			"desc":"Collect listed item to complete your deal, Beg it, Borrow it or just steal",
-			"image": "Beg.png",
-			"link" : "https://drive.google.com/file/d/12W1DEEAQUQPNChpXY6eaK1L_VBUlLfMJ/view?usp=share_link"
-		},
-		{
-			"eventCode": "SW_ST",
-			"name": "GSFCU SHARK TANK",
-			"desc": "You remember startups like Scrub Daddy, Sleep Styler from Shark Tank- USA and Bamboo India, Skippi from Shark Tank- India. Now, it's time for you to showcase your startup and product with Shark Tank- GSFCU.",
-			"image": "ST.png",
-			"link" : "https://drive.google.com/file/d/1FqJyn9afbWbHYZHKELbSKgF0ff4WV6UG/view?usp=share_link"
-		},
-		{
 			"eventCode": "SW_SG",
 			"name": "SQUID GAME",
-			"desc": "Contest with numerous opponents,The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
+			"desc": "Survive the games, or face the consequences. Play Squid Game and prove you have what it takes to be the last one standing!",
 			"image": "Squid.svg",
 			"link" : "https://drive.google.com/file/d/1DpRMIPh_Lx-uJxhu47nOWPKw4yHPo4AV/view?usp=share_link"
 
 		},
 		{
-			"eventCode": "SW_RD",
-			"name": "ROADIES",
-			"desc": "Contest with numerous opponents, The winner will be the one who survived, The thrill and excitement will be same as series, Just your death is deprived ;)",
-			"image": "roadies.png",
-			"link" : "https://drive.google.com/file/d/1prmYgfHjY3FDvyGZCiYGm92ZGMAt2z8y/view?usp=share_link"
-		},
-		{
 			"eventCode": "SW_ER",
 			"name": "ESCAPE ROOM",
-			"desc": "Room full of puzzles, Time limit is there to tussle,To escape fast you need to hustle, To open door use brain not muscle",
+			"desc": "Unlock your inner detective and escape the room before time runs out! Unlock the Mystery and test your skills and challenge your mind in our thrilling Escape Room event.",
 			"image": "escspe.png",
 			"link" : "https://drive.google.com/file/d/1_hO-w4D-kWRouFPQVlcg5nbvMWneyJD0/view?usp=share_link"
 		},
 		{
-			"eventCode": "SW_DB",
-			"name": "DODGE BALL",
-			"desc":"Jump, Duck, Move - Do whatever fits you,All this before the ball hits you",
-			"image": "douch.png",
-			"link" : "https://drive.google.com/file/d/1jX-bnozUBDSK7iSAZfjR-EGPS5DjZxXJ/view?usp=share_link"
-		},
-
-		{
-			"eventCode": "SW_SOM",
-			"name": "Snake-O-Mystery",
-			"desc": "Snake-O-Mystery is a game of snakes and ladders with a twist. The game is played on a board with 100 squares. The board is divided into 10 rows and ",
-			"image": "Snake.png",
-			"link" : "https://drive.google.com/file/d/1o76eQ6hjTLG3bo3sTRN_7lOJLYBUSEKe/view?usp=share_link"
-		},
-		{
-			"eventCode": "SW_MM",
-			"name":"Membric",
-			"desc": "Join us for an exciting memory game event! This classic game is a great way to challenge your memory skills and have some fun with friends.",
-			"image":"membric.png",
-			"link" : "https://drive.google.com/file/d/1rgOWnHGhZXh6kd5SUB_Q3zbrwVirwr2Q/view?usp=share_link"
-
-
-		},
-		{
-			"eventCode": "SW_TH",
-			"name": "Treasure Hunt",
-			"desc": " ``Of course. Treasure Hunts make much better stories when there's treasure at the end.`` is what Eric Berlin wrote in 'The Puzzling World of Winston Breen'. Hunt down the clues, follow your hunch and solve them before the time runs out.",
-			"image": "Thunt.png",
-			"link" : "https://drive.google.com/file/d/17J_Seab7RK-ZgR_UPDIsV6osogipFSgw/view?usp=share_link"
-		},
-		
-		 
-		{
 			"eventCode": "SW_BGMI",
 			"name": "BGMI",
-			"desc": "Battleroyale has taken over almost every single device in this country so time for you to update your phones, get your best headsets and get ready for the most fun battle royale match.",
+			"desc": "“Winner Winner Chicken dinner” that's what they say when you rule amongst the other players.Come join us in the journey of this thrilling game and get the title that everyone craves for.",
 			"image": "BGMI.png",
 			"link" : "https://drive.google.com/file/d/1i_6sltdQlw19mCBoKDKPlFWyx9RKtW3W/view?usp=share_link"
 		},
@@ -154,22 +121,55 @@
 		{
 			"eventCode": "SW_FF",
 			"name": "Free Fire",
-			"desc": "With immersive gameplay, realistic graphics, and a range of characters and weapons to choose from, Free Fire offers an intense gaming experience that keeps players coming back for more.",
+			"desc": "Get ready to drop into the action-packed world of Free Fire. Gather your squad and fight for survival like never before! Experience the thrill and outsmart your opponents and claim victory in the ultimate showdown!",
 			"image": "freefire.png",
 			"link" : "https://drive.google.com/file/d/1KxiLSKfjg9u-3nAyuvzWvZZaOp-oeAdO/view?usp=share_link"
 		},
 		{
 			"eventCode": "SW_v",
 			"name": "Valorant",
-			"desc": " The stakes are high and the situation is critical so, buckle up with your best gaming gears for this 5v5 custom match, get your updates done, cause this isn’t your average game of Valorant",
+			"desc": "Enter the digital battlefield and fight for the glory, Unleash your team's potential in the online world and remember “Precision is key, victory is earned”",
 			"image": "valo1.png",
 			"link" : "https://drive.google.com/file/d/1AzKB5_A1-PElBdtW7gDdTc-dFzqUiGSV/view?usp=share_link"
 			
 		},
 		{
+			"eventCode": "SW_BBS",
+			"name": "BEG BORROW STEAL",
+			"desc":"Outwit and outdo the competition by using your resourcefulness and cunning to gather the most items from the list in record time! Get ready to beg, borrow, or steal your way to victory in this fast-paced scavenger hunt challenge!",
+			"image": "Beg.png",
+			"link" : "https://drive.google.com/file/d/12W1DEEAQUQPNChpXY6eaK1L_VBUlLfMJ/view?usp=share_link"
+		},
+		{
+			"eventCode": "SW_DB",
+			"name": "DODGE BALL",
+			"desc": "Dodging real life problems seems impossible but dodging a ball thrown by your opponent seems easy. Let's find the truth in this statement together and play dodgeball and win the whooping prize of excitement and fun!",
+			"image": "douch.png",
+			"link" : "https://drive.google.com/file/d/1jX-bnozUBDSK7iSAZfjR-EGPS5DjZxXJ/view?usp=share_link"
+		},
+
+		{
+			"eventCode": "SW_SOM",
+			"name": "Snake-O-Mystery",
+			"desc": "Get ready to roll the dice and test your brain power!Are you ready to slither your way to victory?Do you have what it takes to solve the snake-o-mystery? Participate in our event and see if you can make it to the finish line! ",
+			"image": "Snake.png",
+			"link" : "https://drive.google.com/file/d/1o76eQ6hjTLG3bo3sTRN_7lOJLYBUSEKe/view?usp=share_link"
+		},
+		{
+			"eventCode": "SW_MM",
+			"name":"Membric",
+			"desc": "Membric: A game of memory, strategy and teamwork! Challenge your memory, communication, and speed and don’t forget to play it smart! Can your team make it to the final round and become the ultimate winner?",
+			"image":"membric.png",
+			"link" : "https://drive.google.com/file/d/1rgOWnHGhZXh6kd5SUB_Q3zbrwVirwr2Q/view?usp=share_link"
+
+
+		},
+		
+		 
+		{
 			"eventCode": "SW_AB",
 			"name": "Anime Battle",
-			"desc": "Test your knowledge about anime in this event against other anime fans. So gather your nakama and sharpen your kunai to prove who is the best!!!",
+			"desc": "Experience the thrill of epic anime battles and show off your skills. Get ready to clash with your favorite anime heroes and discover who is the strongest in this  Battle - the ultimate anime fighting game!",
 			"image": "anime.png",
             "link" : "https://drive.google.com/file/d/1ZsF2kO4sp4kOzNlUbvc4MqQHn1VEFndy/view?usp=share_link"
 
@@ -196,7 +196,7 @@
 			"name": "Housie",
 			"desc": "Bingo! You found yourself a great way of fun and friendly competition with a reminiscence of family time. Join us in this popular game of chance where players match numbers on their cards to the numbers called out by the game host. Are you lucky enough to win and take home the rewards?",
 			"image": "housie.png",
-			"link" : "https://drive.google.com/file/d/1rfDaruoKQDTCo1Bzgn7PhemVt11JIXHi/view?usp=share_link"
+			"link" : "https://drive.google.com/file/d/1g9Ozvl5T8EzVDngUzKBFARhRbc4T4uqX/view?usp=share_link"
 		},
 		{
 			"eventCode": "US_BD",
@@ -210,7 +210,7 @@
 			"name": "Swift Fingers",
 			"desc": "Everyone loves typing tests and taking typing test with their friends for fun everyday, what if we told you that you can stand a chance to win exciting prizes by just typing fast.",
 			"image": "sf.png",
-			"link" : "https://drive.google.com/file/d/1brn0Pwh-UyK5RwpVwsuvsC3o9Apgpvdh/view?usp=share_link "
+			"link" : "https://drive.google.com/file/d/1V84vhs78ycvJ7FzlICtZO47Z3FSZFS6r/view?usp=share_link"
 		},
 		{
 			"eventCode": "",
