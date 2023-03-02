@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import { QRCode } from "react-qrcode-logo";
 import ComingSoon from "../components/ComingSoon";
 import { useNavigate } from "react-router-dom";
+import { Profiler } from "react";
 
 
 function KalaKrirti() {
@@ -114,10 +115,12 @@ function KalaKrirti() {
               icon: "👍🏻",
             });
           } else if (data.type === "success") {
-            const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
-            setPaymentUrl(url);
-            setIsAreadyOpened(false);
-            showPaymentModal(amt, passCode);
+            if (PID) {
+              const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
+              setPaymentUrl(url);
+              setIsAreadyOpened(false);
+              showPaymentModal(amt, passCode);
+            }
           } else if (data.type === "error") {
             toast.error(data.message, { duration: 3000 });
           }
