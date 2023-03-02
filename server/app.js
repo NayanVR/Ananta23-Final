@@ -237,7 +237,7 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
 	const [rows, f] = await conn.execute(
-		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, ProfileImg, TotalEvents, TotalGuests, TotalWorkshops, Gender, City, ContactNo, University, Branch, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
+		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, ProfileImg, TotalEvents, TotalGuests, TotalWorkshops, Gender, City, ContactNo, University, Branch, StudyYear, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
 	);
 
 	if (rows.length === 0) {
