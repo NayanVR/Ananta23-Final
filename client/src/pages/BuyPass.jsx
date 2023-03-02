@@ -69,8 +69,7 @@ function BuyPass() {
 			fakePrice: 450,
 			features: [
 				"A night to groove on EDM beats. A spectacle not to MISS OUT!",
-				"Access to Zingaat : Cultural Events",
-				"2600 Ananta Coins"
+
 			],
 			color: "#88D20F",
 		},
