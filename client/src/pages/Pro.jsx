@@ -165,11 +165,23 @@ function Pro() {
 	}
 
 	function handleSubmit(e) {
-		// // console.log(e)
+		// console.log(e)
 		e.preventDefault();
 		setCanEdit(false);
 
 		if (!currentUser) return;
+
+		if (uniName === null) {
+			toast.error("Please select your university");
+			setCanEdit(true);
+			return;
+		}
+
+		if (course === null) {
+			toast.error("Please select your course");
+			setCanEdit(true);
+			return;
+		}
 
 		currentUser.getIdToken().then((token) => {
 			fetch(serverURL + "/api/secure/update-profile", {
@@ -218,7 +230,7 @@ function Pro() {
 					}
 				})
 				.catch((err) => {
-					// // console.log(err);
+					// console.log(err);
 					setCanEdit(true);
 				});
 		});

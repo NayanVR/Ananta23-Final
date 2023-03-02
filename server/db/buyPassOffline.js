@@ -150,7 +150,6 @@ async function updateMarketeersRegistrationCount(conn) {
 
 async function updateUniversityRegistratioin(conn) {
 
-
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -167,18 +166,27 @@ async function updateUniversityRegistratioin(conn) {
 
 
 	const [rows, fields] = await conn.execute(
-		`select count(*) as Sold, sum(TxnAmount) as Funds, University from Participants where University != '' and TxnAmount > 0 group by University`
+		`select t1.University, t1.TotalPasses, t2.TotalWorkshops, sum(t1.Income + t2.Income) as Income from 
+		(
+		select count(University) as TotalPasses, sum(TxnAmount) as Income, University from Participants 
+		where University != 'null' and TxnStatus = 'TXN_SUCCESS' group by University
+		) AS t1
+		INNER JOIN
+		(
+		select count(*) as TotalWorkshops, sum(po.TxnAmount) as Income, University from Participants as par inner join PaymentsOffline as po 
+		on po.ParticipantID = par.ParticipantID and po.PassCode like "KK%" group by par.University
+		) as t2 on t1.University = t2.University group by t1.University;`
 	);
 
 	if (rows.length > 0) {
 		await conn.execute(
-			`update Universities set TotalRegistration=0, Funds = 0, updated_at = '${timestamp}'`
+			`update Universities set TotalRegistration=0, Funds = 0, TotalWorkshops = 0,updated_at = '${timestamp}'`
 		);
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].Sold}, Funds = ${rows[i].Funds}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
+				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${rows[i].Income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {
