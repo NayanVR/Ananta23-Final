@@ -27,7 +27,7 @@ const {
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
-const { buyPassOffline } = require("./db/buyPassOffline");
+const { autheticateUser, buyPassOffline } = require("./db/buyPassOffline");
 const { makePayment } = require("./db/payment");
 const { sendResetPassEmail, getParticipantID } = require("./db/util");
 const { buyPassMail } = require("./db/mails");
@@ -700,6 +700,20 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 // Just for Testing for Hosting...
 app.get("/api/test", (req, res) => {
 	res.json("Server is running!");
+});
+
+app.post("/api/sendMail", async (req, res) => {
+	const auth = await autheticateUser(conn, req.body.enrollmentNo, req.body.accessToken);
+	console.log(req.body);
+	if (auth.resMessage.type=='success') {
+		if (await buyPassMail(transporter, { body: { txnDate: req.body.txnDate } }, req.body.participantID, req.body.email, req.body.fullname, req.body.passType)) {
+			return res.send("Mail sent");
+		} else {
+			return res.send("Mail sending Failed");
+		}
+	} else {
+		return res.send("Authentication Failed");
+	}
 });
 
 

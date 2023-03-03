@@ -545,5 +545,6 @@ async function buyPassOffline(
 }
 
 module.exports = {
+	autheticateUser,
 	buyPassOffline,
 };
