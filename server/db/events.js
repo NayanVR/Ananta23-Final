@@ -570,17 +570,20 @@ async function genTeamID(conn, eventCode) {
 		const no = parseInt(fetchTeamsRows[0]["TeamID"].split("_")[2]) + 1;
 		console.log(no);
 		let teamNo = "";
-		if (0 < no <=  9) {
+		if (0 < no && no <= 9) {
 			teamNo = "00" + no;
-		} else if (9 < no <= 99) {
+		} else if (9 < no && no <= 99) {
 			teamNo = "0" + no;
-		} else if (99 < no <= 999) {
+		} else if (99 < no && no <= 999) {
 			teamNo = "" + no + "";
 		}
 		teamID = eventCode + "_" + teamNo;
+
 	} else {
 		teamID = eventCode + "_" + "001";
 	}
+
+	console.log(teamID)
 
 	return teamID;
 }

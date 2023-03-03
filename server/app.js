@@ -697,9 +697,39 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+async function genTeamID(conn, eventCode) {
+	let teamID = "";
+
+	const [fetchTeamsRows, fetchTeamsFields] = await conn.execute(
+		`SELECT * FROM Teams WHERE EventCode = '${eventCode}' order by TeamID desc`
+	);
+
+	if (fetchTeamsRows.length > 0) {
+		const no = parseInt(fetchTeamsRows[0]["TeamID"].split("_")[2]) + 1;
+		console.log(no);
+		let teamNo = "";
+		if (0 < no && no <= 9) {
+			teamNo = "00" + no;
+		} else if (9 < no && no <= 99) {
+			teamNo = "0" + no;
+		} else if (99 < no <= 999) {
+			teamNo = "" + no + "";
+		}
+		teamID = eventCode + "_" + teamNo;
+
+	} else {
+		teamID = eventCode + "_" + "001";
+	}
+
+	console.log(teamID)
+
+	return 0;
+}
+
 // Just for Testing for Hosting...
-app.get("/api/test", (req, res) => {
-	res.json("Server is running!");
+app.get("/api/test", async (req, res) => {
+	await genTeamID(conn, "SW_SOM");
+	return res.json("Server is running!");
 });
 
 app.post("/api/sendMail", async (req, res) => {
@@ -715,6 +745,9 @@ app.post("/api/sendMail", async (req, res) => {
 		return res.send("Authentication Failed");
 	}
 });
+
+
+
 
 
 // Server listens at port ...
