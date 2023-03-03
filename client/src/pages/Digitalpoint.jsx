@@ -47,9 +47,7 @@ function Digitalpoint() {
                 <li>
                   Gold Pass : <span className='font-semibold'>2400</span> points
                 </li>
-                <li>
-                  Atmos Pass  : <span className='font-semibold'>2600</span> points
-                </li>
+
                 <li>
                   Combo Pass  : <span className='font-semibold'>2800</span> points
                 </li>

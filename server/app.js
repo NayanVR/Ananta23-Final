@@ -29,6 +29,7 @@ const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { buyPassOffline } = require("./db/buyPassOffline");
 const { makePayment } = require("./db/payment");
+const { getQOTD, answerQOTD } = require("./db/QOTD");
 const { sendResetPassEmail, getParticipantID } = require("./db/util");
 const { buyPassMail } = require("./db/mails");
 const { checkForWorkshop } = require("./db/workshopRegister");
@@ -383,6 +384,23 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 
 	console.log(req.body);
 	const response = await buyPass(conn, PID, passCode, amt);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+// Route - To fetch question of the day
+app.get("/api/qotd", async (req, res) => {
+
+	const response = await getQOTD(conn);
+
+	return res.status(response.code).json(response.resMessage);
+});
+
+// Route - Answer Question of the day
+app.post("/api/qotd", async (req, res) => {
+	const { QID, ParticipantID, Answer } = req.body;
+
+	const response = await answerQOTD(conn, QID, ParticipantID, Answer);
 
 	return res.status(response.code).json(response.resMessage);
 });
