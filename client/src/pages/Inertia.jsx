@@ -46,134 +46,144 @@ function Inertia() {
 			return;
 		}
 
-		const check = await fetch(serverURL + "/api/secure/event/check", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + currentUser["accessToken"],
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ eventCode, email }),
-		});
-		const response = await check.json();
-		// console.log(response);
-
-		setSelectedEventName(eventName);
-		setSelectedEventCode(eventCode);
-
-		if (response.type == "Warning") {
-			if (response.message == "Profile") {
-				navigate("/profile");
-			} else if (response.message == "BuyPass") {
-				navigate("/buypass");
-			} else {
-				toast(response.message, {
-					icon: "⚠️",
-				});
-			}
-		} else if (response.type == "Info") {
-			toast(response.message, {
-				icon: "👍🏻",
+		currentUser.getIdToken().then(async (token) => {
+			const check = await fetch(serverURL + "/api/secure/event/check", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ eventCode, email }),
 			});
-		} else {
-		}
-		if (response.Category == "Solo") {
-			setIsSoloOpen(true);
-		} else if (response.Category == "Team") {
-			setIsTeamOpen(true);
-		}
+			const response = await check.json();
+			// console.log(response);
+
+			setSelectedEventName(eventName);
+			setSelectedEventCode(eventCode);
+
+			if (response.type == "Warning") {
+				if (response.message == "Profile") {
+					navigate("/profile");
+				} else if (response.message == "BuyPass") {
+					navigate("/buypass");
+				} else {
+					toast(response.message, {
+						icon: "⚠️",
+					});
+				}
+			} else if (response.type == "Info") {
+				toast(response.message, {
+					icon: "👍🏻",
+				});
+			} else {
+			}
+			if (response.Category == "Solo") {
+				setIsSoloOpen(true);
+			} else if (response.Category == "Team") {
+				setIsTeamOpen(true);
+			}
+		});
 		// closeModal()
 	}
 
 	// Handling solo registration
 	async function handleSoloRegistration() {
-		const solo = await fetch(
-			serverURL + "/api/secure/events/solo/register",
-			{
-				method: "POST",
-				headers: {
-					Authorization: "Bearer " + currentUser["accessToken"],
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ selectedEventCode, email }),
+		currentUser.getIdToken().then(async (token) => {
+			const solo = await fetch(
+				serverURL + "/api/secure/events/solo/register",
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + token,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ selectedEventCode, email }),
+				}
+			);
+			const response = await solo.json();
+			// console.log(response);
+			if (response.type == "success") {
+				toast.success(response.message, { duration: 3000 });
+				closeModal();
 			}
-		);
-		const response = await solo.json();
-		// console.log(response);
-		if (response.type == "success") {
-			toast.success(response.message, { duration: 3000 });
-			closeModal();
-		}
+		});
 	}
 
 	// Handling Create Team
 	async function handleCT() {
-		setLoader(true);
-		const CT = await fetch(serverURL + "/api/secure/events/team/create", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + currentUser["accessToken"],
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				selectedEventCode,
-				email,
-				teamName,
-				selectedEventName,
-			}),
-		});
-		const response = await CT.json();
+		currentUser.getIdToken().then(async (token) => {
+			setLoader(true);
+			const CT = await fetch(serverURL + "/api/secure/events/team/create", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					selectedEventCode,
+					email,
+					teamName,
+					selectedEventName,
+				}),
+			});
+			const response = await CT.json();
 
-		if (response.type == "success") {
-			toast.success(response.message, { duration: 3000 });
-			closeModal();
-		} else {
-			toast.error(response.message, { duration: 3000 });
-		}
-		setLoader(false);
+			if (response.type == "success") {
+				toast.success(response.message, { duration: 3000 });
+				closeModal();
+			} else {
+				toast.error(response.message, { duration: 3000 });
+			}
+			setLoader(false);
+		});
 	}
 
 	// Handling Join Team
 	async function handleJT() {
-		const JT = await fetch(serverURL + "/api/secure/events/team/join", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + currentUser["accessToken"],
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ selectedEventCode, email, teamID }),
-		});
-		const response = await JT.json();
-		if (response.type == "success") {
-			toast.success(response.message, { duration: 3000 });
-			setTeamName("");
-			closeModal();
-		} else {
-			toast.error(response.message, { duration: 2000 });
-		}
-		setShowInfo(false);
-	}
-
-	async function getTeamInfo() {
-		const teamInfo = await fetch(
-			serverURL + "/api/secure/events/team/getinfo",
-			{
+		currentUser.getIdToken().then(async (token) => {
+			const JT = await fetch(serverURL + "/api/secure/events/team/join", {
 				method: "POST",
 				headers: {
-					Authorization: "Bearer " + currentUser["accessToken"],
+					Authorization: "Bearer " + token,
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ selectedEventCode, email, teamID }),
+			});
+			const response = await JT.json();
+			if (response.type == "success") {
+				toast.success(response.message, { duration: 3000 });
+				setTeamName("");
+				closeModal();
+			} else {
+				toast.error(response.message, { duration: 2000 });
 			}
-		);
-		const response = await teamInfo.json();
-		// console.log(response);
-		if (response.type == "success") {
-			setLeader(response.teamLeader);
-			setTeamName(response.teamName);
-			setShowInfo(true);
-		} else {
-			toast.error(response.message, { duration: 2000 });
-		}
+			setShowInfo(false);
+		});
+	}
+
+	async function getTeamInfo() {
+		currentUser.getIdToken().then(async (token) => {
+			const teamInfo = await fetch(
+				serverURL + "/api/secure/events/team/getinfo",
+				{
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + token,
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ selectedEventCode, email, teamID }),
+				}
+			);
+			const response = await teamInfo.json();
+			// console.log(response);
+			if (response.type == "success") {
+				setLeader(response.teamLeader);
+				setTeamName(response.teamName);
+				setShowInfo(true);
+			} else {
+				toast.error(response.message, { duration: 2000 });
+			}
+		});
 	}
 
 	function closeModal() {

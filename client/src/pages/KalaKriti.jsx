@@ -102,7 +102,7 @@ function KalaKrirti() {
       fetch(serverURL + "/api/secure/workshop/check", {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + currentUser.accessToken,
+          Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ passCode, PID }),
