@@ -105,6 +105,16 @@ function Swoosh() {
 	// Handling Create Team
 	async function handleCT() {
 		setLoader(true);
+		setTeamName(teamName.trim());
+
+		if (!teamName.match(/^[a-zA-Z0-9 ]*$/)) {
+			toast.error("Team name should not contain special characters", {
+				duration: 3000,
+			});
+			setLoader(false);
+			return;
+		}
+
 		const CT = await fetch(serverURL + "/api/secure/events/team/create", {
 			method: "POST",
 			headers: {

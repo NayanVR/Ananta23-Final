@@ -37,6 +37,7 @@ function Pro() {
 	const [course, setCourse] = useState("");
 	const [uniName, setUniName] = useState("");
 	const [gender, setGender] = useState("");
+	const [year, setYear] = useState("");
 	const [city, setCity] = useState("");
 
 	const [uniNamesList, setUniNamesList] = useState([]);
@@ -145,11 +146,11 @@ function Pro() {
 	}, [profile]);
 
 	function updateProfile(pro) {
-		let date = new Date(pro.DOB);
-		let year = date.getFullYear();
-		let month = (date.getMonth() + 1).toString().padStart(2, "0");
-		let dt = date.getDate().toString().padStart(2, "0");
-		const dtStr = year + "-" + month + "-" + dt;
+		// let date = new Date(pro.DOB);
+		// let year = date.getFullYear();
+		// let month = (date.getMonth() + 1).toString().padStart(2, "0");
+		// let dt = date.getDate().toString().padStart(2, "0");
+		// const dtStr = year + "-" + month + "-" + dt;
 
 		setPid(pro.ParticipantID);
 		setFName(pro.Firstname);
@@ -158,6 +159,7 @@ function Pro() {
 		setCourse(pro.Branch);
 		setUniName(pro.University);
 		setGender(pro.Gender);
+		setYear(pro.StudyYear);
 		setCity(pro.City);
 		setTxnStatus(pro.TxnStatus);
 		setPassCode(pro.PassCode);
@@ -198,6 +200,7 @@ function Pro() {
 					branch: course,
 					gender,
 					city,
+					year
 				}),
 			})
 				.then((res) => res.json())
@@ -304,7 +307,7 @@ function Pro() {
 													</span>
 												</div>
 												<div className="text-s">
-													Events Registred :{" "}
+													Events Registered:{" "}
 													<span>
 														<strong>
 															{totalEvents}
@@ -324,7 +327,7 @@ function Pro() {
 													){" "}
 												</div>
 												<div className="text-s">
-													Talk Show Registred :{" "}
+													Talk Show Registered:{" "}
 													<span className="font-bold">
 														{totalGuests}
 														{/* Out of{" "} 
@@ -350,7 +353,7 @@ function Pro() {
 																Workshop :{" "}
 																<span className="font-semibold text-s">
 																	{" "}
-																	You have registred for{" "}
+																	You have Registeredfor{" "}
 																	{totalWorkshops}{" "}
 																	Workshops{" "}
 																</span>{" "}
@@ -630,6 +633,10 @@ function Pro() {
 										<select
 											required
 											disabled={!canEdit}
+											value={year}
+											onChange={(e) => {
+												setYear(e.target.value);
+											}}
 											className="disabled:text-gray-500 disabled:bg-primary-light-3 mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary-dark-1 focus:outline-none focus:ring-primary-dark-1 sm:text-sm"
 										>
 											<option value="" disabled>

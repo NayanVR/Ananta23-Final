@@ -67,9 +67,9 @@ async function createProfile(conn, transporter, email, googleAuth, profileImg) {
 }
 
 async function updateProfile(conn, email, body) {
-    const { fName, lName, contactNo, uniName, branch, gender, city } = body;
+    const { fName, lName, contactNo, uniName, branch, gender, city, year } = body;
 
-    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', University='${uniName}', Branch='${branch}', Gender='${gender}', City='${city}' WHERE Email = '${email}'`);
+    const [rows, fields] = await conn.execute(`UPDATE Participants SET ProfileStatus=TRUE, Firstname='${fName}', Lastname='${lName}', ContactNo='${contactNo}', University='${uniName}', Branch='${branch}', Gender='${gender}', City='${city}', StudyYear='${year}' WHERE Email = '${email}'`);
 
     if (rows) {
         return { code: 200, resMessage: { message: "Profile Updated", type: "success" } };

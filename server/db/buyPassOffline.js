@@ -79,14 +79,14 @@ async function updateMarketeersRegistrationCount(conn) {
 			`update Marketeers set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0, updated_at = '${timestamp}'`
 		);
 		
-		console.log(rows);
+		// console.log(rows);
 		let i = 0;
 		for (i; i < rows.length; i++) {
-			console.log("\tEnrollmentNo: " + rows[i].EnrollmentNo != null ? rows[i].EnrollmentNo: 0);
-			console.log("\tTotalRegistration: " + rows[i].TotalRegistration);
-			console.log("\tIncome: "+ rows[i].Funds != null ? rows[i].Funds : 0)
-			console.log("\tTotalWorkshop: "+ rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0)
-			console.log("\TotalSchools: "+ rows[i].TotalSchools != null ? rows[i].TotalSchools : 0)
+			// console.log("\tEnrollmentNo: " + rows[i].EnrollmentNo != null ? rows[i].EnrollmentNo: 0);
+			// console.log("\tTotalRegistration: " + rows[i].TotalRegistration);
+			// console.log("\tIncome: "+ rows[i].Funds != null ? rows[i].Funds : 0)
+			// console.log("\tTotalWorkshop: "+ rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0)
+			// console.log("\TotalSchools: "+ rows[i].TotalSchools != null ? rows[i].TotalSchools : 0)
 			const sqlquery = `update Marketeers set TotalRegistrations = ${
 				rows[i].TotalRegistration != null
 					? rows[i].TotalRegistration
@@ -98,7 +98,7 @@ async function updateMarketeersRegistrationCount(conn) {
 			}, TotalSchools = ${
 				rows[i].TotalSchools != null ? rows[i].TotalSchools : 0
 			}, updated_at = '${timestamp}' where EnrollmentNo = '${rows[i].EnrollmentNo}'`;
-			console.log(sqlquery);
+			// console.log(sqlquery);
 			const [updateRows, updateFields] = await conn.execute(sqlquery);
 		}
 		
@@ -166,7 +166,7 @@ async function updateUniversityRegistratioin(conn) {
 
 
 	const [rows, fields] = await conn.execute(
-		`select t1.University, t1.TotalPasses, t2.TotalWorkshops, sum(t1.Income + t2.Income) as Income from 
+		`select t1.University as University, t1.TotalPasses as TotalPasses, t2.TotalWorkshops as TotalWorkshops, t1.Income as IncomePass, t2.Income as IncomeWorkshop from 
 		(
 		select count(University) as TotalPasses, sum(TxnAmount) as Income, University from Participants 
 		where University != 'null' and TxnStatus = 'TXN_SUCCESS' group by University
@@ -175,7 +175,7 @@ async function updateUniversityRegistratioin(conn) {
 		(
 		select count(*) as TotalWorkshops, sum(po.TxnAmount) as Income, University from Participants as par inner join PaymentsOffline as po 
 		on po.ParticipantID = par.ParticipantID and po.PassCode like "KK%" group by par.University
-		) as t2 on t1.University = t2.University group by t1.University;`
+		) as t2 on t1.University = t2.University`
 	);
 
 	if (rows.length > 0) {
@@ -185,8 +185,10 @@ async function updateUniversityRegistratioin(conn) {
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
+			let income = parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop);
+			console.log(typeof income,income)
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${rows[i].Income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
+				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {
@@ -463,8 +465,8 @@ async function buyPassOffline(
 
 	if (
 		(await updateSoldPasses(conn)) &&
-		(await updateUniversityRegistratioin(conn)) &&
-		(await updateMarketeersRegistrationCount(conn))
+		(await updateMarketeersRegistrationCount(conn)) &&
+		(await updateUniversityRegistratioin(conn))
 	) {
 		res.resMessage.message += ", PassesSoldUpdated";
 		res.resMessage.updateSold = 1;
@@ -543,5 +545,6 @@ async function buyPassOffline(
 }
 
 module.exports = {
+	autheticateUser,
 	buyPassOffline,
 };

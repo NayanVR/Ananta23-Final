@@ -27,7 +27,7 @@ const {
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
-const { buyPassOffline } = require("./db/buyPassOffline");
+const { autheticateUser, buyPassOffline } = require("./db/buyPassOffline");
 const { makePayment } = require("./db/payment");
 const { getQOTD, answerQOTD } = require("./db/QOTD");
 const { sendResetPassEmail, getParticipantID } = require("./db/util");
@@ -238,7 +238,7 @@ app.get("/api/secure/get-profile", async (req, res) => {
 	const email = req.user.email;
 
 	const [rows, f] = await conn.execute(
-		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, ProfileImg, TotalEvents, TotalGuests, TotalWorkshops, Gender, City, ContactNo, University, Branch, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
+		`SELECT ParticipantID, ProfileStatus, Firstname, Lastname, ProfileImg, TotalEvents, TotalGuests, TotalWorkshops, Gender, City, ContactNo, University, Branch, StudyYear, Email, DigitalPoints, TxnStatus, PassCode FROM Participants WHERE Email = '${email}';`
 	);
 
 	if (rows.length === 0) {
@@ -715,10 +715,57 @@ app.post("/api/secure/events/team/getinfo", async (req, res) => {
 	return res.status(response.code).json(response.resMessage);
 });
 
+async function genTeamID(conn, eventCode) {
+	let teamID = "";
+
+	const [fetchTeamsRows, fetchTeamsFields] = await conn.execute(
+		`SELECT * FROM Teams WHERE EventCode = '${eventCode}' order by TeamID desc`
+	);
+
+	if (fetchTeamsRows.length > 0) {
+		const no = parseInt(fetchTeamsRows[0]["TeamID"].split("_")[2]) + 1;
+		console.log(no);
+		let teamNo = "";
+		if (0 < no && no <= 9) {
+			teamNo = "00" + no;
+		} else if (9 < no && no <= 99) {
+			teamNo = "0" + no;
+		} else if (99 < no <= 999) {
+			teamNo = "" + no + "";
+		}
+		teamID = eventCode + "_" + teamNo;
+
+	} else {
+		teamID = eventCode + "_" + "001";
+	}
+
+	console.log(teamID)
+
+	return 0;
+}
+
 // Just for Testing for Hosting...
-app.get("/api/test", (req, res) => {
-	res.json("Server is running!");
+app.get("/api/test", async (req, res) => {
+	await genTeamID(conn, "SW_SOM");
+	return res.json("Server is running!");
 });
+
+app.post("/api/sendMail", async (req, res) => {
+	const auth = await autheticateUser(conn, req.body.enrollmentNo, req.body.accessToken);
+	console.log(req.body);
+	if (auth.resMessage.type=='success') {
+		if (await buyPassMail(transporter, { body: { txnDate: req.body.txnDate } }, req.body.participantID, req.body.email, req.body.fullname, req.body.passType)) {
+			return res.send("Mail sent");
+		} else {
+			return res.send("Mail sending Failed");
+		}
+	} else {
+		return res.send("Authentication Failed");
+	}
+});
+
+
+
 
 
 // Server listens at port ...
