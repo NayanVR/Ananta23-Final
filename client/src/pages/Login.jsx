@@ -99,14 +99,15 @@ function Login() {
 		e.preventDefault();
 
 		const res = await signInWithPopup(auth, provider);
-		// console.log(res);
+		console.log(res);
 		const email = res.user.email;
 		const photoURL = res.user.photoURL;
+	
 		const data = await createProfile(email, photoURL);
-		// console.log(data);
+		console.log(data);
 		if (data.type === "success") {
 			// console.log('success')
-			window.location.href = "/";
+			window.location.href = "/profile";
 		} else {
 			toast.error(data.message, { duration: 3000 });
 		}
