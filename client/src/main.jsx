@@ -63,6 +63,7 @@ const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 const Team = lazy(() => import('./pages/Team'));
 const Hardworking = lazy(() => import('./pages/Hardworking'));
 const MyEvents = lazy(() => import('./pages/MyEvents'));
+const QOTD = lazy(() => import('./pages/QOTD'));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -101,6 +102,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/team" element={<Team />} />
             <Route path="/myevents" element={<PrivateRoute element={<MyEvents />} />} />
             <Route path="/hardworkers" element={<Hardworking />} />
+            <Route path="/qotd" element={<QOTD />} />
           </Routes>
         </Suspense>
         <Footer />

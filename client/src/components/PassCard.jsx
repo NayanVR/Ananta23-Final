@@ -3,7 +3,7 @@ import React from 'react'
 function PassCard({ passInfo, buyClick }) {
   return (
     <>
-      <div style={{ borderColor: passInfo.color }} className='group max-w-full sm:w-80 h-max sm:h-96 m-6 px-8 pb-6
+      <div style={{ borderColor: passInfo.color }} className='group max-w-full sm:w-80 h-max sm:h-[26rem] m-6 px-8 pb-6
         flex flex-col items-center justify-between gap-2 bg-primary-light-3 border-4 rounded-2xl hover:scale-105 transition-all relative overflow-hidden'>
         <div style={{ backgroundColor: passInfo.color }} className='absolute w-60 h-60 top-0 right-0 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl opacity-0 group-hover:opacity-40 transition-opacity'></div>
         <div className='w-full h-max flex justify-between items-center'>

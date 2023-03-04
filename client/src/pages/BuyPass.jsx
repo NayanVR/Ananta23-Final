@@ -29,7 +29,8 @@ function BuyPass() {
 			price: 200,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
-				"Access to any 1 Guest Lecture",
+				"Access to all UPSHOT Events",
+				"Access to any 1 Talk Show",
 				"Access to Zingaat : Cultural Events",
 				"2000 Ananta Coins",
 			],
@@ -42,7 +43,8 @@ function BuyPass() {
 			price: 230,
 			features: [
 				"Access to any 2 Events (INERTIA & SWOOSH)",
-				"Access to any  Guest Lectures",
+				"Access to all UPSHOT Events",
+				"Access to all Talk Shows",
 				"Access to Zingaat : Cultural Events",
 				"2200 Ananta Coins",
 			],
@@ -54,8 +56,9 @@ function BuyPass() {
 			markImg: goldMark,
 			price: 250,
 			features: [
-				"Access to All Events (INERTIA & SWOOSH)",
-				"Access to All Guest Lectures",
+				"Access to all Events (INERTIA & SWOOSH)",
+				"Access to all UPSHOT Events",
+				"Access to all Talk Shows",
 				"Access to Zingaat : Cultural Events",
 				"2400 Ananta Coins",
 			],

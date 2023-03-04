@@ -35,7 +35,7 @@
 		{
 			"eventCode": "IN_LM",
 			"name": "Language Mystery",
-			"desc": "A language is a system that consists of the development, acquisition, maintenance and use of complex systems of communication, particularly the human ability to do so; and a language is any specific example of such a system.",
+			"desc": "Coding is fun when known but what about the language that's unknown? Test your coding skills here with us and get a reality check of what needs to be done! That's not it, We won't let the winner go empty handed. Register and know more about this crazy event!",
 			"image": "LM.png",
 			"link": "https://drive.google.com/file/d/11u9xNcVg9pMMHXAXHDSkg7UFX4HlSdn7/view?usp=share_link"
 		},
@@ -213,35 +213,35 @@
 			"link" : "https://drive.google.com/file/d/1V84vhs78ycvJ7FzlICtZO47Z3FSZFS6r/view?usp=share_link"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "US_BD",
 			"name" : "Floating Balls",
 			"desc": "Get hooked and hold tight as you navigate the watery challenge of the Floating Ball Game - a team event that requires coordination, strategy, and a steady hand. Can you keep your cup upright and your eyes on the prize?",
 			"image": "fb.png",
 			"link" : "https://drive.google.com/file/d/1GUyMjaRBWJUePvqxMXVOnCUYvAa_GggT/view?usp=share_link"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "US_BD",
 			"name": "Target The Rings",
 			"desc": "Ring in the Fun with Target the Rings! - Come test your skills and see if you can land the rings on the pegs to win big prizes! A classic game that never gets old, Target the Rings is perfect for all ages and levels of experience.",
 			"image": "3ring.png",
 			"link" : "https://drive.google.com/file/d/1uqmxb5i5p4taeBLndfInQ1xqLzEtrSFP/view?usp=share_link"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "US_BD",
 			"name": "3 Shots in Basket",
 			"desc": "Rise above the rim and leave your mark on the game! Test your precision, speed, and agility, and basket more balls than your opponent can! ;)",
 			"image": "3ball.png",
 			"link" : "https://drive.google.com/file/d/1ih-Fnx1cX2Fe61eXlkEZy88mHf1W7V6O/view?usp=share_link"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "US_BD",
 			"name": "Glass Pyramid",
 			"desc": "“Ready, aim, smash! Test your accuracy and win big in our smash the pyramid game. Can you knock down all the glasses and become the ultimate champion?",
 			"image": "gp.png",
 			"link" : "https://drive.google.com/file/d/1raczm1VW2gCVhdCmLIuN-o6ThYrc-ZgB/view?usp=share_link"
 		},
 		{
-			"eventCode": "",
+			"eventCode": "US_BD",
 			"name": "Cup Stacking",
 			"desc": "Stack your way to victory with our bucket of fun! Join our cup stacking challenge and test your teamwork and coordination skills as you race to the finish line with a bucket full of water. Will you spill or thrill in this ultimate challenge?",
 			"image": "cs.png",

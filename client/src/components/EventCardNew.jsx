@@ -33,7 +33,11 @@ function EventCard1({ event, registerNow, viewDetails }) {
                                         :
                                         `Pay ₹${event.price}`
                                     :
-                                    "Register"
+                                    event.eventCode.includes("US")
+                                        ?
+                                        "On the spot"
+                                        :
+                                        "Register"
                             }
                         </button>
                         <button className='flex bg-primary justify-center items-center h-10 w-10 rounded-md' onClick={() => { window.open(event.link, "_blank") }}>
