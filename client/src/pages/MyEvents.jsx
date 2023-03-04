@@ -342,7 +342,6 @@ export default function MyEvents() {
                                             <label className="block text-3xl font-medium text-gray-700">
                                                 {selectedEventName}
                                             </label>
-                                            {!isSolo && <>(3/5)</>}
                                         </div>
                                     </Dialog.Title>
                                     {!isView ? (
