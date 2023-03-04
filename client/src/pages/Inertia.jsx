@@ -328,7 +328,9 @@ function Inertia() {
 												style={{ margin: "auto" }}
 												onClick={() => {
 													setIsTeamOpen(false);
-													setIsCTOpen(true);
+													setTimeout(() => {
+														setIsCTOpen(true);
+													}, 500);
 												}}
 											>
 												Create&nbsp;Team
@@ -341,7 +343,9 @@ function Inertia() {
 												style={{ margin: "auto" }}
 												onClick={() => {
 													setIsTeamOpen(false);
-													setIsJTOpen(true);
+													setTimeout(() => {
+														setIsJTOpen(true);
+													}, 500);
 												}}
 											>
 												Join&nbsp;Team

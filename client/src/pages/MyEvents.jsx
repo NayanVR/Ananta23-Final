@@ -513,27 +513,26 @@ export default function MyEvents() {
                                                                 </label>
                                                             </div>
 
-                                                            {role ==
-                                                                "Leader" && (
-                                                                    <div
-                                                                        className={` bg-white mx-5  rounded-sm py-2`}
-                                                                    >
-                                                                        {
-                                                                            members.map((member) => {
-                                                                                return (
-                                                                                    <>
-                                                                                        <div className='flex justify-between px-4'>
-                                                                                            <label className="text-[0.8rem] text-semibold block font-medium text-gray-700">
-                                                                                                {member['Firstname']} {member['Lastname']}
-                                                                                            </label>
-                                                                                            <button onClick={() => { handleRemoveMember(member.ParticipantID, teamID) }} className='text-red-600 px-2 my-1 rounded-sm '>Remove</button>
-                                                                                        </div>
-                                                                                    </>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-                                                                )}
+                                                            {(role == "Leader" && members.length != 0) && (
+                                                                <div
+                                                                    className={` bg-white mx-5 rounded-sm py-2`}
+                                                                >
+                                                                    {
+                                                                        members.map((member) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <div className='flex justify-between px-4'>
+                                                                                        <label className="text-[0.8rem] text-semibold block font-medium text-gray-700">
+                                                                                            {member['Firstname']} {member['Lastname']}
+                                                                                        </label>
+                                                                                        <button onClick={() => { handleRemoveMember(member.ParticipantID, teamID) }} className='text-red-600 px-2 my-1 rounded-sm '>Remove</button>
+                                                                                    </div>
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     )}
                                                 </p>
