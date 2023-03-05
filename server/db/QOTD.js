@@ -1,3 +1,5 @@
+const { updateCoins } = require('./AnantaCoins');
+
 async function getQOTD(conn) {
     //getdate with india timezone
     const today = new Date(
@@ -55,11 +57,15 @@ async function answerQOTD(conn, QID, ParticipantID, AnswerByUser) {
 
                 const [entryRows, entryFields] = await conn.execute(`INSERT INTO AnswersEntries (QID, ParticipantID, Status, CoinsTransferred) VALUES (${QID}, '${ParticipantID}', 'CORRECT', ${reward})`);
 
-                return {
-                    code: 200,
-                    resMessage: {
-                        message: "Your Answer is Correct",
-                        type: "success"
+                const { code, resMessage } = await updateCoins(conn, ParticipantID, reward, true);
+
+                if (code === 200) {
+                    return {
+                        code: 200,
+                        resMessage: {
+                            message: "Your Answer is Correct",
+                            type: "success"
+                        }
                     }
                 }
             } else {

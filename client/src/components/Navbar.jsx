@@ -69,7 +69,7 @@ function Navbar() {
                             </Link>
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                        <CustomLink to="/digital-point">Ananta Coins</CustomLink>
+                        <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
                         {/* <CustomLink to="">Schedule</CustomLink> */}
                         <DropDown title="More">
                             <Link
@@ -173,7 +173,7 @@ function Navbar() {
                     </Link>
                 </DropDown>
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                <CustomLink to="/digital-point">Ananta Coins</CustomLink>
+                <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
                 {/* <CustomLink to="">Schedule</CustomLink> */}
                 <CustomLink to="/about-us">About Us</CustomLink>
                 <CustomLink to="/contact-us">Our Team</CustomLink>

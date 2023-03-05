@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 function Question({ showSuccess }) {
 
-    const { currentUser, profile } = useContext(AuthContext);
+    const { currentUser, profile, pass } = useContext(AuthContext);
 
     const serverURL = import.meta.env.VITE_SERVER_URL;
 
@@ -33,7 +33,7 @@ function Question({ showSuccess }) {
     }, [])
 
     function checkAnswer(Answer) {
-        if (currentUser && profile) {
+        if (currentUser && pass) {
 
             const PID = profile.ParticipantID;
             const QID = question.QID;
@@ -50,13 +50,15 @@ function Question({ showSuccess }) {
                     .then(res => res.json())
                     .then(data => {
                         if (data.type === "success") {
-                            showSuccess()
-                            toast.success(data.message, { duration: 3000 })
+                            console.log(data)
+                            showSuccess(data.message)
                         } else {
                             toast.error(data.message, { duration: 3000 })
                         }
                     })
             })
+        } else {
+            toast.error('Please buy a pass to answer the question.')
         }
     }
 
