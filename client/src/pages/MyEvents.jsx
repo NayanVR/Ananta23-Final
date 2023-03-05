@@ -81,7 +81,7 @@ export default function MyEvents() {
             fetch(serverURL + "/api/secure/deleteEvent", {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer " + currentUser.accessToken,
+                    Authorization: "Bearer " + token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({

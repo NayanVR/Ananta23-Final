@@ -3,7 +3,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from 'react-hot-toast';
 
 
-function Question() {
+
+function Question({ showSuccess }) {
 
     const { currentUser, profile } = useContext(AuthContext);
 
@@ -49,6 +50,7 @@ function Question() {
                     .then(res => res.json())
                     .then(data => {
                         if (data.type === "success") {
+                            showSuccess()
                             toast.success(data.message, { duration: 3000 })
                         } else {
                             toast.error(data.message, { duration: 3000 })
@@ -62,13 +64,13 @@ function Question() {
         question ? (
             <div className='flex flex-col pt-3 py-7 mx-4 md:mx-0 items-center'>
 
-                <div className='w-full  md:w-8/12 h-1/4 my-2  border border-5 text-lg border-primary   shadow-md rounded-sm  md:mx-3 text-center'>{question.Question}</div>
+                <div className='w-full  md:w-8/12 h-1/4 my-2   text-lg   md:mx-3 text-center'>{question.Question}</div>
 
                 <button onClick={_ => checkAnswer("A")} className=' w-full md:w-8/12  h-1/4 my-2 border border-5 text-lg border-primary  shadow-md rounded-sm hover:bg-primary hover:text-white'>{question.OptionA}</button>
 
                 <button onClick={_ => checkAnswer("B")} className='w-full md:w-8/12 h-1/5 my-2 border border-5 text-lg border-primary  shadow-md rounded-sm hover:bg-primary hover:text-white'>{question.OptionB}</button>
 
-                <button onClick={_ => checkAnswer("C")} className='w-full md:w-8/12 h-1/5 my-2 border border-5 text-lg border-primary  shadow-md rounded-sm hover:bg-primary hover:text-white'><span>{question.OptionC}</span></button>
+                <button onClick={_ => checkAnswer("C")} className='w-full md:w-8/12 h-1/5 my-2 border border-5 text-lg border-primary  shadow-md rounded-sm hover:bg-primary hover:text-white'>{question.OptionC}</button>
 
                 <button onClick={_ => checkAnswer("D")} className='w-full md:w-8/12 h-1/5 my-2 border border-5 text-lg border-primary  shadow-md rounded-sm hover:bg-primary hover:text-white'>{question.OptionD}</button>
             </div>
@@ -77,6 +79,8 @@ function Question() {
                 <div className='w-full  md:w-8/12 h-1/4 my-2  border border-5 text-lg border-primary   shadow-md rounded-sm  md:mx-3 text-center'>Loading...</div>
             </div>
         )
+
+
     )
 }
 

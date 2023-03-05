@@ -33,7 +33,7 @@
         {
             "name": "Varada Deshpande",
             "role": "Joint Secretary",
-            "email": "20bt04039@gsfcuniversity.ac.in",
+            "email": "20bt04051@gsfcuniversity.ac.in",
             "phone": "9687349441",
             "linkedin": "https://www.linkedin.com/in/varada-deshpande-0330331bb/",
             "image":"Varada4.jpg"
@@ -85,7 +85,7 @@
        
         {
             "name": "Anshika Jain",
-            "role": "Evenet Head - SoM",
+            "role": "Event Head - SoM",
             "email": "22bba01003@gsfcuniversity.ac.in",
             "phone": "9116626003",
             "linkedin": "https://www.linkedin.com/in/anshika-jain-2289b122a/cdnvv",
@@ -151,7 +151,16 @@
         "phone": "7574914108",
         "linkedin": "https://www.linkedin.com/in/nishant-viroja/",
         "image":"Nishant4.jpg"
+    },
+    {
+        "name": "Nayan Radadiya",
+        "role": "UI/UX Designer",
+        "email": "",
+        "phone": "",
+        "linkedin": "",
+        "image":"Nayan.jpg"
     }
+
     ],
 
     "creative":[
@@ -196,14 +205,7 @@
     ],
 
     "web2":[
-        {
-            "name": "Nayan Radadiya",
-            "role": "Full-Stack Developer",
-            "email": "",
-            "phone": "",
-            "linkedin": "",
-            "image":"Nayan.jpg"
-        }
+        
         
         ],
 
