@@ -23,7 +23,6 @@ function Question() {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.table(data.data);
                         setQuestion(data.data)
                     })
             })
