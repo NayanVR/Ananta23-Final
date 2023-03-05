@@ -91,7 +91,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/term&condition" element={<TermCondition />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/contact-us" element={<Team />} />
             <Route path="/cd" element={<Countdown />} />
             <Route path="/digital-point" element={<Digitalpoint />} />
             <Route path="/coming-soon" element={<ComingSoon />} />

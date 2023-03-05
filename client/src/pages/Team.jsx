@@ -15,7 +15,7 @@ function Team() {
             {/* leader */}
             <div className="w-full h-max py-20 bg-gradient-to-b from-primary-light-1 to-primary">
                 <h2 className="text-5xl font-heading font-bold text-white text-center">
-                    Contact Us
+                    Our Team
                 </h2>
             </div>
             <div className='flex flex-col items-center justify-center  '>

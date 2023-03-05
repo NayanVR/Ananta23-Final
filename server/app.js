@@ -389,7 +389,7 @@ app.post("/api/secure/pass/buy", async (req, res) => {
 });
 
 // Route - To fetch question of the day
-app.get("/api/qotd", async (req, res) => {
+app.get("/api/secure/qotd", async (req, res) => {
 
 	const response = await getQOTD(conn);
 
@@ -397,10 +397,10 @@ app.get("/api/qotd", async (req, res) => {
 });
 
 // Route - Answer Question of the day
-app.post("/api/qotd", async (req, res) => {
-	const { QID, ParticipantID, Answer } = req.body;
+app.post("/api/secure/qotd", async (req, res) => {
+	const { QID, PID, Answer } = req.body;
 
-	const response = await answerQOTD(conn, QID, ParticipantID, Answer);
+	const response = await answerQOTD(conn, QID, PID, Answer);
 
 	return res.status(response.code).json(response.resMessage);
 });
@@ -753,7 +753,7 @@ app.get("/api/test", async (req, res) => {
 app.post("/api/sendMail", async (req, res) => {
 	const auth = await autheticateUser(conn, req.body.enrollmentNo, req.body.accessToken);
 	console.log(req.body);
-	if (auth.resMessage.type=='success') {
+	if (auth.resMessage.type == 'success') {
 		if (await buyPassMail(transporter, { body: { txnDate: req.body.txnDate } }, req.body.participantID, req.body.email, req.body.fullname, req.body.passType)) {
 			return res.send("Mail sent");
 		} else {
