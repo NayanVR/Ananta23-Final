@@ -305,6 +305,15 @@ function Pro() {
 													<span className="font-bold">
 														{dP}
 													</span>
+													<button
+													className='relative px-2 ml-10  before:content-[""] before:absolute before:w-full before:h-full before:top-0 before:bg-gradient-to-r before:from-transparent before:to-transparent before:via-primary-light-1 before:-left-full before:hover:left-full before:transition-all before:duration-500 hover:shadow-lg hover:shadow-primary-light-1 transition-all overflow-hidden py-1 bg-gradient-to-b from-primary-dark-1 to-primary-dark-2  inline-flex items-center justify-center rounded-md bg-primary-dark-2 text-white flex-wrap'
+													onClick={(_) => {
+														navigate("/qotd");
+													}}
+												>
+													Click&nbsp;here
+												</button>
+												&nbsp;to earn Free Digital Points
 												</div>
 												<div className="text-s">
 													Events Registered:{" "}
