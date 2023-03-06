@@ -11,7 +11,7 @@ function QOTD() {
 
     function showSuccess(message) {
         if (message === "Your Answer is Correct") {
-            toast.success("Congratulations! You have earned 60 ananta Coins.", { duration: 5000 });
+            toast.success("Congratulations! You have earned 60 Ananta Coins.", { duration: 5000 });
             celebrateRef.current.play()
         } else {
             toast.error(message, { duration: 3000 })
@@ -19,8 +19,8 @@ function QOTD() {
     }
 
     return (
-        <div className='w-full relativersd pb-3 items-center justify-center'>
-            <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container opacity-20">
+        <div className='w-full relativersd pb-3 items-center justify-center' style={{height: "85vh" }}>
+            <div style={{ top: 0, transform: "rotate(180deg)"}} className="wrap-grid-container opacity-20">
                 <div className="grid-container">
                     <div className='grid-top-gradient'></div>
                     {
