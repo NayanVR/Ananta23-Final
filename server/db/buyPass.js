@@ -124,7 +124,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 				return {
 					code: 400,
 					resMessage: {
-						message: "You can't Down",
+						message: "You can't Downgrade the Pass",
 						type: "error",
 					},
 				};

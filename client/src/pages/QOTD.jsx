@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PMC from '../assets/logos/PMC.png'
 import Question from '../components/Question'
 import Lottie from 'lottie-react'
 import Celebrate from '../assets/celebrate.json'
+import toast from 'react-hot-toast';
 
 function QOTD() {
 
-    function showSuccess() {
-        toast.success('Success', { duration: 3000 })
+    const celebrateRef = useRef()
+
+    function showSuccess(message) {
+        if (message === "Your Answer is Correct") {
+            toast.success("Congratulations! You have earned 60 Ananta Coins.", { duration: 5000 });
+            celebrateRef.current.play()
+        } else {
+            toast.error(message, { duration: 3000 })
+        }
     }
 
     return (
-        <div className='w-full relativersd pb-3 items-center justify-center'>
-            <div style={{ top: 0, transform: "rotate(180deg)" }} className="wrap-grid-container opacity-20">
+        <div className='w-full relativersd pb-3 items-center justify-center' style={{height: "85vh" }}>
+            <div style={{ top: 0, transform: "rotate(180deg)"}} className="wrap-grid-container opacity-20">
                 <div className="grid-container">
                     <div className='grid-top-gradient'></div>
                     {
@@ -45,7 +53,7 @@ function QOTD() {
             <div className='flex justify-center items-center mx-3'>
                 <h3> *For every right answer you will be rewarded with <span className='font-bold'>60 Ananta coins</span></h3>
             </div>
-            <Lottie animationData={Celebrate} className='absolute top-0' />
+            <Lottie lottieRef={celebrateRef} animationData={Celebrate} autoplay={false} loop={false} className='absolute top-0 pointer-events-none' />
         </div>
     )
 }

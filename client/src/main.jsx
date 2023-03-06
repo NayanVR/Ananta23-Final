@@ -54,7 +54,7 @@ const RefundPolicy = lazy(() => import('./pages/RefundPolicy'));
 const Countdown = lazy(() => import('./pages/Countdown'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const AboutUs = lazy(() => import('./pages/AboutUs'));
-const Digitalpoint = lazy(() => import('./pages/Digitalpoint'));
+const AnantaCoins = lazy(() => import('./pages/AnantaCoins'));
 const Equilibrium = lazy(() => import('./pages/Equilibrium'));
 const Upshot = lazy(() => import('./pages/Upshot'));
 const Zingaat = lazy(() => import('./pages/Zingaat'));
@@ -93,7 +93,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<Team />} />
             <Route path="/cd" element={<Countdown />} />
-            <Route path="/digital-point" element={<Digitalpoint />} />
+            <Route path="/ananta-coins" element={<AnantaCoins />} />
             <Route path="/coming-soon" element={<ComingSoon />} />
             <Route path="/equilibrium" element={<Equilibrium />} />
             <Route path="/upshot" element={<Upshot />} />
