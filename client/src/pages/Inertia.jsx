@@ -105,6 +105,12 @@ function Inertia() {
 			if (response.type == "success") {
 				toast.success(response.message, { duration: 3000 });
 				closeModal();
+			} else if (response.type === "info") {
+				toast(response.message, {
+					icon: "⚠️",
+				});
+			} else {
+				toast.error(response.message, { duration: 3000 });
 			}
 		});
 	}

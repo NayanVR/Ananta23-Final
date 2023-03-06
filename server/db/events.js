@@ -1,3 +1,19 @@
+const closedEvents = [
+	"IN_AA",
+	"IN_ST",
+	"SW_TH",
+	"SW_RD",
+	"SW_IPL",
+	"SW_SG",
+	"SW_BGMI",
+	"SW_FF",
+	"SW_V",
+	"SW_SOM",
+	"SW_MM",
+	"SW_BBS",
+	"SW_ER"
+]
+
 // Check Profile Status
 async function checkProfileStatus(conn, participantID) {
 	const [rows, fields] = await conn.execute(
@@ -295,6 +311,15 @@ async function deleteEvent(
 // =========================== Validating the Selected Event ===========================
 
 async function checkEvent(conn, eventCode, participantID) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
+
 	// Check Profile
 	if ((await checkProfileStatus(conn, participantID)) == false) {
 		return { code: 200, message: "Profile", type: "Warning" };
@@ -505,6 +530,14 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 
   */
 
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "info",
+		};
+	}
+
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -593,6 +626,14 @@ async function genTeamID(conn, eventCode) {
 // =========================== Create Team Starts ===========================
 
 async function createTeam(conn, eventCode, participantID, teamName) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
 
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
@@ -690,6 +731,14 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 // =========================== Join Team Starts ===========================
 
 async function joinTeam(conn, eventCode, participantID, teamID) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
 
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
