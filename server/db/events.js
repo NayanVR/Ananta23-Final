@@ -1,17 +1,17 @@
 const closedEvents = [
-	"IN_AA",
-	"IN_ST",
-	"SW_TH",
-	"SW_RD",
-	"SW_IPL",
-	"SW_SG",
-	"SW_BGMI",
-	"SW_FF",
-	"SW_V",
-	"SW_SOM",
-	"SW_MM",
-	"SW_BBS",
-	"SW_ER"
+	// "IN_AA",
+	// "IN_ST",
+	// "SW_TH",
+	// "SW_RD",
+	// "SW_IPL",
+	// "SW_SG",
+	// "SW_BGMI",
+	// "SW_FF",
+	// "SW_V",
+	// "SW_SOM",
+	// "SW_MM",
+	// "SW_BBS",
+	// "SW_ER"
 ]
 
 // Check Profile Status
