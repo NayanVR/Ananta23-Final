@@ -1,21 +1,34 @@
 {
-    "Partners": [
-      
+    
+    "Title":[
         {
-            "image": "GSFC ltd.png"
+            "image": "GSFC ltd.png",
+            "title": "GSFC Ltd"
+
             
             
-        },
+        }
+    ],
+    
+    "Co":[
         {
-            "image": "GGRC.png"
+            "image": "GGRC.png",
+            "title": "Powered By "
             
 
             
         },
         {
-            "image": "PMC.png"
+            "image": "PMC.png",
+            "title": "Owned By"
             
-        },
+        }
+    ],
+    
+    "Partners": [
+      
+      
+     
         {
             "image": "IMS.png"
         },

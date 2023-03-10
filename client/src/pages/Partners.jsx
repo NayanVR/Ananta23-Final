@@ -9,6 +9,21 @@ function Partners() {
             <h1 className="font-heading text-6xl text-center my-12 text-[2rem] font-extrabold bg-gradient-to-b from-primary-light-1 to-primary bg-clip-text text-transparent">
                 Our Partners
             </h1>
+
+            <div className="flex  gap-6 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
+                {PartnersData.Title.map((info, index) => (
+                    <PartnersCard info={info} key={index} />
+                ))}
+
+
+            </div>
+            <div className="flex  gap-6 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
+                {PartnersData.Co.map((info, index) => (
+                    <PartnersCard info={info} key={index} />
+                ))}
+
+
+            </div>
             <div className="flex  gap-6 mb-20 mx-10 flex-col bg-white sm:flex-row flex-wrap justify-center align-middle rounded-lg ">
                 {PartnersData.Partners.map((info, index) => (
                     <PartnersCard info={info} key={index} />
@@ -38,10 +53,13 @@ function Partners() {
 function PartnersCard({ info }) {
     return (
         <>
-            <div className="relative flex p-12 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
-                <img src={`/partner/${info.image}`} className='h-20 items-center' alt="" />
-                {/* <h1 className=" text-bold text-center text-2xl font-semibold">{info.role}</h1> */}
-                {/* <h1 className="absolute bottom-0 left-1/2 -translate-x-1/2 text-black text-bold text-center text-2xl font-semibold">{info.title}</h1> */}
+            <div className='flex flex-col'>
+
+                <div className="relative flex  p-12 justify-center sm:justify-start  rounded-lg border-2 shadow-md border-[#78BDC4]">
+                    <img src={`/partner/${info.image}`} className='flex h-20 justify-center  items-center' alt="" />
+                    {/* <h1 className="absolute bottom-0 left-1/2 -translate-x-1/2 text-black text-bold text-center text-2xl font-semibold">{info.title}</h1> */}
+                </div>
+                {/* <h1 className=" text-bold text-center text-3xl font-semibold">{info.title}</h1> */}
             </div>
         </>
 
