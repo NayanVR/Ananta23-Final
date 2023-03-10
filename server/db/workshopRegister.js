@@ -1,5 +1,5 @@
 const closedWorshops = [
-    "KK_DR"
+    // "KK_DR"
 ]
 
 async function checkForWorkshop(conn, passCode, participantID) {
@@ -27,27 +27,41 @@ async function checkForWorkshop(conn, passCode, participantID) {
             }
         }
     } else {
-        const [fetchAmtRow, fetchAmtField] = await conn.execute(`SELECT PassAmt FROM Passes WHERE PassCode = '${passCode}'`);
 
-        console.log(fetchAmtRow)
+        const [checkLimitRows, checkLimitFields] = await conn.execute(`SELECT * FROM Events WHERE EventCode = '${passCode}'`);
 
-        if (fetchAmtRow.length > 0) {
-            return {
-                code: 200,
-                resMessage: {
-                    message: "Amount Fetched",
-                    type: "success",
-                    Amount: fetchAmtRow[0].PassAmt
+        if (
+            checkLimitRows[0]["TotalRegistration"] <
+            checkLimitRows[0]["MaxRegistration"]
+        ) {
+            const [fetchAmtRow, fetchAmtField] = await conn.execute(`SELECT PassAmt FROM Passes WHERE PassCode = '${passCode}'`);
+
+            if (fetchAmtRow.length > 0) {
+                return {
+                    code: 200,
+                    resMessage: {
+                        message: "Amount Fetched",
+                        type: "success",
+                        Amount: fetchAmtRow[0].PassAmt
+                    }
+                }
+            } else {
+                return {
+                    code: 500,
+                    resMessage: {
+                        message: "Internal Server Error",
+                        type: "error"
+                    }
                 }
             }
         } else {
-            return {
-                code: 500,
+            return { 
+                code: 200, 
                 resMessage: {
-                    message: "Internal Server Error",
-                    type: "error"
+                    message: "Vacancy Full",
+                    type: "warning" 
                 }
-            }
+            };
         }
     }
 }

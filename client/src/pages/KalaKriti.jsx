@@ -114,6 +114,11 @@ function KalaKrirti() {
             toast(data.message, {
               icon: "👍🏻",
             });
+          } else if (data.type == "warning") {
+            console.log(data.message);
+            toast(data.message, {
+              icon: "⚠️",
+            });
           } else if (data.type === "success") {
             if (PID) {
               const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
