@@ -9,7 +9,7 @@ function Testimonial() {
 
             <div className='grid place-item-center h-full bg-primary'>
                 <div className='grid grid-cols-2 p-10 gap-10'>
-                    <figure className='bg-white rounded-sm shadow-lg overflow-hidden hover:rotate-1 transition-none duration-200 '>
+                    <figure className='bg-white rounded-lg shadow-lg overflow-hidden hover:rotate-1 transition-none duration-200 '>
                         <blockquote className='p-8'>
                             <p className='font-bold text-lg'>
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus totam atque ea voluptatem, sapiente eius dignissimos natus officia et consectetur sint vel ipsam eveniet non vero, a quaerat, illo est.
