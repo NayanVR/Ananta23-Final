@@ -112,8 +112,7 @@ async function removeTeamMember(conn, participantID, teamID) {
 	);
 	const isupdateEventRegCount = await updateEventRegistrationCount(
 		conn,
-		eventID,
-		"dec"
+		eventID
 	);
 
 	if (rows && isUpdateRegCount && isupdateEventRegCount) {
@@ -135,32 +134,59 @@ async function removeTeamMember(conn, participantID, teamID) {
 	}
 }
 
-async function updateEventRegistrationCount(conn, eventCode, option) {
+async function updateEventRegistrationCount(conn, eventCode) {
 	const [rows, fields] = await conn.execute(
-		`SELECT TotalRegistration FROM Events where EventCode = '${eventCode}'`
+		`SELECT HeadCount FROM Events where EventCode = '${eventCode}'`
 	);
 
-	if (rows.length > 0) {
-		let total = rows[0].TotalRegistration;
+	let regCount = 0;
 
-		console.log("Total Registration before: " + total);
+	if (rows.length > 0 && rows[0].HeadCount <= 1) {
 
-		if (option == "inc") {
-			total++;
-		} else if (option == "dec") {
-			total--;
-		}
+		const [getRegCountRows, getRegCountFields] = await conn.execute(`SELECT COUNT(*) as total FROM SoloRegistration WHERE EventCode = '${eventCode}'`);
 
-		console.log("Total Registration after: " + total);
-		const [updateRows, updateFields] = await conn.execute(
-			`update Events set TotalRegistration = ${total} where EventCode = "${eventCode}"`
-		);
-
-		if (updateRows) {
-			return true;
+		if (getRegCountRows.length > 0) {
+			regCount = getRegCountRows[0].total
 		} else {
-			return false;
+			regCount = 0;
 		}
+		console.log("Inside regCount =", regCount);
+
+		// console.log("Total Registration before: " + total);
+
+		// if (option == "inc") {
+		// 	total++;
+		// } else if (option == "dec") {
+		// 	total--;
+		// }
+
+		// console.log("Total Registration after: " + total);
+		// const [updateRows, updateFields] = await conn.execute(
+		// 	`update Events set TotalRegistration = ${total} where EventCode = "${eventCode}"`
+		// );
+
+		// if (updateRows) {
+		// 	return true;
+		// } else {
+		// 	return false;
+		// }
+	} else {
+		const [getRegCountRows, getRegCountFields] = await conn.execute(`SELECT COUNT(*) as total FROM TeamRegistration WHERE TeamID LIKE '${eventCode}%' AND Role = 'Leader'`);
+
+		if (getRegCountRows.length > 0) {
+			regCount = getRegCountRows[0].total
+		} else {
+			regCount = 0;
+		}
+		console.log("Inside regCount =", regCount);
+	}
+
+	console.log("Out of Condition, regCount =", regCount)
+
+	const [updateEventRows, updateEventFields] = await conn.execute(`UPDATE Events SET TotalRegistration = ${regCount} WHERE EventCode = '${eventCode}'`);
+
+	if (updateEventRows) {
+		return true;
 	} else {
 		return false;
 	}
@@ -180,8 +206,7 @@ async function deleteEvent(
 		);
 		const isEventRegCount = await updateEventRegistrationCount(
 			conn,
-			eventCode,
-			"dec"
+			eventCode
 		);
 		const isUpdateRegCount = await updateRegCount(
 			conn,
@@ -245,8 +270,7 @@ async function deleteEvent(
 						)) &&
 						(await updateEventRegistrationCount(
 							conn,
-							eventCode,
-							"dec"
+							eventCode
 						))
 					) {
 						console.log("Team Member Delete Complete.");
@@ -269,8 +293,7 @@ async function deleteEvent(
 						)) &&
 						(await updateEventRegistrationCount(
 							conn,
-							eventCode,
-							"dec"
+							eventCode
 						))
 					) {
 						console.log("Participant events count updated...");
@@ -569,7 +592,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 		if (soloRegisterRows) {
 			if (
 				(await updateRegCount(conn, eventCode, participantID, "inc")) &&
-				(await updateEventRegistrationCount(conn, eventCode, "inc"))
+				(await updateEventRegistrationCount(conn, eventCode))
 			) {
 				return {
 					code: 200,
@@ -698,7 +721,7 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 						participantID,
 						"inc"
 					)) &&
-					(await updateEventRegistrationCount(conn, eventCode, "inc"))
+					(await updateEventRegistrationCount(conn, eventCode))
 				) {
 					return {
 						code: 200,
@@ -871,6 +894,7 @@ async function getTeamInfo(conn, teamID) {
 // Exporting All Modules...
 module.exports = {
 	checkEvent,
+	updateEventRegistrationCount,
 	registerSoloEvent,
 	createTeam,
 	joinTeam,
