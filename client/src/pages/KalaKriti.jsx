@@ -38,7 +38,7 @@ function KalaKrirti() {
       image: "Dr.png",
       price: 200,
       fakePrice: 250,
-      "link": "https://drive.google.com/file/d/1CsqPAtcjUV-mYS_iIUEirYY07r-V8MQn/view?usp=share_link"
+      "link": "https://drive.google.com/file/d/1L_-TXIlbWyx6UUij-_OQyZxAZNA-3EbI/view?usp=share_link"
 
     },
     {
@@ -48,7 +48,7 @@ function KalaKrirti() {
       image: "Bi.png",
       price: 200,
       fakePrice: 250,
-      "link": "https://drive.google.com/file/d/1sq0FTcax63XJefVs8FAmYv8UJSIyVcjy/view?usp=share_link"
+      "link": "https://drive.google.com/file/d/1nuYQSLEVu4EtoGDn2U4sonzZ8UTcCvh5/view?usp=share_link"
     },
     {
       eventCode: "KK_TD",
@@ -56,7 +56,7 @@ function KalaKrirti() {
       desc: "Looking to add some vibrant and unique flair to your wardrobe? Join our Tie and Dye workshop and learn the art of creating eye-catching designs on fabric with beautiful color patterns. This hands-on experience is perfect for anyone looking to unleash their creativity and add a personal touch to their fashion statement.",
       image: "td.png",
       price: 250,
-      "link": "https://drive.google.com/file/d/1GmlDbVqL0RjrblRqZT2H0Da_Od3G9D0t/view?usp=share_link"
+      "link": "https://drive.google.com/file/d/1bWdX2EZDzcs5ptjGBUXRdJSo8t2xzQzx/view?usp=share_link"
     },
     {
       eventCode: "KK_TB",
@@ -65,7 +65,7 @@ function KalaKrirti() {
       image: "tb.png",
       price: 250,
       fakePrice: 450,
-      "link": "https://drive.google.com/file/d/1oj8vy9sqnqj0ZM5ZsxI12MSTktf3NX-E/view?usp=share_link"
+      "link": "https://drive.google.com/file/d/1cmKRwrHi-Am5XsWdCk0CprIPYIoPQl9U/view?usp=share_link"
     },
     {
       eventCode: "KK_FA",
@@ -74,7 +74,7 @@ function KalaKrirti() {
       image: "fa.png",
       price: 250,
       fakePrice: 450,
-      "link": "https://drive.google.com/file/d/19ysR7nIOY-GoaGuGc1sZxFf8CWFruRp_/view?usp=share_link"
+      "link": "https://drive.google.com/file/d/1N_RHKnSpUfxrLECunMTCR1ct0CL1ZgTx/view?usp=share_link"
     }
   ];
 
