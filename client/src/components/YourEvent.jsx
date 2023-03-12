@@ -1,7 +1,17 @@
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import { FaTrash } from "react-icons/fa";
 import { BsEye } from "react-icons/bs";
 
 function YourEvent({ data, deleteEvent, infoEvent }) {
+
+	const { pass } = useContext(AuthContext);
+
+	const canDelete = (data.EventType === "KalaKriti" && pass.PassCode === "PS-AIO") || (data.EventType !== "KalaKriti");
+	// const canDelete = true
+
+	console.log(pass);
+
 	let colorclass = "";
 	let bgColor = ""
 	switch (data.EventType) {
@@ -61,7 +71,7 @@ function YourEvent({ data, deleteEvent, infoEvent }) {
 						<BsEye icon="bi bi-eye" />
 					</button>
 					{
-						data.EventType !== "KalaKriti"
+						canDelete
 						&&
 						<button
 							onClick={() => {
