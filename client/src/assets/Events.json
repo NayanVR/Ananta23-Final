@@ -249,5 +249,54 @@
 		}
 		
 
+	],
+	"inertiaa":  [
+		
+		{
+			"eventCode": "K12_ST",
+			"name": "Events 01",
+			"desc": "Test your knowledge, explore the unknown - join the quest for scientific discovery! Unleash your science knowledge and get a chance to win breathtaking prizes.",
+			"image": "trivia.png",
+			"link" : "https://drive.google.com/file/d/1jcFQ2LjfmU1Zlg0tEerI9BYsfFZ8NKZx/view?usp=share_link"
+		},
+		{
+			"eventCode": "K12_VSM",
+			"name": "Events 02",
+			"desc": "Think you have what it takes to navigate the stock market? Prove it in our virtual trading challenge!” Put your stock market knowledge to the test and show you have what it takes to succeed!",
+			"image": "vsm1.png",
+			"link" : "https://drive.google.com/file/d/13AyD-Q9290nBneKhdpgNTxSqRW6b9tQJ/view?usp=share_link"
+		},
+
+		
+		{
+			"eventCode": "K12_LM",
+			"name": "Events 03",
+			"desc": "Coding is fun when known but what about the language that's unknown? Test your coding skills here with us and get a reality check of what needs to be done! That's not it, We won't let the winner go empty handed. Register and know more about this crazy event!",
+			"image": "LM.png",
+			"link": "https://drive.google.com/file/d/11u9xNcVg9pMMHXAXHDSkg7UFX4HlSdn7/view?usp=share_link"
+		},
+		{
+			"eventCode": "K12_MP",
+			"name": "Events 04",
+			"desc": "Board game that won't let you get bored. Check your financial as well as statistical skills and be the winner of the game that everyone wants to concur!",
+			"image": "mono.png",
+			"link": "https://drive.google.com/file/d/1JOsICgxOaxLf3d4WON4JL2WDhPzOXtp7/view?usp=share_link"
+
+		},
+		{
+			"eventCode": "K12_ME",
+			"name": "Events 05",
+			"desc": "Coding with a screen is easy but a real coder is the one who can code without the screens on! Inspect your coding skills with us and win amazing prizes!",
+			"image": "ME.png",
+			"link": "https://drive.google.com/file/d/1po-mxM8RWi8-Fgb5IUX7tNQL2E-xAz23/view?usp=share_link"
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 	]
 }

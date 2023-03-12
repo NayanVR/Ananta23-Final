@@ -67,9 +67,17 @@ function Navbar() {
                             >
                                 <span className="font-semibold">Zingaat </span>  : Cultural Night
                             </Link>
+                            {/* <Link
+                                className="font-thin text-start  px-6 py-2 hover:bg-gray-100"
+                                to="/k12"
+                            >
+                                <span className="font-semibold">K-12 </span>  : School Events
+                            </Link> */}
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
                         <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
+                        <CustomLink to="/our-partners">Our Partners</CustomLink>
+                      
                         {/* <CustomLink to="">Schedule</CustomLink> */}
                         <DropDown title="More">
                             <Link
@@ -84,12 +92,7 @@ function Navbar() {
                             >
                                 Our Team
                             </Link>
-                            <Link
-                                className="px-6 py-2 hover:bg-gray-100"
-                                to="/our-partners"
-                            >
-                                Our Partners
-                            </Link>
+                           
                         </DropDown>
                     </div>
                     {currentUser ? (
@@ -171,13 +174,19 @@ function Navbar() {
                     >
                         <span className="font-semibold"> Zingaat </span> : Cultural Night
                     </Link>
+                    {/* <Link
+                        className="text-sm font-thin px-6 py-4 sm:py-2 sm:hover:bg-gray-100 border-t border-primary sm:border-none"
+                        to="/k12"
+                    >
+                        <span className="font-semibold"> K-12 </span> : School Events
+                    </Link> */}
                 </DropDown>
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
                 <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
                 {/* <CustomLink to="">Schedule</CustomLink> */}
+                <CustomLink to="/our-partners">Our Partners</CustomLink>
                 <CustomLink to="/about-us">About Us</CustomLink>
                 <CustomLink to="/contact-us">Our Team</CustomLink>
-                <CustomLink to="/our-partners">Our Partners</CustomLink>
             </div>
         </>
     );

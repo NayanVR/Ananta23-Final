@@ -1,82 +1,109 @@
 {
-    "Partners": [
+    "Partnersmain": [
       
+     
         {
-            "image": "GSFC ltd.png"
-            
-            
-        },
-        {
-            "image": "GGRC.png"
-            
+            "image": "GSFC.png",
+            "category": "Title Sponsor"
 
             
         },
         {
-            "image": "PMC.png"
-            
-        },
-        {
-            "image": "IMS.png"
-        },
-        {
-            "image": "AWS.png"
-        },
-        {
-            "image": "GDG.png"
-        },
-        {
-            "image": "PaperCut.png"
+            "image": "GGRC.png",
+            "category": "Powered By"
         }
-
+       
        
        
       
 
     ],
-    "Partner2": [
+  
+    "Partners": [
+      
+     
         {
-            "image": "GSFC ltd.png"
-            
-            
-        },
-        {
-            "image": "GGRC.png"
-            
-        },
-        {
-            "image": "PMC.png"
+            "image": "Gacl.png",
+            "category": "Green Tech Partner"
+
             
         },
         {
-            "image":"GIPCL.png"
+            "image": "PMC.png",
+            "category": "Technology Partner"
         },
         {
-            "image":"RED.png"
+            "image": "IMS.png",
+            "category": "CAT GRE-GMAT Partner"
         },
         {
-            "image": "Kanan.png"
-            
+            "image": "Glocal Colliance.png",
+            "category": "Overseas Partner"
+        },
+        {
+            "image": "AWS.png",
+            "category": "Community Partner"
+        },
+        {
+            "image": "GDG.png",
+            "category": "Community Partner"
+        },
+        {
+            "image": "INDUS.png",
+            "category": "Fire and Saftey Partner"
         },
         
         {
-            "image": "Glocal Colliance.png"
-            
+            "image": "ACUMEN.png",
+            "category": "GATE Partner"
         },
         
         {
-            "image": "IMS.png"
+            "image": "sahaj.png",
+            "category": "Education Partner"
         },
         {
-            "image":"AIE.png"
+            "image": "GIPCL.png",
+            "category": "Special Thanks"
         },
-       
         
         {
-            "image":"ACUMEN.png"
+            "image": "TREKON.png",
+            "category": "Travel Partner"
         },
         {
-            "image":"AOne.png"
+            "image": "JG.png",
+            "category": "Transportation Partner"
+        },
+        {
+            "image": "ELECTRIKE.png",
+            "category": "Mobility Partner"
+        },
+    
+
+        {
+            "image": "WTM.png",
+            "category": "Community Partner"
+        },
+        {
+            "image": "Guiitar.png",
+            "category": "Innovation Partner"
+        },
+        {
+            "image": "PaperCut.png",
+            "category": "Photography Partner"
+        },
+        
+        
+        {
+            "image": "TNN.png",
+            "category": "Digital Media Partner"
         }
+
+       
+       
+      
+
     ]
+  
 }

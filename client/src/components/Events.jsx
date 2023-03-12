@@ -32,13 +32,13 @@ function Events() {
         },
         {
             title: "Kalakriti",
-            sub: "Talk Show",
+            sub: "Workshops",
             desc: " Grab the chance to get hands-on experience of learning and showcasing your potential skills. This is definitely everything you want to explore!",
             link: "/kalakriti"
         },
         {
             title: "Equilibrium",
-            sub: "Guest Lectures",
+            sub: "Talk Show",
             desc: "Knowledge is an ever expanding concept, witnessing exceptional journeys and stories of our esteemed guests,  igniting the best out of you!",
             link: "/equilibrium"
         },
