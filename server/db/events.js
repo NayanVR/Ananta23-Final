@@ -1,3 +1,19 @@
+const closedEvents = [
+	// "IN_AA",
+	// "IN_ST",
+	// "SW_TH",
+	// "SW_RD",
+	// "SW_IPL",
+	// "SW_SG",
+	// "SW_BGMI",
+	// "SW_FF",
+	// "SW_V",
+	// "SW_SOM",
+	// "SW_MM",
+	// "SW_BBS",
+	// "SW_ER"
+]
+
 // Check Profile Status
 async function checkProfileStatus(conn, participantID) {
 	const [rows, fields] = await conn.execute(
@@ -96,8 +112,7 @@ async function removeTeamMember(conn, participantID, teamID) {
 	);
 	const isupdateEventRegCount = await updateEventRegistrationCount(
 		conn,
-		eventID,
-		"dec"
+		eventID
 	);
 
 	if (rows && isUpdateRegCount && isupdateEventRegCount) {
@@ -119,32 +134,59 @@ async function removeTeamMember(conn, participantID, teamID) {
 	}
 }
 
-async function updateEventRegistrationCount(conn, eventCode, option) {
+async function updateEventRegistrationCount(conn, eventCode) {
 	const [rows, fields] = await conn.execute(
-		`SELECT TotalRegistration FROM Events where EventCode = '${eventCode}'`
+		`SELECT HeadCount FROM Events where EventCode = '${eventCode}'`
 	);
 
-	if (rows.length > 0) {
-		let total = rows[0].TotalRegistration;
+	let regCount = 0;
 
-		console.log("Total Registration before: " + total);
+	if (rows.length > 0 && rows[0].HeadCount <= 1) {
 
-		if (option == "inc") {
-			total++;
-		} else if (option == "dec") {
-			total--;
-		}
+		const [getRegCountRows, getRegCountFields] = await conn.execute(`SELECT COUNT(*) as total FROM SoloRegistration WHERE EventCode = '${eventCode}'`);
 
-		console.log("Total Registration after: " + total);
-		const [updateRows, updateFields] = await conn.execute(
-			`update Events set TotalRegistration = ${total} where EventCode = "${eventCode}"`
-		);
-
-		if (updateRows) {
-			return true;
+		if (getRegCountRows.length > 0) {
+			regCount = getRegCountRows[0].total
 		} else {
-			return false;
+			regCount = 0;
 		}
+		console.log("Inside regCount =", regCount);
+
+		// console.log("Total Registration before: " + total);
+
+		// if (option == "inc") {
+		// 	total++;
+		// } else if (option == "dec") {
+		// 	total--;
+		// }
+
+		// console.log("Total Registration after: " + total);
+		// const [updateRows, updateFields] = await conn.execute(
+		// 	`update Events set TotalRegistration = ${total} where EventCode = "${eventCode}"`
+		// );
+
+		// if (updateRows) {
+		// 	return true;
+		// } else {
+		// 	return false;
+		// }
+	} else {
+		const [getRegCountRows, getRegCountFields] = await conn.execute(`SELECT COUNT(*) as total FROM TeamRegistration WHERE TeamID LIKE '${eventCode}%' AND Role = 'Leader'`);
+
+		if (getRegCountRows.length > 0) {
+			regCount = getRegCountRows[0].total
+		} else {
+			regCount = 0;
+		}
+		console.log("Inside regCount =", regCount);
+	}
+
+	console.log("Out of Condition, regCount =", regCount)
+
+	const [updateEventRows, updateEventFields] = await conn.execute(`UPDATE Events SET TotalRegistration = ${regCount} WHERE EventCode = '${eventCode}'`);
+
+	if (updateEventRows) {
+		return true;
 	} else {
 		return false;
 	}
@@ -164,8 +206,7 @@ async function deleteEvent(
 		);
 		const isEventRegCount = await updateEventRegistrationCount(
 			conn,
-			eventCode,
-			"dec"
+			eventCode
 		);
 		const isUpdateRegCount = await updateRegCount(
 			conn,
@@ -229,8 +270,7 @@ async function deleteEvent(
 						)) &&
 						(await updateEventRegistrationCount(
 							conn,
-							eventCode,
-							"dec"
+							eventCode
 						))
 					) {
 						console.log("Team Member Delete Complete.");
@@ -253,8 +293,7 @@ async function deleteEvent(
 						)) &&
 						(await updateEventRegistrationCount(
 							conn,
-							eventCode,
-							"dec"
+							eventCode
 						))
 					) {
 						console.log("Participant events count updated...");
@@ -295,6 +334,15 @@ async function deleteEvent(
 // =========================== Validating the Selected Event ===========================
 
 async function checkEvent(conn, eventCode, participantID) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
+
 	// Check Profile
 	if ((await checkProfileStatus(conn, participantID)) == false) {
 		return { code: 200, message: "Profile", type: "Warning" };
@@ -505,6 +553,14 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 
   */
 
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "info",
+		};
+	}
+
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -536,7 +592,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 		if (soloRegisterRows) {
 			if (
 				(await updateRegCount(conn, eventCode, participantID, "inc")) &&
-				(await updateEventRegistrationCount(conn, eventCode, "inc"))
+				(await updateEventRegistrationCount(conn, eventCode))
 			) {
 				return {
 					code: 200,
@@ -593,6 +649,14 @@ async function genTeamID(conn, eventCode) {
 // =========================== Create Team Starts ===========================
 
 async function createTeam(conn, eventCode, participantID, teamName) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
 
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
@@ -657,7 +721,7 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 						participantID,
 						"inc"
 					)) &&
-					(await updateEventRegistrationCount(conn, eventCode, "inc"))
+					(await updateEventRegistrationCount(conn, eventCode))
 				) {
 					return {
 						code: 200,
@@ -690,6 +754,14 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 // =========================== Join Team Starts ===========================
 
 async function joinTeam(conn, eventCode, participantID, teamID) {
+
+	if (closedEvents.includes(eventCode)) {
+		return {
+			code: 500,
+			message: "Registration Will Open Soon",
+			type: "Info",
+		};
+	}
 
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
@@ -822,6 +894,7 @@ async function getTeamInfo(conn, teamID) {
 // Exporting All Modules...
 module.exports = {
 	checkEvent,
+	updateEventRegistrationCount,
 	registerSoloEvent,
 	createTeam,
 	joinTeam,

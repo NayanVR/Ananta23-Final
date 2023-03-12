@@ -7,7 +7,7 @@ function Events() {
 
     const events = [
         {
-            title: "Inertia ",
+            title: "Inertia",
             sub: "Technical Event",
             desc: "Technical Skills are mastery of complexity, sharpen up your knowledge with a series of fun yet competitive events.",
             link: "/inertia"
@@ -38,7 +38,7 @@ function Events() {
         },
         {
             title: "Equilibrium",
-            sub: "Talk Show",
+            sub: "Talk Shows",
             desc: "Knowledge is an ever expanding concept, witnessing exceptional journeys and stories of our esteemed guests,  igniting the best out of you!",
             link: "/equilibrium"
         },

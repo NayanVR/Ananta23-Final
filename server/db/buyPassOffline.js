@@ -1,11 +1,11 @@
 // const e = require("express");
 const { genPaymentID } = require("./util");
+const { updateEventRegistrationCount } = require("./events");
 const { buyPassMail } = require("./mails");
 
 const passes = require("../assets/passes.json");
 
 async function updateMarketeersRegistrationCount(conn) {
-
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -19,7 +19,6 @@ async function updateMarketeersRegistrationCount(conn) {
 	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
 		"0" + date.getSeconds()
 	).slice(-2)}`;
-
 
 	const [rows, fields] = await conn.execute(
 		`SELECT TotalRegistration, TotalSchools, TotalWorkshops, Funds, AllInOne.EnrollmentNo from 
@@ -78,7 +77,7 @@ async function updateMarketeersRegistrationCount(conn) {
 		await conn.execute(
 			`update Marketeers set TotalRegistrations = 0, Income = 0, TotalWorkshopsReg = 0, TotalSchools = 0, updated_at = '${timestamp}'`
 		);
-		
+
 		// console.log(rows);
 		let i = 0;
 		for (i; i < rows.length; i++) {
@@ -97,15 +96,19 @@ async function updateMarketeersRegistrationCount(conn) {
 				rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0
 			}, TotalSchools = ${
 				rows[i].TotalSchools != null ? rows[i].TotalSchools : 0
-			}, updated_at = '${timestamp}' where EnrollmentNo = '${rows[i].EnrollmentNo}'`;
+			}, updated_at = '${timestamp}' where EnrollmentNo = '${
+				rows[i].EnrollmentNo
+			}'`;
 			// console.log(sqlquery);
 			const [updateRows, updateFields] = await conn.execute(sqlquery);
 		}
-		
+
 		if (i == rows.length) {
 			console.log("✔ Marketeers Records has been updated successfully.");
 
-			const [rows, fields] = await conn.execute(`SELECT TeamID, sum(TotalWorkshopsReg) as Workshops, sum(TotalRegistrations) as Reg, sum(TotalSchools) as School, sum(Income) as Income from Marketeers group by TeamID;`);
+			const [rows, fields] = await conn.execute(
+				`SELECT TeamID, sum(TotalWorkshopsReg) as Workshops, sum(TotalRegistrations) as Reg, sum(TotalSchools) as School, sum(Income) as Income from Marketeers group by TeamID;`
+			);
 
 			if (rows.length > 0) {
 				await conn.execute(
@@ -116,16 +119,16 @@ async function updateMarketeersRegistrationCount(conn) {
 				for (i; i < rows.length; i++) {
 					const [updateRows, updateFields] = await conn.execute(
 						`update MarketingTeams set TotalRegistrations = ${
-							rows[i].Reg != null
-								? rows[i].Reg
-								: 0
+							rows[i].Reg != null ? rows[i].Reg : 0
 						}, Income = ${
 							rows[i].Income != null ? rows[i].Income : 0
 						}, TotalWorkshopsReg = ${
 							rows[i].Workshops != null ? rows[i].Workshops : 0
 						}, TotalSchools = ${
 							rows[i].School != null ? rows[i].School : 0
-						}, updated_at = '${timestamp}' where TeamID = '${rows[i].TeamID}'`
+						}, updated_at = '${timestamp}' where TeamID = '${
+							rows[i].TeamID
+						}'`
 					);
 				}
 				if (i == rows.length) {
@@ -149,7 +152,6 @@ async function updateMarketeersRegistrationCount(conn) {
 }
 
 async function updateUniversityRegistratioin(conn) {
-
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -163,7 +165,6 @@ async function updateUniversityRegistratioin(conn) {
 	).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${(
 		"0" + date.getSeconds()
 	).slice(-2)}`;
-
 
 	const [rows, fields] = await conn.execute(
 		`select t1.University as University, t1.TotalPasses as TotalPasses, t2.TotalWorkshops as TotalWorkshops, t1.Income as IncomePass, t2.Income as IncomeWorkshop from 
@@ -185,8 +186,9 @@ async function updateUniversityRegistratioin(conn) {
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
-			let income = parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop);
-			console.log(typeof income,income)
+			let income =
+				parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop);
+			console.log(typeof income, income);
 			const [updateRows, updateFields] = await conn.execute(
 				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
@@ -203,7 +205,6 @@ async function updateUniversityRegistratioin(conn) {
 }
 
 async function updateSoldPasses(conn) {
-
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -223,7 +224,9 @@ async function updateSoldPasses(conn) {
 	);
 
 	if (rows.length > 0) {
-		const [r, f] = await conn.execute(`update Passes set Sold=0, Timestamp = '${timestamp}'`);
+		const [r, f] = await conn.execute(
+			`update Passes set Sold=0, Timestamp = '${timestamp}'`
+		);
 
 		let i = 0;
 		for (i; i < rows.length; i++) {
@@ -413,7 +416,7 @@ async function buyPassOffline(
 			`insert into SoloRegistration (EventCode, ParticipantID, Timestamp) values ('${passCode}', '${participantID}', '${timestamp}')`
 		);
 
-		if (regKKRows) {
+		if (regKKRows && (await updateEventRegistrationCount(conn, passCode))) {
 			console.log(
 				"✔ Payment Record inserted into SoloRegistration Table."
 			);
