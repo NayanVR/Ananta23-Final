@@ -139,24 +139,84 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 				["PS-B", "PS-S", "PS-G", "PS-C", "PS-DJ"].includes(
 					parPassCode
 				) &&
-				["PS-S", "PS-G", "PS-C"].includes(selectedPassCode)
+				["PS-S", "PS-G", "PS-C", "PS-AIO"].includes(selectedPassCode)
 			) {
 
-				const [paymentPendingRows, paymentPendingFields] = await conn.execute(
-					`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
-					passes[parPassCode].Amount});`
-				);
+				if (selectedPassCode === "PS-AIO") {
 
-				return {
-					code: 200,
-					resMessage: {
-						message: "Upgrade Pass",
-						type: "success",
-						payAmount:
-							passes[selectedPassCode].Amount -
-							passes[parPassCode].Amount,
-					},
-				};
+					const [regWorkshopRows, regWorkshopFields] = await conn.execute(
+						`SELECT * FROM SoloRegistration where ParticipantID = '${participantID}' and EventCode like 'KK%';`
+					);
+
+					if (regWorkshopRows.length > 0) {
+
+						// Count of Workshops Registered
+						let totalWorkshopAmount = 0;
+						regWorkshopRows.forEach((workshop) => {
+							let wsCode = workshop["EventCode"];
+							let wsCodeForPasses = "KKPS-" + wsCode.substring(3);
+							totalWorkshopAmount += passes[wsCodeForPasses].Amount;
+						});
+
+						const amountToPay = passes[selectedPassCode].Amount - (passes[parPassCode].Amount + totalWorkshopAmount);
+
+						if (amountToPay > 0) {
+							const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+								`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${amountToPay});`
+							);
+
+							return {
+								code: 200,
+								resMessage: {
+									message: "Upgrade Pass",
+									type: "success",
+									payAmount: amountToPay,
+								},
+							};
+						} else {
+							return {
+								code: 200,
+								resMessage: {
+									message: "Please contact to Authorized person!",
+									type: "error"
+								},
+							};
+						}
+
+					} else {
+						const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+							`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
+							passes[parPassCode].Amount});`
+						);
+
+						return {
+							code: 200,
+							resMessage: {
+								message: "Upgrade Pass",
+								type: "success",
+								payAmount:
+									passes[selectedPassCode].Amount -
+									passes[parPassCode].Amount,
+							},
+						};
+					}
+				} else {
+					const [paymentPendingRows, paymentPendingFields] = await conn.execute(
+						`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
+						passes[parPassCode].Amount});`
+					);
+
+					return {
+						code: 200,
+						resMessage: {
+							message: "Upgrade Pass",
+							type: "success",
+							payAmount:
+								passes[selectedPassCode].Amount -
+								passes[parPassCode].Amount,
+						},
+					};
+				}
 			}
 
 			// If Pass is DJ Pass
