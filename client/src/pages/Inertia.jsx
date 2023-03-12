@@ -75,8 +75,8 @@ function Inertia() {
 				toast(response.message, {
 					icon: "👍🏻",
 				});
-			} else {
 			}
+
 			if (response.Category == "Solo") {
 				setIsSoloOpen(true);
 			} else if (response.Category == "Team") {

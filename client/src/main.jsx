@@ -64,6 +64,7 @@ const Team = lazy(() => import('./pages/Team'));
 const Hardworking = lazy(() => import('./pages/Hardworking'));
 const MyEvents = lazy(() => import('./pages/MyEvents'));
 const QOTD = lazy(() => import('./pages/QOTD'));
+const K12 = lazy(() => import('./pages/K12'));
 const Testimonial = lazy(() => import('./components/Testimonial'));
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -104,6 +105,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/myevents" element={<PrivateRoute element={<MyEvents />} />} />
             <Route path="/hardworkers" element={<Hardworking />} />
             <Route path="/qotd" element={<QOTD />} />
+            <Route path="/k12" element={<K12 />} />
             <Route path="/testimonial" element={<Testimonial />} />
           </Routes>
         </Suspense>

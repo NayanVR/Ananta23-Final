@@ -44,6 +44,15 @@
 		"TotalWorkshops": 0,
 		"Atmos": 1
 	},
+	"PS-AIO": {
+		"Amount": 1000,
+		"DP": 3200,
+		"Kit": 1,
+		"TotalEvents": 21,
+		"TotalGuests": 6,
+		"TotalWorkshops": 5,
+		"Atmos": 1
+	},
 	"KKPS-BI": {
 		"Amount": 200,
 		"DP": 1000,

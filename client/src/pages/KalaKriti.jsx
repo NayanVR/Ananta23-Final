@@ -19,6 +19,8 @@ function KalaKrirti() {
   // console.log(profile);
   const serverURL = import.meta.env.VITE_SERVER_URL;
   const UPI = import.meta.env.VITE_UPI;
+  let email = "";
+  if (currentUser) email = currentUser["email"];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -27,6 +29,10 @@ function KalaKrirti() {
 
   const [isConfModalOpen, setIsConfModalOpen] = useState(false);
   const [isAreadyOpened, setIsAreadyOpened] = useState(false);
+  const [isSoloOpen, setIsSoloOpen] = useState(false);
+
+  const [selectedPassName, setSelectedPassName] = useState("");
+  const [selectedPassCode, setSelectedPassCode] = useState("")
 
   const navigate = useNavigate();
 
@@ -98,6 +104,9 @@ function KalaKrirti() {
 
     const PID = profile.ParticipantID;
 
+    setSelectedPassCode(passCode);
+    setSelectedPassName(name);
+
     currentUser.getIdToken().then((token) => {
       fetch(serverURL + "/api/secure/workshop/check", {
         method: "POST",
@@ -109,7 +118,6 @@ function KalaKrirti() {
       })
         .then(data => data.json())
         .then(data => {
-          const amt = data.Amount;
           if (data.type === "info") {
             toast(data.message, {
               icon: "👍🏻",
@@ -120,11 +128,20 @@ function KalaKrirti() {
               icon: "⚠️",
             });
           } else if (data.type === "success") {
+            const amt = data.amount;
             if (PID) {
-              const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
-              setPaymentUrl(url);
-              setIsAreadyOpened(false);
-              showPaymentModal(amt, passCode);
+              if (amt === 0) {
+                setIsSoloOpen(true);
+              } else {
+                const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`;
+                setPaymentUrl(url);
+                setIsAreadyOpened(false);
+                showPaymentModal(amt, passCode);
+              }
+            } else {
+              toast.error("Internal Server Error", {
+                duration: 3000,
+              });
             }
           } else if (data.type === "error") {
             toast.error(data.message, { duration: 3000 });
@@ -132,6 +149,34 @@ function KalaKrirti() {
         })
 
     })
+  }
+
+  async function handleSoloRegistration() {
+    currentUser.getIdToken().then(async (token) => {
+      const solo = await fetch(
+        serverURL + "/api/secure/events/solo/register",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ selectedEventCode: selectedPassCode, email }),
+        }
+      );
+      const response = await solo.json();
+      // console.log(response);
+      if (response.type == "success") {
+        toast.success(response.message, { duration: 3000 });
+        setIsSoloOpen(false);
+      } else if (response.type === "info") {
+        toast(response.message, {
+          icon: "⚠️",
+        });
+      } else {
+        toast.error(response.message, { duration: 3000 });
+      }
+    });
   }
 
   return (
@@ -152,6 +197,7 @@ function KalaKrirti() {
         ))}
       </div>
 
+      {/* QR Modal */}
       <Transition appear show={isModalOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -270,13 +316,16 @@ function KalaKrirti() {
         </Dialog>
       </Transition>
 
+      {/* Confirmation Modal */}
       <Transition appear show={isConfModalOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-10"
           onClose={(_) => {
             setIsConfModalOpen(false);
-            setIsAreadyOpened(true);
+            setTimeout(() => {
+              setIsAreadyOpened(true);
+            }, 500);
           }}
         >
           <Transition.Child
@@ -317,7 +366,9 @@ function KalaKrirti() {
                     className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-2 py-0 text-lg font-medium text-[#F2FFFE]  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
                     onClick={(_) => {
                       setIsConfModalOpen(false);
-                      setIsAreadyOpened(true);
+                      setTimeout(() => {
+                        setIsAreadyOpened(true);
+                      }, 500);
                     }}
                   >
                     x
@@ -337,7 +388,9 @@ function KalaKrirti() {
                         style={{ margin: "auto" }}
                         onClick={() => {
                           setIsConfModalOpen(false);
-                          setIsAreadyOpened(true);
+                          setTimeout(() => {
+                            setIsAreadyOpened(true);
+                          }, 500);
                         }}
                       >
                         OKAY
@@ -350,6 +403,81 @@ function KalaKrirti() {
           </div>
         </Dialog>
       </Transition>
+
+      {/* Solo */}
+      <Transition appear show={isSoloOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={_ => { setIsSoloOpen(false) }}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel
+                  className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border-y-4 border-[#012C3D]"
+                  style={{ backgroundColor: "#ffffff" }}
+                >
+                  <Dialog.Title
+                    as="h3"
+                    className="text-center text-lg font-medium leading-6 text-gray-900 mb-6"
+                  >
+                    Confirm Registration
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-center text-sm text-gray-500 mb-6">
+                      Please confirm your registration for '
+                      <i>
+                        <b>{selectedPassName}</b>
+                      </i>
+                      '.
+                    </p>
+                  </div>
+                  <div className="flex m-auto w-min">
+                    <div className="mx-4">
+                      <button
+                        type="button"
+                        className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#012C3D] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#1C7690] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+                        style={{ margin: "auto" }}
+                        onClick={handleSoloRegistration}
+                      >
+                        Register
+                      </button>
+                    </div>
+                    <div className="mx-4">
+                      <button
+                        type="button"
+                        className="mx-6 inline-flex justify-center rounded-md border border-transparent bg-[#DC3545] px-4 py-2 text-sm font-medium text-[#F2FFFE] hover:bg-[#db6e78] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
+                        style={{ margin: "auto" }}
+                        onClick={_ => { setIsSoloOpen(false) }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
     </>
   );
 }

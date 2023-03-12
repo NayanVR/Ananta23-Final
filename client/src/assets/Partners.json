@@ -1,11 +1,11 @@
 {
-    
-    "Title":[
+    "Partnersmain": [
+      
+     
         {
-            "image": "GSFC ltd.png",
-            "title": "GSFC Ltd"
+            "image": "GSFC.png",
+            "category": "Title Sponsor"
 
-            
             
         }
     ],
@@ -13,83 +13,100 @@
     "Co":[
         {
             "image": "GGRC.png",
-            "title": "Powered By "
-            
+            "category": "Powered By"
+        }
+       
+       
+       
+      
+
+    ],
+  
+    "Partners": [
+      
+     
+        {
+            "image": "Gacl.png",
+            "category": "Green Tech Partner"
 
             
         },
         {
             "image": "PMC.png",
-            "title": "Owned By"
-            
-        }
-    ],
+            "category": "Technology Partner"
+        },
+        {
+            "image": "IMS.png",
+            "category": "CAT GRE-GMAT Partner"
+        },
+        {
+            "image": "Glocal Colliance.png",
+            "category": "Overseas Partner"
+        },
+        {
+            "image": "AWS.png",
+            "category": "Community Partner"
+        },
+        {
+            "image": "GDG.png",
+            "category": "Community Partner"
+        },
+        {
+            "image": "INDUS.png",
+            "category": "Fire and Saftey Partner"
+        },
+        
+        {
+            "image": "ACUMEN.png",
+            "category": "GATE Partner"
+        },
+        
+        {
+            "image": "sahaj.png",
+            "category": "Education Partner"
+        },
+        {
+            "image": "GIPCL.png",
+            "category": "Special Thanks"
+        },
+        
+        {
+            "image": "TREKON.png",
+            "category": "Travel Partner"
+        },
+        {
+            "image": "JG.png",
+            "category": "Transportation Partner"
+        },
+        {
+            "image": "ELECTRIKE.png",
+            "category": "Mobility Partner"
+        },
     
-    "Partners": [
-      
-      
-     
+
         {
-            "image": "IMS.png"
+            "image": "WTM.png",
+            "category": "Community Partner"
         },
         {
-            "image": "AWS.png"
+            "image": "Guiitar.png",
+            "category": "Innovation Partner"
         },
         {
-            "image": "GDG.png"
+            "image": "PaperCut.png",
+            "category": "Photography Partner"
         },
+        
+        
         {
-            "image": "PaperCut.png"
+            "image": "TNN.png",
+            "category": "Digital Media Partner"
         }
 
        
        
       
 
-    ],
-    "Partner2": [
-        {
-            "image": "GSFC ltd.png"
-            
-            
-        },
-        {
-            "image": "GGRC.png"
-            
-        },
-        {
-            "image": "PMC.png"
-            
-        },
-        {
-            "image":"GIPCL.png"
-        },
-        {
-            "image":"RED.png"
-        },
-        {
-            "image": "Kanan.png"
-            
-        },
-        
-        {
-            "image": "Glocal Colliance.png"
-            
-        },
-        
-        {
-            "image": "IMS.png"
-        },
-        {
-            "image":"AIE.png"
-        },
-       
-        
-        {
-            "image":"ACUMEN.png"
-        },
-        {
-            "image":"AOne.png"
-        }
     ]
+  
 }

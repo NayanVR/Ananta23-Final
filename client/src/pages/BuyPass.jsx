@@ -8,7 +8,7 @@ import goldMark from "../assets/icons/Gold_mark.svg";
 import silverMark from "../assets/icons/Silver_mark.svg";
 import bronzeMark from "../assets/icons/Bronze_mark.svg";
 import comboMark from "../assets/icons/Combo_mark.svg";
-import combo2Mark from "../assets/icons/Combo2_mark.svg";
+import AIOMark from "../assets/icons/AIO_mark.svg";
 import djMark from "../assets/icons/Dj_mark.svg";
 import { QRCode } from "react-qrcode-logo";
 import { useNavigate } from "react-router-dom";
@@ -88,6 +88,17 @@ function BuyPass() {
 			],
 			color: "#FFDF00",
 		},
+		{
+			id: "PS-AIO",
+			name: "All In One",
+			markImg: AIOMark,
+			price: 1000,
+			features: [
+				"Access to all Events, Workshops and DJ",
+				"3200 Ananta Coins"
+			],
+			color: "#1F93FF",
+		}
 	];
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -109,7 +120,9 @@ function BuyPass() {
 	function handleFocusChange(e) {
 		if (isModalOpen && !isAreadyOpened) {
 			setIsModalOpen(false);
-			setIsConfModalOpen(true);
+			setTimeout(() => {
+				setIsConfModalOpen(true);
+			}, 500);
 		}
 	}
 
