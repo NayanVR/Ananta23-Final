@@ -120,7 +120,9 @@ function BuyPass() {
 	function handleFocusChange(e) {
 		if (isModalOpen && !isAreadyOpened) {
 			setIsModalOpen(false);
-			setIsConfModalOpen(true);
+			setTimeout(() => {
+				setIsConfModalOpen(true);
+			}, 500);
 		}
 	}
 

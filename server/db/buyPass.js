@@ -141,52 +141,19 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 				) &&
 				["PS-S", "PS-G", "PS-C", "PS-AIO"].includes(selectedPassCode)
 			) {
-
+				
 				if (selectedPassCode === "PS-AIO") {
-
-					const [regWorkshopRows, regWorkshopFields] = await conn.execute(
-						`SELECT * FROM SoloRegistration where ParticipantID = '${participantID}' and EventCode like 'KK%';`
+					
+					const [amountPaidRows, amountPaidFields] = await conn.execute(
+						`SELECT sum(TxnAmount) FROM anantaonfire.PaymentsOffline where ParticipantID = '${participantID}'`
 					);
+	
+					const amountToPay = passes[selectedPassCode].Amount - amountPaidRows[0]["sum(TxnAmount)"];
+					
+					if (amountToPay > 0) {
 
-					if (regWorkshopRows.length > 0) {
-
-						// Count of Workshops Registered
-						let totalWorkshopAmount = 0;
-						regWorkshopRows.forEach((workshop) => {
-							let wsCode = workshop["EventCode"];
-							let wsCodeForPasses = "KKPS-" + wsCode.substring(3);
-							totalWorkshopAmount += passes[wsCodeForPasses].Amount;
-						});
-
-						const amountToPay = passes[selectedPassCode].Amount - (passes[parPassCode].Amount + totalWorkshopAmount);
-
-						if (amountToPay > 0) {
-							const [paymentPendingRows, paymentPendingFields] = await conn.execute(
-								`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${amountToPay});`
-							);
-
-							return {
-								code: 200,
-								resMessage: {
-									message: "Upgrade Pass",
-									type: "success",
-									payAmount: amountToPay,
-								},
-							};
-						} else {
-							return {
-								code: 200,
-								resMessage: {
-									message: "Please contact to Authorized person!",
-									type: "error"
-								},
-							};
-						}
-
-					} else {
 						const [paymentPendingRows, paymentPendingFields] = await conn.execute(
-							`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
-							passes[parPassCode].Amount});`
+							`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${amountToPay});`
 						);
 
 						return {
@@ -194,16 +161,28 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 							resMessage: {
 								message: "Upgrade Pass",
 								type: "success",
-								payAmount:
-									passes[selectedPassCode].Amount -
-									passes[parPassCode].Amount,
+								payAmount: amountToPay,
+							},
+						};
+					} else {
+						return {
+							code: 200,
+							resMessage: {
+								message: "Please contact to Authorized person!",
+								type: "error"
 							},
 						};
 					}
 				} else {
+
+					const [amountPaidRows, amountPaidFields] = await conn.execute(
+						`SELECT sum(TxnAmount) FROM PaymentsOffline where ParticipantID = '${participantID}' and PassCode like 'PS%';`
+					);
+	
+					const amountToPay = passes[selectedPassCode].Amount - amountPaidRows[0]["sum(TxnAmount)"];
+
 					const [paymentPendingRows, paymentPendingFields] = await conn.execute(
-						`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${passes[selectedPassCode].Amount -
-						passes[parPassCode].Amount});`
+						`INSERT INTO PaymentPending (ParticipantID, Email, Firstname, Lastname, PassCode, PassName, PurchaseType, Amount) VALUES ('${participantID}', '${email}', '${fName}', '${lName}', '${selectedPassCode}', '${passName}', 'Upgrade', ${amountToPay});`
 					);
 
 					return {
@@ -211,9 +190,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 						resMessage: {
 							message: "Upgrade Pass",
 							type: "success",
-							payAmount:
-								passes[selectedPassCode].Amount -
-								passes[parPassCode].Amount,
+							payAmount: amountToPay,
 						},
 					};
 				}
