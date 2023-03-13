@@ -2,8 +2,7 @@
 const { genPaymentID } = require("./util");
 const { updateEventRegistrationCount } = require("./events");
 const { buyPassMail } = require("./mails");
-
-const passes = require("../assets/passes.json");
+const { updateParCoins } = require("./AnantaCoins");
 
 async function updateMarketeersRegistrationCount(conn) {
 	const date = new Date(
@@ -151,7 +150,7 @@ async function updateMarketeersRegistrationCount(conn) {
 	return false;
 }
 
-async function updateUniversityRegistratioin(conn) {
+async function updateUniversityRegistration(conn) {
 	const date = new Date(
 		new Date().toLocaleString("en-us", {
 			timeZone: "Asia/Calcutta",
@@ -188,7 +187,7 @@ async function updateUniversityRegistratioin(conn) {
 		for (i; i < rows.length; i++) {
 			let income =
 				parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop);
-			console.log(typeof income, income);
+			// console.log(typeof income, income);
 			const [updateRows, updateFields] = await conn.execute(
 				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
@@ -245,13 +244,16 @@ async function updateSoldPasses(conn) {
 	return false;
 }
 
-async function getOldPassAmount(conn, participantID) {
+async function getTxnAmount(conn, participantID) {
 	const [rows, fields] = await conn.execute(
-		`SELECT TxnAmount FROM Participants where ParticipantID = '${participantID}'`
+		`SELECT sum(TxnAmount) as sum FROM PaymentsOffline where ParticipantID = '${participantID}'`
 	);
 
 	if (rows.length > 0) {
-		return rows[0].TxnAmount;
+		if (rows[0].sum == null){
+			return 0;
+		}
+		return rows[0].sum;
 	}
 	return 0;
 }
@@ -303,12 +305,33 @@ async function buyPassOffline(
 	enrollmentNo,
 	accessToken,
 	payMode
-) {
+	) {
+
 	const authenticate = await autheticateUser(conn, enrollmentNo, accessToken);
 
 	if (authenticate.resMessage.type == "error") {
 		return authenticate;
 	}
+
+	const [oldRow, oldField] = await conn.execute(`SELECT * FROM Participants where ParticipantID = '${participantID}'`);
+	if (oldRow.length > 0){
+		if (oldRow[0].PassCode == 'PS-AIO') {
+			console.log("⦿ Pass Up-to-Date...");
+			return {
+				code: 200,
+				resMessage: {
+					message: "Pass Up-to-date",
+					type: "success",
+				},
+			};
+		} 
+
+	}
+
+	console.log("PassCode is "+passCode);
+
+	const [passRow, passField] = await conn.execute(`SELECT * FROM Passes where PassCode = '${passCode}'`);
+
 
 	/* 
     Following Steps must follow to Complete the Payment Process:
@@ -363,7 +386,7 @@ async function buyPassOffline(
 		);
 
 		if (atmosRows[0].Count == 0) {
-			if (["PS-DJ", "PS-C"].includes(passCode)) {
+			if (["PS-DJ", "PS-C", "PS-AIO"].includes(passCode)) {
 				const [atmosRows, atmosFields] = await conn.execute(
 					`INSERT INTO Atmos (ParticipantID, Timestamp) VALUES ('${participantID}', '${timestamp}') `
 				);
@@ -376,16 +399,15 @@ async function buyPassOffline(
 			}
 		}
 
-		const oldAmount = await getOldPassAmount(conn, participantID);
+		const amount = await getTxnAmount(conn, participantID);
 
+		console.log("Kit : ", passRow[0].Kit);
 		// Updating the Participant's Pass and Payment Info...
 		const [parUpdateRows, parUpdateFields] = await conn.execute(
 			`UPDATE Participants SET PassCode = '${passCode}', PaymentID = '${paymentID}', PaymentMode = '${payMode}', TxnAmount = ${
-				payAmt + oldAmount
+				amount
 			}, TxnStatus = 'TXN_SUCCESS', Kit = ${
-				passes[passCode]["Kit"]
-			}, DigitalPoints = ${
-				passes[passCode]["DP"]
+				passRow[0].Kit
 			}, ContactPerson = '${enrollmentNo}', Timestamp = '${timestamp}', UpdatedAt = '${timestamp}' WHERE ParticipantID = '${participantID}'`
 		);
 
@@ -467,9 +489,10 @@ async function buyPassOffline(
 	}
 
 	if (
-		(await updateSoldPasses(conn)) &&
+		(await updateParCoins(conn, participantID)) &&
 		(await updateMarketeersRegistrationCount(conn)) &&
-		(await updateUniversityRegistratioin(conn))
+		(await updateSoldPasses(conn)) &&
+		(await updateUniversityRegistration(conn))
 	) {
 		res.resMessage.message += ", PassesSoldUpdated";
 		res.resMessage.updateSold = 1;

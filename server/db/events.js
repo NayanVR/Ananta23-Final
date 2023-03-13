@@ -14,6 +14,8 @@ const closedEvents = [
 	// "SW_ER"
 ]
 
+const { updateParCoins } = require("./AnantaCoins");
+
 // Check Profile Status
 async function checkProfileStatus(conn, participantID) {
 	const [rows, fields] = await conn.execute(
@@ -589,7 +591,7 @@ async function registerSoloEvent(conn, eventCode, participantID) {
 			`INSERT INTO SoloRegistration (ParticipantID, EventCode, Timestamp) VALUES ('${participantID}', '${eventCode}', '${timestamp}')`
 		);
 
-		if (soloRegisterRows) {
+		if (soloRegisterRows && await updateParCoins(conn, participantID)) {
 			if (
 				(await updateRegCount(conn, eventCode, participantID, "inc")) &&
 				(await updateEventRegistrationCount(conn, eventCode))

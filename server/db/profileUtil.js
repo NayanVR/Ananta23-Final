@@ -3,7 +3,7 @@ const { genParticipantID } = require('./util');
 async function createProfile(conn, transporter, email, googleAuth, profileImg) {
 
     const date = new Date(
-        new Date().toLocaleString("en-in", {
+        new Date().toLocaleString("en-us", {
             timeZone: "Asia/Calcutta",
         })
     );

@@ -25,6 +25,7 @@ const {
 	removeTeamMember
 } = require("./db/events");
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
+const { updateParCoins } = require("./db/AnantaCoins");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { autheticateUser, buyPassOffline } = require("./db/buyPassOffline");
@@ -37,6 +38,7 @@ const { checkForWorkshop } = require("./db/workshopRegister");
 const app = express();
 const port = process.env.PORT || 3000;
 let conn;
+
 
 // --------------- Initializing the MySQL Database Connection....
 (async function initDB() {
@@ -762,6 +764,17 @@ app.post("/api/sendMail", async (req, res) => {
 	} else {
 		return res.send("Authentication Failed");
 	}
+});
+
+app.get("/api/updateAP", async (req, res) => {
+	const [parRows, parFields] = await conn.execute('SELECT * FROM Participants where TxnAmount > 0');
+	if (parRows.length > 0) {
+		for(let i = 0; i<parRows.length; i++){
+			console.log("Participant No.:" + i+1);
+			await updateParCoins(conn, parRows[i].ParticipantID);
+		}
+	}
+	return res.json("Ananta Coins Updated Successfully...");
 });
 
 
