@@ -146,37 +146,39 @@ function BuyPass() {
 		const passName = passes.find((pass) => pass.id === passCode).name;
 		// console.log(profile.ParticipantID);
 
-		const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + currentUser.accessToken,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ passCode, PID, fName, lName, passName }),
-		});
-		const check = await res.json();
-		// console.log(check);
-		const amt = await check.payAmount;
+		currentUser.getIdToken().then(async (token) => {
+			const res = await fetch(serverURL + "/api/secure/pass/buy/check", {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + token,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ passCode, PID, fName, lName, passName }),
+			});
+			const check = await res.json();
+			// console.log(check);
+			const amt = await check.payAmount;
 
-		if (check.message == "Profile Not Completed") {
-			window.location.href = "/profile";
-		} else if (check.message == "Buying First Pass") {
-			if (PID) {
-				const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`
-				setPaymentUrl(url);
-				setIsAreadyOpened(false);
-				showPaymentModal(amt, passCode);
+			if (check.message == "Profile Not Completed") {
+				window.location.href = "/profile";
+			} else if (check.message == "Buying First Pass") {
+				if (PID) {
+					const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=FP_${passCode}_${PID}&cu=INR`
+					setPaymentUrl(url);
+					setIsAreadyOpened(false);
+					showPaymentModal(amt, passCode);
+				}
+			} else if (check.message == "Upgrade Pass") {
+				if (PID) {
+					const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=UP_${passCode}_${PID}&cu=INR`
+					setPaymentUrl(url);
+					setIsAreadyOpened(false);
+					showPaymentModal(amt, passCode);
+				}
+			} else if (check.type === "error") {
+				toast.error(check.message, { duration: 3000 });
 			}
-		} else if (check.message == "Upgrade Pass") {
-			if (PID) {
-				const url = `upi://pay?pa=${UPI}&pn=Ananta%202023&am=${amt}&tn=UP_${passCode}_${PID}&cu=INR`
-				setPaymentUrl(url);
-				setIsAreadyOpened(false);
-				showPaymentModal(amt, passCode);
-			}
-		} else if (check.type === "error") {
-			toast.error(check.message, { duration: 3000 });
-		}
+		});
 	}
 
 	return (

@@ -8,7 +8,6 @@ function YourEvent({ data, deleteEvent, infoEvent }) {
 	const { pass } = useContext(AuthContext);
 
 	const canDelete = (data.EventType === "KalaKriti" && pass.PassCode === "PS-AIO") || (data.EventType !== "KalaKriti");
-	// const canDelete = true
 
 	console.log(pass);
 
