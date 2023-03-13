@@ -28,7 +28,7 @@ const { getUniNames, createUniversity, getCoursesNames, createCourse } = require
 const { updateParCoins } = require("./db/AnantaCoins");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
-const { autheticateUser, buyPassOffline } = require("./db/buyPassOffline");
+const { autheticateUser, buyPassOffline, updateMarketeersRegistrationCount, updateUniversityRegistration, updateSoldPasses } = require("./db/buyPassOffline");
 const { makePayment } = require("./db/payment");
 const { getQOTD, answerQOTD } = require("./db/QOTD");
 const { sendResetPassEmail, getParticipantID } = require("./db/util");
@@ -38,7 +38,6 @@ const { checkForWorkshop } = require("./db/workshopRegister");
 const app = express();
 const port = process.env.PORT || 3000;
 let conn;
-w
 
 // --------------- Initializing the MySQL Database Connection....
 (async function initDB() {
@@ -780,7 +779,7 @@ app.get("/api/web/operation/updateap", async (req, res) => {
 app.get("/api/web/operation/updatepassunimar", async (req, res) => {
 	const done = await updateMarketeersRegistrationCount(conn) && await updateUniversityRegistration(conn) && await updateSoldPasses(conn);
 	if (done) {
-		res.json("Updation success...");
+		return res.json("Updation success...");
 	}
 	return res.json("Updated Failed...");
 });

@@ -573,4 +573,7 @@ async function buyPassOffline(
 module.exports = {
 	autheticateUser,
 	buyPassOffline,
+	updateMarketeersRegistrationCount,
+	updateSoldPasses,
+	updateUniversityRegistration
 };
