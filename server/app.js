@@ -38,7 +38,7 @@ const { checkForWorkshop } = require("./db/workshopRegister");
 const app = express();
 const port = process.env.PORT || 3000;
 let conn;
-
+w
 
 // --------------- Initializing the MySQL Database Connection....
 (async function initDB() {
@@ -766,7 +766,7 @@ app.post("/api/sendMail", async (req, res) => {
 	}
 });
 
-app.get("/api/updateAP", async (req, res) => {
+app.get("/api/web/operation/updateap", async (req, res) => {
 	const [parRows, parFields] = await conn.execute('SELECT * FROM Participants where TxnAmount > 0');
 	if (parRows.length > 0) {
 		for(let i = 0; i<parRows.length; i++){
@@ -775,6 +775,14 @@ app.get("/api/updateAP", async (req, res) => {
 		}
 	}
 	return res.json("Ananta Coins Updated Successfully...");
+});
+
+app.get("/api/web/operation/updatepassunimar", async (req, res) => {
+	const done = await updateMarketeersRegistrationCount(conn) && await updateUniversityRegistration(conn) && await updateSoldPasses(conn);
+	if (done) {
+		res.json("Updation success...");
+	}
+	return res.json("Updated Failed...");
 });
 
 
