@@ -145,7 +145,7 @@ async function checkBuyPass(conn, selectedPassCode, participantID, email, fName,
 				if (selectedPassCode === "PS-AIO") {
 					
 					const [amountPaidRows, amountPaidFields] = await conn.execute(
-						`SELECT sum(TxnAmount) FROM anantaonfire.PaymentsOffline where ParticipantID = '${participantID}'`
+						`SELECT sum(TxnAmount) FROM PaymentsOffline where ParticipantID = '${participantID}'`
 					);
 	
 					const amountToPay = passes[selectedPassCode].Amount - amountPaidRows[0]["sum(TxnAmount)"];
