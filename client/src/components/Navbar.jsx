@@ -77,9 +77,9 @@ function Navbar() {
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
                         <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
                         
-                        <a href="https://drive.google.com/file/d/1NXGxoK3aH1O6VJS7KPkpC2CAR0nvnpKb/view?usp=share_link" className="p-4 border-t border-primary sm:border-none">
+                        {/* <a href="https://drive.google.com/file/d/1NXGxoK3aH1O6VJS7KPkpC2CAR0nvnpKb/view?usp=share_link" className="p-4 border-t border-primary sm:border-none">
                 Schedule
-        </a>
+        </a> */}
                         <CustomLink to="/our-partners">Our Partners</CustomLink>
                       
                         <DropDown title="More">
@@ -187,9 +187,9 @@ function Navbar() {
                 <CustomLink to="/buypass">Buy a Pass</CustomLink>
                 <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
                 {/* <CustomLink to="">Schedule</CustomLink> */}
-                <a href="https://drive.google.com/file/d/1NXGxoK3aH1O6VJS7KPkpC2CAR0nvnpKb/view?usp=share_link" className="p-4 border-t border-primary sm:border-none">
+                {/* <a href="https://drive.google.com/file/d/1NXGxoK3aH1O6VJS7KPkpC2CAR0nvnpKb/view?usp=share_link" className="p-4 border-t border-primary sm:border-none">
                 Schedule
-        </a>
+        </a> */}
                 <CustomLink to="/our-partners">Our Partners</CustomLink>
                 <CustomLink to="/about-us">About Us</CustomLink>
                 <CustomLink to="/contact-us">Our Team</CustomLink>

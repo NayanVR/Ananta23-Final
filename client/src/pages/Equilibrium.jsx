@@ -78,17 +78,7 @@ function Equilibrium() {
             Book Now
           </button> */}
         </div>
-        <div className="relative h-1/2 flex  flex-col bg-primary-light-3 p-2 justify-center items-center rounded-lg border-2 shadow-lg border-[#78BDC4]">
-          <img
-            src={EQU005}
-            className="h-full sm:h-96  items-center  rounded-md border-2 shadow-lg border-[#78BDC4]"
-            alt=""
-          />
-          {/* <button className="btn w-full bg-primary text-white mt-2 py-2 px-5 shadow-lg rounded-md " id="EQU005">
-            Book Now
-          </button> */}
-        </div>
-        
+       
       </div>
     </div>
   );
