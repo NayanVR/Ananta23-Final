@@ -328,6 +328,23 @@ async function buyPassOffline(
 
 	}
 
+
+	if (passCode.includes("KK_")) {
+		const [checkKKVRow, checkKKVField] = await conn.execute(`SELECT TotalRegistration, MaxRegistration FROM Events where EventCode = '${passCode}'`);
+		if (checkKKVRow.length > 0){
+			if (checkKKVRow[0].TotalRegistration >= checkKKVRow[0].MaxRegistration) {
+				console.log(`⦿ Workshop registration is full...`);
+				return {
+					code: 200,
+					resMessage: {
+						message: "Vacancy Full",
+						type: "error",
+					},
+				};
+			} 
+		}
+	}
+
 	console.log("PassCode is "+passCode);
 
 	const [passRow, passField] = await conn.execute(`SELECT * FROM Passes where PassCode = '${passCode}'`);
