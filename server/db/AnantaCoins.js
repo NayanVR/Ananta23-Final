@@ -111,7 +111,78 @@ async function updateParCoins(conn, participantID) {
 	return false;
 }
 
+
+async function updateParRegCount(conn, participantID) {
+	/*
+
+	1. SoloRegistration - Not for EQ or KK
+	2. TeamRegistration
+
+	*/
+	let totalEvents = 0;
+	let totalWorkshops = 0;
+	let totalGuests = 0;
+	console.log(participantID);
+	// SoloRegistration Inertia and Swoosh
+	const [inSoloRows, inSoloFields] = conn.execute(`SELECT COUNT(*) as totalSoloEvent FROM SoloRegistration WHERE ParticipantID = '${participantID}' and (EventCode not like "KK%" or EventCode not like "EQ%")`)
+
+	if (inSoloRows.length > 0) {
+		if (inSoloRows[0].totalSoloEvent != null) {
+			totalEvents = totalEvents + parseInt(inSoloRows[0].totalSoloEvent);
+		}
+	}
+
+
+	// Team Registration
+	const [inTeamRows, inTeamFields] = conn.execute(`SELECT COUNT(*) as totalSoloEvent FROM TeamRegistration WHERE ParticipantID = '${participantID}'`)
+
+	if (inswinTeamRowsRows.length > 0) {
+		if (inTeamRows[0].totalSoloEvent != null) {
+			totalEvents = totalEvents + parseInt(inTeamRows[0].totalSoloEvent);
+		}
+	}
+
+
+	// Workshop
+	const [kkRows, kkFields] = conn.execute(`SELECT COUNT(*) as totalWorkshop FROM SoloRegistration WHERE ParticipantID = '${participantID}' and EventCode like "KK%"`)
+
+	if (kkRows.length > 0) {
+		if (kkRows[0].totalWorkshop != null) {
+			totalWorkshops = totalWorkshops + parseInt(kkRows[0].totalWorkshop);
+		}
+	}
+
+
+	// Workshop
+	const [eqRows, eqFields] = conn.execute(`SELECT COUNT(*) as totalGuests FROM SoloRegistration WHERE ParticipantID = '${participantID}' and EventCode like "EQ%"`)
+
+	if (eqRows.length > 0) {
+		if (eqRows[0].totalGuests != null) {
+			totalGuests = totalGuests + parseInt(eqRows[0].totalGuests);
+		}
+	}
+
+	console.log("Total Events: ", totalEvents);
+	console.log("Total Workshops: ", totalWorkshops);
+	console.log("Total Events: ", totalGuests);
+
+
+	// Workshop
+	// const [updateRows, updateFields] = conn.execute(`UPDATE Participants SET TotalEvents = ${totalEvents}, TotalGuests = ${totalGuests}, TotalWorkshops = ${totalWorkshops} WHERE ParticipantID = '${participantID}'`)
+
+	// if (updateRows) {
+	// 	return true;
+	// }
+	return true;
+
+
+
+
+
+}
+
 module.exports = {
 	updateCoins,
-    updateParCoins
+    updateParCoins,
+	updateParRegCount
 };
