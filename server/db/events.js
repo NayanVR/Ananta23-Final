@@ -711,7 +711,7 @@ async function createTeam(conn, eventCode, participantID, teamName) {
 
 		if (insertTeamRows) {
 			const [insertParRows, insertParFields] = await conn.execute(
-				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp) VALUES ('${teamID}', '${participantID}', 'Leader', '${timestamp}')`
+				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp, EventCode) VALUES ('${teamID}', '${participantID}', 'Leader', '${timestamp}', '${eventCode}')`
 			);
 
 			if (insertParRows) {
@@ -814,7 +814,7 @@ async function joinTeam(conn, eventCode, participantID, teamID) {
 			return { code: 200, message: "AlreadyRegistered", type: "error" };
 		} else {
 			const [insertTRRows, insertTRFields] = await conn.execute(
-				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp) VALUES ('${teamID}', '${participantID}', 'Member', '${timestamp}')`
+				`INSERT INTO TeamRegistration (TeamID, ParticipantID, Role, Timestamp, EventCode) VALUES ('${teamID}', '${participantID}', 'Member', '${timestamp}', '${eventCode}')`
 			);
 
 			if (insertTRRows) {

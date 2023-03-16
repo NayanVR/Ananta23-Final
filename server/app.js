@@ -776,6 +776,19 @@ app.get("/api/web/operation/updateap", async (req, res) => {
 	return res.json("Ananta Coins Updated Successfully...");
 });
 
+app.post("/api/web/operation/updateapofpar", async (req, res) => {
+	const auth = await autheticateUser(conn, req.body.enrollmentNo, req.body.accessToken);
+	console.log(req.body);
+	if (auth.resMessage.type == 'success') {
+		if (await updateParCoins(conn, req.body.participantID)){
+			return res.send("PU");
+		} else {
+			return res.send("PNU");
+		};
+	}
+	return res.json("AF");
+});
+
 
 
 // app.get("/api/web/operation/updateparevents", async (req, res) => {

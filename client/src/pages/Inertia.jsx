@@ -254,7 +254,7 @@ function Inertia() {
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500 mb-6">
 											Please Go through the <a className="mx-1 inline-flex justify-center rounded-md border border-transparent bg-[#1C7690] px-1 py-0 text-sm font-medium text-[#F2FFFE] hover:bg-[#A5D9D5] hover:text-[#012C3D] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
-												style={{ margin: "auto" }} target = "_blank" href="https://drive.google.com/file/d/1__7eHD1V4XKxdX0NylSxPxI9oLO7i5Db/view?usp=drivesdk">Schedule</a> and check your Availibility
+												style={{ margin: "auto" }} target = "_blank" href="https://drive.google.com/file/d/1__7eHD1V4XKxdX0NylSxPxI9oLO7i5Db/view?usp=share_link">Schedule</a> and check your Availibility
 											<br /><br />
 											Confirm your registration for '
 											<i>
@@ -331,7 +331,7 @@ function Inertia() {
 									<div className="mt-2">
 										<p className="text-center text-sm text-gray-500">
 										Please Go through the <a className="mx-1 inline-flex justify-center rounded-md border border-transparent bg-[#1C7690] px-1 py-0 text-sm font-medium text-[#F2FFFE] hover:bg-[#A5D9D5] hover:text-[#012C3D] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#012C3D]-500 focus-visible:ring-offset-2"
-												style={{ margin: "auto" }} target = "_blank" href="https://drive.google.com/file/d/1__7eHD1V4XKxdX0NylSxPxI9oLO7i5Db/view?usp=drivesdk">Schedule</a> and check your Availibility
+												style={{ margin: "auto" }} target = "_blank" href="https://drive.google.com/file/d/1__7eHD1V4XKxdX0NylSxPxI9oLO7i5Db/view?usp=share_link">Schedule</a> and check your Availibility
 											<br /><br />
 
 											You have selected '
