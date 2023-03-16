@@ -109,7 +109,7 @@ function Pro() {
 			// const pro = JSON.parse(profile);
 			updateProfile(profile);
 			if (profile.ProfileStatus === 1) {
-				console.log(profile);
+				// console.log(profile);
 				if (pass != {}) {
 					// console.log(profile)
 					setPassType(pass.PassType);

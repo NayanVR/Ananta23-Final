@@ -25,7 +25,7 @@ const {
 	removeTeamMember
 } = require("./db/events");
 const { getUniNames, createUniversity, getCoursesNames, createCourse } = require("./db/dropdownData");
-const { updateParCoins } = require("./db/AnantaCoins");
+const { updateParCoins, updateParRegCount } = require("./db/AnantaCoins");
 const { createProfile, updateProfile } = require("./db/profileUtil");
 const { checkBuyPass, buyPass, getTxnDetails } = require("./db/buyPass");
 const { autheticateUser, buyPassOffline, updateMarketeersRegistrationCount, updateUniversityRegistration, updateSoldPasses } = require("./db/buyPassOffline");
@@ -775,6 +775,22 @@ app.get("/api/web/operation/updateap", async (req, res) => {
 	}
 	return res.json("Ananta Coins Updated Successfully...");
 });
+
+
+
+// app.get("/api/web/operation/updateparevents", async (req, res) => {
+// 	// const [parRows, parFields] = await conn.execute('SELECT ParticipantID FROM Participants where TxnAmount > 0');
+// 	// if (parRows.length > 0) {
+// 	// 	for(let i = 0; i<parRows.length; i++){
+// 	// 		console.log("Participant No.:" + i+1);
+// 	// 		await updateE(conn, parRows[i].ParticipantID);
+// 	// 	}
+// 	// }
+// 	A23SUYU04
+// 	await updateParRegCount(conn, "A23JR3901");
+// 	return res.json("Ananta Coins Updated Successfully...");
+// });
+
 
 app.get("/api/web/operation/updatepassunimar", async (req, res) => {
 	const done = await updateMarketeersRegistrationCount(conn) && await updateUniversityRegistration(conn) && await updateSoldPasses(conn);

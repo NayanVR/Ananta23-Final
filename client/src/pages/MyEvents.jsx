@@ -56,7 +56,7 @@ export default function MyEvents() {
 
                 if (fetchdata.type == "success") {
                     allEvents = [];
-                    console.log(fetchdata.data);
+                    // console.log(fetchdata.data);
                     fetchdata.data.solo.forEach((data) => {
                         allEvents.push(data);
                         setRegisteredEvents(allEvents);
@@ -70,7 +70,7 @@ export default function MyEvents() {
         };
 
         fetchEvents();
-        // console.log(registeredEvents);
+        // // console.log(registeredEvents);
     }, [reloadEvents]);
 
 
@@ -94,7 +94,7 @@ export default function MyEvents() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.type == "success") {
                         if (eventCode.includes("IN") || eventCode.includes("SW")) {
                             setTotalEvents(() => totalEvents - 1);
@@ -109,7 +109,7 @@ export default function MyEvents() {
                     }
                     closeModal();
                     setReloadEvents(!reloadEvents);
-                    // console.log(registeredEvents.length);
+                    // // console.log(registeredEvents.length);
                     if (registeredEvents.length == 1) {
                         window.location.href = "profile";
                     }
@@ -117,7 +117,7 @@ export default function MyEvents() {
         });
 
         // const info = await unregister.json();
-        // // console.log(info)
+        // // // console.log(info)
 
     }
 
@@ -142,7 +142,7 @@ export default function MyEvents() {
     }
 
     function infoEvent(info, color) {
-        console.log(info);
+        // console.log(info);
 
         // Fetching team data
         if (info.Role) {
@@ -176,7 +176,7 @@ export default function MyEvents() {
         setTeamName(info.TeamName);
         setTimestamp(info.Timestamp);
 
-        console.log(info)
+        // console.log(info)
 
         if (info.HeadCount > 1) {
             setIsSolo(false);
@@ -205,7 +205,7 @@ export default function MyEvents() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.type == "success") {
                         toast.success(data.message, { duration: 3000 });
                     } else {

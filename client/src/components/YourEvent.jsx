@@ -9,7 +9,7 @@ function YourEvent({ data, deleteEvent, infoEvent }) {
 
 	const canDelete = (data.EventType === "KalaKriti" && pass.PassCode === "PS-AIO") || (data.EventType !== "KalaKriti");
 
-	console.log(pass);
+	// console.log(pass);
 
 	let colorclass = "";
 	let bgColor = ""
@@ -83,7 +83,7 @@ function YourEvent({ data, deleteEvent, infoEvent }) {
 					}
 				</div>
 			</div>
-			{/* {console.log(registeredEvents)} */}
+			{/* {// console.log(registeredEvents)} */}
 		</div>
 	);
 }
