@@ -75,7 +75,7 @@ function Navbar() {
                             </Link> */}
                         </DropDown>
                         <CustomLink to="/buypass">Buy a Pass</CustomLink>
-                        <CustomLink to="/ananta-coins">Ananta Coins</CustomLink>
+                        {/* <CustomLink to="/ananta-coins">Ananta Coins</CustomLink> */}
 
                         <a href="https://drive.google.com/file/d/1__7eHD1V4XKxdX0NylSxPxI9oLO7i5Db/view?usp=share_link" className="p-4 border-t border-primary sm:border-none">
                             Schedule
