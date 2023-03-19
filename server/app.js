@@ -768,7 +768,7 @@ app.post("/api/sendMail", async (req, res) => {
 app.get("/api/web/operation/updateap", async (req, res) => {
 	const [parRows, parFields] = await conn.execute('SELECT * FROM Participants where TxnAmount > 0');
 	if (parRows.length > 0) {
-		for(let i = 0; i<parRows.length; i++){
+		for(let i = 0; i<parRows.length; i++){+
 			console.log("Participant No.:" + i+1);
 			await updateParCoins(conn, parRows[i].ParticipantID);
 		}

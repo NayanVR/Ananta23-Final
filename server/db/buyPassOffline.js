@@ -171,7 +171,7 @@ async function updateUniversityRegistration(conn) {
 		select count(University) as TotalPasses, sum(TxnAmount) as Income, University from Participants 
 		where University != 'null' and TxnStatus = 'TXN_SUCCESS' group by University
 		) AS t1
-		INNER JOIN
+		LEFT JOIN
 		(
 		select count(*) as TotalWorkshops, sum(po.TxnAmount) as Income, University from Participants as par inner join PaymentsOffline as po 
 		on po.ParticipantID = par.ParticipantID and po.PassCode like "KK%" group by par.University
@@ -186,10 +186,10 @@ async function updateUniversityRegistration(conn) {
 		let i = 0;
 		for (i; i < rows.length; i++) {
 			let income =
-				parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop);
+				parseInt(rows[i].IncomePass) + parseInt(rows[i].IncomeWorkshop != null ? rows[i].IncomeWorkshop : 0);
 			// console.log(typeof income, income);
 			const [updateRows, updateFields] = await conn.execute(
-				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${income}, TotalWorkshops = ${rows[i].TotalWorkshops}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
+				`update Universities set TotalRegistration = ${rows[i].TotalPasses}, Funds = ${income}, TotalWorkshops = ${rows[i].TotalWorkshops != null ? rows[i].TotalWorkshops : 0}, updated_at = '${timestamp}' where University = '${rows[i].University}'`
 			);
 		}
 		if (i == rows.length) {

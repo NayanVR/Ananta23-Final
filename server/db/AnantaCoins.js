@@ -74,6 +74,7 @@ async function updateParCoins(conn, participantID) {
 			anantaCoins = anantaCoins + parseInt(passRow[0].DigitalPoints);
 		}
 	}
+	console.log("Pass: ",anantaCoins);
 
 	// Workshops
     const [kkRow, kkFields] = await conn.execute(`SELECT sum(DigitalPoints) as ap FROM SoloRegistration as sr inner join Passes as ps on sr.EventCode = ps.PassCode WHERE sr.EventCode like "KK_%" and sr.ParticipantID = '${participantID}'`);
@@ -82,6 +83,28 @@ async function updateParCoins(conn, participantID) {
             anantaCoins = anantaCoins + parseInt(kkRow[0].ap);
         }
     }
+
+	console.log("Workshop: ", anantaCoins);
+
+	// Workshops - Attendence
+    const [kkAttRow, kkAttFields] = await conn.execute(`SELECT sum(DigitalPoints) as ap FROM SoloRegistration as sr inner join Passes as ps on sr.EventCode = ps.PassCode WHERE sr.EventCode like "KK_%" and sr.ParticipantID = '${participantID}'`);
+    if (kkRow.length > 0) {
+        if (!(kkRow[0].ap == null)) {
+            anantaCoins = anantaCoins + parseInt(kkRow[0].ap);
+        }
+    }
+
+	// console.log("Workshop Attended: ", anantaCoins);
+
+	// // Equilibrium
+	// const [eqRow, eqFields] = await conn.execute(`SELECT count(*) as ap FROM SoloRegistration  WHERE EventCode like "EQ_%" and ParticipantID = '${participantID}' and Attendence = 1`);
+    // if (kkRow.length > 0) {
+    //     if (!(kkRow[0].ap == null)) {
+    //         anantaCoins = anantaCoins + parseInt(kkRow.length) * 800;
+    //     }
+    // }
+
+	// console.log("Equilibrium: ", anantaCoins)
 
     // Digital Wallet (Fun Events and Attendence of Event and Workshops Points)
     const [dwRow, dwFields] = await conn.execute(`SELECT SUM(PointsInserted) as Debit, SUM(PointsReturned) as Credit FROM DigitalWallet WHERE ParticipantID = '${participantID}'`);
